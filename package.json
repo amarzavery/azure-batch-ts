@@ -1,0 +1,22 @@
+{
+  "name": "azure-arm-batch-ts",
+  "author": "Microsoft Corporation",
+  "description": "Microsoft Azure Batch Resource Provider Management Client Library for Node and Browser Javascript",
+  "version": "0.1.0",
+  "main": "./dist/node/batchServiceClient.js",
+  "types": "./typings/lib/batchServiceClient.d.ts",
+  "dependencies": {
+    "ms-rest-azure-ts": "amarzavery/ms-rest-azure#master"
+  },
+  "devDependencies": {
+    "ts-loader": "^2.2.2",
+    "tslint": "^5.2.0",
+    "webpack": "^3.3.0",
+    "uglify-es": "^3.0.25",
+    "typescript": "^2.4.1"
+  },
+  "scripts": {
+    "tsc": "tsc -p tsconfig.node.json && tsc -p tsconfig.browser.json",
+    "build": "npm -s run-script tsc && webpack && node node_modules/uglify-es/bin/uglifyjs --source-map -c -m -o bundle.min.js bundle.js"
+  }
+}
