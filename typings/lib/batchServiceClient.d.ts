@@ -1,7 +1,7 @@
 import * as Models from "./models";
 import * as Mappers from "./models/mappers";
-import * as msRest from "ms-rest-ts";
-import * as msRestAzure from "ms-rest-azure-ts";
+import * as msRest from "ms-rest-js";
+import * as msRestAzure from "ms-rest-azure-js";
 import * as operations from "./operations";
 declare class BatchServiceClient extends msRestAzure.AzureServiceClient {
     credentials: msRest.ServiceClientCredentials;
@@ -14,11 +14,11 @@ declare class BatchServiceClient extends msRestAzure.AzureServiceClient {
     pool: operations.Pool;
     account: operations.Account;
     job: operations.Job;
-    certificateOperations: operations.CertificateOperations;
+    certificate: operations.CertificateOperations;
     file: operations.File;
     jobSchedule: operations.JobSchedule;
     task: operations.Task;
-    computeNodeOperations: operations.ComputeNodeOperations;
+    computeNode: operations.ComputeNodeOperations;
     serializer: msRest.Serializer;
     /**
      * @class

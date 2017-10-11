@@ -8,10 +8,10 @@
  * regenerated.
  */
 
-import * as msRest from "ms-rest-ts";
+import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from '../batchServiceClient';
+import { BatchServiceClient } from "../batchServiceClient";
 
 const WebResource = msRest.WebResource;
 
@@ -35,40 +35,15 @@ export class Application {
    * that are not yet available to compute nodes, use the Azure portal or the
    * Azure Resource Manager API.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.applicationListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 applications
-   * can be returned.
-   *
-   * @param {number} [options.applicationListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.applicationListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationListOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ApplicationListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(options?: { applicationListOptions? : Models.ApplicationListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(options?: Models.ApplicationListOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let applicationListOptions = (options && options.applicationListOptions !== undefined) ? options.applicationListOptions : undefined;
     // Validate
@@ -120,7 +95,7 @@ export class Application {
       {
         ocpDate = applicationListOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -131,16 +106,16 @@ export class Application {
     // Construct URL
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'applications';
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (maxResults !== null && maxResults !== undefined) {
-      queryParameters.push('maxresults=' + encodeURIComponent(maxResults.toString()));
+      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -237,36 +212,15 @@ export class Application {
    *
    * @param {string} applicationId The ID of the application.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.applicationGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.applicationGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationGetOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ApplicationSummary>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(applicationId: string, options?: { applicationGetOptions? : Models.ApplicationGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(applicationId: string, options?: Models.ApplicationGetOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let applicationGetOptions = (options && options.applicationGetOptions !== undefined) ? options.applicationGetOptions : undefined;
     // Validate
@@ -313,7 +267,7 @@ export class Application {
       {
         ocpDate = applicationGetOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -325,13 +279,13 @@ export class Application {
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'applications/{applicationId}';
     requestUrl = requestUrl.replace('{applicationId}', encodeURIComponent(applicationId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -429,33 +383,15 @@ export class Application {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.applicationListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationListNextOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ApplicationListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: { applicationListNextOptions? : Models.ApplicationListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ApplicationListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let applicationListNextOptions = (options && options.applicationListNextOptions !== undefined) ? options.applicationListNextOptions : undefined;
     // Validate
@@ -491,7 +427,7 @@ export class Application {
       {
         ocpDate = applicationListNextOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -595,32 +531,7 @@ export class Application {
    * that are not yet available to compute nodes, use the Azure portal or the
    * Azure Resource Manager API.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.applicationListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 applications
-   * can be returned.
-   *
-   * @param {number} [options.applicationListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.applicationListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationListOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -628,18 +539,19 @@ export class Application {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ApplicationListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ApplicationListResult} for more information.
+   *                      {Models.ApplicationListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ApplicationListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   list(): Promise<Models.ApplicationListResult>;
-  list(options: { applicationListOptions? : Models.ApplicationListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ApplicationListResult>;
+  list(options: Models.ApplicationListOptionalParams): Promise<Models.ApplicationListResult>;
   list(callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
-  list(options: { applicationListOptions? : Models.ApplicationListOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
-  list(options?: { applicationListOptions? : Models.ApplicationListOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ApplicationListResult>): any {
+  list(options: Models.ApplicationListOptionalParams, callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
+  list(options?: Models.ApplicationListOptionalParams, callback?: msRest.ServiceCallback<Models.ApplicationListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -673,28 +585,7 @@ export class Application {
    *
    * @param {string} applicationId The ID of the application.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.applicationGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.applicationGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationGetOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -702,18 +593,19 @@ export class Application {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ApplicationSummary} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ApplicationSummary} for more information.
+   *                      {Models.ApplicationSummary} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ApplicationSummary} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   get(applicationId: string): Promise<Models.ApplicationSummary>;
-  get(applicationId: string, options: { applicationGetOptions? : Models.ApplicationGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ApplicationSummary>;
+  get(applicationId: string, options: Models.ApplicationGetOptionalParams): Promise<Models.ApplicationSummary>;
   get(applicationId: string, callback: msRest.ServiceCallback<Models.ApplicationSummary>): void;
-  get(applicationId: string, options: { applicationGetOptions? : Models.ApplicationGetOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ApplicationSummary>): void;
-  get(applicationId: string, options?: { applicationGetOptions? : Models.ApplicationGetOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ApplicationSummary>): any {
+  get(applicationId: string, options: Models.ApplicationGetOptionalParams, callback: msRest.ServiceCallback<Models.ApplicationSummary>): void;
+  get(applicationId: string, options?: Models.ApplicationGetOptionalParams, callback?: msRest.ServiceCallback<Models.ApplicationSummary>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -748,25 +640,7 @@ export class Application {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.applicationListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.applicationListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.applicationListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.applicationListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ApplicationListNextOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -774,18 +648,19 @@ export class Application {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ApplicationListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ApplicationListResult} for more information.
+   *                      {Models.ApplicationListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ApplicationListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.ApplicationListResult>;
-  listNext(nextPageLink: string, options: { applicationListNextOptions? : Models.ApplicationListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ApplicationListResult>;
+  listNext(nextPageLink: string, options: Models.ApplicationListNextOptionalParams): Promise<Models.ApplicationListResult>;
   listNext(nextPageLink: string, callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
-  listNext(nextPageLink: string, options: { applicationListNextOptions? : Models.ApplicationListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
-  listNext(nextPageLink: string, options?: { applicationListNextOptions? : Models.ApplicationListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ApplicationListResult>): any {
+  listNext(nextPageLink: string, options: Models.ApplicationListNextOptionalParams, callback: msRest.ServiceCallback<Models.ApplicationListResult>): void;
+  listNext(nextPageLink: string, options?: Models.ApplicationListNextOptionalParams, callback?: msRest.ServiceCallback<Models.ApplicationListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

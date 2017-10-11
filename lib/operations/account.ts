@@ -8,10 +8,10 @@
  * regenerated.
  */
 
-import * as msRest from "ms-rest-ts";
+import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from '../batchServiceClient';
+import { BatchServiceClient } from "../batchServiceClient";
 
 const WebResource = msRest.WebResource;
 
@@ -29,45 +29,16 @@ export class Account {
   /**
    * @summary Lists all node agent SKUs supported by the Azure Batch service.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.accountListNodeAgentSkusOptions] Additional
-   * parameters for the operation
-   *
-   * @param {string} [options.accountListNodeAgentSkusOptions.filter] An OData
-   * $filter clause.
-   *
-   * @param {number} [options.accountListNodeAgentSkusOptions.maxResults] The
-   * maximum number of items to return in the response. A maximum of 1000 results
-   * will be returned.
-   *
-   * @param {number} [options.accountListNodeAgentSkusOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.accountListNodeAgentSkusOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.accountListNodeAgentSkusOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.accountListNodeAgentSkusOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {AccountListNodeAgentSkusOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<AccountListNodeAgentSkusResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNodeAgentSkusWithHttpOperationResponse(options?: { accountListNodeAgentSkusOptions? : Models.AccountListNodeAgentSkusOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNodeAgentSkusWithHttpOperationResponse(options?: Models.AccountListNodeAgentSkusOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let accountListNodeAgentSkusOptions = (options && options.accountListNodeAgentSkusOptions !== undefined) ? options.accountListNodeAgentSkusOptions : undefined;
     // Validate
@@ -127,7 +98,7 @@ export class Account {
       {
         ocpDate = accountListNodeAgentSkusOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -138,19 +109,19 @@ export class Account {
     // Construct URL
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'nodeagentskus';
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (filter !== null && filter !== undefined) {
-      queryParameters.push('$filter=' + encodeURIComponent(filter));
+      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
     }
     if (maxResults !== null && maxResults !== undefined) {
-      queryParameters.push('maxresults=' + encodeURIComponent(maxResults.toString()));
+      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -242,35 +213,16 @@ export class Account {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.accountListNodeAgentSkusNextOptions] Additional
-   * parameters for the operation
-   *
-   * @param {string}
-   * [options.accountListNodeAgentSkusNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.accountListNodeAgentSkusNextOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.accountListNodeAgentSkusNextOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {AccountListNodeAgentSkusNextOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<AccountListNodeAgentSkusResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: { accountListNodeAgentSkusNextOptions? : Models.AccountListNodeAgentSkusNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let accountListNodeAgentSkusNextOptions = (options && options.accountListNodeAgentSkusNextOptions !== undefined) ? options.accountListNodeAgentSkusNextOptions : undefined;
     // Validate
@@ -306,7 +258,7 @@ export class Account {
       {
         ocpDate = accountListNodeAgentSkusNextOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -404,37 +356,8 @@ export class Account {
   /**
    * @summary Lists all node agent SKUs supported by the Azure Batch service.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.accountListNodeAgentSkusOptions] Additional
-   * parameters for the operation
-   *
-   * @param {string} [options.accountListNodeAgentSkusOptions.filter] An OData
-   * $filter clause.
-   *
-   * @param {number} [options.accountListNodeAgentSkusOptions.maxResults] The
-   * maximum number of items to return in the response. A maximum of 1000 results
-   * will be returned.
-   *
-   * @param {number} [options.accountListNodeAgentSkusOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.accountListNodeAgentSkusOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.accountListNodeAgentSkusOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.accountListNodeAgentSkusOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {AccountListNodeAgentSkusOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -442,19 +365,19 @@ export class Account {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {AccountListNodeAgentSkusResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link AccountListNodeAgentSkusResult} for more
-   *                      information.
+   *                      {Models.AccountListNodeAgentSkusResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.AccountListNodeAgentSkusResult} for
+   *                      more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNodeAgentSkus(): Promise<Models.AccountListNodeAgentSkusResult>;
-  listNodeAgentSkus(options: { accountListNodeAgentSkusOptions? : Models.AccountListNodeAgentSkusOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.AccountListNodeAgentSkusResult>;
+  listNodeAgentSkus(options: Models.AccountListNodeAgentSkusOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
   listNodeAgentSkus(callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
-  listNodeAgentSkus(options: { accountListNodeAgentSkusOptions? : Models.AccountListNodeAgentSkusOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
-  listNodeAgentSkus(options?: { accountListNodeAgentSkusOptions? : Models.AccountListNodeAgentSkusOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): any {
+  listNodeAgentSkus(options: Models.AccountListNodeAgentSkusOptionalParams, callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
+  listNodeAgentSkus(options?: Models.AccountListNodeAgentSkusOptionalParams, callback?: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -483,27 +406,8 @@ export class Account {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.accountListNodeAgentSkusNextOptions] Additional
-   * parameters for the operation
-   *
-   * @param {string}
-   * [options.accountListNodeAgentSkusNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.accountListNodeAgentSkusNextOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.accountListNodeAgentSkusNextOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {AccountListNodeAgentSkusNextOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -511,19 +415,19 @@ export class Account {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {AccountListNodeAgentSkusResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link AccountListNodeAgentSkusResult} for more
-   *                      information.
+   *                      {Models.AccountListNodeAgentSkusResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.AccountListNodeAgentSkusResult} for
+   *                      more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNodeAgentSkusNext(nextPageLink: string): Promise<Models.AccountListNodeAgentSkusResult>;
-  listNodeAgentSkusNext(nextPageLink: string, options: { accountListNodeAgentSkusNextOptions? : Models.AccountListNodeAgentSkusNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.AccountListNodeAgentSkusResult>;
+  listNodeAgentSkusNext(nextPageLink: string, options: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
   listNodeAgentSkusNext(nextPageLink: string, callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
-  listNodeAgentSkusNext(nextPageLink: string, options: { accountListNodeAgentSkusNextOptions? : Models.AccountListNodeAgentSkusNextOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
-  listNodeAgentSkusNext(nextPageLink: string, options?: { accountListNodeAgentSkusNextOptions? : Models.AccountListNodeAgentSkusNextOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): any {
+  listNodeAgentSkusNext(nextPageLink: string, options: Models.AccountListNodeAgentSkusNextOptionalParams, callback: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): void;
+  listNodeAgentSkusNext(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams, callback?: msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

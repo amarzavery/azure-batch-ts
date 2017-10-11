@@ -10,8 +10,8 @@
 
 import * as Models from "./models";
 import * as Mappers from "./models/mappers";
-import * as msRest from "ms-rest-ts";
-import * as msRestAzure from "ms-rest-azure-ts";
+import * as msRest from "ms-rest-js";
+import * as msRestAzure from "ms-rest-azure-js";
 import * as operations from "./operations";
 
 const packageName = 'foo';
@@ -35,11 +35,11 @@ class BatchServiceClient extends msRestAzure.AzureServiceClient {
   pool: operations.Pool;
   account: operations.Account;
   job: operations.Job;
-  certificateOperations: operations.CertificateOperations;
+  certificate: operations.CertificateOperations;
   file: operations.File;
   jobSchedule: operations.JobSchedule;
   task: operations.Task;
-  computeNodeOperations: operations.ComputeNodeOperations;
+  computeNode: operations.ComputeNodeOperations;
   serializer: msRest.Serializer;
 
   /**
@@ -76,7 +76,7 @@ class BatchServiceClient extends msRestAzure.AzureServiceClient {
 
     super(credentials, options);
 
-    this.apiVersion = '2017-06-01.5.1';
+    this.apiVersion = '2017-09-01.6.0';
     this.acceptLanguage = 'en-US';
     this.longRunningOperationRetryTimeout = 30;
     this.generateClientRequestId = true;
@@ -100,11 +100,11 @@ class BatchServiceClient extends msRestAzure.AzureServiceClient {
     this.pool = new operations.Pool(this);
     this.account = new operations.Account(this);
     this.job = new operations.Job(this);
-    this.certificateOperations = new operations.CertificateOperations(this);
+    this.certificate = new operations.CertificateOperations(this);
     this.file = new operations.File(this);
     this.jobSchedule = new operations.JobSchedule(this);
     this.task = new operations.Task(this);
-    this.computeNodeOperations = new operations.ComputeNodeOperations(this);
+    this.computeNode = new operations.ComputeNodeOperations(this);
     this.serializer = new msRest.Serializer(Mappers);
   }
 }

@@ -8,10 +8,10 @@
  * regenerated.
  */
 
-import * as msRest from "ms-rest-ts";
+import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from '../batchServiceClient';
+import { BatchServiceClient } from "../batchServiceClient";
 
 const WebResource = msRest.WebResource;
 
@@ -29,55 +29,17 @@ export class CertificateOperations {
   /**
    * @summary Adds a certificate to the specified account.
    *
-   * @param {object} certificate The certificate to be added.
+   * @param {CertificateAddParameter} certificate The certificate to be added.
    *
-   * @param {string} certificate.thumbprint The X.509 thumbprint of the
-   * certificate. This is a sequence of up to 40 hex digits (it may include
-   * spaces but these are removed).
-   *
-   * @param {string} certificate.thumbprintAlgorithm The algorithm used to derive
-   * the thumbprint. This must be sha1.
-   *
-   * @param {string} certificate.data The base64-encoded contents of the
-   * certificate. The maximum size is 10KB.
-   *
-   * @param {string} [certificate.certificateFormat] The format of the
-   * certificate data. Possible values include: 'pfx', 'cer'
-   *
-   * @param {string} [certificate.password] The password to access the
-   * certificate's private key. This is required if the certificate format is
-   * pfx. It should be omitted if the certificate format is cer.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateAddOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.certificateAddOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateAddOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateAddOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateAddOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateAddOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: { certificateAddOptions? : Models.CertificateAddOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateAddOptions = (options && options.certificateAddOptions !== undefined) ? options.certificateAddOptions : undefined;
     // Validate
@@ -124,7 +86,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateAddOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -135,13 +97,13 @@ export class CertificateOperations {
     // Construct URL
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -230,46 +192,15 @@ export class CertificateOperations {
    * @summary Lists all of the certificates that have been added to the specified
    * account.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.certificateListOptions.filter] An OData $filter
-   * clause.
-   *
-   * @param {string} [options.certificateListOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.certificateListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 certificates
-   * can be returned.
-   *
-   * @param {number} [options.certificateListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateListOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CertificateListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(options?: { certificateListOptions? : Models.CertificateListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(options?: Models.CertificateListOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateListOptions = (options && options.certificateListOptions !== undefined) ? options.certificateListOptions : undefined;
     // Validate
@@ -337,7 +268,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateListOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -348,22 +279,22 @@ export class CertificateOperations {
     // Construct URL
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (filter !== null && filter !== undefined) {
-      queryParameters.push('$filter=' + encodeURIComponent(filter));
+      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
     }
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (maxResults !== null && maxResults !== undefined) {
-      queryParameters.push('maxresults=' + encodeURIComponent(maxResults.toString()));
+      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -466,38 +397,16 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate being deleted.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateCancelDeletionOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.certificateCancelDeletionOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.certificateCancelDeletionOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.certificateCancelDeletionOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateCancelDeletionOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateCancelDeletionOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateCancelDeletionOptions? : Models.CertificateCancelDeletionOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateCancelDeletionOptions = (options && options.certificateCancelDeletionOptions !== undefined) ? options.certificateCancelDeletionOptions : undefined;
     // Validate
@@ -547,7 +456,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateCancelDeletionOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -560,13 +469,13 @@ export class CertificateOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})/canceldelete';
     requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
     requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -656,38 +565,16 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate to be deleted.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateDeleteMethodOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.certificateDeleteMethodOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.certificateDeleteMethodOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.certificateDeleteMethodOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateDeleteMethodOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateDeleteMethodOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateDeleteMethodOptions? : Models.CertificateDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateDeleteMethodOptions = (options && options.certificateDeleteMethodOptions !== undefined) ? options.certificateDeleteMethodOptions : undefined;
     // Validate
@@ -737,7 +624,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateDeleteMethodOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -750,13 +637,13 @@ export class CertificateOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
     requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
     requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -835,39 +722,15 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate to get.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.certificateGetOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.certificateGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateGetOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<Certificate>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateGetOptions? : Models.CertificateGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateGetOptions = (options && options.certificateGetOptions !== undefined) ? options.certificateGetOptions : undefined;
     // Validate
@@ -925,7 +788,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateGetOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -938,16 +801,16 @@ export class CertificateOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
     requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
     requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1040,33 +903,15 @@ export class CertificateOperations {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.certificateListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateListNextOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CertificateListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: { certificateListNextOptions? : Models.CertificateListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.CertificateListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let certificateListNextOptions = (options && options.certificateListNextOptions !== undefined) ? options.certificateListNextOptions : undefined;
     // Validate
@@ -1102,7 +947,7 @@ export class CertificateOperations {
       {
         ocpDate = certificateListNextOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1200,47 +1045,9 @@ export class CertificateOperations {
   /**
    * @summary Adds a certificate to the specified account.
    *
-   * @param {object} certificate The certificate to be added.
+   * @param {CertificateAddParameter} certificate The certificate to be added.
    *
-   * @param {string} certificate.thumbprint The X.509 thumbprint of the
-   * certificate. This is a sequence of up to 40 hex digits (it may include
-   * spaces but these are removed).
-   *
-   * @param {string} certificate.thumbprintAlgorithm The algorithm used to derive
-   * the thumbprint. This must be sha1.
-   *
-   * @param {string} certificate.data The base64-encoded contents of the
-   * certificate. The maximum size is 10KB.
-   *
-   * @param {string} [certificate.certificateFormat] The format of the
-   * certificate data. Possible values include: 'pfx', 'cer'
-   *
-   * @param {string} [certificate.password] The password to access the
-   * certificate's private key. This is required if the certificate format is
-   * pfx. It should be omitted if the certificate format is cer.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateAddOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.certificateAddOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateAddOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateAddOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateAddOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateAddOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1248,17 +1055,17 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   add(certificate: Models.CertificateAddParameter): Promise<void>;
-  add(certificate: Models.CertificateAddParameter, options: { certificateAddOptions? : Models.CertificateAddOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  add(certificate: Models.CertificateAddParameter, options: Models.CertificateAddOptionalParams): Promise<void>;
   add(certificate: Models.CertificateAddParameter, callback: msRest.ServiceCallback<void>): void;
-  add(certificate: Models.CertificateAddParameter, options: { certificateAddOptions? : Models.CertificateAddOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  add(certificate: Models.CertificateAddParameter, options?: { certificateAddOptions? : Models.CertificateAddOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  add(certificate: Models.CertificateAddParameter, options: Models.CertificateAddOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  add(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -1285,38 +1092,7 @@ export class CertificateOperations {
    * @summary Lists all of the certificates that have been added to the specified
    * account.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.certificateListOptions.filter] An OData $filter
-   * clause.
-   *
-   * @param {string} [options.certificateListOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.certificateListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 certificates
-   * can be returned.
-   *
-   * @param {number} [options.certificateListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateListOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1324,18 +1100,19 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CertificateListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CertificateListResult} for more information.
+   *                      {Models.CertificateListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CertificateListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   list(): Promise<Models.CertificateListResult>;
-  list(options: { certificateListOptions? : Models.CertificateListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CertificateListResult>;
+  list(options: Models.CertificateListOptionalParams): Promise<Models.CertificateListResult>;
   list(callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
-  list(options: { certificateListOptions? : Models.CertificateListOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
-  list(options?: { certificateListOptions? : Models.CertificateListOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CertificateListResult>): any {
+  list(options: Models.CertificateListOptionalParams, callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
+  list(options?: Models.CertificateListOptionalParams, callback?: msRest.ServiceCallback<Models.CertificateListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -1375,30 +1152,8 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate being deleted.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateCancelDeletionOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.certificateCancelDeletionOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.certificateCancelDeletionOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.certificateCancelDeletionOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateCancelDeletionOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateCancelDeletionOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1406,17 +1161,17 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   cancelDeletion(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
-  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: { certificateCancelDeletionOptions? : Models.CertificateCancelDeletionOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateCancelDeletionOptionalParams): Promise<void>;
   cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, callback: msRest.ServiceCallback<void>): void;
-  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: { certificateCancelDeletionOptions? : Models.CertificateCancelDeletionOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateCancelDeletionOptions? : Models.CertificateCancelDeletionOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateCancelDeletionOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -1458,30 +1213,8 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate to be deleted.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateDeleteMethodOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.certificateDeleteMethodOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.certificateDeleteMethodOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.certificateDeleteMethodOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateDeleteMethodOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateDeleteMethodOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1489,17 +1222,17 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   deleteMethod(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
-  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: { certificateDeleteMethodOptions? : Models.CertificateDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateDeleteMethodOptionalParams): Promise<void>;
   deleteMethod(thumbprintAlgorithm: string, thumbprint: string, callback: msRest.ServiceCallback<void>): void;
-  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: { certificateDeleteMethodOptions? : Models.CertificateDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateDeleteMethodOptions? : Models.CertificateDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateDeleteMethodOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -1530,31 +1263,7 @@ export class CertificateOperations {
    *
    * @param {string} thumbprint The thumbprint of the certificate to get.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.certificateGetOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.certificateGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.certificateGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateGetOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1562,18 +1271,18 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {Certificate} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link Certificate} for more information.
+   *                      {Models.Certificate} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.Certificate} for more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   get(thumbprintAlgorithm: string, thumbprint: string): Promise<Models.Certificate>;
-  get(thumbprintAlgorithm: string, thumbprint: string, options: { certificateGetOptions? : Models.CertificateGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.Certificate>;
+  get(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateGetOptionalParams): Promise<Models.Certificate>;
   get(thumbprintAlgorithm: string, thumbprint: string, callback: msRest.ServiceCallback<Models.Certificate>): void;
-  get(thumbprintAlgorithm: string, thumbprint: string, options: { certificateGetOptions? : Models.CertificateGetOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.Certificate>): void;
-  get(thumbprintAlgorithm: string, thumbprint: string, options?: { certificateGetOptions? : Models.CertificateGetOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.Certificate>): any {
+  get(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateGetOptionalParams, callback: msRest.ServiceCallback<Models.Certificate>): void;
+  get(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams, callback?: msRest.ServiceCallback<Models.Certificate>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -1603,25 +1312,7 @@ export class CertificateOperations {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.certificateListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.certificateListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.certificateListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.certificateListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {CertificateListNextOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -1629,18 +1320,19 @@ export class CertificateOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CertificateListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CertificateListResult} for more information.
+   *                      {Models.CertificateListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CertificateListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.CertificateListResult>;
-  listNext(nextPageLink: string, options: { certificateListNextOptions? : Models.CertificateListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CertificateListResult>;
+  listNext(nextPageLink: string, options: Models.CertificateListNextOptionalParams): Promise<Models.CertificateListResult>;
   listNext(nextPageLink: string, callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
-  listNext(nextPageLink: string, options: { certificateListNextOptions? : Models.CertificateListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
-  listNext(nextPageLink: string, options?: { certificateListNextOptions? : Models.CertificateListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CertificateListResult>): any {
+  listNext(nextPageLink: string, options: Models.CertificateListNextOptionalParams, callback: msRest.ServiceCallback<Models.CertificateListResult>): void;
+  listNext(nextPageLink: string, options?: Models.CertificateListNextOptionalParams, callback?: msRest.ServiceCallback<Models.CertificateListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

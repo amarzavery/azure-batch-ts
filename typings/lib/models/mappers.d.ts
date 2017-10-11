@@ -147,6 +147,13 @@ export declare const ImageReference: {
                     name: string;
                 };
             };
+            virtualMachineImageId: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
         };
     };
 };
@@ -895,6 +902,69 @@ export declare const JobConstraints: {
         };
     };
 };
+export declare const ContainerRegistry: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            registryServer: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            userName: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            password: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskContainerSettings: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            containerRunOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            imageName: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            registry: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
 export declare const ResourceFile: {
     required: boolean;
     serializedName: string;
@@ -1371,6 +1441,14 @@ export declare const JobManagerTask: {
                     name: string;
                 };
             };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             resourceFiles: {
                 required: boolean;
                 serializedName: string;
@@ -1500,6 +1578,14 @@ export declare const JobPreparationTask: {
                     name: string;
                 };
             };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             resourceFiles: {
                 required: boolean;
                 serializedName: string;
@@ -1582,6 +1668,14 @@ export declare const JobReleaseTask: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
             resourceFiles: {
@@ -1669,6 +1763,14 @@ export declare const StartTask: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
             resourceFiles: {
@@ -1827,6 +1929,7 @@ export declare const CloudServiceConfiguration: {
             };
             currentOSVersion: {
                 required: boolean;
+                readOnly: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1842,20 +1945,6 @@ export declare const OSDisk: {
         name: string;
         className: string;
         modelProperties: {
-            imageUris: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                    element: {
-                        required: boolean;
-                        serializedName: string;
-                        type: {
-                            name: string;
-                        };
-                    };
-                };
-            };
             caching: {
                 required: boolean;
                 serializedName: string;
@@ -1879,6 +1968,94 @@ export declare const WindowsConfiguration: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+        };
+    };
+};
+export declare const DataDisk: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            lun: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            caching: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    allowedValues: string[];
+                };
+            };
+            diskSizeGB: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            storageAccountType: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    allowedValues: string[];
+                };
+            };
+        };
+    };
+};
+export declare const ContainerConfiguration: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            type: {
+                required: boolean;
+                isConstant: boolean;
+                serializedName: string;
+                defaultValue: string;
+                type: {
+                    name: string;
+                };
+            };
+            containerImageNames: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    element: {
+                        required: boolean;
+                        serializedName: string;
+                        type: {
+                            name: string;
+                        };
+                    };
+                };
+            };
+            containerRegistries: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    element: {
+                        required: boolean;
+                        serializedName: string;
+                        type: {
+                            name: string;
+                            className: string;
+                        };
+                    };
                 };
             };
         };
@@ -1915,6 +2092,36 @@ export declare const VirtualMachineConfiguration: {
                 };
             };
             windowsConfiguration: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+            dataDisks: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    element: {
+                        required: boolean;
+                        serializedName: string;
+                        type: {
+                            name: string;
+                            className: string;
+                        };
+                    };
+                };
+            };
+            licenseType: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            containerConfiguration: {
                 required: boolean;
                 serializedName: string;
                 type: {
@@ -2421,6 +2628,7 @@ export declare const JobSpecification: {
             poolInfo: {
                 required: boolean;
                 serializedName: string;
+                defaultValue: {};
                 type: {
                     name: string;
                     className: string;
@@ -2769,6 +2977,7 @@ export declare const JobScheduleAddParameter: {
             jobSpecification: {
                 required: boolean;
                 serializedName: string;
+                defaultValue: {};
                 type: {
                     name: string;
                     className: string;
@@ -3161,6 +3370,7 @@ export declare const JobAddParameter: {
             poolInfo: {
                 required: boolean;
                 serializedName: string;
+                defaultValue: {};
                 type: {
                     name: string;
                     className: string;
@@ -3198,6 +3408,37 @@ export declare const JobAddParameter: {
                 };
             };
             usesTaskDependencies: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskContainerExecutionInformation: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            containerId: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            state: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            error: {
                 required: boolean;
                 serializedName: string;
                 type: {
@@ -3304,6 +3545,14 @@ export declare const JobPreparationTaskExecutionInformation: {
                     name: string;
                 };
             };
+            containerInfo: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             failureInfo: {
                 required: boolean;
                 serializedName: string;
@@ -3385,6 +3634,14 @@ export declare const JobReleaseTaskExecutionInformation: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+            containerInfo: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
             failureInfo: {
@@ -4166,6 +4423,14 @@ export declare const TaskExecutionInformation: {
                     name: string;
                 };
             };
+            containerInfo: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             failureInfo: {
                 required: boolean;
                 serializedName: string;
@@ -4548,6 +4813,14 @@ export declare const CloudTask: {
                     name: string;
                 };
             };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             resourceFiles: {
                 required: boolean;
                 serializedName: string;
@@ -4709,6 +4982,14 @@ export declare const TaskAddParameter: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+            containerSettings: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
             exitConditions: {
@@ -5068,6 +5349,14 @@ export declare const SubtaskInformation: {
                     name: string;
                 };
             };
+            containerInfo: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
             failureInfo: {
                 required: boolean;
                 serializedName: string;
@@ -5230,6 +5519,14 @@ export declare const StartTaskInformation: {
                 serializedName: string;
                 type: {
                     name: string;
+                };
+            };
+            containerInfo: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
             failureInfo: {
@@ -5689,6 +5986,7 @@ export declare const JobScheduleUpdateParameter: {
             jobSpecification: {
                 required: boolean;
                 serializedName: string;
+                defaultValue: {};
                 type: {
                     name: string;
                     className: string;
@@ -5828,6 +6126,7 @@ export declare const JobUpdateParameter: {
             poolInfo: {
                 required: boolean;
                 serializedName: string;
+                defaultValue: {};
                 type: {
                     name: string;
                     className: string;
@@ -10286,6 +10585,1657 @@ export declare const ComputeNodeListNextOptions: {
                 required: boolean;
                 type: {
                     name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ApplicationListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            applicationListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ApplicationGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            applicationGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ApplicationListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            applicationListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListUsageMetricsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolListUsageMetricsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolGetAllLifetimeStatisticsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolGetAllLifetimeStatisticsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolAddOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolAddOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolDeleteMethodOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolDeleteMethodOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolExistsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolExistsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolPatchOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolPatchOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolDisableAutoScaleOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolDisableAutoScaleOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolEnableAutoScaleOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolEnableAutoScaleOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolEvaluateAutoScaleOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolEvaluateAutoScaleOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolResizeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolResizeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolStopResizeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolStopResizeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolUpdatePropertiesOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolUpdatePropertiesOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolUpgradeOSOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolUpgradeOSOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolRemoveNodesOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolRemoveNodesOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListUsageMetricsNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolListUsageMetricsNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListNodeAgentSkusOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            accountListNodeAgentSkusOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListNodeAgentSkusNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            accountListNodeAgentSkusNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetAllLifetimeStatisticsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobGetAllLifetimeStatisticsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobDeleteMethodOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobDeleteMethodOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobPatchOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobPatchOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobUpdateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobUpdateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobDisableOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobDisableOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobEnableOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobEnableOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobTerminateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            terminateReason: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            jobTerminateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobAddOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobAddOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListFromJobScheduleOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListFromJobScheduleOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListPreparationAndReleaseTaskStatusOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListPreparationAndReleaseTaskStatusOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetTaskCountsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobGetTaskCountsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListFromJobScheduleNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListFromJobScheduleNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListPreparationAndReleaseTaskStatusNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobListPreparationAndReleaseTaskStatusNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateAddOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateAddOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateCancelDeletionOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateCancelDeletionOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateDeleteMethodOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateDeleteMethodOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            certificateListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileDeleteFromTaskOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            recursive: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            fileDeleteFromTaskOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetFromTaskOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileGetFromTaskOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetPropertiesFromTaskOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileGetPropertiesFromTaskOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileDeleteFromComputeNodeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            recursive: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            fileDeleteFromComputeNodeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetFromComputeNodeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileGetFromComputeNodeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetPropertiesFromComputeNodeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileGetPropertiesFromComputeNodeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromTaskOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            recursive: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            fileListFromTaskOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromComputeNodeOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            recursive: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            fileListFromComputeNodeOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromTaskNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileListFromTaskNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromComputeNodeNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            fileListFromComputeNodeNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleExistsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleExistsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleDeleteMethodOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleDeleteMethodOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobSchedulePatchOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobSchedulePatchOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleUpdateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleUpdateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleDisableOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleDisableOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleEnableOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleEnableOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleTerminateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleTerminateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleAddOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleAddOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            jobScheduleListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskAddOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskAddOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskAddCollectionOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskAddCollectionOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskDeleteMethodOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskDeleteMethodOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskUpdateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            constraints: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+            taskUpdateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskListSubtasksOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskListSubtasksOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskTerminateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskTerminateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskReactivateOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskReactivateOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            taskListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeAddUserOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeAddUserOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeDeleteUserOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeDeleteUserOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeUpdateUserOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeUpdateUserOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeGetOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeRebootOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            nodeRebootOption: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    allowedValues: string[];
+                };
+            };
+            computeNodeRebootOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeReimageOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            nodeReimageOption: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    allowedValues: string[];
+                };
+            };
+            computeNodeReimageOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeDisableSchedulingOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            nodeDisableSchedulingOption: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    allowedValues: string[];
+                };
+            };
+            computeNodeDisableSchedulingOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeEnableSchedulingOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeEnableSchedulingOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetRemoteLoginSettingsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeGetRemoteLoginSettingsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetRemoteDesktopOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeGetRemoteDesktopOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeListOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeListOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeListNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeListNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
                 };
             };
         };

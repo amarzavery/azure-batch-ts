@@ -8,10 +8,10 @@
  * regenerated.
  */
 
-import * as msRest from "ms-rest-ts";
+import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from '../batchServiceClient';
+import { BatchServiceClient } from "../batchServiceClient";
 
 const WebResource = msRest.WebResource;
 
@@ -29,259 +29,23 @@ export class Task {
   /**
    * @summary Adds a task to the specified job.
    *
+   * The maximum lifetime of a task from addition to completion is 7 days. If a
+   * task has not completed within 7 days of being added it will be terminated by
+   * the Batch service and left in whatever state it was in at that time.
+   *
    * @param {string} jobId The ID of the job to which the task is to be added.
    *
-   * @param {object} task The task to be added.
+   * @param {TaskAddParameter} task The task to be added.
    *
-   * @param {string} task.id A string that uniquely identifies the task within
-   * the job. The ID can contain any combination of alphanumeric characters
-   * including hyphens and underscores, and cannot contain more than 64
-   * characters. The ID is case-preserving and case-insensitive (that is, you may
-   * not have two IDs within a job that differ only by case).
-   *
-   * @param {string} [task.displayName] A display name for the task. The display
-   * name need not be unique and can contain any Unicode characters up to a
-   * maximum length of 1024.
-   *
-   * @param {string} task.commandLine The command line of the task. For
-   * multi-instance tasks, the command line is executed as the primary task,
-   * after the primary task and all subtasks have finished executing the
-   * coordination command line. The command line does not run under a shell, and
-   * therefore cannot take advantage of shell features such as environment
-   * variable expansion. If you want to take advantage of such features, you
-   * should invoke the shell in the command line, for example using "cmd /c
-   * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux.
-   *
-   * @param {object} [task.exitConditions] How the Batch service should respond
-   * when the task completes.
-   *
-   * @param {array} [task.exitConditions.exitCodes] A list of individual task
-   * exit codes and how the Batch service should respond to them.
-   *
-   * @param {array} [task.exitConditions.exitCodeRanges] A list of task exit code
-   * ranges and how the Batch service should respond to them.
-   *
-   * @param {object} [task.exitConditions.preProcessingError] How the Batch
-   * service should respond if the task fails to start due to an error.
-   *
-   * @param {object} [task.exitConditions.fileUploadError] How the Batch service
-   * should respond if a file upload error occurs. If the task exited with an
-   * exit code that was specified via exitCodes or exitCodeRanges, and then
-   * encountered a file upload error, then the action specified by the exit code
-   * takes precedence.
-   *
-   * @param {object} [task.exitConditions.default] How the Batch service should
-   * respond if the task fails with an exit condition not covered by any of the
-   * other properties. This value is used if the task exits with any nonzero exit
-   * code not listed in the exitCodes or exitCodeRanges collection, with a
-   * pre-processing error if the preProcessingError property is not present, or
-   * with a file upload error if the fileUploadError property is not present. If
-   * you want non-default behaviour on exit code 0, you must list it explicitly
-   * using the exitCodes or exitCodeRanges collection.
-   *
-   * @param {string} [task.exitConditions.default.jobAction] An action to take on
-   * the job containing the task, if the task completes with the given exit
-   * condition and the job's onTaskFailed property is
-   * 'performExitOptionsJobAction'. Values are:
-   *
-   * none - Take no action.
-   * disable - Disable the job. This is equivalent to calling the disable job
-   * API, with a disableTasks value of requeue.
-   * terminate - Terminate the job. The terminateReason in the job's
-   * executionInfo is set to "TaskFailed". The default is none for exit code 0
-   * and terminate for all other exit conditions.
-   *
-   * If the job's onTaskFailed property is noAction, then specifying this
-   * property returns an error and the add task request fails with an invalid
-   * property value error; if you are calling the REST API directly, the HTTP
-   * status code is 400 (Bad Request). Possible values include: 'none',
-   * 'disable', 'terminate'
-   *
-   * @param {string} [task.exitConditions.default.dependencyAction] An action
-   * that the Batch service performs on tasks that depend on this task. Values
-   * are:
-   *
-   * satisfy - Satisfy the task's dependencies.
-   * block - Block the task's dependencies.
-   *
-   * The default is 'satisfy' for exit code 0, and 'block' for all other exit
-   * conditions. If the job's usesTaskDependencies property is set to false, then
-   * specifying the dependencyAction property returns an erro and the add task
-   * request fails with an invalid property value error; if you are calling the
-   * REST API directly, the HTTP status code is 400  (Bad Request). Possible
-   * values include: 'satisfy', 'block'
-   *
-   * @param {array} [task.resourceFiles] A list of files that the Batch service
-   * will download to the compute node before running the command line. For
-   * multi-instance tasks, the resource files will only be downloaded to the
-   * compute node on which the primary task is executed.
-   *
-   * @param {array} [task.outputFiles] A list of files that the Batch service
-   * will upload from the compute node after running the command line. For
-   * multi-instance tasks, the files will only be uploaded from the compute node
-   * on which the primary task is executed.
-   *
-   * @param {array} [task.environmentSettings] A list of environment variable
-   * settings for the task.
-   *
-   * @param {object} [task.affinityInfo] A locality hint that can be used by the
-   * Batch service to select a compute node on which to start the new task.
-   *
-   * @param {string} task.affinityInfo.affinityId An opaque string representing
-   * the location of a compute node or a task that has run previously. You can
-   * pass the affinityId of a compute node to indicate that this task needs to
-   * run on that compute node. Note that this is just a soft affinity. If the
-   * target node is busy or unavailable at the time the task is scheduled, then
-   * the task will be scheduled elsewhere.
-   *
-   * @param {object} [task.constraints] The execution constraints that apply to
-   * this task. If you do not specify constraints, the maxTaskRetryCount is the
-   * maxTaskRetryCount specified for the job, and the maxWallClockTime and
-   * retentionTime are infinite.
-   *
-   * @param {moment.duration} [task.constraints.maxWallClockTime] The maximum
-   * elapsed time that the task may run, measured from the time the task starts.
-   * If the task does not complete within the time limit, the Batch service
-   * terminates it. If this is not specified, there is no time limit on how long
-   * the task may run.
-   *
-   * @param {moment.duration} [task.constraints.retentionTime] The minimum time
-   * to retain the task directory on the compute node where it ran, from the time
-   * it completes execution. After this time, the Batch service may delete the
-   * task directory and all its contents. The default is infinite, i.e. the task
-   * directory will be retained until the compute node is removed or reimaged.
-   *
-   * @param {number} [task.constraints.maxTaskRetryCount] The maximum number of
-   * times the task may be retried. The Batch service retries a task if its exit
-   * code is nonzero. Note that this value specifically controls the number of
-   * retries. The Batch service will try the task once, and may then retry up to
-   * this limit. For example, if the maximum retry count is 3, Batch tries the
-   * task up to 4 times (one initial try and 3 retries). If the maximum retry
-   * count is 0, the Batch service does not retry the task. If the maximum retry
-   * count is -1, the Batch service retries the task without limit.
-   *
-   * @param {object} [task.userIdentity] The user identity under which the task
-   * runs. If omitted, the task runs as a non-administrative user unique to the
-   * task.
-   *
-   * @param {string} [task.userIdentity.userName] The name of the user identity
-   * under which the task is run. The userName and autoUser properties are
-   * mutually exclusive; you must specify one but not both.
-   *
-   * @param {object} [task.userIdentity.autoUser] The auto user under which the
-   * task is run. The userName and autoUser properties are mutually exclusive;
-   * you must specify one but not both.
-   *
-   * @param {string} [task.userIdentity.autoUser.scope] The scope for the auto
-   * user Values are:
-   *
-   * pool - specifies that the task runs as the common auto user account which is
-   * created on every node in a pool.
-   * task - specifies that the service should create a new user for the task.
-   * The default value is task. Possible values include: 'task', 'pool'
-   *
-   * @param {string} [task.userIdentity.autoUser.elevationLevel] The elevation
-   * level of the auto user. nonAdmin - The auto user is a standard user without
-   * elevated access. admin - The auto user is a user with elevated access and
-   * operates with full Administrator permissions. The default value is nonAdmin.
-   * Possible values include: 'nonAdmin', 'admin'
-   *
-   * @param {object} [task.multiInstanceSettings] An object that indicates that
-   * the task is a multi-instance task, and contains information about how to run
-   * the multi-instance task.
-   *
-   * @param {number} task.multiInstanceSettings.numberOfInstances The number of
-   * compute nodes required by the task.
-   *
-   * @param {string} [task.multiInstanceSettings.coordinationCommandLine] The
-   * command line to run on all the compute nodes to enable them to coordinate
-   * when the primary runs the main task command. A typical coordination command
-   * line launches a background service and verifies that the service is ready to
-   * process inter-node messages.
-   *
-   * @param {array} [task.multiInstanceSettings.commonResourceFiles] A list of
-   * files that the Batch service will download before running the coordination
-   * command line. The difference between common resource files and task resource
-   * files is that common resource files are downloaded for all subtasks
-   * including the primary, whereas task resource files are downloaded only for
-   * the primary. Also note that these resource files are not downloaded to the
-   * task working directory, but instead are downloaded to the task root
-   * directory (one directory above the working directory).
-   *
-   * @param {object} [task.dependsOn] The tasks that this task depends on. This
-   * task will not be scheduled until all tasks that it depends on have completed
-   * successfully. If any of those tasks fail and exhaust their retry counts,
-   * this task will never be scheduled. If the job does not have
-   * usesTaskDependencies set to true, and this element is present, the request
-   * fails with error code TaskDependenciesNotSpecifiedOnJob.
-   *
-   * @param {array} [task.dependsOn.taskIds] The list of task IDs that this task
-   * depends on. All tasks in this list must complete successfully before the
-   * dependent task can be scheduled. The taskIds collection is limited to 64000
-   * characters total (i.e. the combined length of all task IDs). If the taskIds
-   * collection exceeds the maximum length, the Add Task request fails with error
-   * code TaskDependencyListTooLong. In this case consider using task ID ranges
-   * instead.
-   *
-   * @param {array} [task.dependsOn.taskIdRanges] The list of task ID ranges that
-   * this task depends on. All tasks in all ranges must complete successfully
-   * before the dependent task can be scheduled.
-   *
-   * @param {array} [task.applicationPackageReferences] A list of application
-   * packages that the Batch service will deploy to the compute node before
-   * running the command line. Application packages are downloaded and deployed
-   * to a shared directory, not the task working directory. Therefore, if a
-   * referenced package is already on the compute node, and is up to date, then
-   * it is not re-downloaded; the existing copy on the compute node is used. If a
-   * referenced application package cannot be installed, for example because the
-   * package has been deleted or because download failed, the task fails.
-   *
-   * @param {object} [task.authenticationTokenSettings] The settings for an
-   * authentication token that the task can use to perform Batch service
-   * operations. If this property is set, the Batch service provides the task
-   * with an authentication token which can be used to authenticate Batch service
-   * operations without requiring an account access key. The token is provided
-   * via the AZ_BATCH_AUTHENTICATION_TOKEN environment variable. The operations
-   * that the task can carry out using the token depend on the settings. For
-   * example, a task can request job permissions in order to add other tasks to
-   * the job, or check the status of the job or of other tasks under the job.
-   *
-   * @param {array} [task.authenticationTokenSettings.access] The Batch resources
-   * to which the token grants access. The authentication token grants access to
-   * a limited set of Batch service operations. Currently the only supported
-   * value for the access property is 'job', which grants access to all
-   * operations related to the job which contains the task.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskAddOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskAddOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskAddOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskAddOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskAddOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskAddOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addWithHttpOperationResponse(jobId: string, task: Models.TaskAddParameter, options?: { taskAddOptions? : Models.TaskAddOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async addWithHttpOperationResponse(jobId: string, task: Models.TaskAddParameter, options?: Models.TaskAddOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskAddOptions = (options && options.taskAddOptions !== undefined) ? options.taskAddOptions : undefined;
     // Validate
@@ -331,7 +95,7 @@ export class Task {
       {
         ocpDate = taskAddOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -343,13 +107,13 @@ export class Task {
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -443,45 +207,15 @@ export class Task {
    *
    * @param {string} jobId The ID of the job.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskListOptions.filter] An OData $filter clause.
-   *
-   * @param {string} [options.taskListOptions.select] An OData $select clause.
-   *
-   * @param {string} [options.taskListOptions.expand] An OData $expand clause.
-   *
-   * @param {number} [options.taskListOptions.maxResults] The maximum number of
-   * items to return in the response. A maximum of 1000 tasks can be returned.
-   *
-   * @param {number} [options.taskListOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CloudTaskListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(jobId: string, options?: { taskListOptions? : Models.TaskListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(jobId: string, options?: Models.TaskListOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskListOptions = (options && options.taskListOptions !== undefined) ? options.taskListOptions : undefined;
     // Validate
@@ -560,7 +294,7 @@ export class Task {
       {
         ocpDate = taskListOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -572,25 +306,25 @@ export class Task {
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (filter !== null && filter !== undefined) {
-      queryParameters.push('$filter=' + encodeURIComponent(filter));
+      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
     }
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (expand !== null && expand !== undefined) {
-      queryParameters.push('$expand=' + encodeURIComponent(expand));
+      queryParamsArray.push('$expand=' + encodeURIComponent(expand));
     }
     if (maxResults !== null && maxResults !== undefined) {
-      queryParameters.push('maxresults=' + encodeURIComponent(maxResults.toString()));
+      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -690,48 +424,29 @@ export class Task {
    * unexpectedly. If the response contains any tasks which failed to add, a
    * client can retry the request. In a retry, it is most efficient to resubmit
    * only tasks that failed to add, and to omit tasks that were successfully
-   * added on the first attempt.
+   * added on the first attempt. The maximum lifetime of a task from addition to
+   * completion is 7 days. If a task has not completed within 7 days of being
+   * added it will be terminated by the Batch service and left in whatever state
+   * it was in at that time.
    *
    * @param {string} jobId The ID of the job to which the task collection is to
    * be added.
    *
-   * @param {array} value The collection of tasks to add. The total serialized
-   * size of this collection must be less than 4MB. If it is greater than 4MB
-   * (for example if each task has 100's of resource files or environment
-   * variables), the request will fail with code 'RequestBodyTooLarge' and should
-   * be retried again with fewer tasks.
+   * @param {TaskAddParameter[]} value The collection of tasks to add. The total
+   * serialized size of this collection must be less than 4MB. If it is greater
+   * than 4MB (for example if each task has 100's of resource files or
+   * environment variables), the request will fail with code
+   * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskAddCollectionOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskAddCollectionOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskAddCollectionOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskAddCollectionOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskAddCollectionOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<TaskAddCollectionResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addCollectionWithHttpOperationResponse(jobId: string, value: Models.TaskAddParameter[], options?: { taskAddCollectionOptions? : Models.TaskAddCollectionOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async addCollectionWithHttpOperationResponse(jobId: string, value: Models.TaskAddParameter[], options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskAddCollectionOptions = (options && options.taskAddCollectionOptions !== undefined) ? options.taskAddCollectionOptions : undefined;
     // Validate
@@ -785,7 +500,7 @@ export class Task {
       {
         ocpDate = taskAddCollectionOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -801,13 +516,13 @@ export class Task {
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/addtaskcollection';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -920,56 +635,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to delete.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskDeleteMethodOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskDeleteMethodOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskDeleteMethodOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ifUnmodifiedSince] A
-   * timestamp indicating the last modified time of the resource known to the
-   * client. The operation will be performed only if the resource on the service
-   * has not been modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskDeleteMethodOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async deleteMethodWithHttpOperationResponse(jobId: string, taskId: string, options?: { taskDeleteMethodOptions? : Models.TaskDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async deleteMethodWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskDeleteMethodOptions = (options && options.taskDeleteMethodOptions !== undefined) ? options.taskDeleteMethodOptions : undefined;
     // Validate
@@ -1023,7 +697,7 @@ export class Task {
       {
         ocpDate = taskDeleteMethodOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1045,7 +719,7 @@ export class Task {
       {
         ifModifiedSince = taskDeleteMethodOptions.ifModifiedSince;
         if (ifModifiedSince && !(ifModifiedSince instanceof Date ||
-            (typeof ifModifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
+            (typeof (ifModifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
               throw new Error('ifModifiedSince must be of type date.');
             }
       }
@@ -1053,7 +727,7 @@ export class Task {
       {
         ifUnmodifiedSince = taskDeleteMethodOptions.ifUnmodifiedSince;
         if (ifUnmodifiedSince && !(ifUnmodifiedSince instanceof Date ||
-            (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
+            (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
       }
@@ -1066,13 +740,13 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1166,60 +840,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to get information about.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskGetOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskGetOptions.select] An OData $select clause.
-   *
-   * @param {string} [options.taskGetOptions.expand] An OData $expand clause.
-   *
-   * @param {number} [options.taskGetOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskGetOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskGetOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskGetOptions.ifMatch] An ETag value associated
-   * with the version of the resource known to the client. The operation will be
-   * performed only if the resource's current ETag on the service exactly matches
-   * the value specified by the client.
-   *
-   * @param {string} [options.taskGetOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskGetOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskGetOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskGetOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CloudTask>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(jobId: string, taskId: string, options?: { taskGetOptions? : Models.TaskGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskGetOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskGetOptions = (options && options.taskGetOptions !== undefined) ? options.taskGetOptions : undefined;
     // Validate
@@ -1289,7 +918,7 @@ export class Task {
       {
         ocpDate = taskGetOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1311,7 +940,7 @@ export class Task {
       {
         ifModifiedSince = taskGetOptions.ifModifiedSince;
         if (ifModifiedSince && !(ifModifiedSince instanceof Date ||
-            (typeof ifModifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
+            (typeof (ifModifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
               throw new Error('ifModifiedSince must be of type date.');
             }
       }
@@ -1319,7 +948,7 @@ export class Task {
       {
         ifUnmodifiedSince = taskGetOptions.ifUnmodifiedSince;
         if (ifUnmodifiedSince && !(ifUnmodifiedSince instanceof Date ||
-            (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
+            (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
       }
@@ -1332,19 +961,19 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (expand !== null && expand !== undefined) {
-      queryParameters.push('$expand=' + encodeURIComponent(expand));
+      queryParamsArray.push('$expand=' + encodeURIComponent(expand));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1449,83 +1078,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to update.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.constraints] Constraints that apply to this task.
-   * If omitted, the task is given the default constraints. For multi-instance
-   * tasks, updating the retention time applies only to the primary task and not
-   * subtasks.
-   *
-   * @param {moment.duration} [options.constraints.maxWallClockTime] The maximum
-   * elapsed time that the task may run, measured from the time the task starts.
-   * If the task does not complete within the time limit, the Batch service
-   * terminates it. If this is not specified, there is no time limit on how long
-   * the task may run.
-   *
-   * @param {moment.duration} [options.constraints.retentionTime] The minimum
-   * time to retain the task directory on the compute node where it ran, from the
-   * time it completes execution. After this time, the Batch service may delete
-   * the task directory and all its contents. The default is infinite, i.e. the
-   * task directory will be retained until the compute node is removed or
-   * reimaged.
-   *
-   * @param {number} [options.constraints.maxTaskRetryCount] The maximum number
-   * of times the task may be retried. The Batch service retries a task if its
-   * exit code is nonzero. Note that this value specifically controls the number
-   * of retries. The Batch service will try the task once, and may then retry up
-   * to this limit. For example, if the maximum retry count is 3, Batch tries the
-   * task up to 4 times (one initial try and 3 retries). If the maximum retry
-   * count is 0, the Batch service does not retry the task. If the maximum retry
-   * count is -1, the Batch service retries the task without limit.
-   *
-   * @param {object} [options.taskUpdateOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskUpdateOptions.timeout] The maximum time that
-   * the server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskUpdateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskUpdateOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskUpdateOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskUpdateOptions.ifMatch] An ETag value associated
-   * with the version of the resource known to the client. The operation will be
-   * performed only if the resource's current ETag on the service exactly matches
-   * the value specified by the client.
-   *
-   * @param {string} [options.taskUpdateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskUpdateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskUpdateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async updateWithHttpOperationResponse(jobId: string, taskId: string, options?: { constraints? : Models.TaskConstraints, taskUpdateOptions? : Models.TaskUpdateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async updateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let constraints = (options && options.constraints !== undefined) ? options.constraints : undefined;
     let taskUpdateOptions = (options && options.taskUpdateOptions !== undefined) ? options.taskUpdateOptions : undefined;
@@ -1581,7 +1142,7 @@ export class Task {
       {
         ocpDate = taskUpdateOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1603,7 +1164,7 @@ export class Task {
       {
         ifModifiedSince = taskUpdateOptions.ifModifiedSince;
         if (ifModifiedSince && !(ifModifiedSince instanceof Date ||
-            (typeof ifModifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
+            (typeof (ifModifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
               throw new Error('ifModifiedSince must be of type date.');
             }
       }
@@ -1611,7 +1172,7 @@ export class Task {
       {
         ifUnmodifiedSince = taskUpdateOptions.ifUnmodifiedSince;
         if (ifUnmodifiedSince && !(ifUnmodifiedSince instanceof Date ||
-            (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
+            (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
       }
@@ -1628,13 +1189,13 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1742,39 +1303,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListSubtasksOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.taskListSubtasksOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.taskListSubtasksOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskListSubtasksOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListSubtasksOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListSubtasksOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListSubtasksOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CloudTaskListSubtasksResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listSubtasksWithHttpOperationResponse(jobId: string, taskId: string, options?: { taskListSubtasksOptions? : Models.TaskListSubtasksOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listSubtasksWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskListSubtasksOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskListSubtasksOptions = (options && options.taskListSubtasksOptions !== undefined) ? options.taskListSubtasksOptions : undefined;
     // Validate
@@ -1832,7 +1369,7 @@ export class Task {
       {
         ocpDate = taskListSubtasksOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1845,16 +1382,16 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}/subtasksinfo';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1952,56 +1489,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to terminate.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskTerminateOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskTerminateOptions.timeout] The maximum time that
-   * the server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskTerminateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskTerminateOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskTerminateOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskTerminateOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskTerminateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskTerminateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskTerminateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskTerminateOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async terminateWithHttpOperationResponse(jobId: string, taskId: string, options?: { taskTerminateOptions? : Models.TaskTerminateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async terminateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskTerminateOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskTerminateOptions = (options && options.taskTerminateOptions !== undefined) ? options.taskTerminateOptions : undefined;
     // Validate
@@ -2055,7 +1551,7 @@ export class Task {
       {
         ocpDate = taskTerminateOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2077,7 +1573,7 @@ export class Task {
       {
         ifModifiedSince = taskTerminateOptions.ifModifiedSince;
         if (ifModifiedSince && !(ifModifiedSince instanceof Date ||
-            (typeof ifModifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
+            (typeof (ifModifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
               throw new Error('ifModifiedSince must be of type date.');
             }
       }
@@ -2085,7 +1581,7 @@ export class Task {
       {
         ifUnmodifiedSince = taskTerminateOptions.ifUnmodifiedSince;
         if (ifUnmodifiedSince && !(ifUnmodifiedSince instanceof Date ||
-            (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
+            (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
       }
@@ -2098,13 +1594,13 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}/terminate';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -2204,56 +1700,15 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to reactivate.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskReactivateOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskReactivateOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskReactivateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskReactivateOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskReactivateOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskReactivateOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskReactivateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskReactivateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskReactivateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskReactivateOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async reactivateWithHttpOperationResponse(jobId: string, taskId: string, options?: { taskReactivateOptions? : Models.TaskReactivateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async reactivateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskReactivateOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskReactivateOptions = (options && options.taskReactivateOptions !== undefined) ? options.taskReactivateOptions : undefined;
     // Validate
@@ -2307,7 +1762,7 @@ export class Task {
       {
         ocpDate = taskReactivateOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2329,7 +1784,7 @@ export class Task {
       {
         ifModifiedSince = taskReactivateOptions.ifModifiedSince;
         if (ifModifiedSince && !(ifModifiedSince instanceof Date ||
-            (typeof ifModifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
+            (typeof (ifModifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifModifiedSince as string))))) {
               throw new Error('ifModifiedSince must be of type date.');
             }
       }
@@ -2337,7 +1792,7 @@ export class Task {
       {
         ifUnmodifiedSince = taskReactivateOptions.ifUnmodifiedSince;
         if (ifUnmodifiedSince && !(ifUnmodifiedSince instanceof Date ||
-            (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
+            (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
       }
@@ -2350,13 +1805,13 @@ export class Task {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobs/{jobId}/tasks/{taskId}/reactivate';
     requestUrl = requestUrl.replace('{jobId}', encodeURIComponent(jobId));
     requestUrl = requestUrl.replace('{taskId}', encodeURIComponent(taskId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -2449,32 +1904,15 @@ export class Task {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListNextOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListNextOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListNextOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListNextOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<CloudTaskListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: { taskListNextOptions? : Models.TaskListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.TaskListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskListNextOptions = (options && options.taskListNextOptions !== undefined) ? options.taskListNextOptions : undefined;
     // Validate
@@ -2510,7 +1948,7 @@ export class Task {
       {
         ocpDate = taskListNextOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2608,251 +2046,15 @@ export class Task {
   /**
    * @summary Adds a task to the specified job.
    *
+   * The maximum lifetime of a task from addition to completion is 7 days. If a
+   * task has not completed within 7 days of being added it will be terminated by
+   * the Batch service and left in whatever state it was in at that time.
+   *
    * @param {string} jobId The ID of the job to which the task is to be added.
    *
-   * @param {object} task The task to be added.
+   * @param {TaskAddParameter} task The task to be added.
    *
-   * @param {string} task.id A string that uniquely identifies the task within
-   * the job. The ID can contain any combination of alphanumeric characters
-   * including hyphens and underscores, and cannot contain more than 64
-   * characters. The ID is case-preserving and case-insensitive (that is, you may
-   * not have two IDs within a job that differ only by case).
-   *
-   * @param {string} [task.displayName] A display name for the task. The display
-   * name need not be unique and can contain any Unicode characters up to a
-   * maximum length of 1024.
-   *
-   * @param {string} task.commandLine The command line of the task. For
-   * multi-instance tasks, the command line is executed as the primary task,
-   * after the primary task and all subtasks have finished executing the
-   * coordination command line. The command line does not run under a shell, and
-   * therefore cannot take advantage of shell features such as environment
-   * variable expansion. If you want to take advantage of such features, you
-   * should invoke the shell in the command line, for example using "cmd /c
-   * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux.
-   *
-   * @param {object} [task.exitConditions] How the Batch service should respond
-   * when the task completes.
-   *
-   * @param {array} [task.exitConditions.exitCodes] A list of individual task
-   * exit codes and how the Batch service should respond to them.
-   *
-   * @param {array} [task.exitConditions.exitCodeRanges] A list of task exit code
-   * ranges and how the Batch service should respond to them.
-   *
-   * @param {object} [task.exitConditions.preProcessingError] How the Batch
-   * service should respond if the task fails to start due to an error.
-   *
-   * @param {object} [task.exitConditions.fileUploadError] How the Batch service
-   * should respond if a file upload error occurs. If the task exited with an
-   * exit code that was specified via exitCodes or exitCodeRanges, and then
-   * encountered a file upload error, then the action specified by the exit code
-   * takes precedence.
-   *
-   * @param {object} [task.exitConditions.default] How the Batch service should
-   * respond if the task fails with an exit condition not covered by any of the
-   * other properties. This value is used if the task exits with any nonzero exit
-   * code not listed in the exitCodes or exitCodeRanges collection, with a
-   * pre-processing error if the preProcessingError property is not present, or
-   * with a file upload error if the fileUploadError property is not present. If
-   * you want non-default behaviour on exit code 0, you must list it explicitly
-   * using the exitCodes or exitCodeRanges collection.
-   *
-   * @param {string} [task.exitConditions.default.jobAction] An action to take on
-   * the job containing the task, if the task completes with the given exit
-   * condition and the job's onTaskFailed property is
-   * 'performExitOptionsJobAction'. Values are:
-   *
-   * none - Take no action.
-   * disable - Disable the job. This is equivalent to calling the disable job
-   * API, with a disableTasks value of requeue.
-   * terminate - Terminate the job. The terminateReason in the job's
-   * executionInfo is set to "TaskFailed". The default is none for exit code 0
-   * and terminate for all other exit conditions.
-   *
-   * If the job's onTaskFailed property is noAction, then specifying this
-   * property returns an error and the add task request fails with an invalid
-   * property value error; if you are calling the REST API directly, the HTTP
-   * status code is 400 (Bad Request). Possible values include: 'none',
-   * 'disable', 'terminate'
-   *
-   * @param {string} [task.exitConditions.default.dependencyAction] An action
-   * that the Batch service performs on tasks that depend on this task. Values
-   * are:
-   *
-   * satisfy - Satisfy the task's dependencies.
-   * block - Block the task's dependencies.
-   *
-   * The default is 'satisfy' for exit code 0, and 'block' for all other exit
-   * conditions. If the job's usesTaskDependencies property is set to false, then
-   * specifying the dependencyAction property returns an erro and the add task
-   * request fails with an invalid property value error; if you are calling the
-   * REST API directly, the HTTP status code is 400  (Bad Request). Possible
-   * values include: 'satisfy', 'block'
-   *
-   * @param {array} [task.resourceFiles] A list of files that the Batch service
-   * will download to the compute node before running the command line. For
-   * multi-instance tasks, the resource files will only be downloaded to the
-   * compute node on which the primary task is executed.
-   *
-   * @param {array} [task.outputFiles] A list of files that the Batch service
-   * will upload from the compute node after running the command line. For
-   * multi-instance tasks, the files will only be uploaded from the compute node
-   * on which the primary task is executed.
-   *
-   * @param {array} [task.environmentSettings] A list of environment variable
-   * settings for the task.
-   *
-   * @param {object} [task.affinityInfo] A locality hint that can be used by the
-   * Batch service to select a compute node on which to start the new task.
-   *
-   * @param {string} task.affinityInfo.affinityId An opaque string representing
-   * the location of a compute node or a task that has run previously. You can
-   * pass the affinityId of a compute node to indicate that this task needs to
-   * run on that compute node. Note that this is just a soft affinity. If the
-   * target node is busy or unavailable at the time the task is scheduled, then
-   * the task will be scheduled elsewhere.
-   *
-   * @param {object} [task.constraints] The execution constraints that apply to
-   * this task. If you do not specify constraints, the maxTaskRetryCount is the
-   * maxTaskRetryCount specified for the job, and the maxWallClockTime and
-   * retentionTime are infinite.
-   *
-   * @param {moment.duration} [task.constraints.maxWallClockTime] The maximum
-   * elapsed time that the task may run, measured from the time the task starts.
-   * If the task does not complete within the time limit, the Batch service
-   * terminates it. If this is not specified, there is no time limit on how long
-   * the task may run.
-   *
-   * @param {moment.duration} [task.constraints.retentionTime] The minimum time
-   * to retain the task directory on the compute node where it ran, from the time
-   * it completes execution. After this time, the Batch service may delete the
-   * task directory and all its contents. The default is infinite, i.e. the task
-   * directory will be retained until the compute node is removed or reimaged.
-   *
-   * @param {number} [task.constraints.maxTaskRetryCount] The maximum number of
-   * times the task may be retried. The Batch service retries a task if its exit
-   * code is nonzero. Note that this value specifically controls the number of
-   * retries. The Batch service will try the task once, and may then retry up to
-   * this limit. For example, if the maximum retry count is 3, Batch tries the
-   * task up to 4 times (one initial try and 3 retries). If the maximum retry
-   * count is 0, the Batch service does not retry the task. If the maximum retry
-   * count is -1, the Batch service retries the task without limit.
-   *
-   * @param {object} [task.userIdentity] The user identity under which the task
-   * runs. If omitted, the task runs as a non-administrative user unique to the
-   * task.
-   *
-   * @param {string} [task.userIdentity.userName] The name of the user identity
-   * under which the task is run. The userName and autoUser properties are
-   * mutually exclusive; you must specify one but not both.
-   *
-   * @param {object} [task.userIdentity.autoUser] The auto user under which the
-   * task is run. The userName and autoUser properties are mutually exclusive;
-   * you must specify one but not both.
-   *
-   * @param {string} [task.userIdentity.autoUser.scope] The scope for the auto
-   * user Values are:
-   *
-   * pool - specifies that the task runs as the common auto user account which is
-   * created on every node in a pool.
-   * task - specifies that the service should create a new user for the task.
-   * The default value is task. Possible values include: 'task', 'pool'
-   *
-   * @param {string} [task.userIdentity.autoUser.elevationLevel] The elevation
-   * level of the auto user. nonAdmin - The auto user is a standard user without
-   * elevated access. admin - The auto user is a user with elevated access and
-   * operates with full Administrator permissions. The default value is nonAdmin.
-   * Possible values include: 'nonAdmin', 'admin'
-   *
-   * @param {object} [task.multiInstanceSettings] An object that indicates that
-   * the task is a multi-instance task, and contains information about how to run
-   * the multi-instance task.
-   *
-   * @param {number} task.multiInstanceSettings.numberOfInstances The number of
-   * compute nodes required by the task.
-   *
-   * @param {string} [task.multiInstanceSettings.coordinationCommandLine] The
-   * command line to run on all the compute nodes to enable them to coordinate
-   * when the primary runs the main task command. A typical coordination command
-   * line launches a background service and verifies that the service is ready to
-   * process inter-node messages.
-   *
-   * @param {array} [task.multiInstanceSettings.commonResourceFiles] A list of
-   * files that the Batch service will download before running the coordination
-   * command line. The difference between common resource files and task resource
-   * files is that common resource files are downloaded for all subtasks
-   * including the primary, whereas task resource files are downloaded only for
-   * the primary. Also note that these resource files are not downloaded to the
-   * task working directory, but instead are downloaded to the task root
-   * directory (one directory above the working directory).
-   *
-   * @param {object} [task.dependsOn] The tasks that this task depends on. This
-   * task will not be scheduled until all tasks that it depends on have completed
-   * successfully. If any of those tasks fail and exhaust their retry counts,
-   * this task will never be scheduled. If the job does not have
-   * usesTaskDependencies set to true, and this element is present, the request
-   * fails with error code TaskDependenciesNotSpecifiedOnJob.
-   *
-   * @param {array} [task.dependsOn.taskIds] The list of task IDs that this task
-   * depends on. All tasks in this list must complete successfully before the
-   * dependent task can be scheduled. The taskIds collection is limited to 64000
-   * characters total (i.e. the combined length of all task IDs). If the taskIds
-   * collection exceeds the maximum length, the Add Task request fails with error
-   * code TaskDependencyListTooLong. In this case consider using task ID ranges
-   * instead.
-   *
-   * @param {array} [task.dependsOn.taskIdRanges] The list of task ID ranges that
-   * this task depends on. All tasks in all ranges must complete successfully
-   * before the dependent task can be scheduled.
-   *
-   * @param {array} [task.applicationPackageReferences] A list of application
-   * packages that the Batch service will deploy to the compute node before
-   * running the command line. Application packages are downloaded and deployed
-   * to a shared directory, not the task working directory. Therefore, if a
-   * referenced package is already on the compute node, and is up to date, then
-   * it is not re-downloaded; the existing copy on the compute node is used. If a
-   * referenced application package cannot be installed, for example because the
-   * package has been deleted or because download failed, the task fails.
-   *
-   * @param {object} [task.authenticationTokenSettings] The settings for an
-   * authentication token that the task can use to perform Batch service
-   * operations. If this property is set, the Batch service provides the task
-   * with an authentication token which can be used to authenticate Batch service
-   * operations without requiring an account access key. The token is provided
-   * via the AZ_BATCH_AUTHENTICATION_TOKEN environment variable. The operations
-   * that the task can carry out using the token depend on the settings. For
-   * example, a task can request job permissions in order to add other tasks to
-   * the job, or check the status of the job or of other tasks under the job.
-   *
-   * @param {array} [task.authenticationTokenSettings.access] The Batch resources
-   * to which the token grants access. The authentication token grants access to
-   * a limited set of Batch service operations. Currently the only supported
-   * value for the access property is 'job', which grants access to all
-   * operations related to the job which contains the task.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskAddOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskAddOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskAddOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskAddOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskAddOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskAddOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2860,17 +2062,17 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   add(jobId: string, task: Models.TaskAddParameter): Promise<void>;
-  add(jobId: string, task: Models.TaskAddParameter, options: { taskAddOptions? : Models.TaskAddOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  add(jobId: string, task: Models.TaskAddParameter, options: Models.TaskAddOptionalParams): Promise<void>;
   add(jobId: string, task: Models.TaskAddParameter, callback: msRest.ServiceCallback<void>): void;
-  add(jobId: string, task: Models.TaskAddParameter, options: { taskAddOptions? : Models.TaskAddOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  add(jobId: string, task: Models.TaskAddParameter, options?: { taskAddOptions? : Models.TaskAddOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  add(jobId: string, task: Models.TaskAddParameter, options: Models.TaskAddOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  add(jobId: string, task: Models.TaskAddParameter, options?: Models.TaskAddOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2902,37 +2104,7 @@ export class Task {
    *
    * @param {string} jobId The ID of the job.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskListOptions.filter] An OData $filter clause.
-   *
-   * @param {string} [options.taskListOptions.select] An OData $select clause.
-   *
-   * @param {string} [options.taskListOptions.expand] An OData $expand clause.
-   *
-   * @param {number} [options.taskListOptions.maxResults] The maximum number of
-   * items to return in the response. A maximum of 1000 tasks can be returned.
-   *
-   * @param {number} [options.taskListOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2940,18 +2112,19 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CloudTaskListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CloudTaskListResult} for more information.
+   *                      {Models.CloudTaskListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CloudTaskListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   list(jobId: string): Promise<Models.CloudTaskListResult>;
-  list(jobId: string, options: { taskListOptions? : Models.TaskListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CloudTaskListResult>;
+  list(jobId: string, options: Models.TaskListOptionalParams): Promise<Models.CloudTaskListResult>;
   list(jobId: string, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
-  list(jobId: string, options: { taskListOptions? : Models.TaskListOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
-  list(jobId: string, options?: { taskListOptions? : Models.TaskListOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CloudTaskListResult>): any {
+  list(jobId: string, options: Models.TaskListOptionalParams, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
+  list(jobId: string, options?: Models.TaskListOptionalParams, callback?: msRest.ServiceCallback<Models.CloudTaskListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2988,40 +2161,21 @@ export class Task {
    * unexpectedly. If the response contains any tasks which failed to add, a
    * client can retry the request. In a retry, it is most efficient to resubmit
    * only tasks that failed to add, and to omit tasks that were successfully
-   * added on the first attempt.
+   * added on the first attempt. The maximum lifetime of a task from addition to
+   * completion is 7 days. If a task has not completed within 7 days of being
+   * added it will be terminated by the Batch service and left in whatever state
+   * it was in at that time.
    *
    * @param {string} jobId The ID of the job to which the task collection is to
    * be added.
    *
-   * @param {array} value The collection of tasks to add. The total serialized
-   * size of this collection must be less than 4MB. If it is greater than 4MB
-   * (for example if each task has 100's of resource files or environment
-   * variables), the request will fail with code 'RequestBodyTooLarge' and should
-   * be retried again with fewer tasks.
+   * @param {TaskAddParameter[]} value The collection of tasks to add. The total
+   * serialized size of this collection must be less than 4MB. If it is greater
+   * than 4MB (for example if each task has 100's of resource files or
+   * environment variables), the request will fail with code
+   * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskAddCollectionOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskAddCollectionOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskAddCollectionOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskAddCollectionOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskAddCollectionOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3029,19 +2183,19 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {TaskAddCollectionResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link TaskAddCollectionResult} for more
+   *                      {Models.TaskAddCollectionResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.TaskAddCollectionResult} for more
    *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   addCollection(jobId: string, value: Models.TaskAddParameter[]): Promise<Models.TaskAddCollectionResult>;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options: { taskAddCollectionOptions? : Models.TaskAddCollectionOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.TaskAddCollectionResult>;
+  addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
   addCollection(jobId: string, value: Models.TaskAddParameter[], callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options: { taskAddCollectionOptions? : Models.TaskAddCollectionOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options?: { taskAddCollectionOptions? : Models.TaskAddCollectionOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.TaskAddCollectionResult>): any {
+  addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
+  addCollection(jobId: string, value: Models.TaskAddParameter[], options?: Models.TaskAddCollectionOptionalParams, callback?: msRest.ServiceCallback<Models.TaskAddCollectionResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3077,48 +2231,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to delete.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskDeleteMethodOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskDeleteMethodOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskDeleteMethodOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskDeleteMethodOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskDeleteMethodOptions.ifUnmodifiedSince] A
-   * timestamp indicating the last modified time of the resource known to the
-   * client. The operation will be performed only if the resource on the service
-   * has not been modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskDeleteMethodOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3126,17 +2239,17 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   deleteMethod(jobId: string, taskId: string): Promise<void>;
-  deleteMethod(jobId: string, taskId: string, options: { taskDeleteMethodOptions? : Models.TaskDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  deleteMethod(jobId: string, taskId: string, options: Models.TaskDeleteMethodOptionalParams): Promise<void>;
   deleteMethod(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-  deleteMethod(jobId: string, taskId: string, options: { taskDeleteMethodOptions? : Models.TaskDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  deleteMethod(jobId: string, taskId: string, options?: { taskDeleteMethodOptions? : Models.TaskDeleteMethodOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  deleteMethod(jobId: string, taskId: string, options: Models.TaskDeleteMethodOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  deleteMethod(jobId: string, taskId: string, options?: Models.TaskDeleteMethodOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3170,52 +2283,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to get information about.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskGetOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskGetOptions.select] An OData $select clause.
-   *
-   * @param {string} [options.taskGetOptions.expand] An OData $expand clause.
-   *
-   * @param {number} [options.taskGetOptions.timeout] The maximum time that the
-   * server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskGetOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskGetOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskGetOptions.ifMatch] An ETag value associated
-   * with the version of the resource known to the client. The operation will be
-   * performed only if the resource's current ETag on the service exactly matches
-   * the value specified by the client.
-   *
-   * @param {string} [options.taskGetOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskGetOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskGetOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskGetOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3223,18 +2291,18 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CloudTask} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CloudTask} for more information.
+   *                      {Models.CloudTask} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CloudTask} for more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   get(jobId: string, taskId: string): Promise<Models.CloudTask>;
-  get(jobId: string, taskId: string, options: { taskGetOptions? : Models.TaskGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CloudTask>;
+  get(jobId: string, taskId: string, options: Models.TaskGetOptionalParams): Promise<Models.CloudTask>;
   get(jobId: string, taskId: string, callback: msRest.ServiceCallback<Models.CloudTask>): void;
-  get(jobId: string, taskId: string, options: { taskGetOptions? : Models.TaskGetOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CloudTask>): void;
-  get(jobId: string, taskId: string, options?: { taskGetOptions? : Models.TaskGetOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CloudTask>): any {
+  get(jobId: string, taskId: string, options: Models.TaskGetOptionalParams, callback: msRest.ServiceCallback<Models.CloudTask>): void;
+  get(jobId: string, taskId: string, options?: Models.TaskGetOptionalParams, callback?: msRest.ServiceCallback<Models.CloudTask>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3264,75 +2332,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to update.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.constraints] Constraints that apply to this task.
-   * If omitted, the task is given the default constraints. For multi-instance
-   * tasks, updating the retention time applies only to the primary task and not
-   * subtasks.
-   *
-   * @param {moment.duration} [options.constraints.maxWallClockTime] The maximum
-   * elapsed time that the task may run, measured from the time the task starts.
-   * If the task does not complete within the time limit, the Batch service
-   * terminates it. If this is not specified, there is no time limit on how long
-   * the task may run.
-   *
-   * @param {moment.duration} [options.constraints.retentionTime] The minimum
-   * time to retain the task directory on the compute node where it ran, from the
-   * time it completes execution. After this time, the Batch service may delete
-   * the task directory and all its contents. The default is infinite, i.e. the
-   * task directory will be retained until the compute node is removed or
-   * reimaged.
-   *
-   * @param {number} [options.constraints.maxTaskRetryCount] The maximum number
-   * of times the task may be retried. The Batch service retries a task if its
-   * exit code is nonzero. Note that this value specifically controls the number
-   * of retries. The Batch service will try the task once, and may then retry up
-   * to this limit. For example, if the maximum retry count is 3, Batch tries the
-   * task up to 4 times (one initial try and 3 retries). If the maximum retry
-   * count is 0, the Batch service does not retry the task. If the maximum retry
-   * count is -1, the Batch service retries the task without limit.
-   *
-   * @param {object} [options.taskUpdateOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskUpdateOptions.timeout] The maximum time that
-   * the server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskUpdateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskUpdateOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskUpdateOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskUpdateOptions.ifMatch] An ETag value associated
-   * with the version of the resource known to the client. The operation will be
-   * performed only if the resource's current ETag on the service exactly matches
-   * the value specified by the client.
-   *
-   * @param {string} [options.taskUpdateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskUpdateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskUpdateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3340,17 +2340,17 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   update(jobId: string, taskId: string): Promise<void>;
-  update(jobId: string, taskId: string, options: { constraints? : Models.TaskConstraints, taskUpdateOptions? : Models.TaskUpdateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams): Promise<void>;
   update(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-  update(jobId: string, taskId: string, options: { constraints? : Models.TaskConstraints, taskUpdateOptions? : Models.TaskUpdateOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  update(jobId: string, taskId: string, options?: { constraints? : Models.TaskConstraints, taskUpdateOptions? : Models.TaskUpdateOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  update(jobId: string, taskId: string, options?: Models.TaskUpdateOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3384,31 +2384,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListSubtasksOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.taskListSubtasksOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.taskListSubtasksOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskListSubtasksOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListSubtasksOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListSubtasksOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListSubtasksOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3416,19 +2392,19 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CloudTaskListSubtasksResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CloudTaskListSubtasksResult} for more
+   *                      {Models.CloudTaskListSubtasksResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CloudTaskListSubtasksResult} for more
    *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listSubtasks(jobId: string, taskId: string): Promise<Models.CloudTaskListSubtasksResult>;
-  listSubtasks(jobId: string, taskId: string, options: { taskListSubtasksOptions? : Models.TaskListSubtasksOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CloudTaskListSubtasksResult>;
+  listSubtasks(jobId: string, taskId: string, options: Models.TaskListSubtasksOptionalParams): Promise<Models.CloudTaskListSubtasksResult>;
   listSubtasks(jobId: string, taskId: string, callback: msRest.ServiceCallback<Models.CloudTaskListSubtasksResult>): void;
-  listSubtasks(jobId: string, taskId: string, options: { taskListSubtasksOptions? : Models.TaskListSubtasksOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CloudTaskListSubtasksResult>): void;
-  listSubtasks(jobId: string, taskId: string, options?: { taskListSubtasksOptions? : Models.TaskListSubtasksOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CloudTaskListSubtasksResult>): any {
+  listSubtasks(jobId: string, taskId: string, options: Models.TaskListSubtasksOptionalParams, callback: msRest.ServiceCallback<Models.CloudTaskListSubtasksResult>): void;
+  listSubtasks(jobId: string, taskId: string, options?: Models.TaskListSubtasksOptionalParams, callback?: msRest.ServiceCallback<Models.CloudTaskListSubtasksResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3463,48 +2439,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to terminate.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskTerminateOptions] Additional parameters for the
-   * operation
-   *
-   * @param {number} [options.taskTerminateOptions.timeout] The maximum time that
-   * the server can spend processing the request, in seconds. The default is 30
-   * seconds.
-   *
-   * @param {string} [options.taskTerminateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskTerminateOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskTerminateOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskTerminateOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskTerminateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskTerminateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskTerminateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskTerminateOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3512,17 +2447,17 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   terminate(jobId: string, taskId: string): Promise<void>;
-  terminate(jobId: string, taskId: string, options: { taskTerminateOptions? : Models.TaskTerminateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  terminate(jobId: string, taskId: string, options: Models.TaskTerminateOptionalParams): Promise<void>;
   terminate(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-  terminate(jobId: string, taskId: string, options: { taskTerminateOptions? : Models.TaskTerminateOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  terminate(jobId: string, taskId: string, options?: { taskTerminateOptions? : Models.TaskTerminateOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  terminate(jobId: string, taskId: string, options: Models.TaskTerminateOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  terminate(jobId: string, taskId: string, options?: Models.TaskTerminateOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3562,48 +2497,7 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to reactivate.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskReactivateOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.taskReactivateOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.taskReactivateOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskReactivateOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskReactivateOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {string} [options.taskReactivateOptions.ifMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service exactly matches the value specified by the client.
-   *
-   * @param {string} [options.taskReactivateOptions.ifNoneMatch] An ETag value
-   * associated with the version of the resource known to the client. The
-   * operation will be performed only if the resource's current ETag on the
-   * service does not match the value specified by the client.
-   *
-   * @param {date} [options.taskReactivateOptions.ifModifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has been
-   * modified since the specified time.
-   *
-   * @param {date} [options.taskReactivateOptions.ifUnmodifiedSince] A timestamp
-   * indicating the last modified time of the resource known to the client. The
-   * operation will be performed only if the resource on the service has not been
-   * modified since the specified time.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskReactivateOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3611,17 +2505,17 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   reactivate(jobId: string, taskId: string): Promise<void>;
-  reactivate(jobId: string, taskId: string, options: { taskReactivateOptions? : Models.TaskReactivateOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  reactivate(jobId: string, taskId: string, options: Models.TaskReactivateOptionalParams): Promise<void>;
   reactivate(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-  reactivate(jobId: string, taskId: string, options: { taskReactivateOptions? : Models.TaskReactivateOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  reactivate(jobId: string, taskId: string, options?: { taskReactivateOptions? : Models.TaskReactivateOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  reactivate(jobId: string, taskId: string, options: Models.TaskReactivateOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  reactivate(jobId: string, taskId: string, options?: Models.TaskReactivateOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3654,24 +2548,7 @@ export class Task {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.taskListNextOptions] Additional parameters for the
-   * operation
-   *
-   * @param {string} [options.taskListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.taskListNextOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.taskListNextOptions.ocpDate] The time the request was
-   * issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {TaskListNextOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3679,18 +2556,19 @@ export class Task {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {CloudTaskListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link CloudTaskListResult} for more information.
+   *                      {Models.CloudTaskListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.CloudTaskListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.CloudTaskListResult>;
-  listNext(nextPageLink: string, options: { taskListNextOptions? : Models.TaskListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.CloudTaskListResult>;
+  listNext(nextPageLink: string, options: Models.TaskListNextOptionalParams): Promise<Models.CloudTaskListResult>;
   listNext(nextPageLink: string, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
-  listNext(nextPageLink: string, options: { taskListNextOptions? : Models.TaskListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
-  listNext(nextPageLink: string, options?: { taskListNextOptions? : Models.TaskListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.CloudTaskListResult>): any {
+  listNext(nextPageLink: string, options: Models.TaskListNextOptionalParams, callback: msRest.ServiceCallback<Models.CloudTaskListResult>): void;
+  listNext(nextPageLink: string, options?: Models.TaskListNextOptionalParams, callback?: msRest.ServiceCallback<Models.CloudTaskListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

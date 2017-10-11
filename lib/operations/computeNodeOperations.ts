@@ -8,10 +8,10 @@
  * regenerated.
  */
 
-import * as msRest from "ms-rest-ts";
+import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from '../batchServiceClient';
+import { BatchServiceClient } from "../batchServiceClient";
 
 const WebResource = msRest.WebResource;
 
@@ -37,61 +37,17 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the machine on which you want to create a
    * user account.
    *
-   * @param {object} user The user account to be created.
+   * @param {ComputeNodeUser} user The user account to be created.
    *
-   * @param {string} user.name The user name of the account.
-   *
-   * @param {boolean} [user.isAdmin] Whether the account should be an
-   * administrator on the compute node. The default value is false.
-   *
-   * @param {date} [user.expiryTime] The time at which the account should expire.
-   * If omitted, the default is 1 day from the current time. For Linux compute
-   * nodes, the expiryTime has a precision up to a day.
-   *
-   * @param {string} [user.password] The password of the account. The password is
-   * required for Windows nodes (those created with 'cloudServiceConfiguration',
-   * or created with 'virtualMachineConfiguration' using a Windows image
-   * reference). For Linux compute nodes, the password can optionally be
-   * specified along with the sshPublicKey property.
-   *
-   * @param {string} [user.sshPublicKey] The SSH public key that can be used for
-   * remote login to the compute node. The public key should be compatible with
-   * OpenSSH encoding and should be base 64 encoded. This property can be
-   * specified only for Linux nodes. If this is specified for a Windows node,
-   * then the Batch service rejects the request; if you are calling the REST API
-   * directly, the HTTP status code is 400 (Bad Request).
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeAddUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeAddUserOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeAddUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeAddUserOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeAddUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeAddUserOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addUserWithHttpOperationResponse(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: { computeNodeAddUserOptions? : Models.ComputeNodeAddUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async addUserWithHttpOperationResponse(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: Models.ComputeNodeAddUserOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeAddUserOptions = (options && options.computeNodeAddUserOptions !== undefined) ? options.computeNodeAddUserOptions : undefined;
     // Validate
@@ -144,7 +100,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeAddUserOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -157,13 +113,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/users';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -261,38 +217,15 @@ export class ComputeNodeOperations {
    *
    * @param {string} userName The name of the user account to delete.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeDeleteUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeDeleteUserOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeDeleteUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeDeleteUserOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeDeleteUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeDeleteUserOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async deleteUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, options?: { computeNodeDeleteUserOptions? : Models.ComputeNodeDeleteUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async deleteUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, options?: Models.ComputeNodeDeleteUserOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeDeleteUserOptions = (options && options.computeNodeDeleteUserOptions !== undefined) ? options.computeNodeDeleteUserOptions : undefined;
     // Validate
@@ -345,7 +278,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeDeleteUserOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -359,13 +292,13 @@ export class ComputeNodeOperations {
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
     requestUrl = requestUrl.replace('{userName}', encodeURIComponent(userName));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -452,59 +385,18 @@ export class ComputeNodeOperations {
    *
    * @param {string} userName The name of the user account to update.
    *
-   * @param {object} nodeUpdateUserParameter The parameters for the request.
+   * @param {NodeUpdateUserParameter} nodeUpdateUserParameter The parameters for
+   * the request.
    *
-   * @param {string} [nodeUpdateUserParameter.password] The password of the
-   * account. The password is required for Windows nodes (those created with
-   * 'cloudServiceConfiguration', or created with 'virtualMachineConfiguration'
-   * using a Windows image reference). For Linux compute nodes, the password can
-   * optionally be specified along with the sshPublicKey property. If omitted,
-   * any existing password is removed.
-   *
-   * @param {date} [nodeUpdateUserParameter.expiryTime] The time at which the
-   * account should expire. If omitted, the default is 1 day from the current
-   * time. For Linux compute nodes, the expiryTime has a precision up to a day.
-   *
-   * @param {string} [nodeUpdateUserParameter.sshPublicKey] The SSH public key
-   * that can be used for remote login to the compute node. The public key should
-   * be compatible with OpenSSH encoding and should be base 64 encoded. This
-   * property can be specified only for Linux nodes. If this is specified for a
-   * Windows node, then the Batch service rejects the request; if you are calling
-   * the REST API directly, the HTTP status code is 400 (Bad Request). If
-   * omitted, any existing SSH public key is removed.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeUpdateUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeUpdateUserOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeUpdateUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeUpdateUserOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeUpdateUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeUpdateUserOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async updateUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: { computeNodeUpdateUserOptions? : Models.ComputeNodeUpdateUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async updateUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: Models.ComputeNodeUpdateUserOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeUpdateUserOptions = (options && options.computeNodeUpdateUserOptions !== undefined) ? options.computeNodeUpdateUserOptions : undefined;
     // Validate
@@ -560,7 +452,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeUpdateUserOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -574,13 +466,13 @@ export class ComputeNodeOperations {
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
     requestUrl = requestUrl.replace('{userName}', encodeURIComponent(userName));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -673,39 +565,15 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node that you want to get
    * information about.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.computeNodeGetOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.computeNodeGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ComputeNode>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(poolId: string, nodeId: string, options?: { computeNodeGetOptions? : Models.ComputeNodeGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeGetOptions = (options && options.computeNodeGetOptions !== undefined) ? options.computeNodeGetOptions : undefined;
     // Validate
@@ -763,7 +631,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeGetOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -776,16 +644,16 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -880,54 +748,15 @@ export class ComputeNodeOperations {
    *
    * @param {string} nodeId The ID of the compute node that you want to restart.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeRebootOption] When to reboot the compute node
-   * and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * will run again when a node is available. Restart the node as soon as tasks
-   * have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Restart
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Restart the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for all
-   * task data retention periods to expire. Schedule no new tasks while waiting.
-   * Restart the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
-   *
-   * @param {object} [options.computeNodeRebootOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.computeNodeRebootOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeRebootOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeRebootOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeRebootOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeRebootOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async rebootWithHttpOperationResponse(poolId: string, nodeId: string, options?: { nodeRebootOption? : string, computeNodeRebootOptions? : Models.ComputeNodeRebootOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async rebootWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeRebootOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let nodeRebootOption = (options && options.nodeRebootOption !== undefined) ? options.nodeRebootOption : undefined;
     let computeNodeRebootOptions = (options && options.computeNodeRebootOptions !== undefined) ? options.computeNodeRebootOptions : undefined;
@@ -985,7 +814,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeRebootOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1003,13 +832,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/reboot';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1105,54 +934,15 @@ export class ComputeNodeOperations {
    *
    * @param {string} nodeId The ID of the compute node that you want to restart.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeReimageOption] When to reimage the compute node
-   * and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * will run again when a node is available. Reimage the node as soon as tasks
-   * have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Reimage
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Reimage the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for all
-   * task data retention periods to expire. Schedule no new tasks while waiting.
-   * Reimage the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
-   *
-   * @param {object} [options.computeNodeReimageOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeReimageOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeReimageOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeReimageOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeReimageOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeReimageOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async reimageWithHttpOperationResponse(poolId: string, nodeId: string, options?: { nodeReimageOption? : string, computeNodeReimageOptions? : Models.ComputeNodeReimageOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async reimageWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeReimageOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let nodeReimageOption = (options && options.nodeReimageOption !== undefined) ? options.nodeReimageOption : undefined;
     let computeNodeReimageOptions = (options && options.computeNodeReimageOptions !== undefined) ? options.computeNodeReimageOptions : undefined;
@@ -1210,7 +1000,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeReimageOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1228,13 +1018,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/reimage';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1330,54 +1120,16 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node on which you want to
    * disable task scheduling.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeDisableSchedulingOption] What to do with
-   * currently running tasks when disabling task scheduling on the compute node.
-   * Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * may run again on other compute nodes, or when task scheduling is re-enabled
-   * on this node. Enter offline state as soon as tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Enter
-   * offline state as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Enter offline state when all tasks have completed.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion'
-   *
-   * @param {object} [options.computeNodeDisableSchedulingOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeDisableSchedulingOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string}
-   * [options.computeNodeDisableSchedulingOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeDisableSchedulingOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeDisableSchedulingOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeDisableSchedulingOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async disableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: { nodeDisableSchedulingOption? : string, computeNodeDisableSchedulingOptions? : Models.ComputeNodeDisableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async disableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeDisableSchedulingOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let nodeDisableSchedulingOption = (options && options.nodeDisableSchedulingOption !== undefined) ? options.nodeDisableSchedulingOption : undefined;
     let computeNodeDisableSchedulingOptions = (options && options.computeNodeDisableSchedulingOptions !== undefined) ? options.computeNodeDisableSchedulingOptions : undefined;
@@ -1435,7 +1187,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeDisableSchedulingOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1453,13 +1205,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/disablescheduling';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1555,38 +1307,16 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node on which you want to
    * enable task scheduling.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeEnableSchedulingOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeEnableSchedulingOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeEnableSchedulingOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeEnableSchedulingOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeEnableSchedulingOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeEnableSchedulingOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async enableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: { computeNodeEnableSchedulingOptions? : Models.ComputeNodeEnableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async enableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeEnableSchedulingOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeEnableSchedulingOptions = (options && options.computeNodeEnableSchedulingOptions !== undefined) ? options.computeNodeEnableSchedulingOptions : undefined;
     // Validate
@@ -1636,7 +1366,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeEnableSchedulingOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1649,13 +1379,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/enablescheduling';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1739,39 +1469,16 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node for which to obtain the
    * remote login settings.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetRemoteLoginSettingsOptions]
-   * Additional parameters for the operation
-   *
-   * @param {number} [options.computeNodeGetRemoteLoginSettingsOptions.timeout]
-   * The maximum time that the server can spend processing the request, in
-   * seconds. The default is 30 seconds.
-   *
-   * @param {string}
-   * [options.computeNodeGetRemoteLoginSettingsOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeGetRemoteLoginSettingsOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetRemoteLoginSettingsOptions.ocpDate] The
-   * time the request was issued. Client libraries typically set this to the
-   * current system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetRemoteLoginSettingsOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ComputeNodeGetRemoteLoginSettingsResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getRemoteLoginSettingsWithHttpOperationResponse(poolId: string, nodeId: string, options?: { computeNodeGetRemoteLoginSettingsOptions? : Models.ComputeNodeGetRemoteLoginSettingsOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getRemoteLoginSettingsWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeGetRemoteLoginSettingsOptions = (options && options.computeNodeGetRemoteLoginSettingsOptions !== undefined) ? options.computeNodeGetRemoteLoginSettingsOptions : undefined;
     // Validate
@@ -1821,7 +1528,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeGetRemoteLoginSettingsOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -1834,13 +1541,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/remoteloginsettings';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -1940,38 +1647,16 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node for which you want to get
    * the Remote Desktop Protocol file.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetRemoteDesktopOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeGetRemoteDesktopOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeGetRemoteDesktopOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeGetRemoteDesktopOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetRemoteDesktopOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetRemoteDesktopOptionalParams} [options] Optional
+   * Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ReadableStream>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getRemoteDesktopWithHttpOperationResponse(poolId: string, nodeId: string, options?: { computeNodeGetRemoteDesktopOptions? : Models.ComputeNodeGetRemoteDesktopOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async getRemoteDesktopWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeGetRemoteDesktopOptions = (options && options.computeNodeGetRemoteDesktopOptions !== undefined) ? options.computeNodeGetRemoteDesktopOptions : undefined;
     // Validate
@@ -2021,7 +1706,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeGetRemoteDesktopOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2034,13 +1719,13 @@ export class ComputeNodeOperations {
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/rdp';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
     requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -2119,46 +1804,15 @@ export class ComputeNodeOperations {
    *
    * @param {string} poolId The ID of the pool from which you want to list nodes.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.computeNodeListOptions.filter] An OData $filter
-   * clause..
-   *
-   * @param {string} [options.computeNodeListOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.computeNodeListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 nodes can be
-   * returned.
-   *
-   * @param {number} [options.computeNodeListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeListOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ComputeNodeListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(poolId: string, options?: { computeNodeListOptions? : Models.ComputeNodeListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(poolId: string, options?: Models.ComputeNodeListOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeListOptions = (options && options.computeNodeListOptions !== undefined) ? options.computeNodeListOptions : undefined;
     // Validate
@@ -2229,7 +1883,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeListOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2241,22 +1895,22 @@ export class ComputeNodeOperations {
     let baseUrl = this.client.baseUri;
     let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes';
     requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-    let queryParameters: Array<any> = [];
-    queryParameters.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+    let queryParamsArray: Array<any> = [];
+    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
     if (filter !== null && filter !== undefined) {
-      queryParameters.push('$filter=' + encodeURIComponent(filter));
+      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
     }
     if (select !== null && select !== undefined) {
-      queryParameters.push('$select=' + encodeURIComponent(select));
+      queryParamsArray.push('$select=' + encodeURIComponent(select));
     }
     if (maxResults !== null && maxResults !== undefined) {
-      queryParameters.push('maxresults=' + encodeURIComponent(maxResults.toString()));
+      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
     }
     if (timeout !== null && timeout !== undefined) {
-      queryParameters.push('timeout=' + encodeURIComponent(timeout.toString()));
+      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
     }
-    if (queryParameters.length > 0) {
-      requestUrl += '?' + queryParameters.join('&');
+    if (queryParamsArray.length > 0) {
+      requestUrl += '?' + queryParamsArray.join('&');
     }
 
     // Create HTTP transport objects
@@ -2348,33 +2002,15 @@ export class ComputeNodeOperations {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.computeNodeListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeListNextOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
    *
-   * @resolve {HttpOperationResponse<ComputeNodeListResult>} - The deserialized result object.
+   * @resolve {HttpOperationResponse} - The deserialized result object.
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: { computeNodeListNextOptions? : Models.ComputeNodeListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ComputeNodeListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let computeNodeListNextOptions = (options && options.computeNodeListNextOptions !== undefined) ? options.computeNodeListNextOptions : undefined;
     // Validate
@@ -2410,7 +2046,7 @@ export class ComputeNodeOperations {
       {
         ocpDate = computeNodeListNextOptions.ocpDate;
         if (ocpDate && !(ocpDate instanceof Date ||
-            (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
+            (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
       }
@@ -2516,53 +2152,9 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the machine on which you want to create a
    * user account.
    *
-   * @param {object} user The user account to be created.
+   * @param {ComputeNodeUser} user The user account to be created.
    *
-   * @param {string} user.name The user name of the account.
-   *
-   * @param {boolean} [user.isAdmin] Whether the account should be an
-   * administrator on the compute node. The default value is false.
-   *
-   * @param {date} [user.expiryTime] The time at which the account should expire.
-   * If omitted, the default is 1 day from the current time. For Linux compute
-   * nodes, the expiryTime has a precision up to a day.
-   *
-   * @param {string} [user.password] The password of the account. The password is
-   * required for Windows nodes (those created with 'cloudServiceConfiguration',
-   * or created with 'virtualMachineConfiguration' using a Windows image
-   * reference). For Linux compute nodes, the password can optionally be
-   * specified along with the sshPublicKey property.
-   *
-   * @param {string} [user.sshPublicKey] The SSH public key that can be used for
-   * remote login to the compute node. The public key should be compatible with
-   * OpenSSH encoding and should be base 64 encoded. This property can be
-   * specified only for Linux nodes. If this is specified for a Windows node,
-   * then the Batch service rejects the request; if you are calling the REST API
-   * directly, the HTTP status code is 400 (Bad Request).
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeAddUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeAddUserOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeAddUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeAddUserOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeAddUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeAddUserOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2570,17 +2162,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser): Promise<void>;
-  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options: { computeNodeAddUserOptions? : Models.ComputeNodeAddUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options: Models.ComputeNodeAddUserOptionalParams): Promise<void>;
   addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, callback: msRest.ServiceCallback<void>): void;
-  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options: { computeNodeAddUserOptions? : Models.ComputeNodeAddUserOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: { computeNodeAddUserOptions? : Models.ComputeNodeAddUserOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options: Models.ComputeNodeAddUserOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: Models.ComputeNodeAddUserOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2616,30 +2208,7 @@ export class ComputeNodeOperations {
    *
    * @param {string} userName The name of the user account to delete.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeDeleteUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeDeleteUserOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeDeleteUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeDeleteUserOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeDeleteUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeDeleteUserOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2647,17 +2216,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   deleteUser(poolId: string, nodeId: string, userName: string): Promise<void>;
-  deleteUser(poolId: string, nodeId: string, userName: string, options: { computeNodeDeleteUserOptions? : Models.ComputeNodeDeleteUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  deleteUser(poolId: string, nodeId: string, userName: string, options: Models.ComputeNodeDeleteUserOptionalParams): Promise<void>;
   deleteUser(poolId: string, nodeId: string, userName: string, callback: msRest.ServiceCallback<void>): void;
-  deleteUser(poolId: string, nodeId: string, userName: string, options: { computeNodeDeleteUserOptions? : Models.ComputeNodeDeleteUserOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  deleteUser(poolId: string, nodeId: string, userName: string, options?: { computeNodeDeleteUserOptions? : Models.ComputeNodeDeleteUserOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  deleteUser(poolId: string, nodeId: string, userName: string, options: Models.ComputeNodeDeleteUserOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  deleteUser(poolId: string, nodeId: string, userName: string, options?: Models.ComputeNodeDeleteUserOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2696,51 +2265,10 @@ export class ComputeNodeOperations {
    *
    * @param {string} userName The name of the user account to update.
    *
-   * @param {object} nodeUpdateUserParameter The parameters for the request.
+   * @param {NodeUpdateUserParameter} nodeUpdateUserParameter The parameters for
+   * the request.
    *
-   * @param {string} [nodeUpdateUserParameter.password] The password of the
-   * account. The password is required for Windows nodes (those created with
-   * 'cloudServiceConfiguration', or created with 'virtualMachineConfiguration'
-   * using a Windows image reference). For Linux compute nodes, the password can
-   * optionally be specified along with the sshPublicKey property. If omitted,
-   * any existing password is removed.
-   *
-   * @param {date} [nodeUpdateUserParameter.expiryTime] The time at which the
-   * account should expire. If omitted, the default is 1 day from the current
-   * time. For Linux compute nodes, the expiryTime has a precision up to a day.
-   *
-   * @param {string} [nodeUpdateUserParameter.sshPublicKey] The SSH public key
-   * that can be used for remote login to the compute node. The public key should
-   * be compatible with OpenSSH encoding and should be base 64 encoded. This
-   * property can be specified only for Linux nodes. If this is specified for a
-   * Windows node, then the Batch service rejects the request; if you are calling
-   * the REST API directly, the HTTP status code is 400 (Bad Request). If
-   * omitted, any existing SSH public key is removed.
-   *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeUpdateUserOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeUpdateUserOptions.timeout] The maximum
-   * time that the server can spend processing the request, in seconds. The
-   * default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeUpdateUserOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeUpdateUserOptions.returnClientRequestId] Whether the
-   * server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeUpdateUserOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeUpdateUserOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2748,17 +2276,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter): Promise<void>;
-  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options: { computeNodeUpdateUserOptions? : Models.ComputeNodeUpdateUserOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options: Models.ComputeNodeUpdateUserOptionalParams): Promise<void>;
   updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, callback: msRest.ServiceCallback<void>): void;
-  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options: { computeNodeUpdateUserOptions? : Models.ComputeNodeUpdateUserOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: { computeNodeUpdateUserOptions? : Models.ComputeNodeUpdateUserOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options: Models.ComputeNodeUpdateUserOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: Models.ComputeNodeUpdateUserOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2789,31 +2317,7 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node that you want to get
    * information about.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.computeNodeGetOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.computeNodeGetOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeGetOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeGetOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2821,18 +2325,18 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ComputeNode} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ComputeNode} for more information.
+   *                      {Models.ComputeNode} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ComputeNode} for more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   get(poolId: string, nodeId: string): Promise<Models.ComputeNode>;
-  get(poolId: string, nodeId: string, options: { computeNodeGetOptions? : Models.ComputeNodeGetOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ComputeNode>;
+  get(poolId: string, nodeId: string, options: Models.ComputeNodeGetOptionalParams): Promise<Models.ComputeNode>;
   get(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Models.ComputeNode>): void;
-  get(poolId: string, nodeId: string, options: { computeNodeGetOptions? : Models.ComputeNodeGetOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ComputeNode>): void;
-  get(poolId: string, nodeId: string, options?: { computeNodeGetOptions? : Models.ComputeNodeGetOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ComputeNode>): any {
+  get(poolId: string, nodeId: string, options: Models.ComputeNodeGetOptionalParams, callback: msRest.ServiceCallback<Models.ComputeNode>): void;
+  get(poolId: string, nodeId: string, options?: Models.ComputeNodeGetOptionalParams, callback?: msRest.ServiceCallback<Models.ComputeNode>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2864,46 +2368,7 @@ export class ComputeNodeOperations {
    *
    * @param {string} nodeId The ID of the compute node that you want to restart.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeRebootOption] When to reboot the compute node
-   * and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * will run again when a node is available. Restart the node as soon as tasks
-   * have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Restart
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Restart the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for all
-   * task data retention periods to expire. Schedule no new tasks while waiting.
-   * Restart the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
-   *
-   * @param {object} [options.computeNodeRebootOptions] Additional parameters for
-   * the operation
-   *
-   * @param {number} [options.computeNodeRebootOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeRebootOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeRebootOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeRebootOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeRebootOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -2911,17 +2376,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   reboot(poolId: string, nodeId: string): Promise<void>;
-  reboot(poolId: string, nodeId: string, options: { nodeRebootOption? : string, computeNodeRebootOptions? : Models.ComputeNodeRebootOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  reboot(poolId: string, nodeId: string, options: Models.ComputeNodeRebootOptionalParams): Promise<void>;
   reboot(poolId: string, nodeId: string, callback: msRest.ServiceCallback<void>): void;
-  reboot(poolId: string, nodeId: string, options: { nodeRebootOption? : string, computeNodeRebootOptions? : Models.ComputeNodeRebootOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  reboot(poolId: string, nodeId: string, options?: { nodeRebootOption? : string, computeNodeRebootOptions? : Models.ComputeNodeRebootOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  reboot(poolId: string, nodeId: string, options: Models.ComputeNodeRebootOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  reboot(poolId: string, nodeId: string, options?: Models.ComputeNodeRebootOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -2955,46 +2420,7 @@ export class ComputeNodeOperations {
    *
    * @param {string} nodeId The ID of the compute node that you want to restart.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeReimageOption] When to reimage the compute node
-   * and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * will run again when a node is available. Reimage the node as soon as tasks
-   * have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Reimage
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Reimage the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for all
-   * task data retention periods to expire. Schedule no new tasks while waiting.
-   * Reimage the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
-   *
-   * @param {object} [options.computeNodeReimageOptions] Additional parameters
-   * for the operation
-   *
-   * @param {number} [options.computeNodeReimageOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeReimageOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeReimageOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeReimageOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeReimageOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3002,17 +2428,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   reimage(poolId: string, nodeId: string): Promise<void>;
-  reimage(poolId: string, nodeId: string, options: { nodeReimageOption? : string, computeNodeReimageOptions? : Models.ComputeNodeReimageOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  reimage(poolId: string, nodeId: string, options: Models.ComputeNodeReimageOptionalParams): Promise<void>;
   reimage(poolId: string, nodeId: string, callback: msRest.ServiceCallback<void>): void;
-  reimage(poolId: string, nodeId: string, options: { nodeReimageOption? : string, computeNodeReimageOptions? : Models.ComputeNodeReimageOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  reimage(poolId: string, nodeId: string, options?: { nodeReimageOption? : string, computeNodeReimageOptions? : Models.ComputeNodeReimageOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  reimage(poolId: string, nodeId: string, options: Models.ComputeNodeReimageOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  reimage(poolId: string, nodeId: string, options?: Models.ComputeNodeReimageOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3046,46 +2472,8 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node on which you want to
    * disable task scheduling.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {string} [options.nodeDisableSchedulingOption] What to do with
-   * currently running tasks when disabling task scheduling on the compute node.
-   * Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The tasks
-   * may run again on other compute nodes, or when task scheduling is re-enabled
-   * on this node. Enter offline state as soon as tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Enter
-   * offline state as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no new
-   * tasks while waiting. Enter offline state when all tasks have completed.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion'
-   *
-   * @param {object} [options.computeNodeDisableSchedulingOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeDisableSchedulingOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string}
-   * [options.computeNodeDisableSchedulingOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeDisableSchedulingOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeDisableSchedulingOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeDisableSchedulingOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3093,17 +2481,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   disableScheduling(poolId: string, nodeId: string): Promise<void>;
-  disableScheduling(poolId: string, nodeId: string, options: { nodeDisableSchedulingOption? : string, computeNodeDisableSchedulingOptions? : Models.ComputeNodeDisableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  disableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeDisableSchedulingOptionalParams): Promise<void>;
   disableScheduling(poolId: string, nodeId: string, callback: msRest.ServiceCallback<void>): void;
-  disableScheduling(poolId: string, nodeId: string, options: { nodeDisableSchedulingOption? : string, computeNodeDisableSchedulingOptions? : Models.ComputeNodeDisableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  disableScheduling(poolId: string, nodeId: string, options?: { nodeDisableSchedulingOption? : string, computeNodeDisableSchedulingOptions? : Models.ComputeNodeDisableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  disableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeDisableSchedulingOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  disableScheduling(poolId: string, nodeId: string, options?: Models.ComputeNodeDisableSchedulingOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3137,30 +2525,8 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node on which you want to
    * enable task scheduling.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeEnableSchedulingOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeEnableSchedulingOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeEnableSchedulingOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeEnableSchedulingOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeEnableSchedulingOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeEnableSchedulingOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3168,17 +2534,17 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {null} [result]   - The deserialized result object if an error did not occur.
+   *                      {void} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   enableScheduling(poolId: string, nodeId: string): Promise<void>;
-  enableScheduling(poolId: string, nodeId: string, options: { computeNodeEnableSchedulingOptions? : Models.ComputeNodeEnableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+  enableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeEnableSchedulingOptionalParams): Promise<void>;
   enableScheduling(poolId: string, nodeId: string, callback: msRest.ServiceCallback<void>): void;
-  enableScheduling(poolId: string, nodeId: string, options: { computeNodeEnableSchedulingOptions? : Models.ComputeNodeEnableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<void>): void;
-  enableScheduling(poolId: string, nodeId: string, options?: { computeNodeEnableSchedulingOptions? : Models.ComputeNodeEnableSchedulingOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<void>): any {
+  enableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeEnableSchedulingOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  enableScheduling(poolId: string, nodeId: string, options?: Models.ComputeNodeEnableSchedulingOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3214,31 +2580,8 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node for which to obtain the
    * remote login settings.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetRemoteLoginSettingsOptions]
-   * Additional parameters for the operation
-   *
-   * @param {number} [options.computeNodeGetRemoteLoginSettingsOptions.timeout]
-   * The maximum time that the server can spend processing the request, in
-   * seconds. The default is 30 seconds.
-   *
-   * @param {string}
-   * [options.computeNodeGetRemoteLoginSettingsOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeGetRemoteLoginSettingsOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetRemoteLoginSettingsOptions.ocpDate] The
-   * time the request was issued. Client libraries typically set this to the
-   * current system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetRemoteLoginSettingsOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3246,19 +2589,20 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ComputeNodeGetRemoteLoginSettingsResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ComputeNodeGetRemoteLoginSettingsResult} for
+   *                      {Models.ComputeNodeGetRemoteLoginSettingsResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link
+   *                      Models.ComputeNodeGetRemoteLoginSettingsResult} for
    *                      more information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   getRemoteLoginSettings(poolId: string, nodeId: string): Promise<Models.ComputeNodeGetRemoteLoginSettingsResult>;
-  getRemoteLoginSettings(poolId: string, nodeId: string, options: { computeNodeGetRemoteLoginSettingsOptions? : Models.ComputeNodeGetRemoteLoginSettingsOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ComputeNodeGetRemoteLoginSettingsResult>;
+  getRemoteLoginSettings(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams): Promise<Models.ComputeNodeGetRemoteLoginSettingsResult>;
   getRemoteLoginSettings(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): void;
-  getRemoteLoginSettings(poolId: string, nodeId: string, options: { computeNodeGetRemoteLoginSettingsOptions? : Models.ComputeNodeGetRemoteLoginSettingsOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): void;
-  getRemoteLoginSettings(poolId: string, nodeId: string, options?: { computeNodeGetRemoteLoginSettingsOptions? : Models.ComputeNodeGetRemoteLoginSettingsOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): any {
+  getRemoteLoginSettings(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams, callback: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): void;
+  getRemoteLoginSettings(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams, callback?: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3295,30 +2639,8 @@ export class ComputeNodeOperations {
    * @param {string} nodeId The ID of the compute node for which you want to get
    * the Remote Desktop Protocol file.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeGetRemoteDesktopOptions] Additional
-   * parameters for the operation
-   *
-   * @param {number} [options.computeNodeGetRemoteDesktopOptions.timeout] The
-   * maximum time that the server can spend processing the request, in seconds.
-   * The default is 30 seconds.
-   *
-   * @param {string} [options.computeNodeGetRemoteDesktopOptions.clientRequestId]
-   * The caller-generated request identity, in the form of a GUID with no
-   * decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean}
-   * [options.computeNodeGetRemoteDesktopOptions.returnClientRequestId] Whether
-   * the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeGetRemoteDesktopOptions.ocpDate] The time
-   * the request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeGetRemoteDesktopOptionalParams} [options] Optional
+   * Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3330,13 +2652,13 @@ export class ComputeNodeOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   getRemoteDesktop(poolId: string, nodeId: string): Promise<ReadableStream>;
-  getRemoteDesktop(poolId: string, nodeId: string, options: { computeNodeGetRemoteDesktopOptions? : Models.ComputeNodeGetRemoteDesktopOptions, customHeaders? : { [headerName: string]: string; } }): Promise<ReadableStream>;
+  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<ReadableStream>;
   getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getRemoteDesktop(poolId: string, nodeId: string, options: { computeNodeGetRemoteDesktopOptions? : Models.ComputeNodeGetRemoteDesktopOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getRemoteDesktop(poolId: string, nodeId: string, options?: { computeNodeGetRemoteDesktopOptions? : Models.ComputeNodeGetRemoteDesktopOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<ReadableStream>): any {
+  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
+  getRemoteDesktop(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback?: msRest.ServiceCallback<ReadableStream>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3364,38 +2686,7 @@ export class ComputeNodeOperations {
    *
    * @param {string} poolId The ID of the pool from which you want to list nodes.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeListOptions] Additional parameters for
-   * the operation
-   *
-   * @param {string} [options.computeNodeListOptions.filter] An OData $filter
-   * clause..
-   *
-   * @param {string} [options.computeNodeListOptions.select] An OData $select
-   * clause.
-   *
-   * @param {number} [options.computeNodeListOptions.maxResults] The maximum
-   * number of items to return in the response. A maximum of 1000 nodes can be
-   * returned.
-   *
-   * @param {number} [options.computeNodeListOptions.timeout] The maximum time
-   * that the server can spend processing the request, in seconds. The default is
-   * 30 seconds.
-   *
-   * @param {string} [options.computeNodeListOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeListOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeListOptions.ocpDate] The time the request
-   * was issued. Client libraries typically set this to the current system clock
-   * time; set it explicitly if you are calling the REST API directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeListOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3403,18 +2694,19 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ComputeNodeListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ComputeNodeListResult} for more information.
+   *                      {Models.ComputeNodeListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ComputeNodeListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   list(poolId: string): Promise<Models.ComputeNodeListResult>;
-  list(poolId: string, options: { computeNodeListOptions? : Models.ComputeNodeListOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ComputeNodeListResult>;
+  list(poolId: string, options: Models.ComputeNodeListOptionalParams): Promise<Models.ComputeNodeListResult>;
   list(poolId: string, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
-  list(poolId: string, options: { computeNodeListOptions? : Models.ComputeNodeListOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
-  list(poolId: string, options?: { computeNodeListOptions? : Models.ComputeNodeListOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ComputeNodeListResult>): any {
+  list(poolId: string, options: Models.ComputeNodeListOptionalParams, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
+  list(poolId: string, options?: Models.ComputeNodeListOptionalParams, callback?: msRest.ServiceCallback<Models.ComputeNodeListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
@@ -3443,25 +2735,7 @@ export class ComputeNodeOperations {
    * @param {string} nextPageLink The NextLink from the previous successful call
    * to List operation.
    *
-   * @param {object} [options] Optional Parameters.
-   *
-   * @param {object} [options.computeNodeListNextOptions] Additional parameters
-   * for the operation
-   *
-   * @param {string} [options.computeNodeListNextOptions.clientRequestId] The
-   * caller-generated request identity, in the form of a GUID with no decoration
-   * such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
-   *
-   * @param {boolean} [options.computeNodeListNextOptions.returnClientRequestId]
-   * Whether the server should return the client-request-id in the response.
-   *
-   * @param {date} [options.computeNodeListNextOptions.ocpDate] The time the
-   * request was issued. Client libraries typically set this to the current
-   * system clock time; set it explicitly if you are calling the REST API
-   * directly.
-   *
-   * @param {object} [options.customHeaders] Headers that will be added to the
-   * request
+   * @param {ComputeNodeListNextOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
    *
@@ -3469,18 +2743,19 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ComputeNodeListResult} [result]   - The deserialized result object if an error did not occur.
-   *                      See {@link ComputeNodeListResult} for more information.
+   *                      {Models.ComputeNodeListResult} [result]   - The deserialized result object if an error did not occur.
+   *                      See {@link Models.ComputeNodeListResult} for more
+   *                      information.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.ComputeNodeListResult>;
-  listNext(nextPageLink: string, options: { computeNodeListNextOptions? : Models.ComputeNodeListNextOptions, customHeaders? : { [headerName: string]: string; } }): Promise<Models.ComputeNodeListResult>;
+  listNext(nextPageLink: string, options: Models.ComputeNodeListNextOptionalParams): Promise<Models.ComputeNodeListResult>;
   listNext(nextPageLink: string, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
-  listNext(nextPageLink: string, options: { computeNodeListNextOptions? : Models.ComputeNodeListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
-  listNext(nextPageLink: string, options?: { computeNodeListNextOptions? : Models.ComputeNodeListNextOptions, customHeaders? : { [headerName: string]: string; } }, callback?: msRest.ServiceCallback<Models.ComputeNodeListResult>): any {
+  listNext(nextPageLink: string, options: Models.ComputeNodeListNextOptionalParams, callback: msRest.ServiceCallback<Models.ComputeNodeListResult>): void;
+  listNext(nextPageLink: string, options?: Models.ComputeNodeListNextOptionalParams, callback?: msRest.ServiceCallback<Models.ComputeNodeListResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

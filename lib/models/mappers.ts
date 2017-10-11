@@ -8,7 +8,7 @@
  * regenerated.
  */
 
-import {CloudErrorMapper, BaseResourceMapper } from "ms-rest-azure-ts";
+import {CloudErrorMapper, BaseResourceMapper } from "ms-rest-azure-js";
 
 export const CloudError = CloudErrorMapper;
 export const BaseResource = BaseResourceMapper;
@@ -81,21 +81,21 @@ export const ImageReference = {
     className: 'ImageReference',
     modelProperties: {
       publisher: {
-        required: true,
+        required: false,
         serializedName: 'publisher',
         type: {
           name: 'String'
         }
       },
       offer: {
-        required: true,
+        required: false,
         serializedName: 'offer',
         type: {
           name: 'String'
         }
       },
       sku: {
-        required: true,
+        required: false,
         serializedName: 'sku',
         type: {
           name: 'String'
@@ -104,6 +104,13 @@ export const ImageReference = {
       version: {
         required: false,
         serializedName: 'version',
+        type: {
+          name: 'String'
+        }
+      },
+      virtualMachineImageId: {
+        required: false,
+        serializedName: 'virtualMachineImageId',
         type: {
           name: 'String'
         }
@@ -873,6 +880,71 @@ export const JobConstraints = {
   }
 };
 
+export const ContainerRegistry = {
+  required: false,
+  serializedName: 'ContainerRegistry',
+  type: {
+    name: 'Composite',
+    className: 'ContainerRegistry',
+    modelProperties: {
+      registryServer: {
+        required: false,
+        serializedName: 'registryServer',
+        type: {
+          name: 'String'
+        }
+      },
+      userName: {
+        required: true,
+        serializedName: 'username',
+        type: {
+          name: 'String'
+        }
+      },
+      password: {
+        required: true,
+        serializedName: 'password',
+        type: {
+          name: 'String'
+        }
+      }
+    }
+  }
+};
+
+export const TaskContainerSettings = {
+  required: false,
+  serializedName: 'TaskContainerSettings',
+  type: {
+    name: 'Composite',
+    className: 'TaskContainerSettings',
+    modelProperties: {
+      containerRunOptions: {
+        required: false,
+        serializedName: 'containerRunOptions',
+        type: {
+          name: 'String'
+        }
+      },
+      imageName: {
+        required: true,
+        serializedName: 'imageName',
+        type: {
+          name: 'String'
+        }
+      },
+      registry: {
+        required: false,
+        serializedName: 'registry',
+        type: {
+          name: 'Composite',
+          className: 'ContainerRegistry'
+        }
+      }
+    }
+  }
+};
+
 export const ResourceFile = {
   required: false,
   serializedName: 'ResourceFile',
@@ -1364,6 +1436,14 @@ export const JobManagerTask = {
           name: 'String'
         }
       },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
+        }
+      },
       resourceFiles: {
         required: false,
         serializedName: 'resourceFiles',
@@ -1494,6 +1574,14 @@ export const JobPreparationTask = {
           name: 'String'
         }
       },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
+        }
+      },
       resourceFiles: {
         required: false,
         serializedName: 'resourceFiles',
@@ -1577,6 +1665,14 @@ export const JobReleaseTask = {
         serializedName: 'commandLine',
         type: {
           name: 'String'
+        }
+      },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
         }
       },
       resourceFiles: {
@@ -1666,6 +1762,14 @@ export const StartTask = {
         serializedName: 'commandLine',
         type: {
           name: 'String'
+        }
+      },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
         }
       },
       resourceFiles: {
@@ -1827,6 +1931,7 @@ export const CloudServiceConfiguration = {
       },
       currentOSVersion: {
         required: false,
+        readOnly: true,
         serializedName: 'currentOSVersion',
         type: {
           name: 'String'
@@ -1843,20 +1948,6 @@ export const OSDisk = {
     name: 'Composite',
     className: 'OSDisk',
     modelProperties: {
-      imageUris: {
-        required: true,
-        serializedName: 'imageUris',
-        type: {
-          name: 'Sequence',
-          element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
-          }
-        }
-      },
       caching: {
         required: false,
         serializedName: 'caching',
@@ -1887,6 +1978,96 @@ export const WindowsConfiguration = {
   }
 };
 
+export const DataDisk = {
+  required: false,
+  serializedName: 'DataDisk',
+  type: {
+    name: 'Composite',
+    className: 'DataDisk',
+    modelProperties: {
+      lun: {
+        required: true,
+        serializedName: 'lun',
+        type: {
+          name: 'Number'
+        }
+      },
+      caching: {
+        required: false,
+        serializedName: 'caching',
+        type: {
+          name: 'Enum',
+          allowedValues: [ 'none', 'readOnly', 'readWrite' ]
+        }
+      },
+      diskSizeGB: {
+        required: true,
+        serializedName: 'diskSizeGB',
+        type: {
+          name: 'Number'
+        }
+      },
+      storageAccountType: {
+        required: false,
+        serializedName: 'storageAccountType',
+        type: {
+          name: 'Enum',
+          allowedValues: [ 'Standard_LRS', 'Premium_LRS' ]
+        }
+      }
+    }
+  }
+};
+
+export const ContainerConfiguration = {
+  required: false,
+  serializedName: 'ContainerConfiguration',
+  type: {
+    name: 'Composite',
+    className: 'ContainerConfiguration',
+    modelProperties: {
+      type: {
+        required: true,
+        isConstant: true,
+        serializedName: 'type',
+        defaultValue: 'docker',
+        type: {
+          name: 'String'
+        }
+      },
+      containerImageNames: {
+        required: false,
+        serializedName: 'containerImageNames',
+        type: {
+          name: 'Sequence',
+          element: {
+              required: false,
+              serializedName: 'stringElementType',
+              type: {
+                name: 'String'
+              }
+          }
+        }
+      },
+      containerRegistries: {
+        required: false,
+        serializedName: 'containerRegistries',
+        type: {
+          name: 'Sequence',
+          element: {
+              required: false,
+              serializedName: 'ContainerRegistryElementType',
+              type: {
+                name: 'Composite',
+                className: 'ContainerRegistry'
+              }
+          }
+        }
+      }
+    }
+  }
+};
+
 export const VirtualMachineConfiguration = {
   required: false,
   serializedName: 'VirtualMachineConfiguration',
@@ -1895,7 +2076,7 @@ export const VirtualMachineConfiguration = {
     className: 'VirtualMachineConfiguration',
     modelProperties: {
       imageReference: {
-        required: false,
+        required: true,
         serializedName: 'imageReference',
         type: {
           name: 'Composite',
@@ -1923,6 +2104,36 @@ export const VirtualMachineConfiguration = {
         type: {
           name: 'Composite',
           className: 'WindowsConfiguration'
+        }
+      },
+      dataDisks: {
+        required: false,
+        serializedName: 'dataDisks',
+        type: {
+          name: 'Sequence',
+          element: {
+              required: false,
+              serializedName: 'DataDiskElementType',
+              type: {
+                name: 'Composite',
+                className: 'DataDisk'
+              }
+          }
+        }
+      },
+      licenseType: {
+        required: false,
+        serializedName: 'licenseType',
+        type: {
+          name: 'String'
+        }
+      },
+      containerConfiguration: {
+        required: false,
+        serializedName: 'containerConfiguration',
+        type: {
+          name: 'Composite',
+          className: 'ContainerConfiguration'
         }
       }
     }
@@ -2432,6 +2643,7 @@ export const JobSpecification = {
       poolInfo: {
         required: true,
         serializedName: 'poolInfo',
+        defaultValue: {},
         type: {
           name: 'Composite',
           className: 'PoolInformation'
@@ -2785,6 +2997,7 @@ export const JobScheduleAddParameter = {
       jobSpecification: {
         required: true,
         serializedName: 'jobSpecification',
+        defaultValue: {},
         type: {
           name: 'Composite',
           className: 'JobSpecification'
@@ -3181,6 +3394,7 @@ export const JobAddParameter = {
       poolInfo: {
         required: true,
         serializedName: 'poolInfo',
+        defaultValue: {},
         type: {
           name: 'Composite',
           className: 'PoolInformation'
@@ -3222,6 +3436,38 @@ export const JobAddParameter = {
         serializedName: 'usesTaskDependencies',
         type: {
           name: 'Boolean'
+        }
+      }
+    }
+  }
+};
+
+export const TaskContainerExecutionInformation = {
+  required: false,
+  serializedName: 'TaskContainerExecutionInformation',
+  type: {
+    name: 'Composite',
+    className: 'TaskContainerExecutionInformation',
+    modelProperties: {
+      containerId: {
+        required: false,
+        serializedName: 'containerId',
+        type: {
+          name: 'String'
+        }
+      },
+      state: {
+        required: false,
+        serializedName: 'state',
+        type: {
+          name: 'String'
+        }
+      },
+      error: {
+        required: false,
+        serializedName: 'error',
+        type: {
+          name: 'String'
         }
       }
     }
@@ -3326,6 +3572,14 @@ export const JobPreparationTaskExecutionInformation = {
           name: 'Number'
         }
       },
+      containerInfo: {
+        required: false,
+        serializedName: 'containerInfo',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerExecutionInformation'
+        }
+      },
       failureInfo: {
         required: false,
         serializedName: 'failureInfo',
@@ -3408,6 +3662,14 @@ export const JobReleaseTaskExecutionInformation = {
         serializedName: 'exitCode',
         type: {
           name: 'Number'
+        }
+      },
+      containerInfo: {
+        required: false,
+        serializedName: 'containerInfo',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerExecutionInformation'
         }
       },
       failureInfo: {
@@ -4198,6 +4460,14 @@ export const TaskExecutionInformation = {
           name: 'Number'
         }
       },
+      containerInfo: {
+        required: false,
+        serializedName: 'containerInfo',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerExecutionInformation'
+        }
+      },
       failureInfo: {
         required: false,
         serializedName: 'failureInfo',
@@ -4307,14 +4577,14 @@ export const MultiInstanceSettings = {
     className: 'MultiInstanceSettings',
     modelProperties: {
       numberOfInstances: {
-        required: true,
+        required: false,
         serializedName: 'numberOfInstances',
         type: {
           name: 'Number'
         }
       },
       coordinationCommandLine: {
-        required: false,
+        required: true,
         serializedName: 'coordinationCommandLine',
         type: {
           name: 'String'
@@ -4586,6 +4856,14 @@ export const CloudTask = {
           name: 'String'
         }
       },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
+        }
+      },
       resourceFiles: {
         required: false,
         serializedName: 'resourceFiles',
@@ -4748,6 +5026,14 @@ export const TaskAddParameter = {
         serializedName: 'commandLine',
         type: {
           name: 'String'
+        }
+      },
+      containerSettings: {
+        required: false,
+        serializedName: 'containerSettings',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerSettings'
         }
       },
       exitConditions: {
@@ -5114,6 +5400,14 @@ export const SubtaskInformation = {
           name: 'Number'
         }
       },
+      containerInfo: {
+        required: false,
+        serializedName: 'containerInfo',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerExecutionInformation'
+        }
+      },
       failureInfo: {
         required: false,
         serializedName: 'failureInfo',
@@ -5279,6 +5573,14 @@ export const StartTaskInformation = {
         serializedName: 'exitCode',
         type: {
           name: 'Number'
+        }
+      },
+      containerInfo: {
+        required: false,
+        serializedName: 'containerInfo',
+        type: {
+          name: 'Composite',
+          className: 'TaskContainerExecutionInformation'
         }
       },
       failureInfo: {
@@ -5746,6 +6048,7 @@ export const JobScheduleUpdateParameter = {
       jobSpecification: {
         required: true,
         serializedName: 'jobSpecification',
+        defaultValue: {},
         type: {
           name: 'Composite',
           className: 'JobSpecification'
@@ -5889,6 +6192,7 @@ export const JobUpdateParameter = {
       poolInfo: {
         required: true,
         serializedName: 'poolInfo',
+        defaultValue: {},
         type: {
           name: 'Composite',
           className: 'PoolInformation'
@@ -10447,6 +10751,1745 @@ export const ComputeNodeListNextOptions = {
         required: false,
         type: {
           name: 'DateTimeRfc1123'
+        }
+      }
+    }
+  }
+};
+
+export const ApplicationListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'ApplicationListOptionalParams',
+    modelProperties: {
+      applicationListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ApplicationListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ApplicationGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'ApplicationGetOptionalParams',
+    modelProperties: {
+      applicationGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ApplicationGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ApplicationListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'ApplicationListNextOptionalParams',
+    modelProperties: {
+      applicationListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ApplicationListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolListUsageMetricsOptionalParams = {
+  required: false,
+  serializedName: 'ListUsageMetricsOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolListUsageMetricsOptionalParams',
+    modelProperties: {
+      poolListUsageMetricsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolListUsageMetricsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolGetAllLifetimeStatisticsOptionalParams = {
+  required: false,
+  serializedName: 'GetAllLifetimeStatisticsOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolGetAllLifetimeStatisticsOptionalParams',
+    modelProperties: {
+      poolGetAllLifetimeStatisticsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolGetAllLifetimeStatisticsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolAddOptionalParams = {
+  required: false,
+  serializedName: 'AddOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolAddOptionalParams',
+    modelProperties: {
+      poolAddOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolAddOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolListOptionalParams',
+    modelProperties: {
+      poolListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolDeleteMethodOptionalParams = {
+  required: false,
+  serializedName: 'DeleteMethodOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolDeleteMethodOptionalParams',
+    modelProperties: {
+      poolDeleteMethodOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolDeleteMethodOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolExistsOptionalParams = {
+  required: false,
+  serializedName: 'ExistsOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolExistsOptionalParams',
+    modelProperties: {
+      poolExistsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolExistsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolGetOptionalParams',
+    modelProperties: {
+      poolGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolPatchOptionalParams = {
+  required: false,
+  serializedName: 'PatchOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolPatchOptionalParams',
+    modelProperties: {
+      poolPatchOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolPatchOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolDisableAutoScaleOptionalParams = {
+  required: false,
+  serializedName: 'DisableAutoScaleOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolDisableAutoScaleOptionalParams',
+    modelProperties: {
+      poolDisableAutoScaleOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolDisableAutoScaleOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolEnableAutoScaleOptionalParams = {
+  required: false,
+  serializedName: 'EnableAutoScaleOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolEnableAutoScaleOptionalParams',
+    modelProperties: {
+      poolEnableAutoScaleOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolEnableAutoScaleOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolEvaluateAutoScaleOptionalParams = {
+  required: false,
+  serializedName: 'EvaluateAutoScaleOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolEvaluateAutoScaleOptionalParams',
+    modelProperties: {
+      poolEvaluateAutoScaleOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolEvaluateAutoScaleOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolResizeOptionalParams = {
+  required: false,
+  serializedName: 'ResizeOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolResizeOptionalParams',
+    modelProperties: {
+      poolResizeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolResizeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolStopResizeOptionalParams = {
+  required: false,
+  serializedName: 'StopResizeOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolStopResizeOptionalParams',
+    modelProperties: {
+      poolStopResizeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolStopResizeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolUpdatePropertiesOptionalParams = {
+  required: false,
+  serializedName: 'UpdatePropertiesOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolUpdatePropertiesOptionalParams',
+    modelProperties: {
+      poolUpdatePropertiesOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolUpdatePropertiesOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolUpgradeOSOptionalParams = {
+  required: false,
+  serializedName: 'UpgradeOSOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolUpgradeOSOptionalParams',
+    modelProperties: {
+      poolUpgradeOSOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolUpgradeOSOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolRemoveNodesOptionalParams = {
+  required: false,
+  serializedName: 'RemoveNodesOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolRemoveNodesOptionalParams',
+    modelProperties: {
+      poolRemoveNodesOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolRemoveNodesOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolListUsageMetricsNextOptionalParams = {
+  required: false,
+  serializedName: 'ListUsageMetricsNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolListUsageMetricsNextOptionalParams',
+    modelProperties: {
+      poolListUsageMetricsNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolListUsageMetricsNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const PoolListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'PoolListNextOptionalParams',
+    modelProperties: {
+      poolListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'PoolListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const AccountListNodeAgentSkusOptionalParams = {
+  required: false,
+  serializedName: 'ListNodeAgentSkusOptions',
+  type: {
+    name: 'Composite',
+    className: 'AccountListNodeAgentSkusOptionalParams',
+    modelProperties: {
+      accountListNodeAgentSkusOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'AccountListNodeAgentSkusOptions'
+        }
+      }
+    }
+  }
+};
+
+export const AccountListNodeAgentSkusNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNodeAgentSkusNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'AccountListNodeAgentSkusNextOptionalParams',
+    modelProperties: {
+      accountListNodeAgentSkusNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'AccountListNodeAgentSkusNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobGetAllLifetimeStatisticsOptionalParams = {
+  required: false,
+  serializedName: 'GetAllLifetimeStatisticsOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobGetAllLifetimeStatisticsOptionalParams',
+    modelProperties: {
+      jobGetAllLifetimeStatisticsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobGetAllLifetimeStatisticsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobDeleteMethodOptionalParams = {
+  required: false,
+  serializedName: 'DeleteMethodOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobDeleteMethodOptionalParams',
+    modelProperties: {
+      jobDeleteMethodOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobDeleteMethodOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobGetOptionalParams',
+    modelProperties: {
+      jobGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobPatchOptionalParams = {
+  required: false,
+  serializedName: 'PatchOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobPatchOptionalParams',
+    modelProperties: {
+      jobPatchOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobPatchOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobUpdateOptionalParams = {
+  required: false,
+  serializedName: 'UpdateOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobUpdateOptionalParams',
+    modelProperties: {
+      jobUpdateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobUpdateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobDisableOptionalParams = {
+  required: false,
+  serializedName: 'DisableOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobDisableOptionalParams',
+    modelProperties: {
+      jobDisableOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobDisableOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobEnableOptionalParams = {
+  required: false,
+  serializedName: 'EnableOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobEnableOptionalParams',
+    modelProperties: {
+      jobEnableOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobEnableOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobTerminateOptionalParams = {
+  required: false,
+  serializedName: 'TerminateOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobTerminateOptionalParams',
+    modelProperties: {
+      terminateReason: {
+        required: false,
+        serializedName: 'terminateReason',
+        type: {
+          name: 'String'
+        }
+      },
+      jobTerminateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobTerminateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobAddOptionalParams = {
+  required: false,
+  serializedName: 'AddOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobAddOptionalParams',
+    modelProperties: {
+      jobAddOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobAddOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListOptionalParams',
+    modelProperties: {
+      jobListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListFromJobScheduleOptionalParams = {
+  required: false,
+  serializedName: 'ListFromJobScheduleOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListFromJobScheduleOptionalParams',
+    modelProperties: {
+      jobListFromJobScheduleOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListFromJobScheduleOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListPreparationAndReleaseTaskStatusOptionalParams = {
+  required: false,
+  serializedName: 'ListPreparationAndReleaseTaskStatusOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListPreparationAndReleaseTaskStatusOptionalParams',
+    modelProperties: {
+      jobListPreparationAndReleaseTaskStatusOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListPreparationAndReleaseTaskStatusOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobGetTaskCountsOptionalParams = {
+  required: false,
+  serializedName: 'GetTaskCountsOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobGetTaskCountsOptionalParams',
+    modelProperties: {
+      jobGetTaskCountsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobGetTaskCountsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListNextOptionalParams',
+    modelProperties: {
+      jobListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListFromJobScheduleNextOptionalParams = {
+  required: false,
+  serializedName: 'ListFromJobScheduleNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListFromJobScheduleNextOptionalParams',
+    modelProperties: {
+      jobListFromJobScheduleNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListFromJobScheduleNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobListPreparationAndReleaseTaskStatusNextOptionalParams = {
+  required: false,
+  serializedName: 'ListPreparationAndReleaseTaskStatusNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobListPreparationAndReleaseTaskStatusNextOptionalParams',
+    modelProperties: {
+      jobListPreparationAndReleaseTaskStatusNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobListPreparationAndReleaseTaskStatusNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateAddOptionalParams = {
+  required: false,
+  serializedName: 'AddOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateAddOptionalParams',
+    modelProperties: {
+      certificateAddOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateAddOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateListOptionalParams',
+    modelProperties: {
+      certificateListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateCancelDeletionOptionalParams = {
+  required: false,
+  serializedName: 'CancelDeletionOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateCancelDeletionOptionalParams',
+    modelProperties: {
+      certificateCancelDeletionOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateCancelDeletionOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateDeleteMethodOptionalParams = {
+  required: false,
+  serializedName: 'DeleteMethodOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateDeleteMethodOptionalParams',
+    modelProperties: {
+      certificateDeleteMethodOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateDeleteMethodOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateGetOptionalParams',
+    modelProperties: {
+      certificateGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const CertificateListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'CertificateListNextOptionalParams',
+    modelProperties: {
+      certificateListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'CertificateListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileDeleteFromTaskOptionalParams = {
+  required: false,
+  serializedName: 'DeleteFromTaskOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileDeleteFromTaskOptionalParams',
+    modelProperties: {
+      recursive: {
+        required: false,
+        serializedName: 'recursive',
+        type: {
+          name: 'Boolean'
+        }
+      },
+      fileDeleteFromTaskOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileDeleteFromTaskOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileGetFromTaskOptionalParams = {
+  required: false,
+  serializedName: 'GetFromTaskOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileGetFromTaskOptionalParams',
+    modelProperties: {
+      fileGetFromTaskOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileGetFromTaskOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileGetPropertiesFromTaskOptionalParams = {
+  required: false,
+  serializedName: 'GetPropertiesFromTaskOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileGetPropertiesFromTaskOptionalParams',
+    modelProperties: {
+      fileGetPropertiesFromTaskOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileGetPropertiesFromTaskOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileDeleteFromComputeNodeOptionalParams = {
+  required: false,
+  serializedName: 'DeleteFromComputeNodeOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileDeleteFromComputeNodeOptionalParams',
+    modelProperties: {
+      recursive: {
+        required: false,
+        serializedName: 'recursive',
+        type: {
+          name: 'Boolean'
+        }
+      },
+      fileDeleteFromComputeNodeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileDeleteFromComputeNodeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileGetFromComputeNodeOptionalParams = {
+  required: false,
+  serializedName: 'GetFromComputeNodeOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileGetFromComputeNodeOptionalParams',
+    modelProperties: {
+      fileGetFromComputeNodeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileGetFromComputeNodeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileGetPropertiesFromComputeNodeOptionalParams = {
+  required: false,
+  serializedName: 'GetPropertiesFromComputeNodeOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileGetPropertiesFromComputeNodeOptionalParams',
+    modelProperties: {
+      fileGetPropertiesFromComputeNodeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileGetPropertiesFromComputeNodeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromTaskOptionalParams = {
+  required: false,
+  serializedName: 'ListFromTaskOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileListFromTaskOptionalParams',
+    modelProperties: {
+      recursive: {
+        required: false,
+        serializedName: 'recursive',
+        type: {
+          name: 'Boolean'
+        }
+      },
+      fileListFromTaskOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileListFromTaskOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromComputeNodeOptionalParams = {
+  required: false,
+  serializedName: 'ListFromComputeNodeOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileListFromComputeNodeOptionalParams',
+    modelProperties: {
+      recursive: {
+        required: false,
+        serializedName: 'recursive',
+        type: {
+          name: 'Boolean'
+        }
+      },
+      fileListFromComputeNodeOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileListFromComputeNodeOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromTaskNextOptionalParams = {
+  required: false,
+  serializedName: 'ListFromTaskNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileListFromTaskNextOptionalParams',
+    modelProperties: {
+      fileListFromTaskNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileListFromTaskNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromComputeNodeNextOptionalParams = {
+  required: false,
+  serializedName: 'ListFromComputeNodeNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'FileListFromComputeNodeNextOptionalParams',
+    modelProperties: {
+      fileListFromComputeNodeNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'FileListFromComputeNodeNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleExistsOptionalParams = {
+  required: false,
+  serializedName: 'ExistsOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleExistsOptionalParams',
+    modelProperties: {
+      jobScheduleExistsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleExistsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleDeleteMethodOptionalParams = {
+  required: false,
+  serializedName: 'DeleteMethodOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleDeleteMethodOptionalParams',
+    modelProperties: {
+      jobScheduleDeleteMethodOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleDeleteMethodOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleGetOptionalParams',
+    modelProperties: {
+      jobScheduleGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobSchedulePatchOptionalParams = {
+  required: false,
+  serializedName: 'PatchOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobSchedulePatchOptionalParams',
+    modelProperties: {
+      jobSchedulePatchOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobSchedulePatchOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleUpdateOptionalParams = {
+  required: false,
+  serializedName: 'UpdateOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleUpdateOptionalParams',
+    modelProperties: {
+      jobScheduleUpdateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleUpdateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleDisableOptionalParams = {
+  required: false,
+  serializedName: 'DisableOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleDisableOptionalParams',
+    modelProperties: {
+      jobScheduleDisableOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleDisableOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleEnableOptionalParams = {
+  required: false,
+  serializedName: 'EnableOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleEnableOptionalParams',
+    modelProperties: {
+      jobScheduleEnableOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleEnableOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleTerminateOptionalParams = {
+  required: false,
+  serializedName: 'TerminateOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleTerminateOptionalParams',
+    modelProperties: {
+      jobScheduleTerminateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleTerminateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleAddOptionalParams = {
+  required: false,
+  serializedName: 'AddOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleAddOptionalParams',
+    modelProperties: {
+      jobScheduleAddOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleAddOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleListOptionalParams',
+    modelProperties: {
+      jobScheduleListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'JobScheduleListNextOptionalParams',
+    modelProperties: {
+      jobScheduleListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'JobScheduleListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskAddOptionalParams = {
+  required: false,
+  serializedName: 'AddOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskAddOptionalParams',
+    modelProperties: {
+      taskAddOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskAddOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskListOptionalParams',
+    modelProperties: {
+      taskListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskAddCollectionOptionalParams = {
+  required: false,
+  serializedName: 'AddCollectionOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskAddCollectionOptionalParams',
+    modelProperties: {
+      taskAddCollectionOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskAddCollectionOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskDeleteMethodOptionalParams = {
+  required: false,
+  serializedName: 'DeleteMethodOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskDeleteMethodOptionalParams',
+    modelProperties: {
+      taskDeleteMethodOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskDeleteMethodOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskGetOptionalParams',
+    modelProperties: {
+      taskGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskUpdateOptionalParams = {
+  required: false,
+  serializedName: 'UpdateOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskUpdateOptionalParams',
+    modelProperties: {
+      constraints: {
+        required: false,
+        serializedName: 'constraints',
+        type: {
+          name: 'Composite',
+          className: 'TaskConstraints'
+        }
+      },
+      taskUpdateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskUpdateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskListSubtasksOptionalParams = {
+  required: false,
+  serializedName: 'ListSubtasksOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskListSubtasksOptionalParams',
+    modelProperties: {
+      taskListSubtasksOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskListSubtasksOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskTerminateOptionalParams = {
+  required: false,
+  serializedName: 'TerminateOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskTerminateOptionalParams',
+    modelProperties: {
+      taskTerminateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskTerminateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskReactivateOptionalParams = {
+  required: false,
+  serializedName: 'ReactivateOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskReactivateOptionalParams',
+    modelProperties: {
+      taskReactivateOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskReactivateOptions'
+        }
+      }
+    }
+  }
+};
+
+export const TaskListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'TaskListNextOptionalParams',
+    modelProperties: {
+      taskListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'TaskListNextOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeAddUserOptionalParams = {
+  required: false,
+  serializedName: 'AddUserOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeAddUserOptionalParams',
+    modelProperties: {
+      computeNodeAddUserOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeAddUserOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeDeleteUserOptionalParams = {
+  required: false,
+  serializedName: 'DeleteUserOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeDeleteUserOptionalParams',
+    modelProperties: {
+      computeNodeDeleteUserOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeDeleteUserOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeUpdateUserOptionalParams = {
+  required: false,
+  serializedName: 'UpdateUserOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeUpdateUserOptionalParams',
+    modelProperties: {
+      computeNodeUpdateUserOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeUpdateUserOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetOptionalParams = {
+  required: false,
+  serializedName: 'GetOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeGetOptionalParams',
+    modelProperties: {
+      computeNodeGetOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeGetOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeRebootOptionalParams = {
+  required: false,
+  serializedName: 'RebootOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeRebootOptionalParams',
+    modelProperties: {
+      nodeRebootOption: {
+        required: false,
+        serializedName: 'nodeRebootOption',
+        type: {
+          name: 'Enum',
+          allowedValues: [ 'requeue', 'terminate', 'taskCompletion', 'retainedData' ]
+        }
+      },
+      computeNodeRebootOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeRebootOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeReimageOptionalParams = {
+  required: false,
+  serializedName: 'ReimageOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeReimageOptionalParams',
+    modelProperties: {
+      nodeReimageOption: {
+        required: false,
+        serializedName: 'nodeReimageOption',
+        type: {
+          name: 'Enum',
+          allowedValues: [ 'requeue', 'terminate', 'taskCompletion', 'retainedData' ]
+        }
+      },
+      computeNodeReimageOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeReimageOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeDisableSchedulingOptionalParams = {
+  required: false,
+  serializedName: 'DisableSchedulingOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeDisableSchedulingOptionalParams',
+    modelProperties: {
+      nodeDisableSchedulingOption: {
+        required: false,
+        serializedName: 'nodeDisableSchedulingOption',
+        type: {
+          name: 'Enum',
+          allowedValues: [ 'requeue', 'terminate', 'taskCompletion' ]
+        }
+      },
+      computeNodeDisableSchedulingOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeDisableSchedulingOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeEnableSchedulingOptionalParams = {
+  required: false,
+  serializedName: 'EnableSchedulingOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeEnableSchedulingOptionalParams',
+    modelProperties: {
+      computeNodeEnableSchedulingOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeEnableSchedulingOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetRemoteLoginSettingsOptionalParams = {
+  required: false,
+  serializedName: 'GetRemoteLoginSettingsOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeGetRemoteLoginSettingsOptionalParams',
+    modelProperties: {
+      computeNodeGetRemoteLoginSettingsOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeGetRemoteLoginSettingsOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetRemoteDesktopOptionalParams = {
+  required: false,
+  serializedName: 'GetRemoteDesktopOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeGetRemoteDesktopOptionalParams',
+    modelProperties: {
+      computeNodeGetRemoteDesktopOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeGetRemoteDesktopOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeListOptionalParams = {
+  required: false,
+  serializedName: 'ListOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeListOptionalParams',
+    modelProperties: {
+      computeNodeListOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeListOptions'
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeListNextOptionalParams = {
+  required: false,
+  serializedName: 'ListNextOptions',
+  type: {
+    name: 'Composite',
+    className: 'ComputeNodeListNextOptionalParams',
+    modelProperties: {
+      computeNodeListNextOptions: {
+        required: false,
+        serializedName: '',
+        type: {
+          name: 'Composite',
+          className: 'ComputeNodeListNextOptions'
         }
       }
     }

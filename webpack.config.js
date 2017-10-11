@@ -1,14 +1,15 @@
+// This is a template webpack config file with minimal configuration.
+// Users are free to create their own webpack configuration files in their application.
 const webpack = require('webpack');
 const path = require('path');
-
 module.exports = {
   entry: './lib/batchServiceClient.ts',
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: 'batchServiceClientBundle.js',
     path: __dirname,
     libraryTarget: 'var',
-    library: 'className'
+    library: 'batchServiceClient'
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
@@ -18,25 +19,23 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-        exclude: /(node_modules|test)/,
-        options: {
-          configFileName: './tsconfig.browser.json'
-        }
+        exclude: /(node_modules|test)/
       }
     ]
   },
+  // "ms-rest-js" and "ms-rest-azure-js" are dependencies of this library.
+  // Customer is expected to import/include this library in browser javascript
+  // (probably using the script tag in their html file).
+  externals: {
+    "ms-rest-js": "msRest",
+    "ms-rest-azure-js": "msRestAzure"
+  },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-    alias: {
-      moment: path.resolve('./node_modules/moment'),
-      "ms-rest-ts": path.resolve('./node_modules/ms-rest-ts/dist/node/lib/msRest.js'),
-      "ms-rest-azure-ts": path.resolve('./node_modules/ms-rest-azure-ts/dist/node/lib/msRestAzure.js')
-    }
+    extensions: [".tsx", ".ts", ".js"]
   },
   node: {
     fs: false,
     net: false,
-    //process: false,
     path: false,
     dns: false,
     tls: false,
