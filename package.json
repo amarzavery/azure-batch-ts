@@ -4,7 +4,7 @@
   "description": "BatchServiceClient Library with typescript type definitions and works in node.js and browser javascript.",
   "version": "0.1.0",
   "dependencies": {
-    "ms-rest-azure-js": "^0.1.0"
+    "ms-rest-azure-js": "^0.2.0"
   },
   "keywords": [ "node", "azure", "typescript", "browser", "isomorphic"],
   "license": "MIT",
