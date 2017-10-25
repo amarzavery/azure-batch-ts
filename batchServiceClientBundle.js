@@ -24685,7 +24685,7 @@ class File {
         let cb = callback;
         if (!callback) {
             return this.getFromTaskWithHttpOperationResponse(jobId, taskId, filePath, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -24695,7 +24695,7 @@ class File {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }
@@ -24754,7 +24754,7 @@ class File {
         let cb = callback;
         if (!callback) {
             return this.getFromComputeNodeWithHttpOperationResponse(poolId, nodeId, filePath, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -24764,7 +24764,7 @@ class File {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }
@@ -31897,7 +31897,7 @@ class ComputeNodeOperations {
         let cb = callback;
         if (!callback) {
             return this.getRemoteDesktopWithHttpOperationResponse(poolId, nodeId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -31907,7 +31907,7 @@ class ComputeNodeOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }

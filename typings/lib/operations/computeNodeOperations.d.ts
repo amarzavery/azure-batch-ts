@@ -554,16 +554,16 @@ export declare class ComputeNodeOperations {
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
-     *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+     *                      {Response} [result]   - The deserialized result object if an error did not occur.
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    getRemoteDesktop(poolId: string, nodeId: string): Promise<ReadableStream>;
-    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<ReadableStream>;
-    getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
+    getRemoteDesktop(poolId: string, nodeId: string): Promise<Response>;
+    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<Response>;
+    getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Response>): void;
+    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * @summary Lists the compute nodes in the specified pool.
      *
