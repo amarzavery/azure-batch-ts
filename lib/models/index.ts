@@ -141,11 +141,11 @@ export interface NodeAgentSku {
    */
   verifiedImageReferences?: ImageReference[];
   /**
-   * @member {string} [osType] The type of operating system (e.g. Windows or
+   * @member {OSType} [osType] The type of operating system (e.g. Windows or
    * Linux) compatible with the node agent SKU. Possible values include:
    * 'linux', 'windows'
    */
-  osType?: string;
+  osType?: OSType;
 }
 
 /**
@@ -157,13 +157,13 @@ export interface NodeAgentSku {
  */
 export interface AuthenticationTokenSettings {
   /**
-   * @member {string[]} [access] The Batch resources to which the token grants
-   * access. The authentication token grants access to a limited set of Batch
-   * service operations. Currently the only supported value for the access
-   * property is 'job', which grants access to all operations related to the
-   * job which contains the task.
+   * @member {AccessScope[]} [access] The Batch resources to which the token
+   * grants access. The authentication token grants access to a limited set of
+   * Batch service operations. Currently the only supported value for the
+   * access property is 'job', which grants access to all operations related to
+   * the job which contains the task.
    */
-  access?: string[];
+  access?: AccessScope[];
 }
 
 /**
@@ -460,21 +460,22 @@ export interface Certificate {
    */
   url?: string;
   /**
-   * @member {string} [state] The current state of the certificate. Possible
-   * values include: 'active', 'deleting', 'deleteFailed'
+   * @member {CertificateState} [state] The current state of the certificate.
+   * Possible values include: 'active', 'deleting', 'deleteFailed'
    */
-  state?: string;
+  state?: CertificateState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the certificate
    * entered its current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [previousState] The previous state of the certificate.
-   * This property is not set if the certificate is in its initial active
-   * state. Possible values include: 'active', 'deleting', 'deleteFailed'
+   * @member {CertificateState} [previousState] The previous state of the
+   * certificate. This property is not set if the certificate is in its initial
+   * active state. Possible values include: 'active', 'deleting',
+   * 'deleteFailed'
    */
-  previousState?: string;
+  previousState?: CertificateState;
   /**
    * @member {Date} [previousStateTransitionTime] The time at which the
    * certificate entered its previous state. This property is not set if the
@@ -567,10 +568,10 @@ export interface CertificateAddParameter {
    */
   data: string;
   /**
-   * @member {string} [certificateFormat] The format of the certificate data.
-   * Possible values include: 'pfx', 'cer'
+   * @member {CertificateFormat} [certificateFormat] The format of the
+   * certificate data. Possible values include: 'pfx', 'cer'
    */
-  certificateFormat?: string;
+  certificateFormat?: CertificateFormat;
   /**
    * @member {string} [password] The password to access the certificate's
    * private key. This is required if the certificate format is pfx. It should
@@ -834,9 +835,9 @@ export interface EnvironmentSetting {
  */
 export interface ExitOptions {
   /**
-   * @member {string} [jobAction] An action to take on the job containing the
-   * task, if the task completes with the given exit condition and the job's
-   * onTaskFailed property is 'performExitOptionsJobAction'. Values are:
+   * @member {JobAction} [jobAction] An action to take on the job containing
+   * the task, if the task completes with the given exit condition and the
+   * job's onTaskFailed property is 'performExitOptionsJobAction'. Values are:
    *
    * none - Take no action.
    * disable - Disable the job. This is equivalent to calling the disable job
@@ -851,10 +852,10 @@ export interface ExitOptions {
    * status code is 400 (Bad Request). Possible values include: 'none',
    * 'disable', 'terminate'
    */
-  jobAction?: string;
+  jobAction?: JobAction;
   /**
-   * @member {string} [dependencyAction] An action that the Batch service
-   * performs on tasks that depend on this task. Values are:
+   * @member {DependencyAction} [dependencyAction] An action that the Batch
+   * service performs on tasks that depend on this task. Values are:
    *
    * satisfy - Satisfy the task's dependencies.
    * block - Block the task's dependencies.
@@ -866,7 +867,7 @@ export interface ExitOptions {
    * calling the REST API directly, the HTTP status code is 400  (Bad Request).
    * Possible values include: 'satisfy', 'block'
    */
-  dependencyAction?: string;
+  dependencyAction?: DependencyAction;
 }
 
 /**
@@ -964,22 +965,22 @@ export interface ExitConditions {
  */
 export interface AutoUserSpecification {
   /**
-   * @member {string} [scope] The scope for the auto user. Values are:
+   * @member {AutoUserScope} [scope] The scope for the auto user. Values are:
    *
    * pool - specifies that the task runs as the common auto user account which
    * is created on every node in a pool.
    * task - specifies that the service should create a new user for the task.
    * The default value is task. Possible values include: 'task', 'pool'
    */
-  scope?: string;
+  scope?: AutoUserScope;
   /**
-   * @member {string} [elevationLevel] The elevation level of the auto user.
-   * nonAdmin - The auto user is a standard user without elevated access. admin
-   * - The auto user is a user with elevated access and operates with full
-   * Administrator permissions. The default value is nonAdmin. Possible values
-   * include: 'nonAdmin', 'admin'
+   * @member {ElevationLevel} [elevationLevel] The elevation level of the auto
+   * user. nonAdmin - The auto user is a standard user without elevated access.
+   * admin - The auto user is a user with elevated access and operates with
+   * full Administrator permissions. The default value is nonAdmin. Possible
+   * values include: 'nonAdmin', 'admin'
    */
-  elevationLevel?: string;
+  elevationLevel?: ElevationLevel;
 }
 
 /**
@@ -1054,13 +1055,13 @@ export interface UserAccount {
    */
   password: string;
   /**
-   * @member {string} [elevationLevel] The elevation level of the user account.
-   * nonAdmin - The auto user is a standard user without elevated access. admin
-   * - The auto user is a user with elevated access and operates with full
-   * Administrator permissions. The default value is nonAdmin. Possible values
-   * include: 'nonAdmin', 'admin'
+   * @member {ElevationLevel} [elevationLevel] The elevation level of the user
+   * account. nonAdmin - The auto user is a standard user without elevated
+   * access. admin - The auto user is a user with elevated access and operates
+   * with full Administrator permissions. The default value is nonAdmin.
+   * Possible values include: 'nonAdmin', 'admin'
    */
-  elevationLevel?: string;
+  elevationLevel?: ElevationLevel;
   /**
    * @member {LinuxUserConfiguration} [linuxUserConfiguration] The
    * Linux-specific user configuration for the user account. This property is
@@ -1157,12 +1158,12 @@ export interface OutputFileDestination {
  */
 export interface OutputFileUploadOptions {
   /**
-   * @member {string} uploadCondition The conditions under which the task
-   * output file or set of files should be uploaded. The default is
-   * taskCompletion. Possible values include: 'taskSuccess', 'taskFailure',
+   * @member {OutputFileUploadCondition} uploadCondition The conditions under
+   * which the task output file or set of files should be uploaded. The default
+   * is taskCompletion. Possible values include: 'taskSuccess', 'taskFailure',
    * 'taskCompletion'
    */
-  uploadCondition: string;
+  uploadCondition: OutputFileUploadCondition;
 }
 
 /**
@@ -1560,8 +1561,8 @@ export interface JobReleaseTask {
  */
 export interface TaskSchedulingPolicy {
   /**
-   * @member {string} nodeFillType How tasks are distributed across compute
-   * nodes in a pool. Values are:
+   * @member {ComputeNodeFillType} nodeFillType How tasks are distributed
+   * across compute nodes in a pool. Values are:
    *
    * pack - As many tasks as possible (maxTasksPerNode) should be assigned to
    * each node in the pool before any tasks are assigned to the next node in
@@ -1569,7 +1570,7 @@ export interface TaskSchedulingPolicy {
    * spread - Tasks should be assigned evenly across all nodes in the pool.
    * Possible values include: 'spread', 'pack'
    */
-  nodeFillType: string;
+  nodeFillType: ComputeNodeFillType;
 }
 
 /**
@@ -1662,19 +1663,20 @@ export interface CertificateReference {
    */
   thumbprintAlgorithm: string;
   /**
-   * @member {string} [storeLocation] The location of the certificate store on
-   * the compute node into which to install the certificate. The default value
-   * is currentUser. This property is applicable only for pools configured with
-   * Windows nodes (that is, created with cloudServiceConfiguration, or with
-   * virtualMachineConfiguration using a Windows image reference). For Linux
-   * compute nodes, the certificates are stored in a directory inside the task
-   * working directory and an environment variable AZ_BATCH_CERTIFICATES_DIR is
-   * supplied to the task to query for this location. For certificates with
-   * visibility of 'remoteUser', a 'certs' directory is created in the user's
-   * home directory (e.g., /home/{user-name}/certs) and certificates are placed
-   * in that directory. Possible values include: 'currentUser', 'localMachine'
+   * @member {CertificateStoreLocation} [storeLocation] The location of the
+   * certificate store on the compute node into which to install the
+   * certificate. The default value is currentUser. This property is applicable
+   * only for pools configured with Windows nodes (that is, created with
+   * cloudServiceConfiguration, or with virtualMachineConfiguration using a
+   * Windows image reference). For Linux compute nodes, the certificates are
+   * stored in a directory inside the task working directory and an environment
+   * variable AZ_BATCH_CERTIFICATES_DIR is supplied to the task to query for
+   * this location. For certificates with visibility of 'remoteUser', a 'certs'
+   * directory is created in the user's home directory (e.g.,
+   * /home/{user-name}/certs) and certificates are placed in that directory.
+   * Possible values include: 'currentUser', 'localMachine'
    */
-  storeLocation?: string;
+  storeLocation?: CertificateStoreLocation;
   /**
    * @member {string} [storeName] The name of the certificate store on the
    * compute node into which to install the certificate. This property is
@@ -1686,8 +1688,9 @@ export interface CertificateReference {
    */
   storeName?: string;
   /**
-   * @member {string[]} [visibility] Which user accounts on the compute node
-   * should have access to the private data of the certificate. Values are:
+   * @member {CertificateVisibility[]} [visibility] Which user accounts on the
+   * compute node should have access to the private data of the certificate.
+   * Values are:
    *
    * starttask - The user account under which the start task is run.
    * task - The accounts under which job tasks are run.
@@ -1696,7 +1699,7 @@ export interface CertificateReference {
    * You can specify more than one visibility in this collection. The default
    * is all accounts.
    */
-  visibility?: string[];
+  visibility?: CertificateVisibility[];
 }
 
 /**
@@ -1764,8 +1767,8 @@ export interface CloudServiceConfiguration {
  */
 export interface OSDisk {
   /**
-   * @member {string} [caching] The type of caching to enable for the OS disk.
-   * Values are:
+   * @member {CachingType} [caching] The type of caching to enable for the OS
+   * disk. Values are:
    *
    * none - The caching mode for the disk is not enabled.
    * readOnly - The caching mode for the disk is read only.
@@ -1776,7 +1779,7 @@ export interface OSDisk {
    * https://blogs.msdn.microsoft.com/windowsazurestorage/2012/06/27/exploring-windows-azure-drives-disks-and-images/.
    * Possible values include: 'none', 'readOnly', 'readWrite'
    */
-  caching?: string;
+  caching?: CachingType;
 }
 
 /**
@@ -1808,8 +1811,8 @@ export interface DataDisk {
    */
   lun: number;
   /**
-   * @member {string} [caching] The type of caching to be enabled for the data
-   * disks. Values are:
+   * @member {CachingType} [caching] The type of caching to be enabled for the
+   * data disks. Values are:
    *
    * none - The caching mode for the disk is not enabled.
    * readOnly - The caching mode for the disk is read only.
@@ -1820,21 +1823,22 @@ export interface DataDisk {
    * https://blogs.msdn.microsoft.com/windowsazurestorage/2012/06/27/exploring-windows-azure-drives-disks-and-images/.
    * Possible values include: 'none', 'readOnly', 'readWrite'
    */
-  caching?: string;
+  caching?: CachingType;
   /**
    * @member {number} diskSizeGB The initial disk size in gigabytes.
    */
   diskSizeGB: number;
   /**
-   * @member {string} [storageAccountType] The storage account type to be used
-   * for the data disk. If omitted, the default is "Standard_LRS". Values are:
+   * @member {StorageAccountType} [storageAccountType] The storage account type
+   * to be used for the data disk. If omitted, the default is "Standard_LRS".
+   * Values are:
    *
    * Standard_LRS - The data disk should use standard locally redundant
    * storage.
    * Premium_LRS - The data disk should use premium locally redundant storage.
    * Possible values include: 'Standard_LRS', 'Premium_LRS'
    */
-  storageAccountType?: string;
+  storageAccountType?: StorageAccountType;
 }
 
 /**
@@ -1943,10 +1947,11 @@ export interface NetworkSecurityGroupRule {
    */
   priority: number;
   /**
-   * @member {string} access The action that should be taken for a specified IP
-   * address, subnet range or tag. Possible values include: 'allow', 'deny'
+   * @member {NetworkSecurityGroupRuleAccess} access The action that should be
+   * taken for a specified IP address, subnet range or tag. Possible values
+   * include: 'allow', 'deny'
    */
-  access: string;
+  access: NetworkSecurityGroupRuleAccess;
   /**
    * @member {string} sourceAddressPrefix The source address prefix or tag to
    * match for the rule. Valid values are a single IP address (i.e.
@@ -1974,10 +1979,10 @@ export interface InboundNATPool {
    */
   name: string;
   /**
-   * @member {string} protocol The protocol of the endpoint. Possible values
-   * include: 'tcp', 'udp'
+   * @member {InboundEndpointProtocol} protocol The protocol of the endpoint.
+   * Possible values include: 'tcp', 'udp'
    */
-  protocol: string;
+  protocol: InboundEndpointProtocol;
   /**
    * @member {number} backendPort The port number on the compute node. This
    * must be unique within a Batch pool. Acceptable values are between 1 and
@@ -2272,18 +2277,18 @@ export interface AutoPoolSpecification {
    */
   autoPoolIdPrefix?: string;
   /**
-   * @member {string} poolLifetimeOption The minimum lifetime of created auto
-   * pools, and how multiple jobs on a schedule are assigned to pools. When the
-   * pool lifetime is jobSchedule the pool exists for the lifetime of the job
-   * schedule. The Batch Service creates the pool when it creates the first job
-   * on the schedule. You may apply this option only to job schedules, not to
-   * jobs. When the pool lifetime is job the pool exists for the lifetime of
-   * the job to which it is dedicated. The Batch service creates the pool when
-   * it creates the job. If the 'job' option is applied to a job schedule, the
-   * Batch service creates a new auto pool for every job created on the
-   * schedule. Possible values include: 'jobSchedule', 'job'
+   * @member {PoolLifetimeOption} poolLifetimeOption The minimum lifetime of
+   * created auto pools, and how multiple jobs on a schedule are assigned to
+   * pools. When the pool lifetime is jobSchedule the pool exists for the
+   * lifetime of the job schedule. The Batch Service creates the pool when it
+   * creates the first job on the schedule. You may apply this option only to
+   * job schedules, not to jobs. When the pool lifetime is job the pool exists
+   * for the lifetime of the job to which it is dedicated. The Batch service
+   * creates the pool when it creates the job. If the 'job' option is applied
+   * to a job schedule, the Batch service creates a new auto pool for every job
+   * created on the schedule. Possible values include: 'jobSchedule', 'job'
    */
-  poolLifetimeOption: string;
+  poolLifetimeOption: PoolLifetimeOption;
   /**
    * @member {boolean} [keepAlive] Whether to keep an auto pool alive after its
    * lifetime expires. If false, the Batch service deletes the pool once its
@@ -2360,28 +2365,28 @@ export interface JobSpecification {
    */
   usesTaskDependencies?: boolean;
   /**
-   * @member {string} [onAllTasksComplete] The action the Batch service should
-   * take when all tasks in a job created under this schedule are in the
-   * completed state. Note that if a job contains no tasks, then all tasks are
-   * considered complete. This option is therefore most commonly used with a
-   * Job Manager task; if you want to use automatic job termination without a
-   * Job Manager, you should initially set onAllTasksComplete to noAction and
-   * update the job properties to set onAllTasksComplete to terminateJob once
-   * you have finished adding tasks. The default is noAction. Possible values
-   * include: 'noAction', 'terminateJob'
+   * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
+   * service should take when all tasks in a job created under this schedule
+   * are in the completed state. Note that if a job contains no tasks, then all
+   * tasks are considered complete. This option is therefore most commonly used
+   * with a Job Manager task; if you want to use automatic job termination
+   * without a Job Manager, you should initially set onAllTasksComplete to
+   * noAction and update the job properties to set onAllTasksComplete to
+   * terminateJob once you have finished adding tasks. The default is noAction.
+   * Possible values include: 'noAction', 'terminateJob'
    */
-  onAllTasksComplete?: string;
+  onAllTasksComplete?: OnAllTasksComplete;
   /**
-   * @member {string} [onTaskFailure] The action the Batch service should take
-   * when any task fails in a job created under this schedule. A task is
-   * considered to have failed if it have failed if has a failureInfo. A
-   * failureInfo is set if the task completes with a non-zero exit code after
+   * @member {OnTaskFailure} [onTaskFailure] The action the Batch service
+   * should take when any task fails in a job created under this schedule. A
+   * task is considered to have failed if it have failed if has a failureInfo.
+   * A failureInfo is set if the task completes with a non-zero exit code after
    * exhausting its retry count, or if there was an error starting the task,
    * for example due to a resource file download error. The default is
    * noAction. Possible values include: 'noAction',
    * 'performExitOptionsJobAction'
    */
-  onTaskFailure?: string;
+  onTaskFailure?: OnTaskFailure;
   /**
    * @member {JobConstraints} [constraints] The execution constraints for jobs
    * created under this schedule.
@@ -2618,23 +2623,23 @@ export interface CloudJobSchedule {
    */
   creationTime?: Date;
   /**
-   * @member {string} [state] The current state of the job schedule. Possible
-   * values include: 'active', 'completed', 'disabled', 'terminating',
+   * @member {JobScheduleState} [state] The current state of the job schedule.
+   * Possible values include: 'active', 'completed', 'disabled', 'terminating',
    * 'deleting'
    */
-  state?: string;
+  state?: JobScheduleState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the job schedule
    * entered the current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [previousState] The previous state of the job schedule.
-   * This property is not present if the job schedule is in its initial active
-   * state. Possible values include: 'active', 'completed', 'disabled',
-   * 'terminating', 'deleting'
+   * @member {JobScheduleState} [previousState] The previous state of the job
+   * schedule. This property is not present if the job schedule is in its
+   * initial active state. Possible values include: 'active', 'completed',
+   * 'disabled', 'terminating', 'deleting'
    */
-  previousState?: string;
+  previousState?: JobScheduleState;
   /**
    * @member {Date} [previousStateTransitionTime] The time at which the job
    * schedule entered its previous state. This property is not present if the
@@ -2717,10 +2722,10 @@ export interface JobScheduleAddParameter {
  */
 export interface JobSchedulingError {
   /**
-   * @member {string} category The category of the job scheduling error.
+   * @member {ErrorCategory} category The category of the job scheduling error.
    * Possible values include: 'userError', 'serverError'
    */
-  category: string;
+  category: ErrorCategory;
   /**
    * @member {string} [code] An identifier for the job scheduling error. Codes
    * are invariant and are intended to be consumed programmatically.
@@ -2836,23 +2841,23 @@ export interface CloudJob {
    */
   creationTime?: Date;
   /**
-   * @member {string} [state] The current state of the job. Possible values
+   * @member {JobState} [state] The current state of the job. Possible values
    * include: 'active', 'disabling', 'disabled', 'enabling', 'terminating',
    * 'completed', 'deleting'
    */
-  state?: string;
+  state?: JobState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the job entered its
    * current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [previousState] The previous state of the job. This
+   * @member {JobState} [previousState] The previous state of the job. This
    * property is not set if the job is in its initial Active state. Possible
    * values include: 'active', 'disabling', 'disabled', 'enabling',
    * 'terminating', 'completed', 'deleting'
    */
-  previousState?: string;
+  previousState?: JobState;
   /**
    * @member {Date} [previousStateTransitionTime] The time at which the job
    * entered its previous state. This property is not set if the job is in its
@@ -2901,27 +2906,27 @@ export interface CloudJob {
    */
   poolInfo?: PoolInformation;
   /**
-   * @member {string} [onAllTasksComplete] The action the Batch service should
-   * take when all tasks in the job are in the completed state. noAction - do
-   * nothing. The job remains active unless terminated or disabled by some
-   * other means. terminateJob - terminate the job. The job's terminateReason
-   * is set to 'AllTasksComplete'. The default is noAction. Possible values
-   * include: 'noAction', 'terminateJob'
+   * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
+   * service should take when all tasks in the job are in the completed state.
+   * noAction - do nothing. The job remains active unless terminated or
+   * disabled by some other means. terminateJob - terminate the job. The job's
+   * terminateReason is set to 'AllTasksComplete'. The default is noAction.
+   * Possible values include: 'noAction', 'terminateJob'
    */
-  onAllTasksComplete?: string;
+  onAllTasksComplete?: OnAllTasksComplete;
   /**
-   * @member {string} [onTaskFailure] The action the Batch service should take
-   * when any task in the job fails. A task is considered to have failed if has
-   * a failureInfo. A failureInfo is set if the task completes with a non-zero
-   * exit code after exhausting its retry count, or if there was an error
-   * starting the task, for example due to a resource file download error.
-   * noAction - do nothing. performExitOptionsJobAction - take the action
-   * associated with the task exit condition in the task's exitConditions
-   * collection. (This may still result in no action being taken, if that is
-   * what the task specifies.) The default is noAction. Possible values
-   * include: 'noAction', 'performExitOptionsJobAction'
+   * @member {OnTaskFailure} [onTaskFailure] The action the Batch service
+   * should take when any task in the job fails. A task is considered to have
+   * failed if has a failureInfo. A failureInfo is set if the task completes
+   * with a non-zero exit code after exhausting its retry count, or if there
+   * was an error starting the task, for example due to a resource file
+   * download error. noAction - do nothing. performExitOptionsJobAction - take
+   * the action associated with the task exit condition in the task's
+   * exitConditions collection. (This may still result in no action being
+   * taken, if that is what the task specifies.) The default is noAction.
+   * Possible values include: 'noAction', 'performExitOptionsJobAction'
    */
-  onTaskFailure?: string;
+  onTaskFailure?: OnTaskFailure;
   /**
    * @member {MetadataItem[]} [metadata] A list of name-value pairs associated
    * with the job as metadata. The Batch service does not assign any meaning to
@@ -3019,32 +3024,33 @@ export interface JobAddParameter {
    */
   poolInfo: PoolInformation;
   /**
-   * @member {string} [onAllTasksComplete] The action the Batch service should
-   * take when all tasks in the job are in the completed state. Note that if a
-   * job contains no tasks, then all tasks are considered complete. This option
-   * is therefore most commonly used with a Job Manager task; if you want to
-   * use automatic job termination without a Job Manager, you should initially
-   * set onAllTasksComplete to noAction and update the job properties to set
-   * onAllTasksComplete to terminateJob once you have finished adding tasks.
-   * Permitted values are: noAction - do nothing. The job remains active unless
-   * terminated or disabled by some other means. terminateJob - terminate the
-   * job. The job's terminateReason is set to 'AllTasksComplete'. The default
-   * is noAction. Possible values include: 'noAction', 'terminateJob'
+   * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
+   * service should take when all tasks in the job are in the completed state.
+   * Note that if a job contains no tasks, then all tasks are considered
+   * complete. This option is therefore most commonly used with a Job Manager
+   * task; if you want to use automatic job termination without a Job Manager,
+   * you should initially set onAllTasksComplete to noAction and update the job
+   * properties to set onAllTasksComplete to terminateJob once you have
+   * finished adding tasks. Permitted values are: noAction - do nothing. The
+   * job remains active unless terminated or disabled by some other means.
+   * terminateJob - terminate the job. The job's terminateReason is set to
+   * 'AllTasksComplete'. The default is noAction. Possible values include:
+   * 'noAction', 'terminateJob'
    */
-  onAllTasksComplete?: string;
+  onAllTasksComplete?: OnAllTasksComplete;
   /**
-   * @member {string} [onTaskFailure] The action the Batch service should take
-   * when any task in the job fails. A task is considered to have failed if has
-   * a failureInfo. A failureInfo is set if the task completes with a non-zero
-   * exit code after exhausting its retry count, or if there was an error
-   * starting the task, for example due to a resource file download error.
-   * noAction - do nothing. performExitOptionsJobAction - take the action
-   * associated with the task exit condition in the task's exitConditions
-   * collection. (This may still result in no action being taken, if that is
-   * what the task specifies.) The default is noAction. Possible values
-   * include: 'noAction', 'performExitOptionsJobAction'
+   * @member {OnTaskFailure} [onTaskFailure] The action the Batch service
+   * should take when any task in the job fails. A task is considered to have
+   * failed if has a failureInfo. A failureInfo is set if the task completes
+   * with a non-zero exit code after exhausting its retry count, or if there
+   * was an error starting the task, for example due to a resource file
+   * download error. noAction - do nothing. performExitOptionsJobAction - take
+   * the action associated with the task exit condition in the task's
+   * exitConditions collection. (This may still result in no action being
+   * taken, if that is what the task specifies.) The default is noAction.
+   * Possible values include: 'noAction', 'performExitOptionsJobAction'
    */
-  onTaskFailure?: string;
+  onTaskFailure?: OnTaskFailure;
   /**
    * @member {MetadataItem[]} [metadata] A list of name-value pairs associated
    * with the job as metadata. The Batch service does not assign any meaning to
@@ -3091,10 +3097,10 @@ export interface TaskContainerExecutionInformation {
  */
 export interface TaskFailureInformation {
   /**
-   * @member {string} category The category of the task error. Possible values
-   * include: 'userError', 'serverError'
+   * @member {ErrorCategory} category The category of the task error. Possible
+   * values include: 'userError', 'serverError'
    */
-  category: string;
+  category: ErrorCategory;
   /**
    * @member {string} [code] An identifier for the task error. Codes are
    * invariant and are intended to be consumed programmatically.
@@ -3133,8 +3139,8 @@ export interface JobPreparationTaskExecutionInformation {
    */
   endTime?: Date;
   /**
-   * @member {string} state The current state of the Job Preparation task on
-   * the compute node. Values are:
+   * @member {JobPreparationTaskState} state The current state of the Job
+   * Preparation task on the compute node. Values are:
    *
    * running - the task is currently running (including retrying).
    * completed - the task has exited with exit code 0, or the task has
@@ -3142,7 +3148,7 @@ export interface JobPreparationTaskExecutionInformation {
    * task due to task preparation errors (such as resource file download
    * failures). Possible values include: 'running', 'completed'
    */
-  state: string;
+  state: JobPreparationTaskState;
   /**
    * @member {string} [taskRootDirectory] The root directory of the Job
    * Preparation task on the compute node. You can use this path to retrieve
@@ -3199,11 +3205,11 @@ export interface JobPreparationTaskExecutionInformation {
    */
   lastRetryTime?: Date;
   /**
-   * @member {string} [result] The result of the task execution. If the value
-   * is 'failed', then the details of the failure can be found in the
-   * failureInfo property. Possible values include: 'success', 'failure'
+   * @member {TaskExecutionResult} [result] The result of the task execution.
+   * If the value is 'failed', then the details of the failure can be found in
+   * the failureInfo property. Possible values include: 'success', 'failure'
    */
-  result?: string;
+  result?: TaskExecutionResult;
 }
 
 /**
@@ -3226,15 +3232,15 @@ export interface JobReleaseTaskExecutionInformation {
    */
   endTime?: Date;
   /**
-   * @member {string} state The current state of the Job Release task on the
-   * compute node. Values are:
+   * @member {JobReleaseTaskState} state The current state of the Job Release
+   * task on the compute node. Values are:
    *
    * running - the task is currently running (including retrying).
    * completed - the task has exited, or the Batch service was unable to start
    * the task due to task preparation errors (such as resource file download
    * failures). Possible values include: 'running', 'completed'
    */
-  state: string;
+  state: JobReleaseTaskState;
   /**
    * @member {string} [taskRootDirectory] The root directory of the Job Release
    * task on the compute node. You can use this path to retrieve files created
@@ -3270,11 +3276,11 @@ export interface JobReleaseTaskExecutionInformation {
    */
   failureInfo?: TaskFailureInformation;
   /**
-   * @member {string} [result] The result of the task execution. If the value
-   * is 'failed', then the details of the failure can be found in the
-   * failureInfo property. Possible values include: 'success', 'failure'
+   * @member {TaskExecutionResult} [result] The result of the task execution.
+   * If the value is 'failed', then the details of the failure can be found in
+   * the failureInfo property. Possible values include: 'success', 'failure'
    */
-  result?: string;
+  result?: TaskExecutionResult;
 }
 
 /**
@@ -3346,14 +3352,14 @@ export interface TaskCounts {
    */
   failed: number;
   /**
-   * @member {string} validationStatus Whether the task counts have been
-   * validated. If the validationStatus is unvalidated, then the Batch service
-   * has not been able to check state counts against the task states as
-   * reported in the List Tasks API. The validationStatus may be unvalidated if
-   * the job contains more than 200,000 tasks. Possible values include:
-   * 'validated', 'unvalidated'
+   * @member {TaskCountValidationStatus} validationStatus Whether the task
+   * counts have been validated. If the validationStatus is unvalidated, then
+   * the Batch service has not been able to check state counts against the task
+   * states as reported in the List Tasks API. The validationStatus may be
+   * unvalidated if the job contains more than 200,000 tasks. Possible values
+   * include: 'validated', 'unvalidated'
    */
-  validationStatus: string;
+  validationStatus: TaskCountValidationStatus;
 }
 
 /**
@@ -3477,7 +3483,7 @@ export interface CloudPool {
    */
   creationTime?: Date;
   /**
-   * @member {string} [state] The current state of the pool. Values are:
+   * @member {PoolState} [state] The current state of the pool. Values are:
    *
    * active - The pool is available to run tasks subject to the availability of
    * compute nodes.
@@ -3489,15 +3495,15 @@ export interface CloudPool {
    * the pool may be able to run tasks (with reduced capacity) but this is not
    * guaranteed. Possible values include: 'active', 'deleting', 'upgrading'
    */
-  state?: string;
+  state?: PoolState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the pool entered
    * its current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [allocationState] Whether the pool is resizing. Values
-   * are:
+   * @member {AllocationState} [allocationState] Whether the pool is resizing.
+   * Values are:
    *
    * steady - The pool is not resizing. There are no changes to the number of
    * nodes in the pool in progress. A pool enters this state when it is created
@@ -3509,7 +3515,7 @@ export interface CloudPool {
    * resize be stopped, but the stop request has not yet been completed.
    * Possible values include: 'steady', 'resizing', 'stopping'
    */
-  allocationState?: string;
+  allocationState?: AllocationState;
   /**
    * @member {Date} [allocationStateTransitionTime] The time at which the pool
    * entered its current allocation state.
@@ -3958,11 +3964,11 @@ export interface TaskExecutionInformation {
    */
   lastRequeueTime?: Date;
   /**
-   * @member {string} [result] The result of the task execution. If the value
-   * is 'failed', then the details of the failure can be found in the
-   * failureInfo property. Possible values include: 'success', 'failure'
+   * @member {TaskExecutionResult} [result] The result of the task execution.
+   * If the value is 'failed', then the details of the failure can be found in
+   * the failureInfo property. Possible values include: 'success', 'failure'
    */
-  result?: string;
+  result?: TaskExecutionResult;
 }
 
 /**
@@ -4202,21 +4208,21 @@ export interface CloudTask {
    */
   exitConditions?: ExitConditions;
   /**
-   * @member {string} [state] The current state of the task. Possible values
+   * @member {TaskState} [state] The current state of the task. Possible values
    * include: 'active', 'preparing', 'running', 'completed'
    */
-  state?: string;
+  state?: TaskState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the task entered
    * its current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [previousState] The previous state of the task. This
+   * @member {TaskState} [previousState] The previous state of the task. This
    * property is not set if the task is in its initial Active state. Possible
    * values include: 'active', 'preparing', 'running', 'completed'
    */
-  previousState?: string;
+  previousState?: TaskState;
   /**
    * @member {Date} [previousStateTransitionTime] The time at which the task
    * entered its previous state. This property is not set if the task is in its
@@ -4552,7 +4558,8 @@ export interface BatchError {
  */
 export interface TaskAddResult {
   /**
-   * @member {string} status The status of the add task request. Values are:
+   * @member {TaskAddStatus} status The status of the add task request. Values
+   * are:
    *
    * success - Task was added successfully.
    * clienterror - Task failed to add due to a client error and should not be
@@ -4561,7 +4568,7 @@ export interface TaskAddResult {
    * without modification. Possible values include: 'success', 'clientError',
    * 'serverError'
    */
-  status: string;
+  status: TaskAddStatus;
   /**
    * @member {string} taskId The ID of the task for which this is the result.
    */
@@ -4656,21 +4663,21 @@ export interface SubtaskInformation {
    */
   failureInfo?: TaskFailureInformation;
   /**
-   * @member {string} [state] The current state of the subtask. Possible values
-   * include: 'preparing', 'running', 'completed'
+   * @member {SubtaskState} [state] The current state of the subtask. Possible
+   * values include: 'preparing', 'running', 'completed'
    */
-  state?: string;
+  state?: SubtaskState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the subtask entered
    * its current state.
    */
   stateTransitionTime?: Date;
   /**
-   * @member {string} [previousState] The previous state of the subtask. This
-   * property is not set if the subtask is in its initial running state.
+   * @member {SubtaskState} [previousState] The previous state of the subtask.
+   * This property is not set if the subtask is in its initial running state.
    * Possible values include: 'preparing', 'running', 'completed'
    */
-  previousState?: string;
+  previousState?: SubtaskState;
   /**
    * @member {Date} [previousStateTransitionTime] The time at which the subtask
    * entered its previous state. This property is not set if the subtask is in
@@ -4678,11 +4685,11 @@ export interface SubtaskInformation {
    */
   previousStateTransitionTime?: Date;
   /**
-   * @member {string} [result] The result of the task execution. If the value
-   * is 'failed', then the details of the failure can be found in the
-   * failureInfo property. Possible values include: 'success', 'failure'
+   * @member {TaskExecutionResult} [result] The result of the task execution.
+   * If the value is 'failed', then the details of the failure can be found in
+   * the failureInfo property. Possible values include: 'success', 'failure'
    */
-  result?: string;
+  result?: TaskExecutionResult;
 }
 
 /**
@@ -4723,10 +4730,10 @@ export interface TaskInformation {
    */
   subtaskId?: number;
   /**
-   * @member {string} taskState The current state of the task. Possible values
-   * include: 'active', 'preparing', 'running', 'completed'
+   * @member {TaskState} taskState The current state of the task. Possible
+   * values include: 'active', 'preparing', 'running', 'completed'
    */
-  taskState: string;
+  taskState: TaskState;
   /**
    * @member {TaskExecutionInformation} [executionInfo] Information about the
    * execution of the task.
@@ -4742,8 +4749,8 @@ export interface TaskInformation {
  */
 export interface StartTaskInformation {
   /**
-   * @member {string} state The state of the start task on the compute node.
-   * Values are:
+   * @member {StartTaskState} state The state of the start task on the compute
+   * node. Values are:
    *
    * running - The start task is currently running.
    * completed - The start task has exited with exit code 0, or the start task
@@ -4751,7 +4758,7 @@ export interface StartTaskInformation {
    * not run due to task preparation errors (such as resource file download
    * failures). Possible values include: 'running', 'completed'
    */
-  state: string;
+  state: StartTaskState;
   /**
    * @member {Date} startTime The time at which the start task started running.
    * This value is reset every time the task is restarted or retried (that is,
@@ -4808,11 +4815,11 @@ export interface StartTaskInformation {
    */
   lastRetryTime?: Date;
   /**
-   * @member {string} [result] The result of the task execution. If the value
-   * is 'failed', then the details of the failure can be found in the
-   * failureInfo property. Possible values include: 'success', 'failure'
+   * @member {TaskExecutionResult} [result] The result of the task execution.
+   * If the value is 'failed', then the details of the failure can be found in
+   * the failureInfo property. Possible values include: 'success', 'failure'
    */
-  result?: string;
+  result?: TaskExecutionResult;
 }
 
 /**
@@ -4851,10 +4858,10 @@ export interface InboundEndpoint {
    */
   name: string;
   /**
-   * @member {string} protocol The protocol of the endpoint. Possible values
-   * include: 'tcp', 'udp'
+   * @member {InboundEndpointProtocol} protocol The protocol of the endpoint.
+   * Possible values include: 'tcp', 'udp'
    */
-  protocol: string;
+  protocol: InboundEndpointProtocol;
   /**
    * @member {string} publicIPAddress The public IP address of the compute
    * node.
@@ -4908,8 +4915,8 @@ export interface ComputeNode {
    */
   url?: string;
   /**
-   * @member {string} [state] The current state of the compute node. Values
-   * are:
+   * @member {ComputeNodeState} [state] The current state of the compute node.
+   * Values are:
    *
    * idle - The node is not currently running a task.
    * rebooting - The node is rebooting.
@@ -4938,17 +4945,17 @@ export interface ComputeNode {
    * 'waitingForStartTask', 'startTaskFailed', 'unknown', 'leavingPool',
    * 'offline', 'preempted'
    */
-  state?: string;
+  state?: ComputeNodeState;
   /**
-   * @member {string} [schedulingState] Whether the compute node is available
-   * for task scheduling. Values are:
+   * @member {SchedulingState} [schedulingState] Whether the compute node is
+   * available for task scheduling. Values are:
    *
    * enabled - Tasks can be scheduled on the node.
    * disabled - No new tasks will be scheduled on the node. Tasks already
    * running on the node may still run to completion. All nodes start with
    * scheduling enabled. Possible values include: 'enabled', 'disabled'
    */
-  schedulingState?: string;
+  schedulingState?: SchedulingState;
   /**
    * @member {Date} [stateTransitionTime] The time at which the compute node
    * entered its current state.
@@ -5186,8 +5193,8 @@ export interface JobScheduleUpdateParameter {
  */
 export interface JobDisableParameter {
   /**
-   * @member {string} disableTasks What to do with active tasks associated with
-   * the job. Values are:
+   * @member {DisableJobOption} disableTasks What to do with active tasks
+   * associated with the job. Values are:
    *
    * requeue - Terminate running tasks and requeue them. The tasks will run
    * again when the job is enabled.
@@ -5195,7 +5202,7 @@ export interface JobDisableParameter {
    * wait - Allow currently running tasks to complete. Possible values include:
    * 'requeue', 'terminate', 'wait'
    */
-  disableTasks: string;
+  disableTasks: DisableJobOption;
 }
 
 /**
@@ -5227,16 +5234,16 @@ export interface JobPatchParameter {
    */
   priority?: number;
   /**
-   * @member {string} [onAllTasksComplete] The action the Batch service should
-   * take when all tasks in the job are in the completed state. If omitted, the
-   * completion behavior is left unchanged. You may not change the value from
-   * terminateJob to noAction - that is, once you have engaged automatic job
-   * termination, you cannot turn it off again. If you try to do this, the
-   * request fails with an 'invalid property value' error response; if you are
-   * calling the REST API directly, the HTTP status code is 400 (Bad Request).
-   * Possible values include: 'noAction', 'terminateJob'
+   * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
+   * service should take when all tasks in the job are in the completed state.
+   * If omitted, the completion behavior is left unchanged. You may not change
+   * the value from terminateJob to noAction - that is, once you have engaged
+   * automatic job termination, you cannot turn it off again. If you try to do
+   * this, the request fails with an 'invalid property value' error response;
+   * if you are calling the REST API directly, the HTTP status code is 400 (Bad
+   * Request). Possible values include: 'noAction', 'terminateJob'
    */
-  onAllTasksComplete?: string;
+  onAllTasksComplete?: OnAllTasksComplete;
   /**
    * @member {JobConstraints} [constraints] The execution constraints for the
    * job. If omitted, the existing execution constraints are left unchanged.
@@ -5296,20 +5303,20 @@ export interface JobUpdateParameter {
    */
   metadata?: MetadataItem[];
   /**
-   * @member {string} [onAllTasksComplete] The action the Batch service should
-   * take when all tasks in the job are in the completed state. If omitted, the
-   * completion behavior is set to noAction. If the current value is
-   * terminateJob, this is an error because a job's completion behavior may not
-   * be changed from terminateJob to noAction. You may not change the value
-   * from terminatejob to noaction - that is, once you have engaged automatic
-   * job termination, you cannot turn it off again. If you try to do this, the
-   * request fails and Batch returns status code 400 (Bad Request) and an
-   * 'invalid property value' error response. If you do not specify this
-   * element in a PUT request, it is equivalent to passing noaction. This is an
-   * error if the current value is terminatejob. Possible values include:
-   * 'noAction', 'terminateJob'
+   * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
+   * service should take when all tasks in the job are in the completed state.
+   * If omitted, the completion behavior is set to noAction. If the current
+   * value is terminateJob, this is an error because a job's completion
+   * behavior may not be changed from terminateJob to noAction. You may not
+   * change the value from terminatejob to noaction - that is, once you have
+   * engaged automatic job termination, you cannot turn it off again. If you
+   * try to do this, the request fails and Batch returns status code 400 (Bad
+   * Request) and an 'invalid property value' error response. If you do not
+   * specify this element in a PUT request, it is equivalent to passing
+   * noaction. This is an error if the current value is terminatejob. Possible
+   * values include: 'noAction', 'terminateJob'
    */
-  onAllTasksComplete?: string;
+  onAllTasksComplete?: OnAllTasksComplete;
 }
 
 /**
@@ -5390,12 +5397,12 @@ export interface PoolResizeParameter {
    */
   resizeTimeout?: moment.Duration;
   /**
-   * @member {string} [nodeDeallocationOption] Determines what to do with a
-   * node and its running task(s) if the pool size is decreasing. The default
-   * value is requeue. Possible values include: 'requeue', 'terminate',
-   * 'taskCompletion', 'retainedData'
+   * @member {ComputeNodeDeallocationOption} [nodeDeallocationOption]
+   * Determines what to do with a node and its running task(s) if the pool size
+   * is decreasing. The default value is requeue. Possible values include:
+   * 'requeue', 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeDeallocationOption?: string;
+  nodeDeallocationOption?: ComputeNodeDeallocationOption;
 }
 
 /**
@@ -5573,8 +5580,8 @@ export interface NodeUpdateUserParameter {
  */
 export interface NodeRebootParameter {
   /**
-   * @member {string} [nodeRebootOption] When to reboot the compute node and
-   * what to do with currently running tasks. Values are:
+   * @member {ComputeNodeRebootOption} [nodeRebootOption] When to reboot the
+   * compute node and what to do with currently running tasks. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks will run again when a node is available. Restart the node as soon as
@@ -5590,7 +5597,7 @@ export interface NodeRebootParameter {
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeRebootOption?: string;
+  nodeRebootOption?: ComputeNodeRebootOption;
 }
 
 /**
@@ -5601,8 +5608,8 @@ export interface NodeRebootParameter {
  */
 export interface NodeReimageParameter {
   /**
-   * @member {string} [nodeReimageOption] When to reimage the compute node and
-   * what to do with currently running tasks. Values are:
+   * @member {ComputeNodeReimageOption} [nodeReimageOption] When to reimage the
+   * compute node and what to do with currently running tasks. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks will run again when a node is available. Reimage the node as soon as
@@ -5618,7 +5625,7 @@ export interface NodeReimageParameter {
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeReimageOption?: string;
+  nodeReimageOption?: ComputeNodeReimageOption;
 }
 
 /**
@@ -5629,9 +5636,9 @@ export interface NodeReimageParameter {
  */
 export interface NodeDisableSchedulingParameter {
   /**
-   * @member {string} [nodeDisableSchedulingOption] What to do with currently
-   * running tasks when disabling task scheduling on the compute node. Values
-   * are:
+   * @member {DisableComputeNodeSchedulingOption} [nodeDisableSchedulingOption]
+   * What to do with currently running tasks when disabling task scheduling on
+   * the compute node. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks may run again on other compute nodes, or when task scheduling is
@@ -5646,7 +5653,7 @@ export interface NodeDisableSchedulingParameter {
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion'
    */
-  nodeDisableSchedulingOption?: string;
+  nodeDisableSchedulingOption?: DisableComputeNodeSchedulingOption;
 }
 
 /**
@@ -5670,12 +5677,12 @@ export interface NodeRemoveParameter {
    */
   resizeTimeout?: moment.Duration;
   /**
-   * @member {string} [nodeDeallocationOption] Determines what to do with a
-   * node and its running task(s) after it has been selected for deallocation.
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
+   * @member {ComputeNodeDeallocationOption} [nodeDeallocationOption]
+   * Determines what to do with a node and its running task(s) after it has
+   * been selected for deallocation. The default value is requeue. Possible
+   * values include: 'requeue', 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeDeallocationOption?: string;
+  nodeDeallocationOption?: ComputeNodeDeallocationOption;
 }
 
 /**
@@ -10801,8 +10808,8 @@ export interface ComputeNodeGetOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
   /**
-   * @member {string} [nodeRebootOption] When to reboot the compute node and
-   * what to do with currently running tasks. Values are:
+   * @member {ComputeNodeRebootOption} [nodeRebootOption] When to reboot the
+   * compute node and what to do with currently running tasks. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks will run again when a node is available. Restart the node as soon as
@@ -10818,7 +10825,7 @@ export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeRebootOption?: string;
+  nodeRebootOption?: ComputeNodeRebootOption;
   /**
    * @member {ComputeNodeRebootOptions} [computeNodeRebootOptions] Additional
    * parameters for the operation
@@ -10835,8 +10842,8 @@ export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
   /**
-   * @member {string} [nodeReimageOption] When to reimage the compute node and
-   * what to do with currently running tasks. Values are:
+   * @member {ComputeNodeReimageOption} [nodeReimageOption] When to reimage the
+   * compute node and what to do with currently running tasks. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks will run again when a node is available. Reimage the node as soon as
@@ -10852,7 +10859,7 @@ export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion', 'retainedData'
    */
-  nodeReimageOption?: string;
+  nodeReimageOption?: ComputeNodeReimageOption;
   /**
    * @member {ComputeNodeReimageOptions} [computeNodeReimageOptions] Additional
    * parameters for the operation
@@ -10869,9 +10876,9 @@ export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeDisableSchedulingOptionalParams extends RequestOptionsBase {
   /**
-   * @member {string} [nodeDisableSchedulingOption] What to do with currently
-   * running tasks when disabling task scheduling on the compute node. Values
-   * are:
+   * @member {DisableComputeNodeSchedulingOption} [nodeDisableSchedulingOption]
+   * What to do with currently running tasks when disabling task scheduling on
+   * the compute node. Values are:
    *
    * requeue - Terminate running task processes and requeue the tasks. The
    * tasks may run again on other compute nodes, or when task scheduling is
@@ -10886,7 +10893,7 @@ export interface ComputeNodeDisableSchedulingOptionalParams extends RequestOptio
    * The default value is requeue. Possible values include: 'requeue',
    * 'terminate', 'taskCompletion'
    */
-  nodeDisableSchedulingOption?: string;
+  nodeDisableSchedulingOption?: DisableComputeNodeSchedulingOption;
   /**
    * @member {ComputeNodeDisableSchedulingOptions}
    * [computeNodeDisableSchedulingOptions] Additional parameters for the
@@ -11128,4 +11135,477 @@ export interface ComputeNodeListResult extends Array<ComputeNode> {
    * @member {string} [odatanextLink]
    */
   odatanextLink?: string;
+}
+
+/**
+ * Defines values for OSType.
+ * Possible values include: 'linux', 'windows'
+ * @readonly
+ * @enum {string}
+ */
+export enum OSType {
+  Linux = 'linux',
+  Windows = 'windows',
+}
+
+/**
+ * Defines values for AccessScope.
+ * Possible values include: 'job'
+ * @readonly
+ * @enum {string}
+ */
+export enum AccessScope {
+  Job = 'job',
+}
+
+/**
+ * Defines values for CertificateState.
+ * Possible values include: 'active', 'deleting', 'deleteFailed'
+ * @readonly
+ * @enum {string}
+ */
+export enum CertificateState {
+  Active = 'active',
+  Deleting = 'deleting',
+  DeleteFailed = 'deleteFailed',
+}
+
+/**
+ * Defines values for CertificateFormat.
+ * Possible values include: 'pfx', 'cer'
+ * @readonly
+ * @enum {string}
+ */
+export enum CertificateFormat {
+  Pfx = 'pfx',
+  Cer = 'cer',
+}
+
+/**
+ * Defines values for JobAction.
+ * Possible values include: 'none', 'disable', 'terminate'
+ * @readonly
+ * @enum {string}
+ */
+export enum JobAction {
+  None = 'none',
+  Disable = 'disable',
+  Terminate = 'terminate',
+}
+
+/**
+ * Defines values for DependencyAction.
+ * Possible values include: 'satisfy', 'block'
+ * @readonly
+ * @enum {string}
+ */
+export enum DependencyAction {
+  Satisfy = 'satisfy',
+  Block = 'block',
+}
+
+/**
+ * Defines values for AutoUserScope.
+ * Possible values include: 'task', 'pool'
+ * @readonly
+ * @enum {string}
+ */
+export enum AutoUserScope {
+  Task = 'task',
+  Pool = 'pool',
+}
+
+/**
+ * Defines values for ElevationLevel.
+ * Possible values include: 'nonAdmin', 'admin'
+ * @readonly
+ * @enum {string}
+ */
+export enum ElevationLevel {
+  NonAdmin = 'nonAdmin',
+  Admin = 'admin',
+}
+
+/**
+ * Defines values for OutputFileUploadCondition.
+ * Possible values include: 'taskSuccess', 'taskFailure', 'taskCompletion'
+ * @readonly
+ * @enum {string}
+ */
+export enum OutputFileUploadCondition {
+  TaskSuccess = 'taskSuccess',
+  TaskFailure = 'taskFailure',
+  TaskCompletion = 'taskCompletion',
+}
+
+/**
+ * Defines values for ComputeNodeFillType.
+ * Possible values include: 'spread', 'pack'
+ * @readonly
+ * @enum {string}
+ */
+export enum ComputeNodeFillType {
+  Spread = 'spread',
+  Pack = 'pack',
+}
+
+/**
+ * Defines values for CertificateStoreLocation.
+ * Possible values include: 'currentUser', 'localMachine'
+ * @readonly
+ * @enum {string}
+ */
+export enum CertificateStoreLocation {
+  CurrentUser = 'currentUser',
+  LocalMachine = 'localMachine',
+}
+
+/**
+ * Defines values for CertificateVisibility.
+ * Possible values include: 'startTask', 'task', 'remoteUser'
+ * @readonly
+ * @enum {string}
+ */
+export enum CertificateVisibility {
+  StartTask = 'startTask',
+  Task = 'task',
+  RemoteUser = 'remoteUser',
+}
+
+/**
+ * Defines values for CachingType.
+ * Possible values include: 'none', 'readOnly', 'readWrite'
+ * @readonly
+ * @enum {string}
+ */
+export enum CachingType {
+  None = 'none',
+  ReadOnly = 'readOnly',
+  ReadWrite = 'readWrite',
+}
+
+/**
+ * Defines values for StorageAccountType.
+ * Possible values include: 'Standard_LRS', 'Premium_LRS'
+ * @readonly
+ * @enum {string}
+ */
+export enum StorageAccountType {
+  StandardLRS = 'Standard_LRS',
+  PremiumLRS = 'Premium_LRS',
+}
+
+/**
+ * Defines values for InboundEndpointProtocol.
+ * Possible values include: 'tcp', 'udp'
+ * @readonly
+ * @enum {string}
+ */
+export enum InboundEndpointProtocol {
+  Tcp = 'tcp',
+  Udp = 'udp',
+}
+
+/**
+ * Defines values for NetworkSecurityGroupRuleAccess.
+ * Possible values include: 'allow', 'deny'
+ * @readonly
+ * @enum {string}
+ */
+export enum NetworkSecurityGroupRuleAccess {
+  Allow = 'allow',
+  Deny = 'deny',
+}
+
+/**
+ * Defines values for PoolLifetimeOption.
+ * Possible values include: 'jobSchedule', 'job'
+ * @readonly
+ * @enum {string}
+ */
+export enum PoolLifetimeOption {
+  JobSchedule = 'jobSchedule',
+  Job = 'job',
+}
+
+/**
+ * Defines values for OnAllTasksComplete.
+ * Possible values include: 'noAction', 'terminateJob'
+ * @readonly
+ * @enum {string}
+ */
+export enum OnAllTasksComplete {
+  NoAction = 'noAction',
+  TerminateJob = 'terminateJob',
+}
+
+/**
+ * Defines values for OnTaskFailure.
+ * Possible values include: 'noAction', 'performExitOptionsJobAction'
+ * @readonly
+ * @enum {string}
+ */
+export enum OnTaskFailure {
+  NoAction = 'noAction',
+  PerformExitOptionsJobAction = 'performExitOptionsJobAction',
+}
+
+/**
+ * Defines values for JobScheduleState.
+ * Possible values include: 'active', 'completed', 'disabled', 'terminating',
+ * 'deleting'
+ * @readonly
+ * @enum {string}
+ */
+export enum JobScheduleState {
+  Active = 'active',
+  Completed = 'completed',
+  Disabled = 'disabled',
+  Terminating = 'terminating',
+  Deleting = 'deleting',
+}
+
+/**
+ * Defines values for ErrorCategory.
+ * Possible values include: 'userError', 'serverError'
+ * @readonly
+ * @enum {string}
+ */
+export enum ErrorCategory {
+  UserError = 'userError',
+  ServerError = 'serverError',
+}
+
+/**
+ * Defines values for JobState.
+ * Possible values include: 'active', 'disabling', 'disabled', 'enabling',
+ * 'terminating', 'completed', 'deleting'
+ * @readonly
+ * @enum {string}
+ */
+export enum JobState {
+  Active = 'active',
+  Disabling = 'disabling',
+  Disabled = 'disabled',
+  Enabling = 'enabling',
+  Terminating = 'terminating',
+  Completed = 'completed',
+  Deleting = 'deleting',
+}
+
+/**
+ * Defines values for JobPreparationTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+export enum JobPreparationTaskState {
+  Running = 'running',
+  Completed = 'completed',
+}
+
+/**
+ * Defines values for TaskExecutionResult.
+ * Possible values include: 'success', 'failure'
+ * @readonly
+ * @enum {string}
+ */
+export enum TaskExecutionResult {
+  Success = 'success',
+  Failure = 'failure',
+}
+
+/**
+ * Defines values for JobReleaseTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+export enum JobReleaseTaskState {
+  Running = 'running',
+  Completed = 'completed',
+}
+
+/**
+ * Defines values for TaskCountValidationStatus.
+ * Possible values include: 'validated', 'unvalidated'
+ * @readonly
+ * @enum {string}
+ */
+export enum TaskCountValidationStatus {
+  Validated = 'validated',
+  Unvalidated = 'unvalidated',
+}
+
+/**
+ * Defines values for PoolState.
+ * Possible values include: 'active', 'deleting', 'upgrading'
+ * @readonly
+ * @enum {string}
+ */
+export enum PoolState {
+  Active = 'active',
+  Deleting = 'deleting',
+  Upgrading = 'upgrading',
+}
+
+/**
+ * Defines values for AllocationState.
+ * Possible values include: 'steady', 'resizing', 'stopping'
+ * @readonly
+ * @enum {string}
+ */
+export enum AllocationState {
+  Steady = 'steady',
+  Resizing = 'resizing',
+  Stopping = 'stopping',
+}
+
+/**
+ * Defines values for TaskState.
+ * Possible values include: 'active', 'preparing', 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+export enum TaskState {
+  Active = 'active',
+  Preparing = 'preparing',
+  Running = 'running',
+  Completed = 'completed',
+}
+
+/**
+ * Defines values for TaskAddStatus.
+ * Possible values include: 'success', 'clientError', 'serverError'
+ * @readonly
+ * @enum {string}
+ */
+export enum TaskAddStatus {
+  Success = 'success',
+  ClientError = 'clientError',
+  ServerError = 'serverError',
+}
+
+/**
+ * Defines values for SubtaskState.
+ * Possible values include: 'preparing', 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+export enum SubtaskState {
+  Preparing = 'preparing',
+  Running = 'running',
+  Completed = 'completed',
+}
+
+/**
+ * Defines values for StartTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+export enum StartTaskState {
+  Running = 'running',
+  Completed = 'completed',
+}
+
+/**
+ * Defines values for ComputeNodeState.
+ * Possible values include: 'idle', 'rebooting', 'reimaging', 'running',
+ * 'unusable', 'creating', 'starting', 'waitingForStartTask',
+ * 'startTaskFailed', 'unknown', 'leavingPool', 'offline', 'preempted'
+ * @readonly
+ * @enum {string}
+ */
+export enum ComputeNodeState {
+  Idle = 'idle',
+  Rebooting = 'rebooting',
+  Reimaging = 'reimaging',
+  Running = 'running',
+  Unusable = 'unusable',
+  Creating = 'creating',
+  Starting = 'starting',
+  WaitingForStartTask = 'waitingForStartTask',
+  StartTaskFailed = 'startTaskFailed',
+  Unknown = 'unknown',
+  LeavingPool = 'leavingPool',
+  Offline = 'offline',
+  Preempted = 'preempted',
+}
+
+/**
+ * Defines values for SchedulingState.
+ * Possible values include: 'enabled', 'disabled'
+ * @readonly
+ * @enum {string}
+ */
+export enum SchedulingState {
+  Enabled = 'enabled',
+  Disabled = 'disabled',
+}
+
+/**
+ * Defines values for DisableJobOption.
+ * Possible values include: 'requeue', 'terminate', 'wait'
+ * @readonly
+ * @enum {string}
+ */
+export enum DisableJobOption {
+  Requeue = 'requeue',
+  Terminate = 'terminate',
+  Wait = 'wait',
+}
+
+/**
+ * Defines values for ComputeNodeDeallocationOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+export enum ComputeNodeDeallocationOption {
+  Requeue = 'requeue',
+  Terminate = 'terminate',
+  TaskCompletion = 'taskCompletion',
+  RetainedData = 'retainedData',
+}
+
+/**
+ * Defines values for ComputeNodeRebootOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+export enum ComputeNodeRebootOption {
+  Requeue = 'requeue',
+  Terminate = 'terminate',
+  TaskCompletion = 'taskCompletion',
+  RetainedData = 'retainedData',
+}
+
+/**
+ * Defines values for ComputeNodeReimageOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+export enum ComputeNodeReimageOption {
+  Requeue = 'requeue',
+  Terminate = 'terminate',
+  TaskCompletion = 'taskCompletion',
+  RetainedData = 'retainedData',
+}
+
+/**
+ * Defines values for DisableComputeNodeSchedulingOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion'
+ * @readonly
+ * @enum {string}
+ */
+export enum DisableComputeNodeSchedulingOption {
+  Requeue = 'requeue',
+  Terminate = 'terminate',
+  TaskCompletion = 'taskCompletion',
 }

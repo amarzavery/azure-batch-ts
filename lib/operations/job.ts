@@ -1085,8 +1085,8 @@ export class Job {
    *
    * @param {string} jobId The ID of the job to disable.
    *
-   * @param {string} disableTasks What to do with active tasks associated with
-   * the job. Values are:
+   * @param {DisableJobOption} disableTasks What to do with active tasks
+   * associated with the job. Values are:
    *
    * requeue - Terminate running tasks and requeue them. The tasks will run again
    * when the job is enabled.
@@ -1102,7 +1102,7 @@ export class Job {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async disableWithHttpOperationResponse(jobId: string, disableTasks: string, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async disableWithHttpOperationResponse(jobId: string, disableTasks: Models.DisableJobOption, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let jobDisableOptions = (options && options.jobDisableOptions !== undefined) ? options.jobDisableOptions : undefined;
     // Validate
@@ -3421,8 +3421,8 @@ export class Job {
    *
    * @param {string} jobId The ID of the job to disable.
    *
-   * @param {string} disableTasks What to do with active tasks associated with
-   * the job. Values are:
+   * @param {DisableJobOption} disableTasks What to do with active tasks
+   * associated with the job. Values are:
    *
    * requeue - Terminate running tasks and requeue them. The tasks will run again
    * when the job is enabled.
@@ -3444,11 +3444,11 @@ export class Job {
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  disable(jobId: string, disableTasks: string): Promise<void>;
-  disable(jobId: string, disableTasks: string, options: Models.JobDisableOptionalParams): Promise<void>;
-  disable(jobId: string, disableTasks: string, callback: msRest.ServiceCallback<void>): void;
-  disable(jobId: string, disableTasks: string, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
-  disable(jobId: string, disableTasks: string, options?: Models.JobDisableOptionalParams, callback?: msRest.ServiceCallback<void>): any {
+  disable(jobId: string, disableTasks: Models.DisableJobOption): Promise<void>;
+  disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams): Promise<void>;
+  disable(jobId: string, disableTasks: Models.DisableJobOption, callback: msRest.ServiceCallback<void>): void;
+  disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  disable(jobId: string, disableTasks: Models.DisableJobOption, options?: Models.JobDisableOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;

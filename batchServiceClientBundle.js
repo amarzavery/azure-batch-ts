@@ -12660,8 +12660,8 @@ exports.BatchServiceMappers = Mappers;
 const msRest = __webpack_require__(1);
 const msRestAzure = __webpack_require__(2);
 const operations = __webpack_require__(5);
-const packageName = 'foo';
-const packageVersion = '3.0.0-preview';
+const packageName = "azure-batch-js";
+const packageVersion = "0.1.0";
 class BatchServiceClient extends msRestAzure.AzureServiceClient {
     /**
      * @class
@@ -12745,6 +12745,479 @@ exports.BatchServiceClient = BatchServiceClient;
  * regenerated.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Defines values for OSType.
+ * Possible values include: 'linux', 'windows'
+ * @readonly
+ * @enum {string}
+ */
+var OSType;
+(function (OSType) {
+    OSType["Linux"] = "linux";
+    OSType["Windows"] = "windows";
+})(OSType = exports.OSType || (exports.OSType = {}));
+/**
+ * Defines values for AccessScope.
+ * Possible values include: 'job'
+ * @readonly
+ * @enum {string}
+ */
+var AccessScope;
+(function (AccessScope) {
+    AccessScope["Job"] = "job";
+})(AccessScope = exports.AccessScope || (exports.AccessScope = {}));
+/**
+ * Defines values for CertificateState.
+ * Possible values include: 'active', 'deleting', 'deleteFailed'
+ * @readonly
+ * @enum {string}
+ */
+var CertificateState;
+(function (CertificateState) {
+    CertificateState["Active"] = "active";
+    CertificateState["Deleting"] = "deleting";
+    CertificateState["DeleteFailed"] = "deleteFailed";
+})(CertificateState = exports.CertificateState || (exports.CertificateState = {}));
+/**
+ * Defines values for CertificateFormat.
+ * Possible values include: 'pfx', 'cer'
+ * @readonly
+ * @enum {string}
+ */
+var CertificateFormat;
+(function (CertificateFormat) {
+    CertificateFormat["Pfx"] = "pfx";
+    CertificateFormat["Cer"] = "cer";
+})(CertificateFormat = exports.CertificateFormat || (exports.CertificateFormat = {}));
+/**
+ * Defines values for JobAction.
+ * Possible values include: 'none', 'disable', 'terminate'
+ * @readonly
+ * @enum {string}
+ */
+var JobAction;
+(function (JobAction) {
+    JobAction["None"] = "none";
+    JobAction["Disable"] = "disable";
+    JobAction["Terminate"] = "terminate";
+})(JobAction = exports.JobAction || (exports.JobAction = {}));
+/**
+ * Defines values for DependencyAction.
+ * Possible values include: 'satisfy', 'block'
+ * @readonly
+ * @enum {string}
+ */
+var DependencyAction;
+(function (DependencyAction) {
+    DependencyAction["Satisfy"] = "satisfy";
+    DependencyAction["Block"] = "block";
+})(DependencyAction = exports.DependencyAction || (exports.DependencyAction = {}));
+/**
+ * Defines values for AutoUserScope.
+ * Possible values include: 'task', 'pool'
+ * @readonly
+ * @enum {string}
+ */
+var AutoUserScope;
+(function (AutoUserScope) {
+    AutoUserScope["Task"] = "task";
+    AutoUserScope["Pool"] = "pool";
+})(AutoUserScope = exports.AutoUserScope || (exports.AutoUserScope = {}));
+/**
+ * Defines values for ElevationLevel.
+ * Possible values include: 'nonAdmin', 'admin'
+ * @readonly
+ * @enum {string}
+ */
+var ElevationLevel;
+(function (ElevationLevel) {
+    ElevationLevel["NonAdmin"] = "nonAdmin";
+    ElevationLevel["Admin"] = "admin";
+})(ElevationLevel = exports.ElevationLevel || (exports.ElevationLevel = {}));
+/**
+ * Defines values for OutputFileUploadCondition.
+ * Possible values include: 'taskSuccess', 'taskFailure', 'taskCompletion'
+ * @readonly
+ * @enum {string}
+ */
+var OutputFileUploadCondition;
+(function (OutputFileUploadCondition) {
+    OutputFileUploadCondition["TaskSuccess"] = "taskSuccess";
+    OutputFileUploadCondition["TaskFailure"] = "taskFailure";
+    OutputFileUploadCondition["TaskCompletion"] = "taskCompletion";
+})(OutputFileUploadCondition = exports.OutputFileUploadCondition || (exports.OutputFileUploadCondition = {}));
+/**
+ * Defines values for ComputeNodeFillType.
+ * Possible values include: 'spread', 'pack'
+ * @readonly
+ * @enum {string}
+ */
+var ComputeNodeFillType;
+(function (ComputeNodeFillType) {
+    ComputeNodeFillType["Spread"] = "spread";
+    ComputeNodeFillType["Pack"] = "pack";
+})(ComputeNodeFillType = exports.ComputeNodeFillType || (exports.ComputeNodeFillType = {}));
+/**
+ * Defines values for CertificateStoreLocation.
+ * Possible values include: 'currentUser', 'localMachine'
+ * @readonly
+ * @enum {string}
+ */
+var CertificateStoreLocation;
+(function (CertificateStoreLocation) {
+    CertificateStoreLocation["CurrentUser"] = "currentUser";
+    CertificateStoreLocation["LocalMachine"] = "localMachine";
+})(CertificateStoreLocation = exports.CertificateStoreLocation || (exports.CertificateStoreLocation = {}));
+/**
+ * Defines values for CertificateVisibility.
+ * Possible values include: 'startTask', 'task', 'remoteUser'
+ * @readonly
+ * @enum {string}
+ */
+var CertificateVisibility;
+(function (CertificateVisibility) {
+    CertificateVisibility["StartTask"] = "startTask";
+    CertificateVisibility["Task"] = "task";
+    CertificateVisibility["RemoteUser"] = "remoteUser";
+})(CertificateVisibility = exports.CertificateVisibility || (exports.CertificateVisibility = {}));
+/**
+ * Defines values for CachingType.
+ * Possible values include: 'none', 'readOnly', 'readWrite'
+ * @readonly
+ * @enum {string}
+ */
+var CachingType;
+(function (CachingType) {
+    CachingType["None"] = "none";
+    CachingType["ReadOnly"] = "readOnly";
+    CachingType["ReadWrite"] = "readWrite";
+})(CachingType = exports.CachingType || (exports.CachingType = {}));
+/**
+ * Defines values for StorageAccountType.
+ * Possible values include: 'Standard_LRS', 'Premium_LRS'
+ * @readonly
+ * @enum {string}
+ */
+var StorageAccountType;
+(function (StorageAccountType) {
+    StorageAccountType["StandardLRS"] = "Standard_LRS";
+    StorageAccountType["PremiumLRS"] = "Premium_LRS";
+})(StorageAccountType = exports.StorageAccountType || (exports.StorageAccountType = {}));
+/**
+ * Defines values for InboundEndpointProtocol.
+ * Possible values include: 'tcp', 'udp'
+ * @readonly
+ * @enum {string}
+ */
+var InboundEndpointProtocol;
+(function (InboundEndpointProtocol) {
+    InboundEndpointProtocol["Tcp"] = "tcp";
+    InboundEndpointProtocol["Udp"] = "udp";
+})(InboundEndpointProtocol = exports.InboundEndpointProtocol || (exports.InboundEndpointProtocol = {}));
+/**
+ * Defines values for NetworkSecurityGroupRuleAccess.
+ * Possible values include: 'allow', 'deny'
+ * @readonly
+ * @enum {string}
+ */
+var NetworkSecurityGroupRuleAccess;
+(function (NetworkSecurityGroupRuleAccess) {
+    NetworkSecurityGroupRuleAccess["Allow"] = "allow";
+    NetworkSecurityGroupRuleAccess["Deny"] = "deny";
+})(NetworkSecurityGroupRuleAccess = exports.NetworkSecurityGroupRuleAccess || (exports.NetworkSecurityGroupRuleAccess = {}));
+/**
+ * Defines values for PoolLifetimeOption.
+ * Possible values include: 'jobSchedule', 'job'
+ * @readonly
+ * @enum {string}
+ */
+var PoolLifetimeOption;
+(function (PoolLifetimeOption) {
+    PoolLifetimeOption["JobSchedule"] = "jobSchedule";
+    PoolLifetimeOption["Job"] = "job";
+})(PoolLifetimeOption = exports.PoolLifetimeOption || (exports.PoolLifetimeOption = {}));
+/**
+ * Defines values for OnAllTasksComplete.
+ * Possible values include: 'noAction', 'terminateJob'
+ * @readonly
+ * @enum {string}
+ */
+var OnAllTasksComplete;
+(function (OnAllTasksComplete) {
+    OnAllTasksComplete["NoAction"] = "noAction";
+    OnAllTasksComplete["TerminateJob"] = "terminateJob";
+})(OnAllTasksComplete = exports.OnAllTasksComplete || (exports.OnAllTasksComplete = {}));
+/**
+ * Defines values for OnTaskFailure.
+ * Possible values include: 'noAction', 'performExitOptionsJobAction'
+ * @readonly
+ * @enum {string}
+ */
+var OnTaskFailure;
+(function (OnTaskFailure) {
+    OnTaskFailure["NoAction"] = "noAction";
+    OnTaskFailure["PerformExitOptionsJobAction"] = "performExitOptionsJobAction";
+})(OnTaskFailure = exports.OnTaskFailure || (exports.OnTaskFailure = {}));
+/**
+ * Defines values for JobScheduleState.
+ * Possible values include: 'active', 'completed', 'disabled', 'terminating',
+ * 'deleting'
+ * @readonly
+ * @enum {string}
+ */
+var JobScheduleState;
+(function (JobScheduleState) {
+    JobScheduleState["Active"] = "active";
+    JobScheduleState["Completed"] = "completed";
+    JobScheduleState["Disabled"] = "disabled";
+    JobScheduleState["Terminating"] = "terminating";
+    JobScheduleState["Deleting"] = "deleting";
+})(JobScheduleState = exports.JobScheduleState || (exports.JobScheduleState = {}));
+/**
+ * Defines values for ErrorCategory.
+ * Possible values include: 'userError', 'serverError'
+ * @readonly
+ * @enum {string}
+ */
+var ErrorCategory;
+(function (ErrorCategory) {
+    ErrorCategory["UserError"] = "userError";
+    ErrorCategory["ServerError"] = "serverError";
+})(ErrorCategory = exports.ErrorCategory || (exports.ErrorCategory = {}));
+/**
+ * Defines values for JobState.
+ * Possible values include: 'active', 'disabling', 'disabled', 'enabling',
+ * 'terminating', 'completed', 'deleting'
+ * @readonly
+ * @enum {string}
+ */
+var JobState;
+(function (JobState) {
+    JobState["Active"] = "active";
+    JobState["Disabling"] = "disabling";
+    JobState["Disabled"] = "disabled";
+    JobState["Enabling"] = "enabling";
+    JobState["Terminating"] = "terminating";
+    JobState["Completed"] = "completed";
+    JobState["Deleting"] = "deleting";
+})(JobState = exports.JobState || (exports.JobState = {}));
+/**
+ * Defines values for JobPreparationTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+var JobPreparationTaskState;
+(function (JobPreparationTaskState) {
+    JobPreparationTaskState["Running"] = "running";
+    JobPreparationTaskState["Completed"] = "completed";
+})(JobPreparationTaskState = exports.JobPreparationTaskState || (exports.JobPreparationTaskState = {}));
+/**
+ * Defines values for TaskExecutionResult.
+ * Possible values include: 'success', 'failure'
+ * @readonly
+ * @enum {string}
+ */
+var TaskExecutionResult;
+(function (TaskExecutionResult) {
+    TaskExecutionResult["Success"] = "success";
+    TaskExecutionResult["Failure"] = "failure";
+})(TaskExecutionResult = exports.TaskExecutionResult || (exports.TaskExecutionResult = {}));
+/**
+ * Defines values for JobReleaseTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+var JobReleaseTaskState;
+(function (JobReleaseTaskState) {
+    JobReleaseTaskState["Running"] = "running";
+    JobReleaseTaskState["Completed"] = "completed";
+})(JobReleaseTaskState = exports.JobReleaseTaskState || (exports.JobReleaseTaskState = {}));
+/**
+ * Defines values for TaskCountValidationStatus.
+ * Possible values include: 'validated', 'unvalidated'
+ * @readonly
+ * @enum {string}
+ */
+var TaskCountValidationStatus;
+(function (TaskCountValidationStatus) {
+    TaskCountValidationStatus["Validated"] = "validated";
+    TaskCountValidationStatus["Unvalidated"] = "unvalidated";
+})(TaskCountValidationStatus = exports.TaskCountValidationStatus || (exports.TaskCountValidationStatus = {}));
+/**
+ * Defines values for PoolState.
+ * Possible values include: 'active', 'deleting', 'upgrading'
+ * @readonly
+ * @enum {string}
+ */
+var PoolState;
+(function (PoolState) {
+    PoolState["Active"] = "active";
+    PoolState["Deleting"] = "deleting";
+    PoolState["Upgrading"] = "upgrading";
+})(PoolState = exports.PoolState || (exports.PoolState = {}));
+/**
+ * Defines values for AllocationState.
+ * Possible values include: 'steady', 'resizing', 'stopping'
+ * @readonly
+ * @enum {string}
+ */
+var AllocationState;
+(function (AllocationState) {
+    AllocationState["Steady"] = "steady";
+    AllocationState["Resizing"] = "resizing";
+    AllocationState["Stopping"] = "stopping";
+})(AllocationState = exports.AllocationState || (exports.AllocationState = {}));
+/**
+ * Defines values for TaskState.
+ * Possible values include: 'active', 'preparing', 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+var TaskState;
+(function (TaskState) {
+    TaskState["Active"] = "active";
+    TaskState["Preparing"] = "preparing";
+    TaskState["Running"] = "running";
+    TaskState["Completed"] = "completed";
+})(TaskState = exports.TaskState || (exports.TaskState = {}));
+/**
+ * Defines values for TaskAddStatus.
+ * Possible values include: 'success', 'clientError', 'serverError'
+ * @readonly
+ * @enum {string}
+ */
+var TaskAddStatus;
+(function (TaskAddStatus) {
+    TaskAddStatus["Success"] = "success";
+    TaskAddStatus["ClientError"] = "clientError";
+    TaskAddStatus["ServerError"] = "serverError";
+})(TaskAddStatus = exports.TaskAddStatus || (exports.TaskAddStatus = {}));
+/**
+ * Defines values for SubtaskState.
+ * Possible values include: 'preparing', 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+var SubtaskState;
+(function (SubtaskState) {
+    SubtaskState["Preparing"] = "preparing";
+    SubtaskState["Running"] = "running";
+    SubtaskState["Completed"] = "completed";
+})(SubtaskState = exports.SubtaskState || (exports.SubtaskState = {}));
+/**
+ * Defines values for StartTaskState.
+ * Possible values include: 'running', 'completed'
+ * @readonly
+ * @enum {string}
+ */
+var StartTaskState;
+(function (StartTaskState) {
+    StartTaskState["Running"] = "running";
+    StartTaskState["Completed"] = "completed";
+})(StartTaskState = exports.StartTaskState || (exports.StartTaskState = {}));
+/**
+ * Defines values for ComputeNodeState.
+ * Possible values include: 'idle', 'rebooting', 'reimaging', 'running',
+ * 'unusable', 'creating', 'starting', 'waitingForStartTask',
+ * 'startTaskFailed', 'unknown', 'leavingPool', 'offline', 'preempted'
+ * @readonly
+ * @enum {string}
+ */
+var ComputeNodeState;
+(function (ComputeNodeState) {
+    ComputeNodeState["Idle"] = "idle";
+    ComputeNodeState["Rebooting"] = "rebooting";
+    ComputeNodeState["Reimaging"] = "reimaging";
+    ComputeNodeState["Running"] = "running";
+    ComputeNodeState["Unusable"] = "unusable";
+    ComputeNodeState["Creating"] = "creating";
+    ComputeNodeState["Starting"] = "starting";
+    ComputeNodeState["WaitingForStartTask"] = "waitingForStartTask";
+    ComputeNodeState["StartTaskFailed"] = "startTaskFailed";
+    ComputeNodeState["Unknown"] = "unknown";
+    ComputeNodeState["LeavingPool"] = "leavingPool";
+    ComputeNodeState["Offline"] = "offline";
+    ComputeNodeState["Preempted"] = "preempted";
+})(ComputeNodeState = exports.ComputeNodeState || (exports.ComputeNodeState = {}));
+/**
+ * Defines values for SchedulingState.
+ * Possible values include: 'enabled', 'disabled'
+ * @readonly
+ * @enum {string}
+ */
+var SchedulingState;
+(function (SchedulingState) {
+    SchedulingState["Enabled"] = "enabled";
+    SchedulingState["Disabled"] = "disabled";
+})(SchedulingState = exports.SchedulingState || (exports.SchedulingState = {}));
+/**
+ * Defines values for DisableJobOption.
+ * Possible values include: 'requeue', 'terminate', 'wait'
+ * @readonly
+ * @enum {string}
+ */
+var DisableJobOption;
+(function (DisableJobOption) {
+    DisableJobOption["Requeue"] = "requeue";
+    DisableJobOption["Terminate"] = "terminate";
+    DisableJobOption["Wait"] = "wait";
+})(DisableJobOption = exports.DisableJobOption || (exports.DisableJobOption = {}));
+/**
+ * Defines values for ComputeNodeDeallocationOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+var ComputeNodeDeallocationOption;
+(function (ComputeNodeDeallocationOption) {
+    ComputeNodeDeallocationOption["Requeue"] = "requeue";
+    ComputeNodeDeallocationOption["Terminate"] = "terminate";
+    ComputeNodeDeallocationOption["TaskCompletion"] = "taskCompletion";
+    ComputeNodeDeallocationOption["RetainedData"] = "retainedData";
+})(ComputeNodeDeallocationOption = exports.ComputeNodeDeallocationOption || (exports.ComputeNodeDeallocationOption = {}));
+/**
+ * Defines values for ComputeNodeRebootOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+var ComputeNodeRebootOption;
+(function (ComputeNodeRebootOption) {
+    ComputeNodeRebootOption["Requeue"] = "requeue";
+    ComputeNodeRebootOption["Terminate"] = "terminate";
+    ComputeNodeRebootOption["TaskCompletion"] = "taskCompletion";
+    ComputeNodeRebootOption["RetainedData"] = "retainedData";
+})(ComputeNodeRebootOption = exports.ComputeNodeRebootOption || (exports.ComputeNodeRebootOption = {}));
+/**
+ * Defines values for ComputeNodeReimageOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion',
+ * 'retainedData'
+ * @readonly
+ * @enum {string}
+ */
+var ComputeNodeReimageOption;
+(function (ComputeNodeReimageOption) {
+    ComputeNodeReimageOption["Requeue"] = "requeue";
+    ComputeNodeReimageOption["Terminate"] = "terminate";
+    ComputeNodeReimageOption["TaskCompletion"] = "taskCompletion";
+    ComputeNodeReimageOption["RetainedData"] = "retainedData";
+})(ComputeNodeReimageOption = exports.ComputeNodeReimageOption || (exports.ComputeNodeReimageOption = {}));
+/**
+ * Defines values for DisableComputeNodeSchedulingOption.
+ * Possible values include: 'requeue', 'terminate', 'taskCompletion'
+ * @readonly
+ * @enum {string}
+ */
+var DisableComputeNodeSchedulingOption;
+(function (DisableComputeNodeSchedulingOption) {
+    DisableComputeNodeSchedulingOption["Requeue"] = "requeue";
+    DisableComputeNodeSchedulingOption["Terminate"] = "terminate";
+    DisableComputeNodeSchedulingOption["TaskCompletion"] = "taskCompletion";
+})(DisableComputeNodeSchedulingOption = exports.DisableComputeNodeSchedulingOption || (exports.DisableComputeNodeSchedulingOption = {}));
 
 
 /***/ }),
@@ -18783,8 +19256,8 @@ class Job {
      *
      * @param {string} jobId The ID of the job to disable.
      *
-     * @param {string} disableTasks What to do with active tasks associated with
-     * the job. Values are:
+     * @param {DisableJobOption} disableTasks What to do with active tasks
+     * associated with the job. Values are:
      *
      * requeue - Terminate running tasks and requeue them. The tasks will run again
      * when the job is enabled.
@@ -24212,7 +24685,7 @@ class File {
         let cb = callback;
         if (!callback) {
             return this.getFromTaskWithHttpOperationResponse(jobId, taskId, filePath, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -24222,7 +24695,7 @@ class File {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }
@@ -24281,7 +24754,7 @@ class File {
         let cb = callback;
         if (!callback) {
             return this.getFromComputeNodeWithHttpOperationResponse(poolId, nodeId, filePath, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -24291,7 +24764,7 @@ class File {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }
@@ -31424,7 +31897,7 @@ class ComputeNodeOperations {
         let cb = callback;
         if (!callback) {
             return this.getRemoteDesktopWithHttpOperationResponse(poolId, nodeId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsStream);
+                return Promise.resolve(operationRes.response);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -31434,7 +31907,7 @@ class ComputeNodeOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsStream;
+                let result = data.response;
                 return cb(err, result, data.request, data.response);
             });
         }

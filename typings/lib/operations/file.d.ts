@@ -243,16 +243,16 @@ export declare class File {
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
-     *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+     *                      {Response} [result]   - The deserialized result object if an error did not occur.
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    getFromTask(jobId: string, taskId: string, filePath: string): Promise<ReadableStream>;
-    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams): Promise<ReadableStream>;
-    getFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
+    getFromTask(jobId: string, taskId: string, filePath: string): Promise<Response>;
+    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams): Promise<Response>;
+    getFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
+    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * Gets the properties of the specified task file.
      *
@@ -331,16 +331,16 @@ export declare class File {
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
-     *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+     *                      {Response} [result]   - The deserialized result object if an error did not occur.
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<ReadableStream>;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams): Promise<ReadableStream>;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
+    getFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<Response>;
+    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams): Promise<Response>;
+    getFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
+    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * Gets the properties of the specified compute node file.
      *

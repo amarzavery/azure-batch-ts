@@ -1905,25 +1905,25 @@ export class File {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+   *                      {Response} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  getFromTask(jobId: string, taskId: string, filePath: string): Promise<ReadableStream>;
-  getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams): Promise<ReadableStream>;
-  getFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getFromTask(jobId: string, taskId: string, filePath: string, options?: Models.FileGetFromTaskOptionalParams, callback?: msRest.ServiceCallback<ReadableStream>): any {
+  getFromTask(jobId: string, taskId: string, filePath: string): Promise<Response>;
+  getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams): Promise<Response>;
+  getFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
+  getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams, callback: msRest.ServiceCallback<Response>): void;
+  getFromTask(jobId: string, taskId: string, filePath: string, options?: Models.FileGetFromTaskOptionalParams, callback?: msRest.ServiceCallback<Response>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
-    let cb = callback as msRest.ServiceCallback<ReadableStream>;
+    let cb = callback as msRest.ServiceCallback<Response>;
     if (!callback) {
       return this.getFromTaskWithHttpOperationResponse(jobId, taskId, filePath, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsStream as ReadableStream);
+        return Promise.resolve(operationRes.response);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1932,7 +1932,7 @@ export class File {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsStream as ReadableStream;
+        let result = data.response;
         return cb(err, result, data.request, data.response);
       });
     }
@@ -2062,25 +2062,25 @@ export class File {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+   *                      {Response} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  getFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<ReadableStream>;
-  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams): Promise<ReadableStream>;
-  getFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetFromComputeNodeOptionalParams, callback?: msRest.ServiceCallback<ReadableStream>): any {
+  getFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<Response>;
+  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams): Promise<Response>;
+  getFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
+  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<Response>): void;
+  getFromComputeNode(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetFromComputeNodeOptionalParams, callback?: msRest.ServiceCallback<Response>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
-    let cb = callback as msRest.ServiceCallback<ReadableStream>;
+    let cb = callback as msRest.ServiceCallback<Response>;
     if (!callback) {
       return this.getFromComputeNodeWithHttpOperationResponse(poolId, nodeId, filePath, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsStream as ReadableStream);
+        return Promise.resolve(operationRes.response);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2089,7 +2089,7 @@ export class File {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsStream as ReadableStream;
+        let result = data.response;
         return cb(err, result, data.request, data.response);
       });
     }

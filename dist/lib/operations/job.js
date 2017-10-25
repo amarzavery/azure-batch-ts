@@ -1062,8 +1062,8 @@ class Job {
      *
      * @param {string} jobId The ID of the job to disable.
      *
-     * @param {string} disableTasks What to do with active tasks associated with
-     * the job. Values are:
+     * @param {DisableJobOption} disableTasks What to do with active tasks
+     * associated with the job. Values are:
      *
      * requeue - Terminate running tasks and requeue them. The tasks will run again
      * when the job is enabled.
