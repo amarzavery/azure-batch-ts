@@ -2648,25 +2648,25 @@ export class ComputeNodeOperations {
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
-   *                      {ReadableStream} [result]   - The deserialized result object if an error did not occur.
+   *                      {Response} [result]   - The deserialized result object if an error did not occur.
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  getRemoteDesktop(poolId: string, nodeId: string): Promise<ReadableStream>;
-  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<ReadableStream>;
-  getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<ReadableStream>): void;
-  getRemoteDesktop(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback?: msRest.ServiceCallback<ReadableStream>): any {
+  getRemoteDesktop(poolId: string, nodeId: string): Promise<Response>;
+  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<Response>;
+  getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Response>): void;
+  getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<Response>): void;
+  getRemoteDesktop(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback?: msRest.ServiceCallback<Response>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
-    let cb = callback as msRest.ServiceCallback<ReadableStream>;
+    let cb = callback as msRest.ServiceCallback<Response>;
     if (!callback) {
       return this.getRemoteDesktopWithHttpOperationResponse(poolId, nodeId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsStream as ReadableStream);
+        return Promise.resolve(operationRes.response);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2675,7 +2675,7 @@ export class ComputeNodeOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsStream as ReadableStream;
+        let result = data.response;
         return cb(err, result, data.request, data.response);
       });
     }
