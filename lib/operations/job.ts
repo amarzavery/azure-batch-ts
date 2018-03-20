@@ -135,7 +135,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -354,7 +353,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -571,7 +569,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1085,14 +1082,8 @@ export class Job {
    *
    * @param {string} jobId The ID of the job to disable.
    *
-   * @param {DisableJobOption} disableTasks What to do with active tasks
-   * associated with the job. Values are:
-   *
-   * requeue - Terminate running tasks and requeue them. The tasks will run again
-   * when the job is enabled.
-   * terminate - Terminate running tasks. The tasks will not run again.
-   * wait - Allow currently running tasks to complete. Possible values include:
-   * 'requeue', 'terminate', 'wait'
+   * @param {JobDisableParameter} jobDisableParameter The parameters for the
+   * request.
    *
    * @param {JobDisableOptionalParams} [options] Optional Parameters.
    *
@@ -1102,7 +1093,7 @@ export class Job {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async disableWithHttpOperationResponse(jobId: string, disableTasks: Models.DisableJobOption, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async disableWithHttpOperationResponse(jobId: string, jobDisableParameter: Models.JobDisableParameter, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let jobDisableOptions = (options && options.jobDisableOptions !== undefined) ? options.jobDisableOptions : undefined;
     // Validate
@@ -1110,16 +1101,11 @@ export class Job {
       if (jobId === null || jobId === undefined || typeof jobId.valueOf() !== 'string') {
         throw new Error('jobId cannot be null or undefined and it must be of type string.');
       }
+      if (jobDisableParameter === null || jobDisableParameter === undefined) {
+        throw new Error('jobDisableParameter cannot be null or undefined.');
+      }
       if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
         throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-      }
-      if (disableTasks) {
-        let allowedValues = [ 'requeue', 'terminate', 'wait' ];
-        if (!allowedValues.some( function(item) { return item === disableTasks; })) {
-          throw new Error(disableTasks + ' is not a valid value. The valid values are: ' + allowedValues);
-        }
-      } else {
-        throw new Error('disableTasks cannot be null or undefined.');
       }
       if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
         throw new Error('this.client.acceptLanguage must be of type string.');
@@ -1135,7 +1121,6 @@ export class Job {
     let ifNoneMatch: any;
     let ifModifiedSince: any;
     let ifUnmodifiedSince: any;
-    let jobDisableParameter: any = {};
     try {
       if (jobDisableOptions !== null && jobDisableOptions !== undefined)
       {
@@ -1195,10 +1180,6 @@ export class Job {
             (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
-      }
-      if (disableTasks !== null && disableTasks !== undefined)
-      {
-        jobDisableParameter.disableTasks = disableTasks;
       }
     } catch (error) {
       return Promise.reject(error);
@@ -1474,7 +1455,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1533,7 +1513,7 @@ export class Job {
    */
   async terminateWithHttpOperationResponse(jobId: string, options?: Models.JobTerminateOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
-    let terminateReason = (options && options.terminateReason !== undefined) ? options.terminateReason : undefined;
+    let jobTerminateParameter = (options && options.jobTerminateParameter !== undefined) ? options.jobTerminateParameter : undefined;
     let jobTerminateOptions = (options && options.jobTerminateOptions !== undefined) ? options.jobTerminateOptions : undefined;
     // Validate
     try {
@@ -1542,9 +1522,6 @@ export class Job {
       }
       if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
         throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-      }
-      if (terminateReason !== null && terminateReason !== undefined && typeof terminateReason.valueOf() !== 'string') {
-        throw new Error('terminateReason must be of type string.');
       }
       if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
         throw new Error('this.client.acceptLanguage must be of type string.');
@@ -1560,7 +1537,6 @@ export class Job {
     let ifNoneMatch: any;
     let ifModifiedSince: any;
     let ifUnmodifiedSince: any;
-    let jobTerminateParameter: any;
     try {
       if (jobTerminateOptions !== null && jobTerminateOptions !== undefined)
       {
@@ -1620,11 +1596,6 @@ export class Job {
             (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
-      }
-      if (terminateReason !== null && terminateReason !== undefined)
-      {
-        jobTerminateParameter = {};
-        jobTerminateParameter.terminateReason = terminateReason;
       }
     } catch (error) {
       return Promise.reject(error);
@@ -2061,7 +2032,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2271,7 +2241,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2477,7 +2446,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2649,7 +2617,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2794,7 +2761,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2941,7 +2907,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -3095,7 +3060,6 @@ export class Job {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -3421,14 +3385,8 @@ export class Job {
    *
    * @param {string} jobId The ID of the job to disable.
    *
-   * @param {DisableJobOption} disableTasks What to do with active tasks
-   * associated with the job. Values are:
-   *
-   * requeue - Terminate running tasks and requeue them. The tasks will run again
-   * when the job is enabled.
-   * terminate - Terminate running tasks. The tasks will not run again.
-   * wait - Allow currently running tasks to complete. Possible values include:
-   * 'requeue', 'terminate', 'wait'
+   * @param {JobDisableParameter} jobDisableParameter The parameters for the
+   * request.
    *
    * @param {JobDisableOptionalParams} [options] Optional Parameters.
    *
@@ -3444,24 +3402,24 @@ export class Job {
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  disable(jobId: string, disableTasks: Models.DisableJobOption): Promise<void>;
-  disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams): Promise<void>;
-  disable(jobId: string, disableTasks: Models.DisableJobOption, callback: msRest.ServiceCallback<void>): void;
-  disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
-  disable(jobId: string, disableTasks: Models.DisableJobOption, options?: Models.JobDisableOptionalParams, callback?: msRest.ServiceCallback<void>): any {
+  disable(jobId: string, jobDisableParameter: Models.JobDisableParameter): Promise<void>;
+  disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options: Models.JobDisableOptionalParams): Promise<void>;
+  disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, callback: msRest.ServiceCallback<void>): void;
+  disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options?: Models.JobDisableOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
-      return this.disableWithHttpOperationResponse(jobId, disableTasks, options).then((operationRes: msRest.HttpOperationResponse) => {
+      return this.disableWithHttpOperationResponse(jobId, jobDisableParameter, options).then((operationRes: msRest.HttpOperationResponse) => {
         return Promise.resolve(operationRes.bodyAsJson as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
     } else {
-      msRest.promiseToCallback(this.disableWithHttpOperationResponse(jobId, disableTasks, options))((err: Error, data: msRest.HttpOperationResponse) => {
+      msRest.promiseToCallback(this.disableWithHttpOperationResponse(jobId, jobDisableParameter, options))((err: Error, data: msRest.HttpOperationResponse) => {
         if (err) {
           return cb(err);
         }

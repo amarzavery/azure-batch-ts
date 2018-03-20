@@ -76,7 +76,7 @@ class BatchServiceClient extends msRestAzure.AzureServiceClient {
 
     super(credentials, options);
 
-    this.apiVersion = '2017-09-01.6.0';
+    this.apiVersion = '2018-03-01.6.1';
     this.acceptLanguage = 'en-US';
     this.longRunningOperationRetryTimeout = 30;
     this.generateClientRequestId = true;

@@ -157,7 +157,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -354,7 +353,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     httpRequest.rawResponse = true;
     let operationRes: msRest.HttpOperationResponse;
@@ -545,7 +543,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -716,7 +713,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -913,7 +909,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     httpRequest.rawResponse = true;
     let operationRes: msRest.HttpOperationResponse;
@@ -1103,7 +1098,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1287,7 +1281,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1489,7 +1482,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1634,7 +1626,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1781,7 +1772,6 @@ export class File {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {

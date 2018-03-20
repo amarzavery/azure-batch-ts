@@ -326,7 +326,6 @@ export class CertificateOperations {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -507,7 +506,6 @@ export class CertificateOperations {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -675,7 +673,6 @@ export class CertificateOperations {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -842,7 +839,6 @@ export class CertificateOperations {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -988,7 +984,6 @@ export class CertificateOperations {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {

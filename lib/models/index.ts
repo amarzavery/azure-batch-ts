@@ -40,14 +40,13 @@ export interface PoolUsageMetrics {
   /**
    * @member {string} vmSize The size of virtual machines in the pool. All VMs
    * in a pool are the same size. For information about available sizes of
-   * virtual machines for Cloud Services pools (pools created with
-   * cloudServiceConfiguration), see Sizes for Cloud Services
-   * (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
-   * Batch supports all Cloud Services VM sizes except ExtraSmall,
-   * STANDARD_A1_V2 and STANDARD_A2_V2. For information about available VM
-   * sizes for pools using images from the Virtual Machines Marketplace (pools
-   * created with virtualMachineConfiguration) see Sizes for Virtual Machines
-   * (Linux)
+   * virtual machines in pools, see Choose a VM size for compute nodes in an
+   * Azure Batch pool
+   * (https://docs.microsoft.com/azure/batch/batch-pool-vm-sizes). Batch
+   * supports all Cloud Services VM sizes except ExtraSmall, STANDARD_A1_V2 and
+   * STANDARD_A2_V2. For information about available VM sizes for pools using
+   * images from the Virtual Machines Marketplace (pools created with
+   * virtualMachineConfiguration) see Sizes for Virtual Machines (Linux)
    * (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/)
    * or Sizes for Virtual Machines (Windows)
    * (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/).
@@ -837,35 +836,24 @@ export interface ExitOptions {
   /**
    * @member {JobAction} [jobAction] An action to take on the job containing
    * the task, if the task completes with the given exit condition and the
-   * job's onTaskFailed property is 'performExitOptionsJobAction'. Values are:
-   *
-   * none - Take no action.
-   * disable - Disable the job. This is equivalent to calling the disable job
-   * API, with a disableTasks value of requeue.
-   * terminate - Terminate the job. The terminateReason in the job's
-   * executionInfo is set to "TaskFailed". The default is none for exit code 0
-   * and terminate for all other exit conditions.
-   *
-   * If the job's onTaskFailed property is noAction, then specifying this
-   * property returns an error and the add task request fails with an invalid
-   * property value error; if you are calling the REST API directly, the HTTP
-   * status code is 400 (Bad Request). Possible values include: 'none',
-   * 'disable', 'terminate'
+   * job's onTaskFailed property is 'performExitOptionsJobAction'. The default
+   * is none for exit code 0 and terminate for all other exit conditions. If
+   * the job's onTaskFailed property is noaction, then specifying this property
+   * returns an error and the add task request fails with an invalid property
+   * value error; if you are calling the REST API directly, the HTTP status
+   * code is 400 (Bad Request). Possible values include: 'none', 'disable',
+   * 'terminate'
    */
   jobAction?: JobAction;
   /**
    * @member {DependencyAction} [dependencyAction] An action that the Batch
-   * service performs on tasks that depend on this task. Values are:
-   *
-   * satisfy - Satisfy the task's dependencies.
-   * block - Block the task's dependencies.
-   *
-   * The default is 'satisfy' for exit code 0, and 'block' for all other exit
-   * conditions. If the job's usesTaskDependencies property is set to false,
-   * then specifying the dependencyAction property returns an erro and the add
-   * task request fails with an invalid property value error; if you are
-   * calling the REST API directly, the HTTP status code is 400  (Bad Request).
-   * Possible values include: 'satisfy', 'block'
+   * service performs on tasks that depend on this task. The default is
+   * 'satisfy' for exit code 0, and 'block' for all other exit conditions. If
+   * the job's usesTaskDependencies property is set to false, then specifying
+   * the dependencyAction property returns an error and the add task request
+   * fails with an invalid property value error; if you are calling the REST
+   * API directly, the HTTP status code is 400  (Bad Request). Possible values
+   * include: 'satisfy', 'block'
    */
   dependencyAction?: DependencyAction;
 }
@@ -965,20 +953,14 @@ export interface ExitConditions {
  */
 export interface AutoUserSpecification {
   /**
-   * @member {AutoUserScope} [scope] The scope for the auto user. Values are:
-   *
-   * pool - specifies that the task runs as the common auto user account which
-   * is created on every node in a pool.
-   * task - specifies that the service should create a new user for the task.
-   * The default value is task. Possible values include: 'task', 'pool'
+   * @member {AutoUserScope} [scope] The scope for the auto user. The default
+   * value is task. Possible values include: 'task', 'pool'
    */
   scope?: AutoUserScope;
   /**
    * @member {ElevationLevel} [elevationLevel] The elevation level of the auto
-   * user. nonAdmin - The auto user is a standard user without elevated access.
-   * admin - The auto user is a user with elevated access and operates with
-   * full Administrator permissions. The default value is nonAdmin. Possible
-   * values include: 'nonAdmin', 'admin'
+   * user. The default value is nonAdmin. Possible values include: 'nonAdmin',
+   * 'admin'
    */
   elevationLevel?: ElevationLevel;
 }
@@ -1160,7 +1142,7 @@ export interface OutputFileUploadOptions {
   /**
    * @member {OutputFileUploadCondition} uploadCondition The conditions under
    * which the task output file or set of files should be uploaded. The default
-   * is taskCompletion. Possible values include: 'taskSuccess', 'taskFailure',
+   * is taskcompletion. Possible values include: 'taskSuccess', 'taskFailure',
    * 'taskCompletion'
    */
   uploadCondition: OutputFileUploadCondition;
@@ -1562,13 +1544,7 @@ export interface JobReleaseTask {
 export interface TaskSchedulingPolicy {
   /**
    * @member {ComputeNodeFillType} nodeFillType How tasks are distributed
-   * across compute nodes in a pool. Values are:
-   *
-   * pack - As many tasks as possible (maxTasksPerNode) should be assigned to
-   * each node in the pool before any tasks are assigned to the next node in
-   * the pool.
-   * spread - Tasks should be assigned evenly across all nodes in the pool.
-   * Possible values include: 'spread', 'pack'
+   * across compute nodes in a pool. Possible values include: 'spread', 'pack'
    */
   nodeFillType: ComputeNodeFillType;
 }
@@ -1665,7 +1641,7 @@ export interface CertificateReference {
   /**
    * @member {CertificateStoreLocation} [storeLocation] The location of the
    * certificate store on the compute node into which to install the
-   * certificate. The default value is currentUser. This property is applicable
+   * certificate. The default value is currentuser. This property is applicable
    * only for pools configured with Windows nodes (that is, created with
    * cloudServiceConfiguration, or with virtualMachineConfiguration using a
    * Windows image reference). For Linux compute nodes, the certificates are
@@ -1690,12 +1666,6 @@ export interface CertificateReference {
   /**
    * @member {CertificateVisibility[]} [visibility] Which user accounts on the
    * compute node should have access to the private data of the certificate.
-   * Values are:
-   *
-   * starttask - The user account under which the start task is run.
-   * task - The accounts under which job tasks are run.
-   * remoteuser - The accounts under which users remotely access the node.
-   *
    * You can specify more than one visibility in this collection. The default
    * is all accounts.
    */
@@ -1768,14 +1738,8 @@ export interface CloudServiceConfiguration {
 export interface OSDisk {
   /**
    * @member {CachingType} [caching] The type of caching to enable for the OS
-   * disk. Values are:
-   *
-   * none - The caching mode for the disk is not enabled.
-   * readOnly - The caching mode for the disk is read only.
-   * readWrite - The caching mode for the disk is read and write.
-   *
-   * The default value for caching is none. For information about the caching
-   * options see:
+   * disk. The default value for caching is none. For information about the
+   * caching options see:
    * https://blogs.msdn.microsoft.com/windowsazurestorage/2012/06/27/exploring-windows-azure-drives-disks-and-images/.
    * Possible values include: 'none', 'readOnly', 'readWrite'
    */
@@ -1812,14 +1776,8 @@ export interface DataDisk {
   lun: number;
   /**
    * @member {CachingType} [caching] The type of caching to be enabled for the
-   * data disks. Values are:
-   *
-   * none - The caching mode for the disk is not enabled.
-   * readOnly - The caching mode for the disk is read only.
-   * readWrite - The caching mode for the disk is read and write.
-   *
-   * The default value for caching is none. For information about the caching
-   * options see:
+   * data disks. The default value for caching is none. For information about
+   * the caching options see:
    * https://blogs.msdn.microsoft.com/windowsazurestorage/2012/06/27/exploring-windows-azure-drives-disks-and-images/.
    * Possible values include: 'none', 'readOnly', 'readWrite'
    */
@@ -1830,13 +1788,8 @@ export interface DataDisk {
   diskSizeGB: number;
   /**
    * @member {StorageAccountType} [storageAccountType] The storage account type
-   * to be used for the data disk. If omitted, the default is "Standard_LRS".
-   * Values are:
-   *
-   * Standard_LRS - The data disk should use standard locally redundant
-   * storage.
-   * Premium_LRS - The data disk should use premium locally redundant storage.
-   * Possible values include: 'Standard_LRS', 'Premium_LRS'
+   * to be used for the data disk. If omitted, the default is "standard_lrs".
+   * Possible values include: 'StandardLRS', 'PremiumLRS'
    */
   storageAccountType?: StorageAccountType;
 }
@@ -1905,7 +1858,14 @@ export interface VirtualMachineConfiguration {
    * @member {DataDisk[]} [dataDisks] The configuration for data disks attached
    * to the comptue nodes in the pool. This property must be specified if the
    * compute nodes in the pool need to have empty data disks attached to them.
-   * This cannot be updated.
+   * This cannot be updated. Each node gets its own disk (the disk is not a
+   * file share). Existing disks cannot be attached, each attached disk is
+   * empty. When the node is removed from the pool, the disk and all data
+   * associated with it is also deleted. The disk is not formatted after being
+   * attached, it must be formatted before use - for more information see
+   * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/classic/attach-disk#initialize-a-new-data-disk-in-linux
+   * and
+   * https://docs.microsoft.com/en-us/azure/virtual-machines/windows/attach-disk-ps#add-an-empty-data-disk-to-a-virtual-machine.
    */
   dataDisks?: DataDisk[];
   /**
@@ -1995,9 +1955,9 @@ export interface InboundNATPool {
    * of external ports that will be used to provide inbound access to the
    * backendPort on individual compute nodes. Acceptable values range between 1
    * and 65534 except ports from 50000 to 55000 which are reserved. All ranges
-   * within a pool must be distinct and cannot overlap. If any reserved or
-   * overlapping values are provided the request fails with HTTP status code
-   * 400.
+   * within a pool must be distinct and cannot overlap. Each range must contain
+   * at least 40 ports. If any reserved or overlapping values are provided the
+   * request fails with HTTP status code 400.
    */
   frontendPortRangeStart: number;
   /**
@@ -2005,9 +1965,9 @@ export interface InboundNATPool {
    * external ports that will be used to provide inbound access to the
    * backendPort on individual compute nodes. Acceptable values range between 1
    * and 65534 except ports from 50000 to 55000 which are reserved by the Batch
-   * service. All ranges within a pool must be distinct and cannot overlap. If
-   * any reserved or overlapping values are provided the request fails with
-   * HTTP status code 400.
+   * service. All ranges within a pool must be distinct and cannot overlap.
+   * Each range must contain at least 40 ports. If any reserved or overlapping
+   * values are provided the request fails with HTTP status code 400.
    */
   frontendPortRangeEnd: number;
   /**
@@ -2279,14 +2239,7 @@ export interface AutoPoolSpecification {
   /**
    * @member {PoolLifetimeOption} poolLifetimeOption The minimum lifetime of
    * created auto pools, and how multiple jobs on a schedule are assigned to
-   * pools. When the pool lifetime is jobSchedule the pool exists for the
-   * lifetime of the job schedule. The Batch Service creates the pool when it
-   * creates the first job on the schedule. You may apply this option only to
-   * job schedules, not to jobs. When the pool lifetime is job the pool exists
-   * for the lifetime of the job to which it is dedicated. The Batch service
-   * creates the pool when it creates the job. If the 'job' option is applied
-   * to a job schedule, the Batch service creates a new auto pool for every job
-   * created on the schedule. Possible values include: 'jobSchedule', 'job'
+   * pools. Possible values include: 'jobSchedule', 'job'
    */
   poolLifetimeOption: PoolLifetimeOption;
   /**
@@ -2371,8 +2324,8 @@ export interface JobSpecification {
    * tasks are considered complete. This option is therefore most commonly used
    * with a Job Manager task; if you want to use automatic job termination
    * without a Job Manager, you should initially set onAllTasksComplete to
-   * noAction and update the job properties to set onAllTasksComplete to
-   * terminateJob once you have finished adding tasks. The default is noAction.
+   * noaction and update the job properties to set onAllTasksComplete to
+   * terminatejob once you have finished adding tasks. The default is noaction.
    * Possible values include: 'noAction', 'terminateJob'
    */
   onAllTasksComplete?: OnAllTasksComplete;
@@ -2383,7 +2336,7 @@ export interface JobSpecification {
    * A failureInfo is set if the task completes with a non-zero exit code after
    * exhausting its retry count, or if there was an error starting the task,
    * for example due to a resource file download error. The default is
-   * noAction. Possible values include: 'noAction',
+   * noaction. Possible values include: 'noAction',
    * 'performExitOptionsJobAction'
    */
   onTaskFailure?: OnTaskFailure;
@@ -2785,10 +2738,10 @@ export interface JobExecutionInformation {
    * set to true. MaxWallClockTimeExpiry - the job reached its maxWallClockTime
    * constraint. TerminateJobSchedule - the job ran as part of a schedule, and
    * the schedule terminated. AllTasksComplete - the job's onAllTasksComplete
-   * attribute is set to terminateJob, and all tasks in the job are complete.
+   * attribute is set to terminatejob, and all tasks in the job are complete.
    * TaskFailed - the job's onTaskFailure attribute is set to
    * performExitOptionsJobAction, and a task in the job failed with an exit
-   * condition that specified a jobAction of terminateJob. Any other string is
+   * condition that specified a jobAction of terminatejob. Any other string is
    * a user-defined reason specified in a call to the 'Terminate a job'
    * operation.
    */
@@ -2908,10 +2861,8 @@ export interface CloudJob {
   /**
    * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
    * service should take when all tasks in the job are in the completed state.
-   * noAction - do nothing. The job remains active unless terminated or
-   * disabled by some other means. terminateJob - terminate the job. The job's
-   * terminateReason is set to 'AllTasksComplete'. The default is noAction.
-   * Possible values include: 'noAction', 'terminateJob'
+   * The default is noaction. Possible values include: 'noAction',
+   * 'terminateJob'
    */
   onAllTasksComplete?: OnAllTasksComplete;
   /**
@@ -2920,11 +2871,8 @@ export interface CloudJob {
    * failed if has a failureInfo. A failureInfo is set if the task completes
    * with a non-zero exit code after exhausting its retry count, or if there
    * was an error starting the task, for example due to a resource file
-   * download error. noAction - do nothing. performExitOptionsJobAction - take
-   * the action associated with the task exit condition in the task's
-   * exitConditions collection. (This may still result in no action being
-   * taken, if that is what the task specifies.) The default is noAction.
-   * Possible values include: 'noAction', 'performExitOptionsJobAction'
+   * download error. The default is noaction. Possible values include:
+   * 'noAction', 'performExitOptionsJobAction'
    */
   onTaskFailure?: OnTaskFailure;
   /**
@@ -3029,12 +2977,9 @@ export interface JobAddParameter {
    * Note that if a job contains no tasks, then all tasks are considered
    * complete. This option is therefore most commonly used with a Job Manager
    * task; if you want to use automatic job termination without a Job Manager,
-   * you should initially set onAllTasksComplete to noAction and update the job
-   * properties to set onAllTasksComplete to terminateJob once you have
-   * finished adding tasks. Permitted values are: noAction - do nothing. The
-   * job remains active unless terminated or disabled by some other means.
-   * terminateJob - terminate the job. The job's terminateReason is set to
-   * 'AllTasksComplete'. The default is noAction. Possible values include:
+   * you should initially set onAllTasksComplete to noaction and update the job
+   * properties to set onAllTasksComplete to terminatejob once you have
+   * finished adding tasks. The default is noaction. Possible values include:
    * 'noAction', 'terminateJob'
    */
   onAllTasksComplete?: OnAllTasksComplete;
@@ -3044,11 +2989,8 @@ export interface JobAddParameter {
    * failed if has a failureInfo. A failureInfo is set if the task completes
    * with a non-zero exit code after exhausting its retry count, or if there
    * was an error starting the task, for example due to a resource file
-   * download error. noAction - do nothing. performExitOptionsJobAction - take
-   * the action associated with the task exit condition in the task's
-   * exitConditions collection. (This may still result in no action being
-   * taken, if that is what the task specifies.) The default is noAction.
-   * Possible values include: 'noAction', 'performExitOptionsJobAction'
+   * download error. The default is noaction. Possible values include:
+   * 'noAction', 'performExitOptionsJobAction'
    */
   onTaskFailure?: OnTaskFailure;
   /**
@@ -3140,13 +3082,8 @@ export interface JobPreparationTaskExecutionInformation {
   endTime?: Date;
   /**
    * @member {JobPreparationTaskState} state The current state of the Job
-   * Preparation task on the compute node. Values are:
-   *
-   * running - the task is currently running (including retrying).
-   * completed - the task has exited with exit code 0, or the task has
-   * exhausted its retry limit, or the Batch service was unable to start the
-   * task due to task preparation errors (such as resource file download
-   * failures). Possible values include: 'running', 'completed'
+   * Preparation task on the compute node. Possible values include: 'running',
+   * 'completed'
    */
   state: JobPreparationTaskState;
   /**
@@ -3233,12 +3170,7 @@ export interface JobReleaseTaskExecutionInformation {
   endTime?: Date;
   /**
    * @member {JobReleaseTaskState} state The current state of the Job Release
-   * task on the compute node. Values are:
-   *
-   * running - the task is currently running (including retrying).
-   * completed - the task has exited, or the Batch service was unable to start
-   * the task due to task preparation errors (such as resource file download
-   * failures). Possible values include: 'running', 'completed'
+   * task on the compute node. Possible values include: 'running', 'completed'
    */
   state: JobReleaseTaskState;
   /**
@@ -3353,11 +3285,8 @@ export interface TaskCounts {
   failed: number;
   /**
    * @member {TaskCountValidationStatus} validationStatus Whether the task
-   * counts have been validated. If the validationStatus is unvalidated, then
-   * the Batch service has not been able to check state counts against the task
-   * states as reported in the List Tasks API. The validationStatus may be
-   * unvalidated if the job contains more than 200,000 tasks. Possible values
-   * include: 'validated', 'unvalidated'
+   * counts have been validated. Possible values include: 'validated',
+   * 'unvalidated'
    */
   validationStatus: TaskCountValidationStatus;
 }
@@ -3483,17 +3412,8 @@ export interface CloudPool {
    */
   creationTime?: Date;
   /**
-   * @member {PoolState} [state] The current state of the pool. Values are:
-   *
-   * active - The pool is available to run tasks subject to the availability of
-   * compute nodes.
-   * deleting - The user has requested that the pool be deleted, but the delete
-   * operation has not yet completed.
-   * upgrading - The user has requested that the operating system of the pool's
-   * nodes be upgraded, but the upgrade operation has not yet completed (that
-   * is, some nodes in the pool have not yet been upgraded). While upgrading,
-   * the pool may be able to run tasks (with reduced capacity) but this is not
-   * guaranteed. Possible values include: 'active', 'deleting', 'upgrading'
+   * @member {PoolState} [state] The current state of the pool. Possible values
+   * include: 'active', 'deleting', 'upgrading'
    */
   state?: PoolState;
   /**
@@ -3503,16 +3423,6 @@ export interface CloudPool {
   stateTransitionTime?: Date;
   /**
    * @member {AllocationState} [allocationState] Whether the pool is resizing.
-   * Values are:
-   *
-   * steady - The pool is not resizing. There are no changes to the number of
-   * nodes in the pool in progress. A pool enters this state when it is created
-   * and when no operations are being performed on the pool to change the
-   * number of dedicated nodes.
-   * resizing - The pool is resizing; that is, compute nodes are being added to
-   * or removed from the pool.
-   * stopping - The pool was resizing, but the user has requested that the
-   * resize be stopped, but the stop request has not yet been completed.
    * Possible values include: 'steady', 'resizing', 'stopping'
    */
   allocationState?: AllocationState;
@@ -4558,15 +4468,8 @@ export interface BatchError {
  */
 export interface TaskAddResult {
   /**
-   * @member {TaskAddStatus} status The status of the add task request. Values
-   * are:
-   *
-   * success - Task was added successfully.
-   * clienterror - Task failed to add due to a client error and should not be
-   * retried without modifying the request as appropriate.
-   * servererror - Task failed to add due to a server error and can be retried
-   * without modification. Possible values include: 'success', 'clientError',
-   * 'serverError'
+   * @member {TaskAddStatus} status The status of the add task request.
+   * Possible values include: 'success', 'clientError', 'serverError'
    */
   status: TaskAddStatus;
   /**
@@ -4750,13 +4653,7 @@ export interface TaskInformation {
 export interface StartTaskInformation {
   /**
    * @member {StartTaskState} state The state of the start task on the compute
-   * node. Values are:
-   *
-   * running - The start task is currently running.
-   * completed - The start task has exited with exit code 0, or the start task
-   * has failed and the retry limit has reached, or the start task process did
-   * not run due to task preparation errors (such as resource file download
-   * failures). Possible values include: 'running', 'completed'
+   * node. Possible values include: 'running', 'completed'
    */
   state: StartTaskState;
   /**
@@ -4916,44 +4813,17 @@ export interface ComputeNode {
   url?: string;
   /**
    * @member {ComputeNodeState} [state] The current state of the compute node.
-   * Values are:
-   *
-   * idle - The node is not currently running a task.
-   * rebooting - The node is rebooting.
-   * reimaging - The node is reimaging.
-   * running - The node is running one or more tasks (other than a start task).
-   * unusable - The node cannot be used for task execution due to errors.
-   * creating - The Batch service has obtained the underlying virtual machine
-   * from Azure Compute, but it has not yet started to join the pool.
-   * starting - the Batch service is starting on the underlying virtual
-   * machine.
-   * waitingforstarttask - The start task has started running on the compute
-   * node, but waitForSuccess is set and the start task has not yet completed.
-   * starttaskfailed - The start task has failed on the compute node (and
-   * exhausted all retries), and waitForSuccess is set. The node is not usable
-   * for running tasks.
-   * unknown - The Batch service has lost contact with the node, and does not
-   * know its true state.
-   * leavingpool - The node is leaving the pool, either because the user
-   * explicitly removed it or because the pool is resizing or autoscaling down.
-   * offline - The node is not currently running a task, and scheduling of new
-   * tasks to the node is disabled.
-   * preempted - The low-priority node has been preempted. Tasks which were
-   * running on the node when it was pre-empted will be rescheduled when
-   * another node becomes available. Possible values include: 'idle',
-   * 'rebooting', 'reimaging', 'running', 'unusable', 'creating', 'starting',
-   * 'waitingForStartTask', 'startTaskFailed', 'unknown', 'leavingPool',
-   * 'offline', 'preempted'
+   * The low-priority node has been preempted. Tasks which were running on the
+   * node when it was pre-empted will be rescheduled when another node becomes
+   * available. Possible values include: 'idle', 'rebooting', 'reimaging',
+   * 'running', 'unusable', 'creating', 'starting', 'waitingForStartTask',
+   * 'startTaskFailed', 'unknown', 'leavingPool', 'offline', 'preempted'
    */
   state?: ComputeNodeState;
   /**
    * @member {SchedulingState} [schedulingState] Whether the compute node is
-   * available for task scheduling. Values are:
-   *
-   * enabled - Tasks can be scheduled on the node.
-   * disabled - No new tasks will be scheduled on the node. Tasks already
-   * running on the node may still run to completion. All nodes start with
-   * scheduling enabled. Possible values include: 'enabled', 'disabled'
+   * available for task scheduling. Possible values include: 'enabled',
+   * 'disabled'
    */
   schedulingState?: SchedulingState;
   /**
@@ -5194,13 +5064,8 @@ export interface JobScheduleUpdateParameter {
 export interface JobDisableParameter {
   /**
    * @member {DisableJobOption} disableTasks What to do with active tasks
-   * associated with the job. Values are:
-   *
-   * requeue - Terminate running tasks and requeue them. The tasks will run
-   * again when the job is enabled.
-   * terminate - Terminate running tasks. The tasks will not run again.
-   * wait - Allow currently running tasks to complete. Possible values include:
-   * 'requeue', 'terminate', 'wait'
+   * associated with the job. Possible values include: 'requeue', 'terminate',
+   * 'wait'
    */
   disableTasks: DisableJobOption;
 }
@@ -5237,7 +5102,7 @@ export interface JobPatchParameter {
    * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
    * service should take when all tasks in the job are in the completed state.
    * If omitted, the completion behavior is left unchanged. You may not change
-   * the value from terminateJob to noAction - that is, once you have engaged
+   * the value from terminatejob to noaction - that is, once you have engaged
    * automatic job termination, you cannot turn it off again. If you try to do
    * this, the request fails with an 'invalid property value' error response;
    * if you are calling the REST API directly, the HTTP status code is 400 (Bad
@@ -5305,9 +5170,9 @@ export interface JobUpdateParameter {
   /**
    * @member {OnAllTasksComplete} [onAllTasksComplete] The action the Batch
    * service should take when all tasks in the job are in the completed state.
-   * If omitted, the completion behavior is set to noAction. If the current
-   * value is terminateJob, this is an error because a job's completion
-   * behavior may not be changed from terminateJob to noAction. You may not
+   * If omitted, the completion behavior is set to noaction. If the current
+   * value is terminatejob, this is an error because a job's completion
+   * behavior may not be changed from terminatejob to noaction. You may not
    * change the value from terminatejob to noaction - that is, once you have
    * engaged automatic job termination, you cannot turn it off again. If you
    * try to do this, the request fails and Batch returns status code 400 (Bad
@@ -5581,21 +5446,9 @@ export interface NodeUpdateUserParameter {
 export interface NodeRebootParameter {
   /**
    * @member {ComputeNodeRebootOption} [nodeRebootOption] When to reboot the
-   * compute node and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks will run again when a node is available. Restart the node as soon as
-   * tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Restart
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Restart the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for
-   * all task data retention periods to expire. Schedule no new tasks while
-   * waiting. Restart the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
+   * compute node and what to do with currently running tasks. The default
+   * value is requeue. Possible values include: 'requeue', 'terminate',
+   * 'taskCompletion', 'retainedData'
    */
   nodeRebootOption?: ComputeNodeRebootOption;
 }
@@ -5609,21 +5462,9 @@ export interface NodeRebootParameter {
 export interface NodeReimageParameter {
   /**
    * @member {ComputeNodeReimageOption} [nodeReimageOption] When to reimage the
-   * compute node and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks will run again when a node is available. Reimage the node as soon as
-   * tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Reimage
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Reimage the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for
-   * all task data retention periods to expire. Schedule no new tasks while
-   * waiting. Reimage the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
+   * compute node and what to do with currently running tasks. The default
+   * value is requeue. Possible values include: 'requeue', 'terminate',
+   * 'taskCompletion', 'retainedData'
    */
   nodeReimageOption?: ComputeNodeReimageOption;
 }
@@ -5638,20 +5479,8 @@ export interface NodeDisableSchedulingParameter {
   /**
    * @member {DisableComputeNodeSchedulingOption} [nodeDisableSchedulingOption]
    * What to do with currently running tasks when disabling task scheduling on
-   * the compute node. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks may run again on other compute nodes, or when task scheduling is
-   * re-enabled on this node. Enter offline state as soon as tasks have been
-   * terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Enter
-   * offline state as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Enter offline state when all tasks have
-   * completed.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion'
+   * the compute node. The default value is requeue. Possible values include:
+   * 'requeue', 'terminate', 'taskCompletion'
    */
   nodeDisableSchedulingOption?: DisableComputeNodeSchedulingOption;
 }
@@ -5683,6 +5512,153 @@ export interface NodeRemoveParameter {
    * values include: 'requeue', 'terminate', 'taskCompletion', 'retainedData'
    */
   nodeDeallocationOption?: ComputeNodeDeallocationOption;
+}
+
+/**
+ * @interface
+ * An interface representing UploadBatchServiceLogsConfiguration.
+ * @summary The Azure Batch service log files upload configuration for a
+ * compute node.
+ *
+ */
+export interface UploadBatchServiceLogsConfiguration {
+  /**
+   * @member {string} containerUrl The URL of the container within Azure Blob
+   * Storage to which to upload the Batch Service log file(s). The URL must
+   * include a Shared Access Signature (SAS) granting write permissions to the
+   * container. The SAS duration must allow enough time for the upload to
+   * finish. The start time for SAS is optional and recommended to not be
+   * specified.
+   */
+  containerUrl: string;
+  /**
+   * @member {Date} startTime The start of the time range from which to upload
+   * Batch Service log file(s). Any log file containing a log message in the
+   * time range will be uploaded. This means that the operation might retrieve
+   * more logs than have been requested since the entire log file is always
+   * uploaded, but the operation should not retrieve fewer logs than have been
+   * requested.
+   */
+  startTime: Date;
+  /**
+   * @member {Date} [endTime] The end of the time range from which to upload
+   * Batch Service log file(s). Any log file containing a log message in the
+   * time range will be uploaded. This means that the operation might retrieve
+   * more logs than have been requested since the entire log file is always
+   * uploaded, but the operation should not retrieve fewer logs than have been
+   * requested. If omitted, the default is to upload all logs available after
+   * the startTime.
+   */
+  endTime?: Date;
+}
+
+/**
+ * @interface
+ * An interface representing UploadBatchServiceLogsResult.
+ * @summary The result of uploading Batch service log files from a specific
+ * compute node.
+ *
+ */
+export interface UploadBatchServiceLogsResult {
+  /**
+   * @member {string} virtualDirectoryName The virtual directory within Azure
+   * Blob Storage container to which the Batch Service log file(s) will be
+   * uploaded. The virtual directory name is part of the blob name for each log
+   * file uploaded, and it is built based poolId, nodeId and a unique
+   * identifier.
+   */
+  virtualDirectoryName: string;
+  /**
+   * @member {number} numberOfFilesUploaded The number of log files which will
+   * be uploaded.
+   */
+  numberOfFilesUploaded: number;
+}
+
+/**
+ * @interface
+ * An interface representing NodeCounts.
+ * @summary The number of nodes in each node state.
+ *
+ */
+export interface NodeCounts {
+  /**
+   * @member {number} creating The number of nodes in the creating state.
+   */
+  creating: number;
+  /**
+   * @member {number} idle The number of nodes in the idle state.
+   */
+  idle: number;
+  /**
+   * @member {number} offline The number of nodes in the offline state.
+   */
+  offline: number;
+  /**
+   * @member {number} preempted The number of nodes in the preempted state.
+   */
+  preempted: number;
+  /**
+   * @member {number} rebooting The count of nodes in the rebooting state.
+   */
+  rebooting: number;
+  /**
+   * @member {number} reimaging The number of nodes in the reimaging state.
+   */
+  reimaging: number;
+  /**
+   * @member {number} running The number of nodes in the running state.
+   */
+  running: number;
+  /**
+   * @member {number} starting The number of nodes in the starting state.
+   */
+  starting: number;
+  /**
+   * @member {number} startTaskFailed The number of nodes in the
+   * startTaskFailed state.
+   */
+  startTaskFailed: number;
+  /**
+   * @member {number} unknown The number of nodes in the unknown state.
+   */
+  unknown: number;
+  /**
+   * @member {number} unusable The number of nodes in the unusable state.
+   */
+  unusable: number;
+  /**
+   * @member {number} waitingForStartTask The number of nodes in the
+   * waitingForStartTask state.
+   */
+  waitingForStartTask: number;
+  /**
+   * @member {number} total The total number of nodes.
+   */
+  total: number;
+}
+
+/**
+ * @interface
+ * An interface representing PoolNodeCounts.
+ * @summary The number of nodes in each state for a pool.
+ *
+ */
+export interface PoolNodeCounts {
+  /**
+   * @member {string} poolId The ID of the pool.
+   */
+  poolId: string;
+  /**
+   * @member {NodeCounts} [dedicated] The number of dedicated nodes in each
+   * state.
+   */
+  dedicated?: NodeCounts;
+  /**
+   * @member {NodeCounts} [lowPriority] The number of low priority nodes in
+   * each state.
+   */
+  lowPriority?: NodeCounts;
 }
 
 /**
@@ -6589,6 +6565,47 @@ export interface AccountListNodeAgentSkusOptions {
    * @member {number} [maxResults] The maximum number of items to return in the
    * response. A maximum of 1000 results will be returned. Default value: 1000
    * .
+   */
+  maxResults?: number;
+  /**
+   * @member {number} [timeout] The maximum time that the server can spend
+   * processing the request, in seconds. The default is 30 seconds. Default
+   * value: 30 .
+   */
+  timeout?: number;
+  /**
+   * @member {string} [clientRequestId] The caller-generated request identity,
+   * in the form of a GUID with no decoration such as curly braces, e.g.
+   * 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
+   */
+  clientRequestId?: string;
+  /**
+   * @member {boolean} [returnClientRequestId] Whether the server should return
+   * the client-request-id in the response. Default value: false .
+   */
+  returnClientRequestId?: boolean;
+  /**
+   * @member {Date} [ocpDate] The time the request was issued. Client libraries
+   * typically set this to the current system clock time; set it explicitly if
+   * you are calling the REST API directly.
+   */
+  ocpDate?: Date;
+}
+
+/**
+ * @interface
+ * An interface representing AccountListPoolNodeCountsOptions.
+ * Additional parameters for listPoolNodeCounts operation.
+ *
+ */
+export interface AccountListPoolNodeCountsOptions {
+  /**
+   * @member {string} [filter] An OData $filter clause.
+   */
+  filter?: string;
+  /**
+   * @member {number} [maxResults] The maximum number of items to return in the
+   * response. Default value: 10 .
    */
   maxResults?: number;
   /**
@@ -9170,6 +9187,38 @@ export interface ComputeNodeGetRemoteDesktopOptions {
 
 /**
  * @interface
+ * An interface representing ComputeNodeUploadBatchServiceLogsOptions.
+ * Additional parameters for uploadBatchServiceLogs operation.
+ *
+ */
+export interface ComputeNodeUploadBatchServiceLogsOptions {
+  /**
+   * @member {number} [timeout] The maximum time that the server can spend
+   * processing the request, in seconds. The default is 30 seconds. Default
+   * value: 30 .
+   */
+  timeout?: number;
+  /**
+   * @member {string} [clientRequestId] The caller-generated request identity,
+   * in the form of a GUID with no decoration such as curly braces, e.g.
+   * 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
+   */
+  clientRequestId?: string;
+  /**
+   * @member {boolean} [returnClientRequestId] Whether the server should return
+   * the client-request-id in the response. Default value: false .
+   */
+  returnClientRequestId?: boolean;
+  /**
+   * @member {Date} [ocpDate] The time the request was issued. Client libraries
+   * typically set this to the current system clock time; set it explicitly if
+   * you are calling the REST API directly.
+   */
+  ocpDate?: Date;
+}
+
+/**
+ * @interface
  * An interface representing ComputeNodeListOptions.
  * Additional parameters for list operation.
  *
@@ -9300,6 +9349,32 @@ export interface PoolListNextOptions {
  *
  */
 export interface AccountListNodeAgentSkusNextOptions {
+  /**
+   * @member {string} [clientRequestId] The caller-generated request identity,
+   * in the form of a GUID with no decoration such as curly braces, e.g.
+   * 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.
+   */
+  clientRequestId?: string;
+  /**
+   * @member {boolean} [returnClientRequestId] Whether the server should return
+   * the client-request-id in the response. Default value: false .
+   */
+  returnClientRequestId?: boolean;
+  /**
+   * @member {Date} [ocpDate] The time the request was issued. Client libraries
+   * typically set this to the current system clock time; set it explicitly if
+   * you are calling the REST API directly.
+   */
+  ocpDate?: Date;
+}
+
+/**
+ * @interface
+ * An interface representing AccountListPoolNodeCountsNextOptions.
+ * Additional parameters for listPoolNodeCountsNext operation.
+ *
+ */
+export interface AccountListPoolNodeCountsNextOptions {
   /**
    * @member {string} [clientRequestId] The caller-generated request identity,
    * in the form of a GUID with no decoration such as curly braces, e.g.
@@ -9886,6 +9961,21 @@ export interface AccountListNodeAgentSkusOptionalParams extends RequestOptionsBa
 
 /**
  * @interface
+ * An interface representing AccountListPoolNodeCountsOptionalParams.
+ * Optional Parameters.
+ *
+ * @extends RequestOptionsBase
+ */
+export interface AccountListPoolNodeCountsOptionalParams extends RequestOptionsBase {
+  /**
+   * @member {AccountListPoolNodeCountsOptions}
+   * [accountListPoolNodeCountsOptions] Additional parameters for the operation
+   */
+  accountListPoolNodeCountsOptions?: AccountListPoolNodeCountsOptions;
+}
+
+/**
+ * @interface
  * An interface representing AccountListNodeAgentSkusNextOptionalParams.
  * Optional Parameters.
  *
@@ -9898,6 +9988,22 @@ export interface AccountListNodeAgentSkusNextOptionalParams extends RequestOptio
    * operation
    */
   accountListNodeAgentSkusNextOptions?: AccountListNodeAgentSkusNextOptions;
+}
+
+/**
+ * @interface
+ * An interface representing AccountListPoolNodeCountsNextOptionalParams.
+ * Optional Parameters.
+ *
+ * @extends RequestOptionsBase
+ */
+export interface AccountListPoolNodeCountsNextOptionalParams extends RequestOptionsBase {
+  /**
+   * @member {AccountListPoolNodeCountsNextOptions}
+   * [accountListPoolNodeCountsNextOptions] Additional parameters for the
+   * operation
+   */
+  accountListPoolNodeCountsNextOptions?: AccountListPoolNodeCountsNextOptions;
 }
 
 /**
@@ -10015,10 +10121,10 @@ export interface JobEnableOptionalParams extends RequestOptionsBase {
  */
 export interface JobTerminateOptionalParams extends RequestOptionsBase {
   /**
-   * @member {string} [terminateReason] The text you want to appear as the
-   * job's TerminateReason. The default is 'UserTerminate'.
+   * @member {JobTerminateParameter} [jobTerminateParameter] The parameters for
+   * the request.
    */
-  terminateReason?: string;
+  jobTerminateParameter?: JobTerminateParameter;
   /**
    * @member {JobTerminateOptions} [jobTerminateOptions] Additional parameters
    * for the operation
@@ -10666,13 +10772,6 @@ export interface TaskGetOptionalParams extends RequestOptionsBase {
  */
 export interface TaskUpdateOptionalParams extends RequestOptionsBase {
   /**
-   * @member {TaskConstraints} [constraints] Constraints that apply to this
-   * task. If omitted, the task is given the default constraints. For
-   * multi-instance tasks, updating the retention time applies only to the
-   * primary task and not subtasks.
-   */
-  constraints?: TaskConstraints;
-  /**
    * @member {TaskUpdateOptions} [taskUpdateOptions] Additional parameters for
    * the operation
    */
@@ -10808,24 +10907,10 @@ export interface ComputeNodeGetOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
   /**
-   * @member {ComputeNodeRebootOption} [nodeRebootOption] When to reboot the
-   * compute node and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks will run again when a node is available. Restart the node as soon as
-   * tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Restart
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Restart the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for
-   * all task data retention periods to expire. Schedule no new tasks while
-   * waiting. Restart the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
+   * @member {NodeRebootParameter} [nodeRebootParameter] The parameters for the
+   * request.
    */
-  nodeRebootOption?: ComputeNodeRebootOption;
+  nodeRebootParameter?: NodeRebootParameter;
   /**
    * @member {ComputeNodeRebootOptions} [computeNodeRebootOptions] Additional
    * parameters for the operation
@@ -10842,24 +10927,10 @@ export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
   /**
-   * @member {ComputeNodeReimageOption} [nodeReimageOption] When to reimage the
-   * compute node and what to do with currently running tasks. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks will run again when a node is available. Reimage the node as soon as
-   * tasks have been terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Reimage
-   * the node as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Reimage the node when all tasks have completed.
-   * retaineddata - Allow currently running tasks to complete, then wait for
-   * all task data retention periods to expire. Schedule no new tasks while
-   * waiting. Reimage the node when all task retention periods have expired.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion', 'retainedData'
+   * @member {NodeReimageParameter} [nodeReimageParameter] The parameters for
+   * the request.
    */
-  nodeReimageOption?: ComputeNodeReimageOption;
+  nodeReimageParameter?: NodeReimageParameter;
   /**
    * @member {ComputeNodeReimageOptions} [computeNodeReimageOptions] Additional
    * parameters for the operation
@@ -10876,24 +10947,10 @@ export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
  */
 export interface ComputeNodeDisableSchedulingOptionalParams extends RequestOptionsBase {
   /**
-   * @member {DisableComputeNodeSchedulingOption} [nodeDisableSchedulingOption]
-   * What to do with currently running tasks when disabling task scheduling on
-   * the compute node. Values are:
-   *
-   * requeue - Terminate running task processes and requeue the tasks. The
-   * tasks may run again on other compute nodes, or when task scheduling is
-   * re-enabled on this node. Enter offline state as soon as tasks have been
-   * terminated.
-   * terminate - Terminate running tasks. The tasks will not run again. Enter
-   * offline state as soon as tasks have been terminated.
-   * taskcompletion - Allow currently running tasks to complete. Schedule no
-   * new tasks while waiting. Enter offline state when all tasks have
-   * completed.
-   *
-   * The default value is requeue. Possible values include: 'requeue',
-   * 'terminate', 'taskCompletion'
+   * @member {NodeDisableSchedulingParameter} [nodeDisableSchedulingParameter]
+   * The parameters for the request.
    */
-  nodeDisableSchedulingOption?: DisableComputeNodeSchedulingOption;
+  nodeDisableSchedulingParameter?: NodeDisableSchedulingParameter;
   /**
    * @member {ComputeNodeDisableSchedulingOptions}
    * [computeNodeDisableSchedulingOptions] Additional parameters for the
@@ -10948,6 +11005,22 @@ export interface ComputeNodeGetRemoteDesktopOptionalParams extends RequestOption
    * operation
    */
   computeNodeGetRemoteDesktopOptions?: ComputeNodeGetRemoteDesktopOptions;
+}
+
+/**
+ * @interface
+ * An interface representing ComputeNodeUploadBatchServiceLogsOptionalParams.
+ * Optional Parameters.
+ *
+ * @extends RequestOptionsBase
+ */
+export interface ComputeNodeUploadBatchServiceLogsOptionalParams extends RequestOptionsBase {
+  /**
+   * @member {ComputeNodeUploadBatchServiceLogsOptions}
+   * [computeNodeUploadBatchServiceLogsOptions] Additional parameters for the
+   * operation
+   */
+  computeNodeUploadBatchServiceLogsOptions?: ComputeNodeUploadBatchServiceLogsOptions;
 }
 
 /**
@@ -11031,6 +11104,20 @@ export interface CloudPoolListResult extends Array<CloudPool> {
  * @extends Array<NodeAgentSku>
  */
 export interface AccountListNodeAgentSkusResult extends Array<NodeAgentSku> {
+  /**
+   * @member {string} [odatanextLink]
+   */
+  odatanextLink?: string;
+}
+
+/**
+ * @interface
+ * An interface representing the PoolNodeCountsListResult.
+ * @summary The result of listing the node counts in the account.
+ *
+ * @extends Array<PoolNodeCounts>
+ */
+export interface PoolNodeCountsListResult extends Array<PoolNodeCounts> {
   /**
    * @member {string} [odatanextLink]
    */
@@ -11144,7 +11231,13 @@ export interface ComputeNodeListResult extends Array<ComputeNode> {
  * @enum {string}
  */
 export enum OSType {
+  /**
+   * The Linux operating system.
+   */
   Linux = 'linux',
+  /**
+   * The Windows operating system.
+   */
   Windows = 'windows',
 }
 
@@ -11155,6 +11248,9 @@ export enum OSType {
  * @enum {string}
  */
 export enum AccessScope {
+  /**
+   * Grants access to perform all operations on the job containing the task.
+   */
   Job = 'job',
 }
 
@@ -11165,9 +11261,26 @@ export enum AccessScope {
  * @enum {string}
  */
 export enum CertificateState {
+  /**
+   * The certificate is available for use in pools.
+   */
   Active = 'active',
+  /**
+   * The user has requested that the certificate be deleted, but the delete
+   * operation has not yet completed. You may not reference the certificate
+   * when creating or updating pools.
+   */
   Deleting = 'deleting',
-  DeleteFailed = 'deleteFailed',
+  /**
+   * The user requested that the certificate be deleted, but there are pools
+   * that still have references to the certificate, or it is still installed on
+   * one or more compute nodes. (The latter can occur if the certificate has
+   * been removed from the pool, but the node has not yet restarted. Nodes
+   * refresh their certificates only when they restart.) You may use the cancel
+   * certificate delete operation to cancel the delete, or the delete
+   * certificate operation to retry the delete.
+   */
+  DeleteFailed = 'deletefailed',
 }
 
 /**
@@ -11177,7 +11290,14 @@ export enum CertificateState {
  * @enum {string}
  */
 export enum CertificateFormat {
+  /**
+   * The certificate is a PFX (PKCS#12) formatted certificate or certificate
+   * chain.
+   */
   Pfx = 'pfx',
+  /**
+   * The certificate is a base64-encoded X.509 certificate.
+   */
   Cer = 'cer',
 }
 
@@ -11188,8 +11308,19 @@ export enum CertificateFormat {
  * @enum {string}
  */
 export enum JobAction {
+  /**
+   * Take no action.
+   */
   None = 'none',
+  /**
+   * Disable the job. This is equivalent to calling the disable job API, with a
+   * disableTasks value of requeue.
+   */
   Disable = 'disable',
+  /**
+   * Terminate the job. The terminateReason in the job's executionInfo is set
+   * to "TaskFailed".
+   */
   Terminate = 'terminate',
 }
 
@@ -11200,7 +11331,13 @@ export enum JobAction {
  * @enum {string}
  */
 export enum DependencyAction {
+  /**
+   * Satisfy the task's dependencies.
+   */
   Satisfy = 'satisfy',
+  /**
+   * Block the task's dependencies.
+   */
   Block = 'block',
 }
 
@@ -11211,7 +11348,14 @@ export enum DependencyAction {
  * @enum {string}
  */
 export enum AutoUserScope {
+  /**
+   * Specifies that the service should create a new user for the task.
+   */
   Task = 'task',
+  /**
+   * Specifies that the task runs as the common auto user account which is
+   * created on every node in a pool.
+   */
   Pool = 'pool',
 }
 
@@ -11222,7 +11366,14 @@ export enum AutoUserScope {
  * @enum {string}
  */
 export enum ElevationLevel {
-  NonAdmin = 'nonAdmin',
+  /**
+   * The user is a standard user without elevated access.
+   */
+  NonAdmin = 'nonadmin',
+  /**
+   * The user is a user with elevated access and operates with full
+   * Administrator permissions.
+   */
   Admin = 'admin',
 }
 
@@ -11233,9 +11384,21 @@ export enum ElevationLevel {
  * @enum {string}
  */
 export enum OutputFileUploadCondition {
-  TaskSuccess = 'taskSuccess',
-  TaskFailure = 'taskFailure',
-  TaskCompletion = 'taskCompletion',
+  /**
+   * Upload the file(s) only after the task process exits with an exit code of
+   * 0.
+   */
+  TaskSuccess = 'tasksuccess',
+  /**
+   * Upload the file(s) only after the task process exits with a nonzero exit
+   * code.
+   */
+  TaskFailure = 'taskfailure',
+  /**
+   * Upload the file(s) after the task process exits, no matter what the exit
+   * code was.
+   */
+  TaskCompletion = 'taskcompletion',
 }
 
 /**
@@ -11245,7 +11408,15 @@ export enum OutputFileUploadCondition {
  * @enum {string}
  */
 export enum ComputeNodeFillType {
+  /**
+   * Tasks should be assigned evenly across all nodes in the pool.
+   */
   Spread = 'spread',
+  /**
+   * As many tasks as possible (maxTasksPerNode) should be assigned to each
+   * node in the pool before any tasks are assigned to the next node in the
+   * pool.
+   */
   Pack = 'pack',
 }
 
@@ -11256,8 +11427,14 @@ export enum ComputeNodeFillType {
  * @enum {string}
  */
 export enum CertificateStoreLocation {
-  CurrentUser = 'currentUser',
-  LocalMachine = 'localMachine',
+  /**
+   * Certificates should be installed to the CurrentUser certificate store.
+   */
+  CurrentUser = 'currentuser',
+  /**
+   * Certificates should be installed to the LocalMachine certificate store.
+   */
+  LocalMachine = 'localmachine',
 }
 
 /**
@@ -11267,9 +11444,21 @@ export enum CertificateStoreLocation {
  * @enum {string}
  */
 export enum CertificateVisibility {
-  StartTask = 'startTask',
+  /**
+   * The certificate should be visible to the user account under which the
+   * start task is run.
+   */
+  StartTask = 'starttask',
+  /**
+   * The certificate should be visibile to the user accounts under which job
+   * tasks are run.
+   */
   Task = 'task',
-  RemoteUser = 'remoteUser',
+  /**
+   * The certificate should be visibile to the user accounts under which users
+   * remotely access the node.
+   */
+  RemoteUser = 'remoteuser',
 }
 
 /**
@@ -11279,20 +11468,35 @@ export enum CertificateVisibility {
  * @enum {string}
  */
 export enum CachingType {
+  /**
+   * The caching mode for the disk is not enabled.
+   */
   None = 'none',
-  ReadOnly = 'readOnly',
-  ReadWrite = 'readWrite',
+  /**
+   * The caching mode for the disk is read only.
+   */
+  ReadOnly = 'readonly',
+  /**
+   * The caching mode for the disk is read and write.
+   */
+  ReadWrite = 'readwrite',
 }
 
 /**
  * Defines values for StorageAccountType.
- * Possible values include: 'Standard_LRS', 'Premium_LRS'
+ * Possible values include: 'StandardLRS', 'PremiumLRS'
  * @readonly
  * @enum {string}
  */
 export enum StorageAccountType {
-  StandardLRS = 'Standard_LRS',
-  PremiumLRS = 'Premium_LRS',
+  /**
+   * The data disk should use standard locally redundant storage.
+   */
+  StandardLRS = 'standard_lrs',
+  /**
+   * The data disk should use premium locally redundant storage.
+   */
+  PremiumLRS = 'premium_lrs',
 }
 
 /**
@@ -11302,7 +11506,13 @@ export enum StorageAccountType {
  * @enum {string}
  */
 export enum InboundEndpointProtocol {
+  /**
+   * Use TCP for the endpoint.
+   */
   Tcp = 'tcp',
+  /**
+   * Use UDP for the endpoint.
+   */
   Udp = 'udp',
 }
 
@@ -11313,7 +11523,13 @@ export enum InboundEndpointProtocol {
  * @enum {string}
  */
 export enum NetworkSecurityGroupRuleAccess {
+  /**
+   * Allow access.
+   */
   Allow = 'allow',
+  /**
+   * Deny access.
+   */
   Deny = 'deny',
 }
 
@@ -11324,7 +11540,18 @@ export enum NetworkSecurityGroupRuleAccess {
  * @enum {string}
  */
 export enum PoolLifetimeOption {
-  JobSchedule = 'jobSchedule',
+  /**
+   * The pool exists for the lifetime of the job schedule. The Batch Service
+   * creates the pool when it creates the first job on the schedule. You may
+   * apply this option only to job schedules, not to jobs.
+   */
+  JobSchedule = 'jobschedule',
+  /**
+   * The pool exists for the lifetime of the job to which it is dedicated. The
+   * Batch service creates the pool when it creates the job. If the 'job'
+   * option is applied to a job schedule, the Batch service creates a new auto
+   * pool for every job created on the schedule.
+   */
   Job = 'job',
 }
 
@@ -11335,8 +11562,15 @@ export enum PoolLifetimeOption {
  * @enum {string}
  */
 export enum OnAllTasksComplete {
-  NoAction = 'noAction',
-  TerminateJob = 'terminateJob',
+  /**
+   * Do nothing. The job remains active unless terminated or disabled by some
+   * other means.
+   */
+  NoAction = 'noaction',
+  /**
+   * Terminate the job. The job's terminateReason is set to 'AllTasksComplete'.
+   */
+  TerminateJob = 'terminatejob',
 }
 
 /**
@@ -11346,8 +11580,17 @@ export enum OnAllTasksComplete {
  * @enum {string}
  */
 export enum OnTaskFailure {
-  NoAction = 'noAction',
-  PerformExitOptionsJobAction = 'performExitOptionsJobAction',
+  /**
+   * Do nothing. The job remains active unless terminated or disabled by some
+   * other means.
+   */
+  NoAction = 'noaction',
+  /**
+   * Take the action associated with the task exit condition in the task's
+   * exitConditions collection. (This may still result in no action being
+   * taken, if that is what the task specifies.)
+   */
+  PerformExitOptionsJobAction = 'performexitoptionsjobaction',
 }
 
 /**
@@ -11358,10 +11601,35 @@ export enum OnTaskFailure {
  * @enum {string}
  */
 export enum JobScheduleState {
+  /**
+   * The job schedule is active and will create jobs as per its schedule.
+   */
   Active = 'active',
+  /**
+   * The schedule has terminated, either by reaching its end time or by the
+   * user terminating it explicitly.
+   */
   Completed = 'completed',
+  /**
+   * The user has disabled the schedule. The scheduler will not initiate any
+   * new jobs will on this schedule, but any existing active job will continue
+   * to run.
+   */
   Disabled = 'disabled',
+  /**
+   * The schedule has no more work to do, or has been explicitly terminated by
+   * the user, but the termination operation is still in progress. The
+   * scheduler will not initiate any new jobs for this schedule, nor is any
+   * existing job active.
+   */
   Terminating = 'terminating',
+  /**
+   * The user has requested that the schedule be deleted, but the delete
+   * operation is still in progress. The scheduler will not initiate any new
+   * jobs for this schedule, and will delete any existing jobs and tasks under
+   * the schedule, including any active job. The schedule will be deleted when
+   * all jobs and tasks under the schedule have been deleted.
+   */
   Deleting = 'deleting',
 }
 
@@ -11372,8 +11640,14 @@ export enum JobScheduleState {
  * @enum {string}
  */
 export enum ErrorCategory {
-  UserError = 'userError',
-  ServerError = 'serverError',
+  /**
+   * The error is due to a user issue, such as misconfiguration.
+   */
+  UserError = 'usererror',
+  /**
+   * The error is due to an internal server issue.
+   */
+  ServerError = 'servererror',
 }
 
 /**
@@ -11384,12 +11658,42 @@ export enum ErrorCategory {
  * @enum {string}
  */
 export enum JobState {
+  /**
+   * The job is available to have tasks scheduled.
+   */
   Active = 'active',
+  /**
+   * A user has requested that the job be disabled, but the disable operation
+   * is still in progress (for example, waiting for tasks to terminate).
+   */
   Disabling = 'disabling',
+  /**
+   * A user has disabled the job. No tasks are running, and no new tasks will
+   * be scheduled.
+   */
   Disabled = 'disabled',
+  /**
+   * A user has requested that the job be enabled, but the enable operation is
+   * still in progress.
+   */
   Enabling = 'enabling',
+  /**
+   * The job is about to complete, either because a Job Manager task has
+   * completed or because the user has terminated the job, but the terminate
+   * operation is still in progress (for example, because Job Release tasks are
+   * running).
+   */
   Terminating = 'terminating',
+  /**
+   * All tasks have terminated, and the system will not accept any more tasks
+   * or any further changes to the job.
+   */
   Completed = 'completed',
+  /**
+   * A user has requested that the job be deleted, but the delete operation is
+   * still in progress (for example, because the system is still terminating
+   * running tasks).
+   */
   Deleting = 'deleting',
 }
 
@@ -11400,7 +11704,15 @@ export enum JobState {
  * @enum {string}
  */
 export enum JobPreparationTaskState {
+  /**
+   * The task is currently running (including retrying).
+   */
   Running = 'running',
+  /**
+   * The task has exited with exit code 0, or the task has exhausted its retry
+   * limit, or the Batch service was unable to start the task due to task
+   * preparation errors (such as resource file download failures).
+   */
   Completed = 'completed',
 }
 
@@ -11411,7 +11723,15 @@ export enum JobPreparationTaskState {
  * @enum {string}
  */
 export enum TaskExecutionResult {
+  /**
+   * The task ran successfully.
+   */
   Success = 'success',
+  /**
+   * There was an error during processing of the task. The failure may have
+   * occurred before the task process was launched, while the task process was
+   * executing, or after the task process exited.
+   */
   Failure = 'failure',
 }
 
@@ -11422,7 +11742,15 @@ export enum TaskExecutionResult {
  * @enum {string}
  */
 export enum JobReleaseTaskState {
+  /**
+   * The task is currently running (including retrying).
+   */
   Running = 'running',
+  /**
+   * The task has exited with exit code 0, or the task has exhausted its retry
+   * limit, or the Batch service was unable to start the task due to task
+   * preparation errors (such as resource file download failures).
+   */
   Completed = 'completed',
 }
 
@@ -11433,7 +11761,16 @@ export enum JobReleaseTaskState {
  * @enum {string}
  */
 export enum TaskCountValidationStatus {
+  /**
+   * The Batch service has validated the state counts against the task states
+   * as reported in the List Tasks API.
+   */
   Validated = 'validated',
+  /**
+   * The Batch service has not been able to check state counts against the task
+   * states as reported in the List Tasks API. The validationStatus may be
+   * unvalidated if the job contains more than 200,000 tasks.
+   */
   Unvalidated = 'unvalidated',
 }
 
@@ -11444,8 +11781,23 @@ export enum TaskCountValidationStatus {
  * @enum {string}
  */
 export enum PoolState {
+  /**
+   * The pool is available to run tasks subject to the availability of compute
+   * nodes.
+   */
   Active = 'active',
+  /**
+   * The user has requested that the pool be deleted, but the delete operation
+   * has not yet completed.
+   */
   Deleting = 'deleting',
+  /**
+   * The user has requested that the operating system of the pool's nodes be
+   * upgraded, but the upgrade operation has not yet completed (that is, some
+   * nodes in the pool have not yet been upgraded). While upgrading, the pool
+   * may be able to run tasks (with reduced capacity) but this is not
+   * guaranteed.
+   */
   Upgrading = 'upgrading',
 }
 
@@ -11456,8 +11808,22 @@ export enum PoolState {
  * @enum {string}
  */
 export enum AllocationState {
+  /**
+   * The pool is not resizing. There are no changes to the number of nodes in
+   * the pool in progress. A pool enters this state when it is created and when
+   * no operations are being performed on the pool to change the number of
+   * nodes.
+   */
   Steady = 'steady',
+  /**
+   * The pool is resizing; that is, compute nodes are being added to or removed
+   * from the pool.
+   */
   Resizing = 'resizing',
+  /**
+   * The pool was resizing, but the user has requested that the resize be
+   * stopped, but the stop request has not yet been completed.
+   */
   Stopping = 'stopping',
 }
 
@@ -11468,9 +11834,34 @@ export enum AllocationState {
  * @enum {string}
  */
 export enum TaskState {
+  /**
+   * The task is queued and able to run, but is not currently assigned to a
+   * compute node. A task enters this state when it is created, when it is
+   * enabled after being disabled, or when it is awaiting a retry after a
+   * failed run.
+   */
   Active = 'active',
+  /**
+   * The task has been assigned to a compute node, but is waiting for a
+   * required Job Preparation task to complete on the node. If the Job
+   * Preparation task succeeds, the task will move to running. If the Job
+   * Preparation task fails, the task will return to active and will be
+   * eligible to be assigned to a different node.
+   */
   Preparing = 'preparing',
+  /**
+   * The task is running on a compute node. This includes task-level
+   * preparation such as downloading resource files or deploying application
+   * packages specified on the task - it does not necessarily mean that the
+   * task command line has started executing.
+   */
   Running = 'running',
+  /**
+   * The task is no longer eligible to run, usually because the task has
+   * finished successfully, or the task has finished unsuccessfully and has
+   * exhausted its retry limit. A task is also marked as completed if an error
+   * occurred launching the task, or when the task has been terminated.
+   */
   Completed = 'completed',
 }
 
@@ -11481,9 +11872,20 @@ export enum TaskState {
  * @enum {string}
  */
 export enum TaskAddStatus {
+  /**
+   * The task was added successfully.
+   */
   Success = 'success',
-  ClientError = 'clientError',
-  ServerError = 'serverError',
+  /**
+   * The task failed to add due to a client error and should not be retried
+   * without modifying the request as appropriate.
+   */
+  ClientError = 'clienterror',
+  /**
+   * Task failed to add due to a server error and can be retried without
+   * modification.
+   */
+  ServerError = 'servererror',
 }
 
 /**
@@ -11493,8 +11895,27 @@ export enum TaskAddStatus {
  * @enum {string}
  */
 export enum SubtaskState {
+  /**
+   * The task has been assigned to a compute node, but is waiting for a
+   * required Job Preparation task to complete on the node. If the Job
+   * Preparation task succeeds, the task will move to running. If the Job
+   * Preparation task fails, the task will return to active and will be
+   * eligible to be assigned to a different node.
+   */
   Preparing = 'preparing',
+  /**
+   * The task is running on a compute node. This includes task-level
+   * preparation such as downloading resource files or deploying application
+   * packages specified on the task - it does not necessarily mean that the
+   * task command line has started executing.
+   */
   Running = 'running',
+  /**
+   * The task is no longer eligible to run, usually because the task has
+   * finished successfully, or the task has finished unsuccessfully and has
+   * exhausted its retry limit. A task is also marked as completed if an error
+   * occurred launching the task, or when the task has been terminated.
+   */
   Completed = 'completed',
 }
 
@@ -11505,7 +11926,15 @@ export enum SubtaskState {
  * @enum {string}
  */
 export enum StartTaskState {
+  /**
+   * The start task is currently running.
+   */
   Running = 'running',
+  /**
+   * The start task has exited with exit code 0, or the start task has failed
+   * and the retry limit has reached, or the start task process did not run due
+   * to task preparation errors (such as resource file download failures).
+   */
   Completed = 'completed',
 }
 
@@ -11518,18 +11947,65 @@ export enum StartTaskState {
  * @enum {string}
  */
 export enum ComputeNodeState {
+  /**
+   * The node is not currently running a task.
+   */
   Idle = 'idle',
+  /**
+   * The node is rebooting.
+   */
   Rebooting = 'rebooting',
+  /**
+   * The node is reimaging.
+   */
   Reimaging = 'reimaging',
+  /**
+   * The node is running one or more tasks (other than a start task).
+   */
   Running = 'running',
+  /**
+   * The node cannot be used for task execution due to errors.
+   */
   Unusable = 'unusable',
+  /**
+   * The Batch service has obtained the underlying virtual machine from Azure
+   * Compute, but it has not yet started to join the pool.
+   */
   Creating = 'creating',
+  /**
+   * The Batch service is starting on the underlying virtual machine.
+   */
   Starting = 'starting',
-  WaitingForStartTask = 'waitingForStartTask',
-  StartTaskFailed = 'startTaskFailed',
+  /**
+   * The start task has started running on the compute node, but waitForSuccess
+   * is set and the start task has not yet completed.
+   */
+  WaitingForStartTask = 'waitingforstarttask',
+  /**
+   * The start task has failed on the compute node (and exhausted all retries),
+   * and waitForSuccess is set. The node is not usable for running tasks.
+   */
+  StartTaskFailed = 'starttaskfailed',
+  /**
+   * The Batch service has lost contact with the node, and does not know its
+   * true state.
+   */
   Unknown = 'unknown',
-  LeavingPool = 'leavingPool',
+  /**
+   * The node is leaving the pool, either because the user explicitly removed
+   * it or because the pool is resizing or autoscaling down.
+   */
+  LeavingPool = 'leavingpool',
+  /**
+   * The node is not currently running a task, and scheduling of new tasks to
+   * the node is disabled.
+   */
   Offline = 'offline',
+  /**
+   * The low-priority node has been preempted. Tasks which were running on the
+   * node when it was pre-empted will be rescheduled when another node becomes
+   * available.
+   */
   Preempted = 'preempted',
 }
 
@@ -11540,7 +12016,14 @@ export enum ComputeNodeState {
  * @enum {string}
  */
 export enum SchedulingState {
+  /**
+   * Tasks can be scheduled on the node.
+   */
   Enabled = 'enabled',
+  /**
+   * No new tasks will be scheduled on the node. Tasks already running on the
+   * node may still run to completion. All nodes start with scheduling enabled.
+   */
   Disabled = 'disabled',
 }
 
@@ -11551,8 +12034,19 @@ export enum SchedulingState {
  * @enum {string}
  */
 export enum DisableJobOption {
+  /**
+   * Terminate running tasks and requeue them. The tasks will run again when
+   * the job is enabled.
+   */
   Requeue = 'requeue',
+  /**
+   * Terminate running tasks. The tasks will be completed with failureInfo
+   * indicating that they were terminated, and will not run again.
+   */
   Terminate = 'terminate',
+  /**
+   * Allow currently running tasks to complete.
+   */
   Wait = 'wait',
 }
 
@@ -11564,10 +12058,29 @@ export enum DisableJobOption {
  * @enum {string}
  */
 export enum ComputeNodeDeallocationOption {
+  /**
+   * Terminate running task processes and requeue the tasks. The tasks will run
+   * again when a node is available. Remove nodes as soon as tasks have been
+   * terminated.
+   */
   Requeue = 'requeue',
+  /**
+   * Terminate running tasks. The tasks will be completed with failureInfo
+   * indicating that they were terminated, and will not run again. Remove nodes
+   * as soon as tasks have been terminated.
+   */
   Terminate = 'terminate',
-  TaskCompletion = 'taskCompletion',
-  RetainedData = 'retainedData',
+  /**
+   * Allow currently running tasks to complete. Schedule no new tasks while
+   * waiting. Remove nodes when all tasks have completed.
+   */
+  TaskCompletion = 'taskcompletion',
+  /**
+   * Allow currently running tasks to complete, then wait for all task data
+   * retention periods to expire. Schedule no new tasks while waiting. Remove
+   * nodes when all task retention periods have expired.
+   */
+  RetainedData = 'retaineddata',
 }
 
 /**
@@ -11578,10 +12091,29 @@ export enum ComputeNodeDeallocationOption {
  * @enum {string}
  */
 export enum ComputeNodeRebootOption {
+  /**
+   * Terminate running task processes and requeue the tasks. The tasks will run
+   * again when a node is available. Restart the node as soon as tasks have
+   * been terminated.
+   */
   Requeue = 'requeue',
+  /**
+   * Terminate running tasks. The tasks will be completed with failureInfo
+   * indicating that they were terminated, and will not run again. Restart the
+   * node as soon as tasks have been terminated.
+   */
   Terminate = 'terminate',
-  TaskCompletion = 'taskCompletion',
-  RetainedData = 'retainedData',
+  /**
+   * Allow currently running tasks to complete. Schedule no new tasks while
+   * waiting. Restart the node when all tasks have completed.
+   */
+  TaskCompletion = 'taskcompletion',
+  /**
+   * Allow currently running tasks to complete, then wait for all task data
+   * retention periods to expire. Schedule no new tasks while waiting. Restart
+   * the node when all task retention periods have expired.
+   */
+  RetainedData = 'retaineddata',
 }
 
 /**
@@ -11592,10 +12124,29 @@ export enum ComputeNodeRebootOption {
  * @enum {string}
  */
 export enum ComputeNodeReimageOption {
+  /**
+   * Terminate running task processes and requeue the tasks. The tasks will run
+   * again when a node is available. Reimage the node as soon as tasks have
+   * been terminated.
+   */
   Requeue = 'requeue',
+  /**
+   * Terminate running tasks. The tasks will be completed with failureInfo
+   * indicating that they were terminated, and will not run again. Reimage the
+   * node as soon as tasks have been terminated.
+   */
   Terminate = 'terminate',
-  TaskCompletion = 'taskCompletion',
-  RetainedData = 'retainedData',
+  /**
+   * Allow currently running tasks to complete. Schedule no new tasks while
+   * waiting. Reimage the node when all tasks have completed.
+   */
+  TaskCompletion = 'taskcompletion',
+  /**
+   * Allow currently running tasks to complete, then wait for all task data
+   * retention periods to expire. Schedule no new tasks while waiting. Reimage
+   * the node when all task retention periods have expired.
+   */
+  RetainedData = 'retaineddata',
 }
 
 /**
@@ -11605,7 +12156,21 @@ export enum ComputeNodeReimageOption {
  * @enum {string}
  */
 export enum DisableComputeNodeSchedulingOption {
+  /**
+   * Terminate running task processes and requeue the tasks. The tasks may run
+   * again on other compute nodes, or when task scheduling is re-enabled on
+   * this node. Enter offline state as soon as tasks have been terminated.
+   */
   Requeue = 'requeue',
+  /**
+   * Terminate running tasks. The tasks will be completed with failureInfo
+   * indicating that they were terminated, and will not run again. Enter
+   * offline state as soon as tasks have been terminated.
+   */
   Terminate = 'terminate',
-  TaskCompletion = 'taskCompletion',
+  /**
+   * Allow currently running tasks to complete. Schedule no new tasks while
+   * waiting. Enter offline state when all tasks have completed.
+   */
+  TaskCompletion = 'taskcompletion',
 }
