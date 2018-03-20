@@ -356,7 +356,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -432,11 +431,7 @@ export class Task {
    * @param {string} jobId The ID of the job to which the task collection is to
    * be added.
    *
-   * @param {TaskAddParameter[]} value The collection of tasks to add. The total
-   * serialized size of this collection must be less than 4MB. If it is greater
-   * than 4MB (for example if each task has 100's of resource files or
-   * environment variables), the request will fail with code
-   * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
+   * @param {TaskAddCollectionParameter} taskCollection The tasks to be added.
    *
    * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
    *
@@ -446,7 +441,7 @@ export class Task {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addCollectionWithHttpOperationResponse(jobId: string, value: Models.TaskAddParameter[], options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async addCollectionWithHttpOperationResponse(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
     let taskAddCollectionOptions = (options && options.taskAddCollectionOptions !== undefined) ? options.taskAddCollectionOptions : undefined;
     // Validate
@@ -454,14 +449,11 @@ export class Task {
       if (jobId === null || jobId === undefined || typeof jobId.valueOf() !== 'string') {
         throw new Error('jobId cannot be null or undefined and it must be of type string.');
       }
+      if (taskCollection === null || taskCollection === undefined) {
+        throw new Error('taskCollection cannot be null or undefined.');
+      }
       if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
         throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-      }
-      if (value !== null && value !== undefined) {
-        if (value.length > 100)
-        {
-          throw new Error('"value" should satisfy the constraint - "MaxItems": 100');
-        }
       }
       if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
         throw new Error('this.client.acceptLanguage must be of type string.');
@@ -473,7 +465,6 @@ export class Task {
     let clientRequestId: any;
     let returnClientRequestId: any;
     let ocpDate: any;
-    let taskCollection: any = {};
     try {
       if (taskAddCollectionOptions !== null && taskAddCollectionOptions !== undefined)
       {
@@ -503,10 +494,6 @@ export class Task {
             (typeof (ocpDate as string).valueOf() === 'string' && !isNaN(Date.parse(ocpDate as string))))) {
               throw new Error('ocpDate must be of type date.');
             }
-      }
-      if (value !== null && value !== undefined)
-      {
-        taskCollection.value = value;
       }
     } catch (error) {
       return Promise.reject(error);
@@ -790,7 +777,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1017,7 +1003,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1078,6 +1063,9 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to update.
    *
+   * @param {TaskUpdateParameter} taskUpdateParameter The parameters for the
+   * request.
+   *
    * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
    *
    * @returns {Promise} A promise is returned
@@ -1086,9 +1074,8 @@ export class Task {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async updateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async updateWithHttpOperationResponse(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse> {
     let client = this.client;
-    let constraints = (options && options.constraints !== undefined) ? options.constraints : undefined;
     let taskUpdateOptions = (options && options.taskUpdateOptions !== undefined) ? options.taskUpdateOptions : undefined;
     // Validate
     try {
@@ -1097,6 +1084,9 @@ export class Task {
       }
       if (taskId === null || taskId === undefined || typeof taskId.valueOf() !== 'string') {
         throw new Error('taskId cannot be null or undefined and it must be of type string.');
+      }
+      if (taskUpdateParameter === null || taskUpdateParameter === undefined) {
+        throw new Error('taskUpdateParameter cannot be null or undefined.');
       }
       if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
         throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
@@ -1115,7 +1105,6 @@ export class Task {
     let ifNoneMatch: any;
     let ifModifiedSince: any;
     let ifUnmodifiedSince: any;
-    let taskUpdateParameter: any = {};
     try {
       if (taskUpdateOptions !== null && taskUpdateOptions !== undefined)
       {
@@ -1175,10 +1164,6 @@ export class Task {
             (typeof (ifUnmodifiedSince as string).valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince as string))))) {
               throw new Error('ifUnmodifiedSince must be of type date.');
             }
-      }
-      if (constraints !== null && constraints !== undefined)
-      {
-        taskUpdateParameter.constraints = constraints;
       }
     } catch (error) {
       return Promise.reject(error);
@@ -1423,7 +1408,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1644,7 +1628,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1855,7 +1838,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -1989,7 +1971,6 @@ export class Task {
         }
       }
     }
-    httpRequest.body = null;
     // Send Request
     let operationRes: msRest.HttpOperationResponse;
     try {
@@ -2169,11 +2150,7 @@ export class Task {
    * @param {string} jobId The ID of the job to which the task collection is to
    * be added.
    *
-   * @param {TaskAddParameter[]} value The collection of tasks to add. The total
-   * serialized size of this collection must be less than 4MB. If it is greater
-   * than 4MB (for example if each task has 100's of resource files or
-   * environment variables), the request will fail with code
-   * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
+   * @param {TaskAddCollectionParameter} taskCollection The tasks to be added.
    *
    * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
    *
@@ -2191,24 +2168,24 @@ export class Task {
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  addCollection(jobId: string, value: Models.TaskAddParameter[]): Promise<Models.TaskAddCollectionResult>;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
-  addCollection(jobId: string, value: Models.TaskAddParameter[], options?: Models.TaskAddCollectionOptionalParams, callback?: msRest.ServiceCallback<Models.TaskAddCollectionResult>): any {
+  addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter): Promise<Models.TaskAddCollectionResult>;
+  addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
+  addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
+  addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options: Models.TaskAddCollectionOptionalParams, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
+  addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options?: Models.TaskAddCollectionOptionalParams, callback?: msRest.ServiceCallback<Models.TaskAddCollectionResult>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
     let cb = callback as msRest.ServiceCallback<Models.TaskAddCollectionResult>;
     if (!callback) {
-      return this.addCollectionWithHttpOperationResponse(jobId, value, options).then((operationRes: msRest.HttpOperationResponse) => {
+      return this.addCollectionWithHttpOperationResponse(jobId, taskCollection, options).then((operationRes: msRest.HttpOperationResponse) => {
         return Promise.resolve(operationRes.bodyAsJson as Models.TaskAddCollectionResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
     } else {
-      msRest.promiseToCallback(this.addCollectionWithHttpOperationResponse(jobId, value, options))((err: Error, data: msRest.HttpOperationResponse) => {
+      msRest.promiseToCallback(this.addCollectionWithHttpOperationResponse(jobId, taskCollection, options))((err: Error, data: msRest.HttpOperationResponse) => {
         if (err) {
           return cb(err);
         }
@@ -2332,6 +2309,9 @@ export class Task {
    *
    * @param {string} taskId The ID of the task to update.
    *
+   * @param {TaskUpdateParameter} taskUpdateParameter The parameters for the
+   * request.
+   *
    * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
    *
    * @param {ServiceCallback} callback - The callback.
@@ -2346,24 +2326,24 @@ export class Task {
    *
    *                      {Response} [response] - The HTTP Response stream if an error did not occur.
    */
-  update(jobId: string, taskId: string): Promise<void>;
-  update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams): Promise<void>;
-  update(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-  update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams, callback: msRest.ServiceCallback<void>): void;
-  update(jobId: string, taskId: string, options?: Models.TaskUpdateOptionalParams, callback?: msRest.ServiceCallback<void>): any {
+  update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter): Promise<void>;
+  update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options: Models.TaskUpdateOptionalParams): Promise<void>;
+  update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, callback: msRest.ServiceCallback<void>): void;
+  update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options: Models.TaskUpdateOptionalParams, callback: msRest.ServiceCallback<void>): void;
+  update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options?: Models.TaskUpdateOptionalParams, callback?: msRest.ServiceCallback<void>): any {
     if (!callback && typeof options === 'function') {
       callback = options;
       options = undefined;
     }
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
-      return this.updateWithHttpOperationResponse(jobId, taskId, options).then((operationRes: msRest.HttpOperationResponse) => {
+      return this.updateWithHttpOperationResponse(jobId, taskId, taskUpdateParameter, options).then((operationRes: msRest.HttpOperationResponse) => {
         return Promise.resolve(operationRes.bodyAsJson as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
     } else {
-      msRest.promiseToCallback(this.updateWithHttpOperationResponse(jobId, taskId, options))((err: Error, data: msRest.HttpOperationResponse) => {
+      msRest.promiseToCallback(this.updateWithHttpOperationResponse(jobId, taskId, taskUpdateParameter, options))((err: Error, data: msRest.HttpOperationResponse) => {
         if (err) {
           return cb(err);
         }
