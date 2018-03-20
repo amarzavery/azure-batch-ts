@@ -180,7 +180,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -342,7 +341,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -707,7 +705,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -925,7 +922,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1114,7 +1110,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1324,7 +1319,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1703,7 +1697,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1972,13 +1965,8 @@ class Pool {
      * @param {string} poolId The ID of the pool on which to evaluate the automatic
      * scaling formula.
      *
-     * @param {string} autoScaleFormula The formula for the desired number of
-     * compute nodes in the pool. The formula is validated and its results
-     * calculated, but it is not applied to the pool. To apply the formula to the
-     * pool, 'Enable automatic scaling on a pool'. For more information about
-     * specifying this formula, see Automatically scale compute nodes in an Azure
-     * Batch pool
-     * (https://azure.microsoft.com/en-us/documentation/articles/batch-automatic-scaling).
+     * @param {PoolEvaluateAutoScaleParameter} poolEvaluateAutoScaleParameter The
+     * parameters for the request.
      *
      * @param {PoolEvaluateAutoScaleOptionalParams} [options] Optional Parameters.
      *
@@ -1988,7 +1976,7 @@ class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    evaluateAutoScaleWithHttpOperationResponse(poolId, autoScaleFormula, options) {
+    evaluateAutoScaleWithHttpOperationResponse(poolId, poolEvaluateAutoScaleParameter, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolEvaluateAutoScaleOptions = (options && options.poolEvaluateAutoScaleOptions !== undefined) ? options.poolEvaluateAutoScaleOptions : undefined;
@@ -1997,11 +1985,11 @@ class Pool {
                 if (poolId === null || poolId === undefined || typeof poolId.valueOf() !== 'string') {
                     throw new Error('poolId cannot be null or undefined and it must be of type string.');
                 }
+                if (poolEvaluateAutoScaleParameter === null || poolEvaluateAutoScaleParameter === undefined) {
+                    throw new Error('poolEvaluateAutoScaleParameter cannot be null or undefined.');
+                }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-                }
-                if (autoScaleFormula === null || autoScaleFormula === undefined || typeof autoScaleFormula.valueOf() !== 'string') {
-                    throw new Error('autoScaleFormula cannot be null or undefined and it must be of type string.');
                 }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
@@ -2014,7 +2002,6 @@ class Pool {
             let clientRequestId;
             let returnClientRequestId;
             let ocpDate;
-            let poolEvaluateAutoScaleParameter = {};
             try {
                 if (poolEvaluateAutoScaleOptions !== null && poolEvaluateAutoScaleOptions !== undefined) {
                     timeout = poolEvaluateAutoScaleOptions.timeout;
@@ -2040,9 +2027,6 @@ class Pool {
                         (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
                         throw new Error('ocpDate must be of type date.');
                     }
-                }
-                if (autoScaleFormula !== null && autoScaleFormula !== undefined) {
-                    poolEvaluateAutoScaleParameter.autoScaleFormula = autoScaleFormula;
                 }
             }
             catch (error) {
@@ -2536,7 +2520,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2771,8 +2754,8 @@ class Pool {
      *
      * @param {string} poolId The ID of the pool to upgrade.
      *
-     * @param {string} targetOSVersion The Azure Guest OS version to be installed
-     * on the virtual machines in the pool.
+     * @param {PoolUpgradeOSParameter} poolUpgradeOSParameter The parameters for
+     * the request.
      *
      * @param {PoolUpgradeOSOptionalParams} [options] Optional Parameters.
      *
@@ -2782,7 +2765,7 @@ class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    upgradeOSWithHttpOperationResponse(poolId, targetOSVersion, options) {
+    upgradeOSWithHttpOperationResponse(poolId, poolUpgradeOSParameter, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolUpgradeOSOptions = (options && options.poolUpgradeOSOptions !== undefined) ? options.poolUpgradeOSOptions : undefined;
@@ -2791,11 +2774,11 @@ class Pool {
                 if (poolId === null || poolId === undefined || typeof poolId.valueOf() !== 'string') {
                     throw new Error('poolId cannot be null or undefined and it must be of type string.');
                 }
+                if (poolUpgradeOSParameter === null || poolUpgradeOSParameter === undefined) {
+                    throw new Error('poolUpgradeOSParameter cannot be null or undefined.');
+                }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-                }
-                if (targetOSVersion === null || targetOSVersion === undefined || typeof targetOSVersion.valueOf() !== 'string') {
-                    throw new Error('targetOSVersion cannot be null or undefined and it must be of type string.');
                 }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
@@ -2812,7 +2795,6 @@ class Pool {
             let ifNoneMatch;
             let ifModifiedSince;
             let ifUnmodifiedSince;
-            let poolUpgradeOSParameter = {};
             try {
                 if (poolUpgradeOSOptions !== null && poolUpgradeOSOptions !== undefined) {
                     timeout = poolUpgradeOSOptions.timeout;
@@ -2864,9 +2846,6 @@ class Pool {
                         (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince))))) {
                         throw new Error('ifUnmodifiedSince must be of type date.');
                     }
-                }
-                if (targetOSVersion !== null && targetOSVersion !== undefined) {
-                    poolUpgradeOSParameter.targetOSVersion = targetOSVersion;
                 }
             }
             catch (error) {
@@ -3293,7 +3272,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -3438,7 +3416,6 @@ class Pool {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -3724,21 +3701,21 @@ class Pool {
             });
         }
     }
-    evaluateAutoScale(poolId, autoScaleFormula, options, callback) {
+    evaluateAutoScale(poolId, poolEvaluateAutoScaleParameter, options, callback) {
         if (!callback && typeof options === 'function') {
             callback = options;
             options = undefined;
         }
         let cb = callback;
         if (!callback) {
-            return this.evaluateAutoScaleWithHttpOperationResponse(poolId, autoScaleFormula, options).then((operationRes) => {
+            return this.evaluateAutoScaleWithHttpOperationResponse(poolId, poolEvaluateAutoScaleParameter, options).then((operationRes) => {
                 return Promise.resolve(operationRes.bodyAsJson);
             }).catch((err) => {
                 return Promise.reject(err);
             });
         }
         else {
-            msRest.promiseToCallback(this.evaluateAutoScaleWithHttpOperationResponse(poolId, autoScaleFormula, options))((err, data) => {
+            msRest.promiseToCallback(this.evaluateAutoScaleWithHttpOperationResponse(poolId, poolEvaluateAutoScaleParameter, options))((err, data) => {
                 if (err) {
                     return cb(err);
                 }
@@ -3816,21 +3793,21 @@ class Pool {
             });
         }
     }
-    upgradeOS(poolId, targetOSVersion, options, callback) {
+    upgradeOS(poolId, poolUpgradeOSParameter, options, callback) {
         if (!callback && typeof options === 'function') {
             callback = options;
             options = undefined;
         }
         let cb = callback;
         if (!callback) {
-            return this.upgradeOSWithHttpOperationResponse(poolId, targetOSVersion, options).then((operationRes) => {
+            return this.upgradeOSWithHttpOperationResponse(poolId, poolUpgradeOSParameter, options).then((operationRes) => {
                 return Promise.resolve(operationRes.bodyAsJson);
             }).catch((err) => {
                 return Promise.reject(err);
             });
         }
         else {
-            msRest.promiseToCallback(this.upgradeOSWithHttpOperationResponse(poolId, targetOSVersion, options))((err, data) => {
+            msRest.promiseToCallback(this.upgradeOSWithHttpOperationResponse(poolId, poolUpgradeOSParameter, options))((err, data) => {
                 if (err) {
                     return cb(err);
                 }

@@ -322,7 +322,6 @@ class CertificateOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -502,7 +501,6 @@ class CertificateOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -668,7 +666,6 @@ class CertificateOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -832,7 +829,6 @@ class CertificateOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -978,7 +974,6 @@ class CertificateOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {

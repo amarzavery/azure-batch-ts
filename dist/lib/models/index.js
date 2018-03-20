@@ -9,6 +9,9 @@
  * regenerated.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const ms_rest_azure_js_1 = require("ms-rest-azure-js");
+exports.BaseResource = ms_rest_azure_js_1.BaseResource;
+exports.CloudError = ms_rest_azure_js_1.CloudError;
 /**
  * Defines values for OSType.
  * Possible values include: 'linux', 'windows'
@@ -17,7 +20,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var OSType;
 (function (OSType) {
+    /**
+     * The Linux operating system.
+     */
     OSType["Linux"] = "linux";
+    /**
+     * The Windows operating system.
+     */
     OSType["Windows"] = "windows";
 })(OSType = exports.OSType || (exports.OSType = {}));
 /**
@@ -28,6 +37,9 @@ var OSType;
  */
 var AccessScope;
 (function (AccessScope) {
+    /**
+     * Grants access to perform all operations on the job containing the task.
+     */
     AccessScope["Job"] = "job";
 })(AccessScope = exports.AccessScope || (exports.AccessScope = {}));
 /**
@@ -38,9 +50,26 @@ var AccessScope;
  */
 var CertificateState;
 (function (CertificateState) {
+    /**
+     * The certificate is available for use in pools.
+     */
     CertificateState["Active"] = "active";
+    /**
+     * The user has requested that the certificate be deleted, but the delete
+     * operation has not yet completed. You may not reference the certificate
+     * when creating or updating pools.
+     */
     CertificateState["Deleting"] = "deleting";
-    CertificateState["DeleteFailed"] = "deleteFailed";
+    /**
+     * The user requested that the certificate be deleted, but there are pools
+     * that still have references to the certificate, or it is still installed on
+     * one or more compute nodes. (The latter can occur if the certificate has
+     * been removed from the pool, but the node has not yet restarted. Nodes
+     * refresh their certificates only when they restart.) You may use the cancel
+     * certificate delete operation to cancel the delete, or the delete
+     * certificate operation to retry the delete.
+     */
+    CertificateState["DeleteFailed"] = "deletefailed";
 })(CertificateState = exports.CertificateState || (exports.CertificateState = {}));
 /**
  * Defines values for CertificateFormat.
@@ -50,7 +79,14 @@ var CertificateState;
  */
 var CertificateFormat;
 (function (CertificateFormat) {
+    /**
+     * The certificate is a PFX (PKCS#12) formatted certificate or certificate
+     * chain.
+     */
     CertificateFormat["Pfx"] = "pfx";
+    /**
+     * The certificate is a base64-encoded X.509 certificate.
+     */
     CertificateFormat["Cer"] = "cer";
 })(CertificateFormat = exports.CertificateFormat || (exports.CertificateFormat = {}));
 /**
@@ -61,8 +97,19 @@ var CertificateFormat;
  */
 var JobAction;
 (function (JobAction) {
+    /**
+     * Take no action.
+     */
     JobAction["None"] = "none";
+    /**
+     * Disable the job. This is equivalent to calling the disable job API, with a
+     * disableTasks value of requeue.
+     */
     JobAction["Disable"] = "disable";
+    /**
+     * Terminate the job. The terminateReason in the job's executionInfo is set
+     * to "TaskFailed".
+     */
     JobAction["Terminate"] = "terminate";
 })(JobAction = exports.JobAction || (exports.JobAction = {}));
 /**
@@ -73,7 +120,13 @@ var JobAction;
  */
 var DependencyAction;
 (function (DependencyAction) {
+    /**
+     * Satisfy the task's dependencies.
+     */
     DependencyAction["Satisfy"] = "satisfy";
+    /**
+     * Block the task's dependencies.
+     */
     DependencyAction["Block"] = "block";
 })(DependencyAction = exports.DependencyAction || (exports.DependencyAction = {}));
 /**
@@ -84,7 +137,14 @@ var DependencyAction;
  */
 var AutoUserScope;
 (function (AutoUserScope) {
+    /**
+     * Specifies that the service should create a new user for the task.
+     */
     AutoUserScope["Task"] = "task";
+    /**
+     * Specifies that the task runs as the common auto user account which is
+     * created on every node in a pool.
+     */
     AutoUserScope["Pool"] = "pool";
 })(AutoUserScope = exports.AutoUserScope || (exports.AutoUserScope = {}));
 /**
@@ -95,7 +155,14 @@ var AutoUserScope;
  */
 var ElevationLevel;
 (function (ElevationLevel) {
-    ElevationLevel["NonAdmin"] = "nonAdmin";
+    /**
+     * The user is a standard user without elevated access.
+     */
+    ElevationLevel["NonAdmin"] = "nonadmin";
+    /**
+     * The user is a user with elevated access and operates with full
+     * Administrator permissions.
+     */
     ElevationLevel["Admin"] = "admin";
 })(ElevationLevel = exports.ElevationLevel || (exports.ElevationLevel = {}));
 /**
@@ -106,9 +173,21 @@ var ElevationLevel;
  */
 var OutputFileUploadCondition;
 (function (OutputFileUploadCondition) {
-    OutputFileUploadCondition["TaskSuccess"] = "taskSuccess";
-    OutputFileUploadCondition["TaskFailure"] = "taskFailure";
-    OutputFileUploadCondition["TaskCompletion"] = "taskCompletion";
+    /**
+     * Upload the file(s) only after the task process exits with an exit code of
+     * 0.
+     */
+    OutputFileUploadCondition["TaskSuccess"] = "tasksuccess";
+    /**
+     * Upload the file(s) only after the task process exits with a nonzero exit
+     * code.
+     */
+    OutputFileUploadCondition["TaskFailure"] = "taskfailure";
+    /**
+     * Upload the file(s) after the task process exits, no matter what the exit
+     * code was.
+     */
+    OutputFileUploadCondition["TaskCompletion"] = "taskcompletion";
 })(OutputFileUploadCondition = exports.OutputFileUploadCondition || (exports.OutputFileUploadCondition = {}));
 /**
  * Defines values for ComputeNodeFillType.
@@ -118,7 +197,15 @@ var OutputFileUploadCondition;
  */
 var ComputeNodeFillType;
 (function (ComputeNodeFillType) {
+    /**
+     * Tasks should be assigned evenly across all nodes in the pool.
+     */
     ComputeNodeFillType["Spread"] = "spread";
+    /**
+     * As many tasks as possible (maxTasksPerNode) should be assigned to each
+     * node in the pool before any tasks are assigned to the next node in the
+     * pool.
+     */
     ComputeNodeFillType["Pack"] = "pack";
 })(ComputeNodeFillType = exports.ComputeNodeFillType || (exports.ComputeNodeFillType = {}));
 /**
@@ -129,8 +216,14 @@ var ComputeNodeFillType;
  */
 var CertificateStoreLocation;
 (function (CertificateStoreLocation) {
-    CertificateStoreLocation["CurrentUser"] = "currentUser";
-    CertificateStoreLocation["LocalMachine"] = "localMachine";
+    /**
+     * Certificates should be installed to the CurrentUser certificate store.
+     */
+    CertificateStoreLocation["CurrentUser"] = "currentuser";
+    /**
+     * Certificates should be installed to the LocalMachine certificate store.
+     */
+    CertificateStoreLocation["LocalMachine"] = "localmachine";
 })(CertificateStoreLocation = exports.CertificateStoreLocation || (exports.CertificateStoreLocation = {}));
 /**
  * Defines values for CertificateVisibility.
@@ -140,9 +233,21 @@ var CertificateStoreLocation;
  */
 var CertificateVisibility;
 (function (CertificateVisibility) {
-    CertificateVisibility["StartTask"] = "startTask";
+    /**
+     * The certificate should be visible to the user account under which the
+     * start task is run.
+     */
+    CertificateVisibility["StartTask"] = "starttask";
+    /**
+     * The certificate should be visibile to the user accounts under which job
+     * tasks are run.
+     */
     CertificateVisibility["Task"] = "task";
-    CertificateVisibility["RemoteUser"] = "remoteUser";
+    /**
+     * The certificate should be visibile to the user accounts under which users
+     * remotely access the node.
+     */
+    CertificateVisibility["RemoteUser"] = "remoteuser";
 })(CertificateVisibility = exports.CertificateVisibility || (exports.CertificateVisibility = {}));
 /**
  * Defines values for CachingType.
@@ -152,20 +257,35 @@ var CertificateVisibility;
  */
 var CachingType;
 (function (CachingType) {
+    /**
+     * The caching mode for the disk is not enabled.
+     */
     CachingType["None"] = "none";
-    CachingType["ReadOnly"] = "readOnly";
-    CachingType["ReadWrite"] = "readWrite";
+    /**
+     * The caching mode for the disk is read only.
+     */
+    CachingType["ReadOnly"] = "readonly";
+    /**
+     * The caching mode for the disk is read and write.
+     */
+    CachingType["ReadWrite"] = "readwrite";
 })(CachingType = exports.CachingType || (exports.CachingType = {}));
 /**
  * Defines values for StorageAccountType.
- * Possible values include: 'Standard_LRS', 'Premium_LRS'
+ * Possible values include: 'StandardLRS', 'PremiumLRS'
  * @readonly
  * @enum {string}
  */
 var StorageAccountType;
 (function (StorageAccountType) {
-    StorageAccountType["StandardLRS"] = "Standard_LRS";
-    StorageAccountType["PremiumLRS"] = "Premium_LRS";
+    /**
+     * The data disk should use standard locally redundant storage.
+     */
+    StorageAccountType["StandardLRS"] = "standard_lrs";
+    /**
+     * The data disk should use premium locally redundant storage.
+     */
+    StorageAccountType["PremiumLRS"] = "premium_lrs";
 })(StorageAccountType = exports.StorageAccountType || (exports.StorageAccountType = {}));
 /**
  * Defines values for InboundEndpointProtocol.
@@ -175,7 +295,13 @@ var StorageAccountType;
  */
 var InboundEndpointProtocol;
 (function (InboundEndpointProtocol) {
+    /**
+     * Use TCP for the endpoint.
+     */
     InboundEndpointProtocol["Tcp"] = "tcp";
+    /**
+     * Use UDP for the endpoint.
+     */
     InboundEndpointProtocol["Udp"] = "udp";
 })(InboundEndpointProtocol = exports.InboundEndpointProtocol || (exports.InboundEndpointProtocol = {}));
 /**
@@ -186,7 +312,13 @@ var InboundEndpointProtocol;
  */
 var NetworkSecurityGroupRuleAccess;
 (function (NetworkSecurityGroupRuleAccess) {
+    /**
+     * Allow access.
+     */
     NetworkSecurityGroupRuleAccess["Allow"] = "allow";
+    /**
+     * Deny access.
+     */
     NetworkSecurityGroupRuleAccess["Deny"] = "deny";
 })(NetworkSecurityGroupRuleAccess = exports.NetworkSecurityGroupRuleAccess || (exports.NetworkSecurityGroupRuleAccess = {}));
 /**
@@ -197,7 +329,18 @@ var NetworkSecurityGroupRuleAccess;
  */
 var PoolLifetimeOption;
 (function (PoolLifetimeOption) {
-    PoolLifetimeOption["JobSchedule"] = "jobSchedule";
+    /**
+     * The pool exists for the lifetime of the job schedule. The Batch Service
+     * creates the pool when it creates the first job on the schedule. You may
+     * apply this option only to job schedules, not to jobs.
+     */
+    PoolLifetimeOption["JobSchedule"] = "jobschedule";
+    /**
+     * The pool exists for the lifetime of the job to which it is dedicated. The
+     * Batch service creates the pool when it creates the job. If the 'job'
+     * option is applied to a job schedule, the Batch service creates a new auto
+     * pool for every job created on the schedule.
+     */
     PoolLifetimeOption["Job"] = "job";
 })(PoolLifetimeOption = exports.PoolLifetimeOption || (exports.PoolLifetimeOption = {}));
 /**
@@ -208,8 +351,15 @@ var PoolLifetimeOption;
  */
 var OnAllTasksComplete;
 (function (OnAllTasksComplete) {
-    OnAllTasksComplete["NoAction"] = "noAction";
-    OnAllTasksComplete["TerminateJob"] = "terminateJob";
+    /**
+     * Do nothing. The job remains active unless terminated or disabled by some
+     * other means.
+     */
+    OnAllTasksComplete["NoAction"] = "noaction";
+    /**
+     * Terminate the job. The job's terminateReason is set to 'AllTasksComplete'.
+     */
+    OnAllTasksComplete["TerminateJob"] = "terminatejob";
 })(OnAllTasksComplete = exports.OnAllTasksComplete || (exports.OnAllTasksComplete = {}));
 /**
  * Defines values for OnTaskFailure.
@@ -219,8 +369,17 @@ var OnAllTasksComplete;
  */
 var OnTaskFailure;
 (function (OnTaskFailure) {
-    OnTaskFailure["NoAction"] = "noAction";
-    OnTaskFailure["PerformExitOptionsJobAction"] = "performExitOptionsJobAction";
+    /**
+     * Do nothing. The job remains active unless terminated or disabled by some
+     * other means.
+     */
+    OnTaskFailure["NoAction"] = "noaction";
+    /**
+     * Take the action associated with the task exit condition in the task's
+     * exitConditions collection. (This may still result in no action being
+     * taken, if that is what the task specifies.)
+     */
+    OnTaskFailure["PerformExitOptionsJobAction"] = "performexitoptionsjobaction";
 })(OnTaskFailure = exports.OnTaskFailure || (exports.OnTaskFailure = {}));
 /**
  * Defines values for JobScheduleState.
@@ -231,10 +390,35 @@ var OnTaskFailure;
  */
 var JobScheduleState;
 (function (JobScheduleState) {
+    /**
+     * The job schedule is active and will create jobs as per its schedule.
+     */
     JobScheduleState["Active"] = "active";
+    /**
+     * The schedule has terminated, either by reaching its end time or by the
+     * user terminating it explicitly.
+     */
     JobScheduleState["Completed"] = "completed";
+    /**
+     * The user has disabled the schedule. The scheduler will not initiate any
+     * new jobs will on this schedule, but any existing active job will continue
+     * to run.
+     */
     JobScheduleState["Disabled"] = "disabled";
+    /**
+     * The schedule has no more work to do, or has been explicitly terminated by
+     * the user, but the termination operation is still in progress. The
+     * scheduler will not initiate any new jobs for this schedule, nor is any
+     * existing job active.
+     */
     JobScheduleState["Terminating"] = "terminating";
+    /**
+     * The user has requested that the schedule be deleted, but the delete
+     * operation is still in progress. The scheduler will not initiate any new
+     * jobs for this schedule, and will delete any existing jobs and tasks under
+     * the schedule, including any active job. The schedule will be deleted when
+     * all jobs and tasks under the schedule have been deleted.
+     */
     JobScheduleState["Deleting"] = "deleting";
 })(JobScheduleState = exports.JobScheduleState || (exports.JobScheduleState = {}));
 /**
@@ -245,8 +429,14 @@ var JobScheduleState;
  */
 var ErrorCategory;
 (function (ErrorCategory) {
-    ErrorCategory["UserError"] = "userError";
-    ErrorCategory["ServerError"] = "serverError";
+    /**
+     * The error is due to a user issue, such as misconfiguration.
+     */
+    ErrorCategory["UserError"] = "usererror";
+    /**
+     * The error is due to an internal server issue.
+     */
+    ErrorCategory["ServerError"] = "servererror";
 })(ErrorCategory = exports.ErrorCategory || (exports.ErrorCategory = {}));
 /**
  * Defines values for JobState.
@@ -257,12 +447,42 @@ var ErrorCategory;
  */
 var JobState;
 (function (JobState) {
+    /**
+     * The job is available to have tasks scheduled.
+     */
     JobState["Active"] = "active";
+    /**
+     * A user has requested that the job be disabled, but the disable operation
+     * is still in progress (for example, waiting for tasks to terminate).
+     */
     JobState["Disabling"] = "disabling";
+    /**
+     * A user has disabled the job. No tasks are running, and no new tasks will
+     * be scheduled.
+     */
     JobState["Disabled"] = "disabled";
+    /**
+     * A user has requested that the job be enabled, but the enable operation is
+     * still in progress.
+     */
     JobState["Enabling"] = "enabling";
+    /**
+     * The job is about to complete, either because a Job Manager task has
+     * completed or because the user has terminated the job, but the terminate
+     * operation is still in progress (for example, because Job Release tasks are
+     * running).
+     */
     JobState["Terminating"] = "terminating";
+    /**
+     * All tasks have terminated, and the system will not accept any more tasks
+     * or any further changes to the job.
+     */
     JobState["Completed"] = "completed";
+    /**
+     * A user has requested that the job be deleted, but the delete operation is
+     * still in progress (for example, because the system is still terminating
+     * running tasks).
+     */
     JobState["Deleting"] = "deleting";
 })(JobState = exports.JobState || (exports.JobState = {}));
 /**
@@ -273,7 +493,15 @@ var JobState;
  */
 var JobPreparationTaskState;
 (function (JobPreparationTaskState) {
+    /**
+     * The task is currently running (including retrying).
+     */
     JobPreparationTaskState["Running"] = "running";
+    /**
+     * The task has exited with exit code 0, or the task has exhausted its retry
+     * limit, or the Batch service was unable to start the task due to task
+     * preparation errors (such as resource file download failures).
+     */
     JobPreparationTaskState["Completed"] = "completed";
 })(JobPreparationTaskState = exports.JobPreparationTaskState || (exports.JobPreparationTaskState = {}));
 /**
@@ -284,7 +512,15 @@ var JobPreparationTaskState;
  */
 var TaskExecutionResult;
 (function (TaskExecutionResult) {
+    /**
+     * The task ran successfully.
+     */
     TaskExecutionResult["Success"] = "success";
+    /**
+     * There was an error during processing of the task. The failure may have
+     * occurred before the task process was launched, while the task process was
+     * executing, or after the task process exited.
+     */
     TaskExecutionResult["Failure"] = "failure";
 })(TaskExecutionResult = exports.TaskExecutionResult || (exports.TaskExecutionResult = {}));
 /**
@@ -295,7 +531,15 @@ var TaskExecutionResult;
  */
 var JobReleaseTaskState;
 (function (JobReleaseTaskState) {
+    /**
+     * The task is currently running (including retrying).
+     */
     JobReleaseTaskState["Running"] = "running";
+    /**
+     * The task has exited with exit code 0, or the task has exhausted its retry
+     * limit, or the Batch service was unable to start the task due to task
+     * preparation errors (such as resource file download failures).
+     */
     JobReleaseTaskState["Completed"] = "completed";
 })(JobReleaseTaskState = exports.JobReleaseTaskState || (exports.JobReleaseTaskState = {}));
 /**
@@ -306,7 +550,16 @@ var JobReleaseTaskState;
  */
 var TaskCountValidationStatus;
 (function (TaskCountValidationStatus) {
+    /**
+     * The Batch service has validated the state counts against the task states
+     * as reported in the List Tasks API.
+     */
     TaskCountValidationStatus["Validated"] = "validated";
+    /**
+     * The Batch service has not been able to check state counts against the task
+     * states as reported in the List Tasks API. The validationStatus may be
+     * unvalidated if the job contains more than 200,000 tasks.
+     */
     TaskCountValidationStatus["Unvalidated"] = "unvalidated";
 })(TaskCountValidationStatus = exports.TaskCountValidationStatus || (exports.TaskCountValidationStatus = {}));
 /**
@@ -317,8 +570,23 @@ var TaskCountValidationStatus;
  */
 var PoolState;
 (function (PoolState) {
+    /**
+     * The pool is available to run tasks subject to the availability of compute
+     * nodes.
+     */
     PoolState["Active"] = "active";
+    /**
+     * The user has requested that the pool be deleted, but the delete operation
+     * has not yet completed.
+     */
     PoolState["Deleting"] = "deleting";
+    /**
+     * The user has requested that the operating system of the pool's nodes be
+     * upgraded, but the upgrade operation has not yet completed (that is, some
+     * nodes in the pool have not yet been upgraded). While upgrading, the pool
+     * may be able to run tasks (with reduced capacity) but this is not
+     * guaranteed.
+     */
     PoolState["Upgrading"] = "upgrading";
 })(PoolState = exports.PoolState || (exports.PoolState = {}));
 /**
@@ -329,8 +597,22 @@ var PoolState;
  */
 var AllocationState;
 (function (AllocationState) {
+    /**
+     * The pool is not resizing. There are no changes to the number of nodes in
+     * the pool in progress. A pool enters this state when it is created and when
+     * no operations are being performed on the pool to change the number of
+     * nodes.
+     */
     AllocationState["Steady"] = "steady";
+    /**
+     * The pool is resizing; that is, compute nodes are being added to or removed
+     * from the pool.
+     */
     AllocationState["Resizing"] = "resizing";
+    /**
+     * The pool was resizing, but the user has requested that the resize be
+     * stopped, but the stop request has not yet been completed.
+     */
     AllocationState["Stopping"] = "stopping";
 })(AllocationState = exports.AllocationState || (exports.AllocationState = {}));
 /**
@@ -341,9 +623,34 @@ var AllocationState;
  */
 var TaskState;
 (function (TaskState) {
+    /**
+     * The task is queued and able to run, but is not currently assigned to a
+     * compute node. A task enters this state when it is created, when it is
+     * enabled after being disabled, or when it is awaiting a retry after a
+     * failed run.
+     */
     TaskState["Active"] = "active";
+    /**
+     * The task has been assigned to a compute node, but is waiting for a
+     * required Job Preparation task to complete on the node. If the Job
+     * Preparation task succeeds, the task will move to running. If the Job
+     * Preparation task fails, the task will return to active and will be
+     * eligible to be assigned to a different node.
+     */
     TaskState["Preparing"] = "preparing";
+    /**
+     * The task is running on a compute node. This includes task-level
+     * preparation such as downloading resource files or deploying application
+     * packages specified on the task - it does not necessarily mean that the
+     * task command line has started executing.
+     */
     TaskState["Running"] = "running";
+    /**
+     * The task is no longer eligible to run, usually because the task has
+     * finished successfully, or the task has finished unsuccessfully and has
+     * exhausted its retry limit. A task is also marked as completed if an error
+     * occurred launching the task, or when the task has been terminated.
+     */
     TaskState["Completed"] = "completed";
 })(TaskState = exports.TaskState || (exports.TaskState = {}));
 /**
@@ -354,9 +661,20 @@ var TaskState;
  */
 var TaskAddStatus;
 (function (TaskAddStatus) {
+    /**
+     * The task was added successfully.
+     */
     TaskAddStatus["Success"] = "success";
-    TaskAddStatus["ClientError"] = "clientError";
-    TaskAddStatus["ServerError"] = "serverError";
+    /**
+     * The task failed to add due to a client error and should not be retried
+     * without modifying the request as appropriate.
+     */
+    TaskAddStatus["ClientError"] = "clienterror";
+    /**
+     * Task failed to add due to a server error and can be retried without
+     * modification.
+     */
+    TaskAddStatus["ServerError"] = "servererror";
 })(TaskAddStatus = exports.TaskAddStatus || (exports.TaskAddStatus = {}));
 /**
  * Defines values for SubtaskState.
@@ -366,8 +684,27 @@ var TaskAddStatus;
  */
 var SubtaskState;
 (function (SubtaskState) {
+    /**
+     * The task has been assigned to a compute node, but is waiting for a
+     * required Job Preparation task to complete on the node. If the Job
+     * Preparation task succeeds, the task will move to running. If the Job
+     * Preparation task fails, the task will return to active and will be
+     * eligible to be assigned to a different node.
+     */
     SubtaskState["Preparing"] = "preparing";
+    /**
+     * The task is running on a compute node. This includes task-level
+     * preparation such as downloading resource files or deploying application
+     * packages specified on the task - it does not necessarily mean that the
+     * task command line has started executing.
+     */
     SubtaskState["Running"] = "running";
+    /**
+     * The task is no longer eligible to run, usually because the task has
+     * finished successfully, or the task has finished unsuccessfully and has
+     * exhausted its retry limit. A task is also marked as completed if an error
+     * occurred launching the task, or when the task has been terminated.
+     */
     SubtaskState["Completed"] = "completed";
 })(SubtaskState = exports.SubtaskState || (exports.SubtaskState = {}));
 /**
@@ -378,7 +715,15 @@ var SubtaskState;
  */
 var StartTaskState;
 (function (StartTaskState) {
+    /**
+     * The start task is currently running.
+     */
     StartTaskState["Running"] = "running";
+    /**
+     * The start task has exited with exit code 0, or the start task has failed
+     * and the retry limit has reached, or the start task process did not run due
+     * to task preparation errors (such as resource file download failures).
+     */
     StartTaskState["Completed"] = "completed";
 })(StartTaskState = exports.StartTaskState || (exports.StartTaskState = {}));
 /**
@@ -391,18 +736,65 @@ var StartTaskState;
  */
 var ComputeNodeState;
 (function (ComputeNodeState) {
+    /**
+     * The node is not currently running a task.
+     */
     ComputeNodeState["Idle"] = "idle";
+    /**
+     * The node is rebooting.
+     */
     ComputeNodeState["Rebooting"] = "rebooting";
+    /**
+     * The node is reimaging.
+     */
     ComputeNodeState["Reimaging"] = "reimaging";
+    /**
+     * The node is running one or more tasks (other than a start task).
+     */
     ComputeNodeState["Running"] = "running";
+    /**
+     * The node cannot be used for task execution due to errors.
+     */
     ComputeNodeState["Unusable"] = "unusable";
+    /**
+     * The Batch service has obtained the underlying virtual machine from Azure
+     * Compute, but it has not yet started to join the pool.
+     */
     ComputeNodeState["Creating"] = "creating";
+    /**
+     * The Batch service is starting on the underlying virtual machine.
+     */
     ComputeNodeState["Starting"] = "starting";
-    ComputeNodeState["WaitingForStartTask"] = "waitingForStartTask";
-    ComputeNodeState["StartTaskFailed"] = "startTaskFailed";
+    /**
+     * The start task has started running on the compute node, but waitForSuccess
+     * is set and the start task has not yet completed.
+     */
+    ComputeNodeState["WaitingForStartTask"] = "waitingforstarttask";
+    /**
+     * The start task has failed on the compute node (and exhausted all retries),
+     * and waitForSuccess is set. The node is not usable for running tasks.
+     */
+    ComputeNodeState["StartTaskFailed"] = "starttaskfailed";
+    /**
+     * The Batch service has lost contact with the node, and does not know its
+     * true state.
+     */
     ComputeNodeState["Unknown"] = "unknown";
-    ComputeNodeState["LeavingPool"] = "leavingPool";
+    /**
+     * The node is leaving the pool, either because the user explicitly removed
+     * it or because the pool is resizing or autoscaling down.
+     */
+    ComputeNodeState["LeavingPool"] = "leavingpool";
+    /**
+     * The node is not currently running a task, and scheduling of new tasks to
+     * the node is disabled.
+     */
     ComputeNodeState["Offline"] = "offline";
+    /**
+     * The low-priority node has been preempted. Tasks which were running on the
+     * node when it was pre-empted will be rescheduled when another node becomes
+     * available.
+     */
     ComputeNodeState["Preempted"] = "preempted";
 })(ComputeNodeState = exports.ComputeNodeState || (exports.ComputeNodeState = {}));
 /**
@@ -413,7 +805,14 @@ var ComputeNodeState;
  */
 var SchedulingState;
 (function (SchedulingState) {
+    /**
+     * Tasks can be scheduled on the node.
+     */
     SchedulingState["Enabled"] = "enabled";
+    /**
+     * No new tasks will be scheduled on the node. Tasks already running on the
+     * node may still run to completion. All nodes start with scheduling enabled.
+     */
     SchedulingState["Disabled"] = "disabled";
 })(SchedulingState = exports.SchedulingState || (exports.SchedulingState = {}));
 /**
@@ -424,8 +823,19 @@ var SchedulingState;
  */
 var DisableJobOption;
 (function (DisableJobOption) {
+    /**
+     * Terminate running tasks and requeue them. The tasks will run again when
+     * the job is enabled.
+     */
     DisableJobOption["Requeue"] = "requeue";
+    /**
+     * Terminate running tasks. The tasks will be completed with failureInfo
+     * indicating that they were terminated, and will not run again.
+     */
     DisableJobOption["Terminate"] = "terminate";
+    /**
+     * Allow currently running tasks to complete.
+     */
     DisableJobOption["Wait"] = "wait";
 })(DisableJobOption = exports.DisableJobOption || (exports.DisableJobOption = {}));
 /**
@@ -437,10 +847,29 @@ var DisableJobOption;
  */
 var ComputeNodeDeallocationOption;
 (function (ComputeNodeDeallocationOption) {
+    /**
+     * Terminate running task processes and requeue the tasks. The tasks will run
+     * again when a node is available. Remove nodes as soon as tasks have been
+     * terminated.
+     */
     ComputeNodeDeallocationOption["Requeue"] = "requeue";
+    /**
+     * Terminate running tasks. The tasks will be completed with failureInfo
+     * indicating that they were terminated, and will not run again. Remove nodes
+     * as soon as tasks have been terminated.
+     */
     ComputeNodeDeallocationOption["Terminate"] = "terminate";
-    ComputeNodeDeallocationOption["TaskCompletion"] = "taskCompletion";
-    ComputeNodeDeallocationOption["RetainedData"] = "retainedData";
+    /**
+     * Allow currently running tasks to complete. Schedule no new tasks while
+     * waiting. Remove nodes when all tasks have completed.
+     */
+    ComputeNodeDeallocationOption["TaskCompletion"] = "taskcompletion";
+    /**
+     * Allow currently running tasks to complete, then wait for all task data
+     * retention periods to expire. Schedule no new tasks while waiting. Remove
+     * nodes when all task retention periods have expired.
+     */
+    ComputeNodeDeallocationOption["RetainedData"] = "retaineddata";
 })(ComputeNodeDeallocationOption = exports.ComputeNodeDeallocationOption || (exports.ComputeNodeDeallocationOption = {}));
 /**
  * Defines values for ComputeNodeRebootOption.
@@ -451,10 +880,29 @@ var ComputeNodeDeallocationOption;
  */
 var ComputeNodeRebootOption;
 (function (ComputeNodeRebootOption) {
+    /**
+     * Terminate running task processes and requeue the tasks. The tasks will run
+     * again when a node is available. Restart the node as soon as tasks have
+     * been terminated.
+     */
     ComputeNodeRebootOption["Requeue"] = "requeue";
+    /**
+     * Terminate running tasks. The tasks will be completed with failureInfo
+     * indicating that they were terminated, and will not run again. Restart the
+     * node as soon as tasks have been terminated.
+     */
     ComputeNodeRebootOption["Terminate"] = "terminate";
-    ComputeNodeRebootOption["TaskCompletion"] = "taskCompletion";
-    ComputeNodeRebootOption["RetainedData"] = "retainedData";
+    /**
+     * Allow currently running tasks to complete. Schedule no new tasks while
+     * waiting. Restart the node when all tasks have completed.
+     */
+    ComputeNodeRebootOption["TaskCompletion"] = "taskcompletion";
+    /**
+     * Allow currently running tasks to complete, then wait for all task data
+     * retention periods to expire. Schedule no new tasks while waiting. Restart
+     * the node when all task retention periods have expired.
+     */
+    ComputeNodeRebootOption["RetainedData"] = "retaineddata";
 })(ComputeNodeRebootOption = exports.ComputeNodeRebootOption || (exports.ComputeNodeRebootOption = {}));
 /**
  * Defines values for ComputeNodeReimageOption.
@@ -465,10 +913,29 @@ var ComputeNodeRebootOption;
  */
 var ComputeNodeReimageOption;
 (function (ComputeNodeReimageOption) {
+    /**
+     * Terminate running task processes and requeue the tasks. The tasks will run
+     * again when a node is available. Reimage the node as soon as tasks have
+     * been terminated.
+     */
     ComputeNodeReimageOption["Requeue"] = "requeue";
+    /**
+     * Terminate running tasks. The tasks will be completed with failureInfo
+     * indicating that they were terminated, and will not run again. Reimage the
+     * node as soon as tasks have been terminated.
+     */
     ComputeNodeReimageOption["Terminate"] = "terminate";
-    ComputeNodeReimageOption["TaskCompletion"] = "taskCompletion";
-    ComputeNodeReimageOption["RetainedData"] = "retainedData";
+    /**
+     * Allow currently running tasks to complete. Schedule no new tasks while
+     * waiting. Reimage the node when all tasks have completed.
+     */
+    ComputeNodeReimageOption["TaskCompletion"] = "taskcompletion";
+    /**
+     * Allow currently running tasks to complete, then wait for all task data
+     * retention periods to expire. Schedule no new tasks while waiting. Reimage
+     * the node when all task retention periods have expired.
+     */
+    ComputeNodeReimageOption["RetainedData"] = "retaineddata";
 })(ComputeNodeReimageOption = exports.ComputeNodeReimageOption || (exports.ComputeNodeReimageOption = {}));
 /**
  * Defines values for DisableComputeNodeSchedulingOption.
@@ -478,8 +945,22 @@ var ComputeNodeReimageOption;
  */
 var DisableComputeNodeSchedulingOption;
 (function (DisableComputeNodeSchedulingOption) {
+    /**
+     * Terminate running task processes and requeue the tasks. The tasks may run
+     * again on other compute nodes, or when task scheduling is re-enabled on
+     * this node. Enter offline state as soon as tasks have been terminated.
+     */
     DisableComputeNodeSchedulingOption["Requeue"] = "requeue";
+    /**
+     * Terminate running tasks. The tasks will be completed with failureInfo
+     * indicating that they were terminated, and will not run again. Enter
+     * offline state as soon as tasks have been terminated.
+     */
     DisableComputeNodeSchedulingOption["Terminate"] = "terminate";
-    DisableComputeNodeSchedulingOption["TaskCompletion"] = "taskCompletion";
+    /**
+     * Allow currently running tasks to complete. Schedule no new tasks while
+     * waiting. Enter offline state when all tasks have completed.
+     */
+    DisableComputeNodeSchedulingOption["TaskCompletion"] = "taskcompletion";
 })(DisableComputeNodeSchedulingOption = exports.DisableComputeNodeSchedulingOption || (exports.DisableComputeNodeSchedulingOption = {}));
 //# sourceMappingURL=index.js.map

@@ -157,7 +157,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -349,7 +348,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             httpRequest.rawResponse = true;
             let operationRes;
@@ -534,7 +532,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -703,7 +700,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -895,7 +891,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             httpRequest.rawResponse = true;
             let operationRes;
@@ -1079,7 +1074,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1259,7 +1253,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1458,7 +1451,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1603,7 +1595,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1750,7 +1741,6 @@ class File {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {

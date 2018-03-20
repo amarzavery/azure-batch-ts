@@ -119,14 +119,8 @@ export declare class Job {
      *
      * @param {string} jobId The ID of the job to disable.
      *
-     * @param {DisableJobOption} disableTasks What to do with active tasks
-     * associated with the job. Values are:
-     *
-     * requeue - Terminate running tasks and requeue them. The tasks will run again
-     * when the job is enabled.
-     * terminate - Terminate running tasks. The tasks will not run again.
-     * wait - Allow currently running tasks to complete. Possible values include:
-     * 'requeue', 'terminate', 'wait'
+     * @param {JobDisableParameter} jobDisableParameter The parameters for the
+     * request.
      *
      * @param {JobDisableOptionalParams} [options] Optional Parameters.
      *
@@ -136,7 +130,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableWithHttpOperationResponse(jobId: string, disableTasks: Models.DisableJobOption, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse>;
+    disableWithHttpOperationResponse(jobId: string, jobDisableParameter: Models.JobDisableParameter, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
      * @summary Enables the specified job, allowing new tasks to run.
      *
@@ -487,14 +481,8 @@ export declare class Job {
      *
      * @param {string} jobId The ID of the job to disable.
      *
-     * @param {DisableJobOption} disableTasks What to do with active tasks
-     * associated with the job. Values are:
-     *
-     * requeue - Terminate running tasks and requeue them. The tasks will run again
-     * when the job is enabled.
-     * terminate - Terminate running tasks. The tasks will not run again.
-     * wait - Allow currently running tasks to complete. Possible values include:
-     * 'requeue', 'terminate', 'wait'
+     * @param {JobDisableParameter} jobDisableParameter The parameters for the
+     * request.
      *
      * @param {JobDisableOptionalParams} [options] Optional Parameters.
      *
@@ -510,10 +498,10 @@ export declare class Job {
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    disable(jobId: string, disableTasks: Models.DisableJobOption): Promise<void>;
-    disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams): Promise<void>;
-    disable(jobId: string, disableTasks: Models.DisableJobOption, callback: msRest.ServiceCallback<void>): void;
-    disable(jobId: string, disableTasks: Models.DisableJobOption, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
+    disable(jobId: string, jobDisableParameter: Models.JobDisableParameter): Promise<void>;
+    disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options: Models.JobDisableOptionalParams): Promise<void>;
+    disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, callback: msRest.ServiceCallback<void>): void;
+    disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options: Models.JobDisableOptionalParams, callback: msRest.ServiceCallback<void>): void;
     /**
      * @summary Enables the specified job, allowing new tasks to run.
      *
