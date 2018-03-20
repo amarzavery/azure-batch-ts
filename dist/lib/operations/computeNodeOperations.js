@@ -329,7 +329,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -680,7 +679,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -756,7 +754,7 @@ class ComputeNodeOperations {
     rebootWithHttpOperationResponse(poolId, nodeId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
-            let nodeRebootOption = (options && options.nodeRebootOption !== undefined) ? options.nodeRebootOption : undefined;
+            let nodeRebootParameter = (options && options.nodeRebootParameter !== undefined) ? options.nodeRebootParameter : undefined;
             let computeNodeRebootOptions = (options && options.computeNodeRebootOptions !== undefined) ? options.computeNodeRebootOptions : undefined;
             // Validate
             try {
@@ -769,12 +767,6 @@ class ComputeNodeOperations {
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
                 }
-                if (nodeRebootOption) {
-                    let allowedValues = ['requeue', 'terminate', 'taskCompletion', 'retainedData'];
-                    if (!allowedValues.some(function (item) { return item === nodeRebootOption; })) {
-                        throw new Error(nodeRebootOption + ' is not a valid value. The valid values are: ' + allowedValues);
-                    }
-                }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
                 }
@@ -786,7 +778,6 @@ class ComputeNodeOperations {
             let clientRequestId;
             let returnClientRequestId;
             let ocpDate;
-            let nodeRebootParameter;
             try {
                 if (computeNodeRebootOptions !== null && computeNodeRebootOptions !== undefined) {
                     timeout = computeNodeRebootOptions.timeout;
@@ -812,10 +803,6 @@ class ComputeNodeOperations {
                         (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
                         throw new Error('ocpDate must be of type date.');
                     }
-                }
-                if (nodeRebootOption !== null && nodeRebootOption !== undefined) {
-                    nodeRebootParameter = {};
-                    nodeRebootParameter.nodeRebootOption = nodeRebootOption;
                 }
             }
             catch (error) {
@@ -940,7 +927,7 @@ class ComputeNodeOperations {
     reimageWithHttpOperationResponse(poolId, nodeId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
-            let nodeReimageOption = (options && options.nodeReimageOption !== undefined) ? options.nodeReimageOption : undefined;
+            let nodeReimageParameter = (options && options.nodeReimageParameter !== undefined) ? options.nodeReimageParameter : undefined;
             let computeNodeReimageOptions = (options && options.computeNodeReimageOptions !== undefined) ? options.computeNodeReimageOptions : undefined;
             // Validate
             try {
@@ -953,12 +940,6 @@ class ComputeNodeOperations {
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
                 }
-                if (nodeReimageOption) {
-                    let allowedValues = ['requeue', 'terminate', 'taskCompletion', 'retainedData'];
-                    if (!allowedValues.some(function (item) { return item === nodeReimageOption; })) {
-                        throw new Error(nodeReimageOption + ' is not a valid value. The valid values are: ' + allowedValues);
-                    }
-                }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
                 }
@@ -970,7 +951,6 @@ class ComputeNodeOperations {
             let clientRequestId;
             let returnClientRequestId;
             let ocpDate;
-            let nodeReimageParameter;
             try {
                 if (computeNodeReimageOptions !== null && computeNodeReimageOptions !== undefined) {
                     timeout = computeNodeReimageOptions.timeout;
@@ -996,10 +976,6 @@ class ComputeNodeOperations {
                         (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
                         throw new Error('ocpDate must be of type date.');
                     }
-                }
-                if (nodeReimageOption !== null && nodeReimageOption !== undefined) {
-                    nodeReimageParameter = {};
-                    nodeReimageParameter.nodeReimageOption = nodeReimageOption;
                 }
             }
             catch (error) {
@@ -1125,7 +1101,7 @@ class ComputeNodeOperations {
     disableSchedulingWithHttpOperationResponse(poolId, nodeId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
-            let nodeDisableSchedulingOption = (options && options.nodeDisableSchedulingOption !== undefined) ? options.nodeDisableSchedulingOption : undefined;
+            let nodeDisableSchedulingParameter = (options && options.nodeDisableSchedulingParameter !== undefined) ? options.nodeDisableSchedulingParameter : undefined;
             let computeNodeDisableSchedulingOptions = (options && options.computeNodeDisableSchedulingOptions !== undefined) ? options.computeNodeDisableSchedulingOptions : undefined;
             // Validate
             try {
@@ -1138,12 +1114,6 @@ class ComputeNodeOperations {
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
                 }
-                if (nodeDisableSchedulingOption) {
-                    let allowedValues = ['requeue', 'terminate', 'taskCompletion'];
-                    if (!allowedValues.some(function (item) { return item === nodeDisableSchedulingOption; })) {
-                        throw new Error(nodeDisableSchedulingOption + ' is not a valid value. The valid values are: ' + allowedValues);
-                    }
-                }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
                 }
@@ -1155,7 +1125,6 @@ class ComputeNodeOperations {
             let clientRequestId;
             let returnClientRequestId;
             let ocpDate;
-            let nodeDisableSchedulingParameter;
             try {
                 if (computeNodeDisableSchedulingOptions !== null && computeNodeDisableSchedulingOptions !== undefined) {
                     timeout = computeNodeDisableSchedulingOptions.timeout;
@@ -1181,10 +1150,6 @@ class ComputeNodeOperations {
                         (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
                         throw new Error('ocpDate must be of type date.');
                     }
-                }
-                if (nodeDisableSchedulingOption !== null && nodeDisableSchedulingOption !== undefined) {
-                    nodeDisableSchedulingParameter = {};
-                    nodeDisableSchedulingParameter.nodeDisableSchedulingOption = nodeDisableSchedulingOption;
                 }
             }
             catch (error) {
@@ -1405,7 +1370,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1565,7 +1529,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1742,7 +1705,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             httpRequest.rawResponse = true;
             let operationRes;
@@ -1779,6 +1741,205 @@ class ComputeNodeOperations {
             }
             catch (error) {
                 return Promise.reject(error);
+            }
+            return Promise.resolve(operationRes);
+        });
+    }
+    /**
+     * @summary Upload Azure Batch service log files from the specified compute
+     * node to Azure Blob Storage.
+     *
+     * This is for gathering Azure Batch service log files in an automated fashion
+     * from nodes if you are experiencing an error and wish to escalate to Azure
+     * support. The Azure Batch service log files should be shared with Azure
+     * support to aid in debugging issues with the Batch service.
+     *
+     * @param {string} poolId The ID of the pool that contains the compute node.
+     *
+     * @param {string} nodeId The ID of the compute node from which you want to
+     * upload the Azure Batch service log files.
+     *
+     * @param {UploadBatchServiceLogsConfiguration}
+     * uploadBatchServiceLogsConfiguration The Azure Batch service log files upload
+     * configuration.
+     *
+     * @param {ComputeNodeUploadBatchServiceLogsOptionalParams} [options] Optional
+     * Parameters.
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    uploadBatchServiceLogsWithHttpOperationResponse(poolId, nodeId, uploadBatchServiceLogsConfiguration, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = this.client;
+            let computeNodeUploadBatchServiceLogsOptions = (options && options.computeNodeUploadBatchServiceLogsOptions !== undefined) ? options.computeNodeUploadBatchServiceLogsOptions : undefined;
+            // Validate
+            try {
+                if (poolId === null || poolId === undefined || typeof poolId.valueOf() !== 'string') {
+                    throw new Error('poolId cannot be null or undefined and it must be of type string.');
+                }
+                if (nodeId === null || nodeId === undefined || typeof nodeId.valueOf() !== 'string') {
+                    throw new Error('nodeId cannot be null or undefined and it must be of type string.');
+                }
+                if (uploadBatchServiceLogsConfiguration === null || uploadBatchServiceLogsConfiguration === undefined) {
+                    throw new Error('uploadBatchServiceLogsConfiguration cannot be null or undefined.');
+                }
+                if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
+                    throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
+                }
+                if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
+                    throw new Error('this.client.acceptLanguage must be of type string.');
+                }
+            }
+            catch (error) {
+                return Promise.reject(error);
+            }
+            let timeout;
+            let clientRequestId;
+            let returnClientRequestId;
+            let ocpDate;
+            try {
+                if (computeNodeUploadBatchServiceLogsOptions !== null && computeNodeUploadBatchServiceLogsOptions !== undefined) {
+                    timeout = computeNodeUploadBatchServiceLogsOptions.timeout;
+                    if (timeout !== null && timeout !== undefined && typeof timeout !== 'number') {
+                        throw new Error('timeout must be of type number.');
+                    }
+                }
+                if (computeNodeUploadBatchServiceLogsOptions !== null && computeNodeUploadBatchServiceLogsOptions !== undefined) {
+                    clientRequestId = computeNodeUploadBatchServiceLogsOptions.clientRequestId;
+                    if (clientRequestId !== null && clientRequestId !== undefined && !(typeof clientRequestId.valueOf() === 'string' && msRest.isValidUuid(clientRequestId))) {
+                        throw new Error('clientRequestId must be of type string and must be a valid string.');
+                    }
+                }
+                if (computeNodeUploadBatchServiceLogsOptions !== null && computeNodeUploadBatchServiceLogsOptions !== undefined) {
+                    returnClientRequestId = computeNodeUploadBatchServiceLogsOptions.returnClientRequestId;
+                    if (returnClientRequestId !== null && returnClientRequestId !== undefined && typeof returnClientRequestId !== 'boolean') {
+                        throw new Error('returnClientRequestId must be of type boolean.');
+                    }
+                }
+                if (computeNodeUploadBatchServiceLogsOptions !== null && computeNodeUploadBatchServiceLogsOptions !== undefined) {
+                    ocpDate = computeNodeUploadBatchServiceLogsOptions.ocpDate;
+                    if (ocpDate && !(ocpDate instanceof Date ||
+                        (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
+                        throw new Error('ocpDate must be of type date.');
+                    }
+                }
+            }
+            catch (error) {
+                return Promise.reject(error);
+            }
+            // Construct URL
+            let baseUrl = this.client.baseUri;
+            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/nodes/{nodeId}/uploadbatchservicelogs';
+            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
+            requestUrl = requestUrl.replace('{nodeId}', encodeURIComponent(nodeId));
+            let queryParamsArray = [];
+            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
+            if (timeout !== null && timeout !== undefined) {
+                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
+            }
+            if (queryParamsArray.length > 0) {
+                requestUrl += '?' + queryParamsArray.join('&');
+            }
+            // Create HTTP transport objects
+            let httpRequest = new WebResource();
+            httpRequest.method = 'POST';
+            httpRequest.url = requestUrl;
+            httpRequest.headers = {};
+            // Set Headers
+            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
+            if (this.client.generateClientRequestId) {
+                httpRequest.headers['client-request-id'] = msRest.generateUuid();
+            }
+            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
+                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
+            }
+            if (clientRequestId !== undefined && clientRequestId !== null) {
+                httpRequest.headers['client-request-id'] = clientRequestId.toString();
+            }
+            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
+                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
+            }
+            if (ocpDate !== undefined && ocpDate !== null) {
+                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
+            }
+            if (options && options.customHeaders) {
+                for (let headerName in options.customHeaders) {
+                    if (options.customHeaders.hasOwnProperty(headerName)) {
+                        httpRequest.headers[headerName] = options.customHeaders[headerName];
+                    }
+                }
+            }
+            // Serialize Request
+            let requestContent = null;
+            let requestModel = null;
+            try {
+                if (uploadBatchServiceLogsConfiguration !== null && uploadBatchServiceLogsConfiguration !== undefined) {
+                    let requestModelMapper = Mappers.UploadBatchServiceLogsConfiguration;
+                    requestModel = client.serializer.serialize(requestModelMapper, uploadBatchServiceLogsConfiguration, 'uploadBatchServiceLogsConfiguration');
+                    requestContent = JSON.stringify(requestModel);
+                }
+            }
+            catch (error) {
+                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
+                    `payload - ${JSON.stringify(uploadBatchServiceLogsConfiguration, null, 2)}.`);
+                return Promise.reject(serializationError);
+            }
+            httpRequest.body = requestContent;
+            // Send Request
+            let operationRes;
+            try {
+                operationRes = yield client.pipeline(httpRequest);
+                let response = operationRes.response;
+                let statusCode = response.status;
+                if (statusCode !== 200) {
+                    let error = new msRest.RestError(operationRes.bodyAsText);
+                    error.statusCode = response.status;
+                    error.request = msRest.stripRequest(httpRequest);
+                    error.response = msRest.stripResponse(response);
+                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    try {
+                        if (parsedErrorResponse) {
+                            let internalError = null;
+                            if (parsedErrorResponse.error)
+                                internalError = parsedErrorResponse.error;
+                            error.code = internalError ? internalError.code : parsedErrorResponse.code;
+                            error.message = internalError ? internalError.message : parsedErrorResponse.message;
+                        }
+                        if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
+                            let resultMapper = Mappers.BatchError;
+                            error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
+                        }
+                    }
+                    catch (defaultError) {
+                        error.message = `Error "${defaultError.message}" occurred in deserializing the responseBody ` +
+                            `- "${operationRes.bodyAsText}" for the default response.`;
+                        return Promise.reject(error);
+                    }
+                    return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 200) {
+                    let parsedResponse = operationRes.bodyAsJson;
+                    try {
+                        if (parsedResponse !== null && parsedResponse !== undefined) {
+                            let resultMapper = Mappers.UploadBatchServiceLogsResult;
+                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                        }
+                    }
+                    catch (error) {
+                        let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
+                        deserializationError.request = msRest.stripRequest(httpRequest);
+                        deserializationError.response = msRest.stripResponse(response);
+                        return Promise.reject(deserializationError);
+                    }
+                }
+            }
+            catch (err) {
+                return Promise.reject(err);
             }
             return Promise.resolve(operationRes);
         });
@@ -1920,7 +2081,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2065,7 +2225,6 @@ class ComputeNodeOperations {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2347,6 +2506,29 @@ class ComputeNodeOperations {
                     return cb(err);
                 }
                 let result = data.response;
+                return cb(err, result, data.request, data.response);
+            });
+        }
+    }
+    uploadBatchServiceLogs(poolId, nodeId, uploadBatchServiceLogsConfiguration, options, callback) {
+        if (!callback && typeof options === 'function') {
+            callback = options;
+            options = undefined;
+        }
+        let cb = callback;
+        if (!callback) {
+            return this.uploadBatchServiceLogsWithHttpOperationResponse(poolId, nodeId, uploadBatchServiceLogsConfiguration, options).then((operationRes) => {
+                return Promise.resolve(operationRes.bodyAsJson);
+            }).catch((err) => {
+                return Promise.reject(err);
+            });
+        }
+        else {
+            msRest.promiseToCallback(this.uploadBatchServiceLogsWithHttpOperationResponse(poolId, nodeId, uploadBatchServiceLogsConfiguration, options))((err, data) => {
+                if (err) {
+                    return cb(err);
+                }
+                let result = data.bodyAsJson;
                 return cb(err, result, data.request, data.response);
             });
         }

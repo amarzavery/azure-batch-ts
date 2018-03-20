@@ -564,7 +564,7 @@ exports.Certificate = {
                 serializedName: 'state',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['active', 'deleting', 'deleteFailed']
+                    allowedValues: ['active', 'deleting', 'deletefailed']
                 }
             },
             stateTransitionTime: {
@@ -579,7 +579,7 @@ exports.Certificate = {
                 serializedName: 'previousState',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['active', 'deleting', 'deleteFailed']
+                    allowedValues: ['active', 'deleting', 'deletefailed']
                 }
             },
             previousStateTransitionTime: {
@@ -1146,7 +1146,7 @@ exports.AutoUserSpecification = {
                 serializedName: 'elevationLevel',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['nonAdmin', 'admin']
+                    allowedValues: ['nonadmin', 'admin']
                 }
             }
         }
@@ -1234,7 +1234,7 @@ exports.UserAccount = {
                 serializedName: 'elevationLevel',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['nonAdmin', 'admin']
+                    allowedValues: ['nonadmin', 'admin']
                 }
             },
             linuxUserConfiguration: {
@@ -1333,7 +1333,7 @@ exports.OutputFileUploadOptions = {
                 serializedName: 'uploadCondition',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['taskSuccess', 'taskFailure', 'taskCompletion']
+                    allowedValues: ['tasksuccess', 'taskfailure', 'taskcompletion']
                 }
             }
         }
@@ -1813,7 +1813,7 @@ exports.CertificateReference = {
                 serializedName: 'storeLocation',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['currentUser', 'localMachine']
+                    allowedValues: ['currentuser', 'localmachine']
                 }
             },
             storeName: {
@@ -1833,7 +1833,7 @@ exports.CertificateReference = {
                         serializedName: 'CertificateVisibilityElementType',
                         type: {
                             name: 'Enum',
-                            allowedValues: ['startTask', 'task', 'remoteUser']
+                            allowedValues: ['starttask', 'task', 'remoteuser']
                         }
                     }
                 }
@@ -1909,7 +1909,7 @@ exports.OSDisk = {
                 serializedName: 'caching',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['none', 'readOnly', 'readWrite']
+                    allowedValues: ['none', 'readonly', 'readwrite']
                 }
             }
         }
@@ -1951,7 +1951,7 @@ exports.DataDisk = {
                 serializedName: 'caching',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['none', 'readOnly', 'readWrite']
+                    allowedValues: ['none', 'readonly', 'readwrite']
                 }
             },
             diskSizeGB: {
@@ -1966,7 +1966,7 @@ exports.DataDisk = {
                 serializedName: 'storageAccountType',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['Standard_LRS', 'Premium_LRS']
+                    allowedValues: ['standard_lrs', 'premium_lrs']
                 }
             }
         }
@@ -2447,7 +2447,7 @@ exports.AutoPoolSpecification = {
                 serializedName: 'poolLifetimeOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['jobSchedule', 'job']
+                    allowedValues: ['jobschedule', 'job']
                 }
             },
             keepAlive: {
@@ -2526,7 +2526,7 @@ exports.JobSpecification = {
                 serializedName: 'onAllTasksComplete',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'terminateJob']
+                    allowedValues: ['noaction', 'terminatejob']
                 }
             },
             onTaskFailure: {
@@ -2534,7 +2534,7 @@ exports.JobSpecification = {
                 serializedName: 'onTaskFailure',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'performExitOptionsJobAction']
+                    allowedValues: ['noaction', 'performexitoptionsjobaction']
                 }
             },
             constraints: {
@@ -2972,7 +2972,7 @@ exports.JobSchedulingError = {
                 serializedName: 'category',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['userError', 'serverError']
+                    allowedValues: ['usererror', 'servererror']
                 }
             },
             code: {
@@ -3206,7 +3206,7 @@ exports.CloudJob = {
                 serializedName: 'onAllTasksComplete',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'terminateJob']
+                    allowedValues: ['noaction', 'terminatejob']
                 }
             },
             onTaskFailure: {
@@ -3214,7 +3214,7 @@ exports.CloudJob = {
                 serializedName: 'onTaskFailure',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'performExitOptionsJobAction']
+                    allowedValues: ['noaction', 'performexitoptionsjobaction']
                 }
             },
             metadata: {
@@ -3340,7 +3340,7 @@ exports.JobAddParameter = {
                 serializedName: 'onAllTasksComplete',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'terminateJob']
+                    allowedValues: ['noaction', 'terminatejob']
                 }
             },
             onTaskFailure: {
@@ -3348,7 +3348,7 @@ exports.JobAddParameter = {
                 serializedName: 'onTaskFailure',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'performExitOptionsJobAction']
+                    allowedValues: ['noaction', 'performexitoptionsjobaction']
                 }
             },
             metadata: {
@@ -3419,7 +3419,7 @@ exports.TaskFailureInformation = {
                 serializedName: 'category',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['userError', 'serverError']
+                    allowedValues: ['usererror', 'servererror']
                 }
             },
             code: {
@@ -5198,7 +5198,7 @@ exports.TaskAddResult = {
                 serializedName: 'status',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['success', 'clientError', 'serverError']
+                    allowedValues: ['success', 'clienterror', 'servererror']
                 }
             },
             taskId: {
@@ -5664,7 +5664,7 @@ exports.ComputeNode = {
                 serializedName: 'state',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['idle', 'rebooting', 'reimaging', 'running', 'unusable', 'creating', 'starting', 'waitingForStartTask', 'startTaskFailed', 'unknown', 'leavingPool', 'offline', 'preempted']
+                    allowedValues: ['idle', 'rebooting', 'reimaging', 'running', 'unusable', 'creating', 'starting', 'waitingforstarttask', 'starttaskfailed', 'unknown', 'leavingpool', 'offline', 'preempted']
                 }
             },
             schedulingState: {
@@ -6023,7 +6023,7 @@ exports.JobPatchParameter = {
                 serializedName: 'onAllTasksComplete',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'terminateJob']
+                    allowedValues: ['noaction', 'terminatejob']
                 }
             },
             constraints: {
@@ -6111,7 +6111,7 @@ exports.JobUpdateParameter = {
                 serializedName: 'onAllTasksComplete',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['noAction', 'terminateJob']
+                    allowedValues: ['noaction', 'terminatejob']
                 }
             }
         }
@@ -6191,7 +6191,7 @@ exports.PoolResizeParameter = {
                 serializedName: 'nodeDeallocationOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    allowedValues: ['requeue', 'terminate', 'taskcompletion', 'retaineddata']
                 }
             }
         }
@@ -6401,7 +6401,7 @@ exports.NodeRebootParameter = {
                 serializedName: 'nodeRebootOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    allowedValues: ['requeue', 'terminate', 'taskcompletion', 'retaineddata']
                 }
             }
         }
@@ -6419,7 +6419,7 @@ exports.NodeReimageParameter = {
                 serializedName: 'nodeReimageOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    allowedValues: ['requeue', 'terminate', 'taskcompletion', 'retaineddata']
                 }
             }
         }
@@ -6437,7 +6437,7 @@ exports.NodeDisableSchedulingParameter = {
                 serializedName: 'nodeDisableSchedulingOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion']
+                    allowedValues: ['requeue', 'terminate', 'taskcompletion']
                 }
             }
         }
@@ -6479,7 +6479,196 @@ exports.NodeRemoveParameter = {
                 serializedName: 'nodeDeallocationOption',
                 type: {
                     name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    allowedValues: ['requeue', 'terminate', 'taskcompletion', 'retaineddata']
+                }
+            }
+        }
+    }
+};
+exports.UploadBatchServiceLogsConfiguration = {
+    required: false,
+    serializedName: 'UploadBatchServiceLogsConfiguration',
+    type: {
+        name: 'Composite',
+        className: 'UploadBatchServiceLogsConfiguration',
+        modelProperties: {
+            containerUrl: {
+                required: true,
+                serializedName: 'containerUrl',
+                type: {
+                    name: 'String'
+                }
+            },
+            startTime: {
+                required: true,
+                serializedName: 'startTime',
+                type: {
+                    name: 'DateTime'
+                }
+            },
+            endTime: {
+                required: false,
+                serializedName: 'endTime',
+                type: {
+                    name: 'DateTime'
+                }
+            }
+        }
+    }
+};
+exports.UploadBatchServiceLogsResult = {
+    required: false,
+    serializedName: 'UploadBatchServiceLogsResult',
+    type: {
+        name: 'Composite',
+        className: 'UploadBatchServiceLogsResult',
+        modelProperties: {
+            virtualDirectoryName: {
+                required: true,
+                serializedName: 'virtualDirectoryName',
+                type: {
+                    name: 'String'
+                }
+            },
+            numberOfFilesUploaded: {
+                required: true,
+                serializedName: 'numberOfFilesUploaded',
+                type: {
+                    name: 'Number'
+                }
+            }
+        }
+    }
+};
+exports.NodeCounts = {
+    required: false,
+    serializedName: 'NodeCounts',
+    type: {
+        name: 'Composite',
+        className: 'NodeCounts',
+        modelProperties: {
+            creating: {
+                required: true,
+                serializedName: 'creating',
+                type: {
+                    name: 'Number'
+                }
+            },
+            idle: {
+                required: true,
+                serializedName: 'idle',
+                type: {
+                    name: 'Number'
+                }
+            },
+            offline: {
+                required: true,
+                serializedName: 'offline',
+                type: {
+                    name: 'Number'
+                }
+            },
+            preempted: {
+                required: true,
+                serializedName: 'preempted',
+                type: {
+                    name: 'Number'
+                }
+            },
+            rebooting: {
+                required: true,
+                serializedName: 'rebooting',
+                type: {
+                    name: 'Number'
+                }
+            },
+            reimaging: {
+                required: true,
+                serializedName: 'reimaging',
+                type: {
+                    name: 'Number'
+                }
+            },
+            running: {
+                required: true,
+                serializedName: 'running',
+                type: {
+                    name: 'Number'
+                }
+            },
+            starting: {
+                required: true,
+                serializedName: 'starting',
+                type: {
+                    name: 'Number'
+                }
+            },
+            startTaskFailed: {
+                required: true,
+                serializedName: 'startTaskFailed',
+                type: {
+                    name: 'Number'
+                }
+            },
+            unknown: {
+                required: true,
+                serializedName: 'unknown',
+                type: {
+                    name: 'Number'
+                }
+            },
+            unusable: {
+                required: true,
+                serializedName: 'unusable',
+                type: {
+                    name: 'Number'
+                }
+            },
+            waitingForStartTask: {
+                required: true,
+                serializedName: 'waitingForStartTask',
+                type: {
+                    name: 'Number'
+                }
+            },
+            total: {
+                required: true,
+                serializedName: 'total',
+                type: {
+                    name: 'Number'
+                }
+            }
+        }
+    }
+};
+exports.PoolNodeCounts = {
+    required: false,
+    serializedName: 'PoolNodeCounts',
+    type: {
+        name: 'Composite',
+        className: 'PoolNodeCounts',
+        modelProperties: {
+            poolId: {
+                required: true,
+                serializedName: 'poolId',
+                type: {
+                    name: 'String'
+                }
+            },
+            dedicated: {
+                required: false,
+                serializedName: 'dedicated',
+                type: {
+                    name: 'Composite',
+                    className: 'NodeCounts'
+                }
+            },
+            lowPriority: {
+                required: false,
+                serializedName: 'lowPriority',
+                type: {
+                    name: 'Composite',
+                    className: 'NodeCounts'
                 }
             }
         }
@@ -7415,6 +7604,54 @@ exports.AccountListNodeAgentSkusOptions = {
             maxResults: {
                 required: false,
                 defaultValue: 1000,
+                type: {
+                    name: 'Number'
+                }
+            },
+            timeout: {
+                required: false,
+                defaultValue: 30,
+                type: {
+                    name: 'Number'
+                }
+            },
+            clientRequestId: {
+                required: false,
+                type: {
+                    name: 'String'
+                }
+            },
+            returnClientRequestId: {
+                required: false,
+                defaultValue: false,
+                type: {
+                    name: 'Boolean'
+                }
+            },
+            ocpDate: {
+                required: false,
+                type: {
+                    name: 'DateTimeRfc1123'
+                }
+            }
+        }
+    }
+};
+exports.AccountListPoolNodeCountsOptions = {
+    required: false,
+    type: {
+        name: 'Composite',
+        className: 'AccountListPoolNodeCountsOptions',
+        modelProperties: {
+            filter: {
+                required: false,
+                type: {
+                    name: 'String'
+                }
+            },
+            maxResults: {
+                required: false,
+                defaultValue: 10,
                 type: {
                     name: 'Number'
                 }
@@ -10131,6 +10368,41 @@ exports.ComputeNodeGetRemoteDesktopOptions = {
         }
     }
 };
+exports.ComputeNodeUploadBatchServiceLogsOptions = {
+    required: false,
+    type: {
+        name: 'Composite',
+        className: 'ComputeNodeUploadBatchServiceLogsOptions',
+        modelProperties: {
+            timeout: {
+                required: false,
+                defaultValue: 30,
+                type: {
+                    name: 'Number'
+                }
+            },
+            clientRequestId: {
+                required: false,
+                type: {
+                    name: 'String'
+                }
+            },
+            returnClientRequestId: {
+                required: false,
+                defaultValue: false,
+                type: {
+                    name: 'Boolean'
+                }
+            },
+            ocpDate: {
+                required: false,
+                type: {
+                    name: 'DateTimeRfc1123'
+                }
+            }
+        }
+    }
+};
 exports.ComputeNodeListOptions = {
     required: false,
     type: {
@@ -10274,6 +10546,34 @@ exports.AccountListNodeAgentSkusNextOptions = {
     type: {
         name: 'Composite',
         className: 'AccountListNodeAgentSkusNextOptions',
+        modelProperties: {
+            clientRequestId: {
+                required: false,
+                type: {
+                    name: 'String'
+                }
+            },
+            returnClientRequestId: {
+                required: false,
+                defaultValue: false,
+                type: {
+                    name: 'Boolean'
+                }
+            },
+            ocpDate: {
+                required: false,
+                type: {
+                    name: 'DateTimeRfc1123'
+                }
+            }
+        }
+    }
+};
+exports.AccountListPoolNodeCountsNextOptions = {
+    required: false,
+    type: {
+        name: 'Composite',
+        className: 'AccountListPoolNodeCountsNextOptions',
         modelProperties: {
             clientRequestId: {
                 required: false,
@@ -10945,6 +11245,24 @@ exports.AccountListNodeAgentSkusOptionalParams = {
         }
     }
 };
+exports.AccountListPoolNodeCountsOptionalParams = {
+    required: false,
+    serializedName: 'ListPoolNodeCountsOptions',
+    type: {
+        name: 'Composite',
+        className: 'AccountListPoolNodeCountsOptionalParams',
+        modelProperties: {
+            accountListPoolNodeCountsOptions: {
+                required: false,
+                serializedName: '',
+                type: {
+                    name: 'Composite',
+                    className: 'AccountListPoolNodeCountsOptions'
+                }
+            }
+        }
+    }
+};
 exports.AccountListNodeAgentSkusNextOptionalParams = {
     required: false,
     serializedName: 'ListNodeAgentSkusNextOptions',
@@ -10958,6 +11276,24 @@ exports.AccountListNodeAgentSkusNextOptionalParams = {
                 type: {
                     name: 'Composite',
                     className: 'AccountListNodeAgentSkusNextOptions'
+                }
+            }
+        }
+    }
+};
+exports.AccountListPoolNodeCountsNextOptionalParams = {
+    required: false,
+    serializedName: 'ListPoolNodeCountsNextOptions',
+    type: {
+        name: 'Composite',
+        className: 'AccountListPoolNodeCountsNextOptionalParams',
+        modelProperties: {
+            accountListPoolNodeCountsNextOptions: {
+                required: false,
+                serializedName: '',
+                type: {
+                    name: 'Composite',
+                    className: 'AccountListPoolNodeCountsNextOptions'
                 }
             }
         }
@@ -11096,11 +11432,12 @@ exports.JobTerminateOptionalParams = {
         name: 'Composite',
         className: 'JobTerminateOptionalParams',
         modelProperties: {
-            terminateReason: {
+            jobTerminateParameter: {
                 required: false,
-                serializedName: 'terminateReason',
+                serializedName: 'jobTerminateParameter',
                 type: {
-                    name: 'String'
+                    name: 'Composite',
+                    className: 'JobTerminateParameter'
                 }
             },
             jobTerminateOptions: {
@@ -11869,14 +12206,6 @@ exports.TaskUpdateOptionalParams = {
         name: 'Composite',
         className: 'TaskUpdateOptionalParams',
         modelProperties: {
-            constraints: {
-                required: false,
-                serializedName: 'constraints',
-                type: {
-                    name: 'Composite',
-                    className: 'TaskConstraints'
-                }
-            },
             taskUpdateOptions: {
                 required: false,
                 serializedName: '',
@@ -12039,12 +12368,12 @@ exports.ComputeNodeRebootOptionalParams = {
         name: 'Composite',
         className: 'ComputeNodeRebootOptionalParams',
         modelProperties: {
-            nodeRebootOption: {
+            nodeRebootParameter: {
                 required: false,
-                serializedName: 'nodeRebootOption',
+                serializedName: 'nodeRebootParameter',
                 type: {
-                    name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    name: 'Composite',
+                    className: 'NodeRebootParameter'
                 }
             },
             computeNodeRebootOptions: {
@@ -12065,12 +12394,12 @@ exports.ComputeNodeReimageOptionalParams = {
         name: 'Composite',
         className: 'ComputeNodeReimageOptionalParams',
         modelProperties: {
-            nodeReimageOption: {
+            nodeReimageParameter: {
                 required: false,
-                serializedName: 'nodeReimageOption',
+                serializedName: 'nodeReimageParameter',
                 type: {
-                    name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion', 'retainedData']
+                    name: 'Composite',
+                    className: 'NodeReimageParameter'
                 }
             },
             computeNodeReimageOptions: {
@@ -12091,12 +12420,12 @@ exports.ComputeNodeDisableSchedulingOptionalParams = {
         name: 'Composite',
         className: 'ComputeNodeDisableSchedulingOptionalParams',
         modelProperties: {
-            nodeDisableSchedulingOption: {
+            nodeDisableSchedulingParameter: {
                 required: false,
-                serializedName: 'nodeDisableSchedulingOption',
+                serializedName: 'nodeDisableSchedulingParameter',
                 type: {
-                    name: 'Enum',
-                    allowedValues: ['requeue', 'terminate', 'taskCompletion']
+                    name: 'Composite',
+                    className: 'NodeDisableSchedulingParameter'
                 }
             },
             computeNodeDisableSchedulingOptions: {
@@ -12159,6 +12488,24 @@ exports.ComputeNodeGetRemoteDesktopOptionalParams = {
                 type: {
                     name: 'Composite',
                     className: 'ComputeNodeGetRemoteDesktopOptions'
+                }
+            }
+        }
+    }
+};
+exports.ComputeNodeUploadBatchServiceLogsOptionalParams = {
+    required: false,
+    serializedName: 'UploadBatchServiceLogsOptions',
+    type: {
+        name: 'Composite',
+        className: 'ComputeNodeUploadBatchServiceLogsOptionalParams',
+        modelProperties: {
+            computeNodeUploadBatchServiceLogsOptions: {
+                required: false,
+                serializedName: '',
+                type: {
+                    name: 'Composite',
+                    className: 'ComputeNodeUploadBatchServiceLogsOptions'
                 }
             }
         }
@@ -12314,6 +12661,38 @@ exports.AccountListNodeAgentSkusResult = {
                         type: {
                             name: 'Composite',
                             className: 'NodeAgentSku'
+                        }
+                    }
+                }
+            },
+            odatanextLink: {
+                required: false,
+                serializedName: 'odata\\.nextLink',
+                type: {
+                    name: 'String'
+                }
+            }
+        }
+    }
+};
+exports.PoolNodeCountsListResult = {
+    required: false,
+    serializedName: 'PoolNodeCountsListResult',
+    type: {
+        name: 'Composite',
+        className: 'PoolNodeCountsListResult',
+        modelProperties: {
+            value: {
+                required: false,
+                serializedName: '',
+                type: {
+                    name: 'Sequence',
+                    element: {
+                        required: false,
+                        serializedName: 'PoolNodeCountsElementType',
+                        type: {
+                            name: 'Composite',
+                            className: 'PoolNodeCounts'
                         }
                     }
                 }

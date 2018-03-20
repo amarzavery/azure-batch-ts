@@ -6,7 +6,13 @@
   "dependencies": {
     "ms-rest-azure-js": "^0.2.0"
   },
-  "keywords": [ "node", "azure", "typescript", "browser", "isomorphic"],
+  "keywords": [
+    "node",
+    "azure",
+    "typescript",
+    "browser",
+    "isomorphic"
+  ],
   "license": "MIT",
   "main": "./dist/lib/batchServiceClient.js",
   "types": "./typings/lib/batchServiceClient.d.ts",

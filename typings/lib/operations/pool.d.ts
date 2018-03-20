@@ -204,13 +204,8 @@ export declare class Pool {
      * @param {string} poolId The ID of the pool on which to evaluate the automatic
      * scaling formula.
      *
-     * @param {string} autoScaleFormula The formula for the desired number of
-     * compute nodes in the pool. The formula is validated and its results
-     * calculated, but it is not applied to the pool. To apply the formula to the
-     * pool, 'Enable automatic scaling on a pool'. For more information about
-     * specifying this formula, see Automatically scale compute nodes in an Azure
-     * Batch pool
-     * (https://azure.microsoft.com/en-us/documentation/articles/batch-automatic-scaling).
+     * @param {PoolEvaluateAutoScaleParameter} poolEvaluateAutoScaleParameter The
+     * parameters for the request.
      *
      * @param {PoolEvaluateAutoScaleOptionalParams} [options] Optional Parameters.
      *
@@ -220,7 +215,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    evaluateAutoScaleWithHttpOperationResponse(poolId: string, autoScaleFormula: string, options?: Models.PoolEvaluateAutoScaleOptionalParams): Promise<msRest.HttpOperationResponse>;
+    evaluateAutoScaleWithHttpOperationResponse(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options?: Models.PoolEvaluateAutoScaleOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
      * @summary Changes the number of compute nodes that are assigned to a pool.
      *
@@ -313,8 +308,8 @@ export declare class Pool {
      *
      * @param {string} poolId The ID of the pool to upgrade.
      *
-     * @param {string} targetOSVersion The Azure Guest OS version to be installed
-     * on the virtual machines in the pool.
+     * @param {PoolUpgradeOSParameter} poolUpgradeOSParameter The parameters for
+     * the request.
      *
      * @param {PoolUpgradeOSOptionalParams} [options] Optional Parameters.
      *
@@ -324,7 +319,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    upgradeOSWithHttpOperationResponse(poolId: string, targetOSVersion: string, options?: Models.PoolUpgradeOSOptionalParams): Promise<msRest.HttpOperationResponse>;
+    upgradeOSWithHttpOperationResponse(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options?: Models.PoolUpgradeOSOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
      * @summary Removes compute nodes from the specified pool.
      *
@@ -677,13 +672,8 @@ export declare class Pool {
      * @param {string} poolId The ID of the pool on which to evaluate the automatic
      * scaling formula.
      *
-     * @param {string} autoScaleFormula The formula for the desired number of
-     * compute nodes in the pool. The formula is validated and its results
-     * calculated, but it is not applied to the pool. To apply the formula to the
-     * pool, 'Enable automatic scaling on a pool'. For more information about
-     * specifying this formula, see Automatically scale compute nodes in an Azure
-     * Batch pool
-     * (https://azure.microsoft.com/en-us/documentation/articles/batch-automatic-scaling).
+     * @param {PoolEvaluateAutoScaleParameter} poolEvaluateAutoScaleParameter The
+     * parameters for the request.
      *
      * @param {PoolEvaluateAutoScaleOptionalParams} [options] Optional Parameters.
      *
@@ -700,10 +690,10 @@ export declare class Pool {
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    evaluateAutoScale(poolId: string, autoScaleFormula: string): Promise<Models.AutoScaleRun>;
-    evaluateAutoScale(poolId: string, autoScaleFormula: string, options: Models.PoolEvaluateAutoScaleOptionalParams): Promise<Models.AutoScaleRun>;
-    evaluateAutoScale(poolId: string, autoScaleFormula: string, callback: msRest.ServiceCallback<Models.AutoScaleRun>): void;
-    evaluateAutoScale(poolId: string, autoScaleFormula: string, options: Models.PoolEvaluateAutoScaleOptionalParams, callback: msRest.ServiceCallback<Models.AutoScaleRun>): void;
+    evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter): Promise<Models.AutoScaleRun>;
+    evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options: Models.PoolEvaluateAutoScaleOptionalParams): Promise<Models.AutoScaleRun>;
+    evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, callback: msRest.ServiceCallback<Models.AutoScaleRun>): void;
+    evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options: Models.PoolEvaluateAutoScaleOptionalParams, callback: msRest.ServiceCallback<Models.AutoScaleRun>): void;
     /**
      * @summary Changes the number of compute nodes that are assigned to a pool.
      *
@@ -823,8 +813,8 @@ export declare class Pool {
      *
      * @param {string} poolId The ID of the pool to upgrade.
      *
-     * @param {string} targetOSVersion The Azure Guest OS version to be installed
-     * on the virtual machines in the pool.
+     * @param {PoolUpgradeOSParameter} poolUpgradeOSParameter The parameters for
+     * the request.
      *
      * @param {PoolUpgradeOSOptionalParams} [options] Optional Parameters.
      *
@@ -840,10 +830,10 @@ export declare class Pool {
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    upgradeOS(poolId: string, targetOSVersion: string): Promise<void>;
-    upgradeOS(poolId: string, targetOSVersion: string, options: Models.PoolUpgradeOSOptionalParams): Promise<void>;
-    upgradeOS(poolId: string, targetOSVersion: string, callback: msRest.ServiceCallback<void>): void;
-    upgradeOS(poolId: string, targetOSVersion: string, options: Models.PoolUpgradeOSOptionalParams, callback: msRest.ServiceCallback<void>): void;
+    upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter): Promise<void>;
+    upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options: Models.PoolUpgradeOSOptionalParams): Promise<void>;
+    upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, callback: msRest.ServiceCallback<void>): void;
+    upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options: Models.PoolUpgradeOSOptionalParams, callback: msRest.ServiceCallback<void>): void;
     /**
      * @summary Removes compute nodes from the specified pool.
      *

@@ -1,58 +1,5 @@
-export declare const CloudError: {
-    required: boolean;
-    serializedName: string;
-    type: {
-        name: string;
-        className: string;
-        modelProperties: {
-            code: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                };
-            };
-            message: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                };
-            };
-            target: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                };
-            };
-            details: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                    element: {
-                        required: boolean;
-                        serializedName: string;
-                        type: {
-                            name: string;
-                            className: string;
-                        };
-                    };
-                };
-            };
-        };
-    };
-};
-export declare const BaseResource: {
-    required: boolean;
-    serializedName: string;
-    type: {
-        name: string;
-        className: string;
-        modelProperties: {};
-    };
-};
+export declare const CloudError: any;
+export declare const BaseResource: any;
 export declare const PoolUsageMetrics: {
     required: boolean;
     serializedName: string;
@@ -6526,6 +6473,195 @@ export declare const NodeRemoveParameter: {
         };
     };
 };
+export declare const UploadBatchServiceLogsConfiguration: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            containerUrl: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            startTime: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            endTime: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const UploadBatchServiceLogsResult: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            virtualDirectoryName: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            numberOfFilesUploaded: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const NodeCounts: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            creating: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            idle: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            offline: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            preempted: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            rebooting: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            reimaging: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            running: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            starting: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            startTaskFailed: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            unknown: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            unusable: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            waitingForStartTask: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            total: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolNodeCounts: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            poolId: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dedicated: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+            lowPriority: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
 export declare const ApplicationListOptions: {
     required: boolean;
     type: {
@@ -7442,6 +7578,54 @@ export declare const PoolRemoveNodesOptions: {
     };
 };
 export declare const AccountListNodeAgentSkusOptions: {
+    required: boolean;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            filter: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            maxResults: {
+                required: boolean;
+                defaultValue: number;
+                type: {
+                    name: string;
+                };
+            };
+            timeout: {
+                required: boolean;
+                defaultValue: number;
+                type: {
+                    name: string;
+                };
+            };
+            clientRequestId: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            returnClientRequestId: {
+                required: boolean;
+                defaultValue: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            ocpDate: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListPoolNodeCountsOptions: {
     required: boolean;
     type: {
         name: string;
@@ -10172,6 +10356,41 @@ export declare const ComputeNodeGetRemoteDesktopOptions: {
         };
     };
 };
+export declare const ComputeNodeUploadBatchServiceLogsOptions: {
+    required: boolean;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            timeout: {
+                required: boolean;
+                defaultValue: number;
+                type: {
+                    name: string;
+                };
+            };
+            clientRequestId: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            returnClientRequestId: {
+                required: boolean;
+                defaultValue: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            ocpDate: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
 export declare const ComputeNodeListOptions: {
     required: boolean;
     type: {
@@ -10311,6 +10530,34 @@ export declare const PoolListNextOptions: {
     };
 };
 export declare const AccountListNodeAgentSkusNextOptions: {
+    required: boolean;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            returnClientRequestId: {
+                required: boolean;
+                defaultValue: boolean;
+                type: {
+                    name: string;
+                };
+            };
+            ocpDate: {
+                required: boolean;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListPoolNodeCountsNextOptions: {
     required: boolean;
     type: {
         name: string;
@@ -10986,6 +11233,24 @@ export declare const AccountListNodeAgentSkusOptionalParams: {
         };
     };
 };
+export declare const AccountListPoolNodeCountsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            accountListPoolNodeCountsOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
 export declare const AccountListNodeAgentSkusNextOptionalParams: {
     required: boolean;
     serializedName: string;
@@ -10994,6 +11259,24 @@ export declare const AccountListNodeAgentSkusNextOptionalParams: {
         className: string;
         modelProperties: {
             accountListNodeAgentSkusNextOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListPoolNodeCountsNextOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            accountListPoolNodeCountsNextOptions: {
                 required: boolean;
                 serializedName: string;
                 type: {
@@ -11137,11 +11420,12 @@ export declare const JobTerminateOptionalParams: {
         name: string;
         className: string;
         modelProperties: {
-            terminateReason: {
+            jobTerminateParameter: {
                 required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
+                    className: string;
                 };
             };
             jobTerminateOptions: {
@@ -11910,14 +12194,6 @@ export declare const TaskUpdateOptionalParams: {
         name: string;
         className: string;
         modelProperties: {
-            constraints: {
-                required: boolean;
-                serializedName: string;
-                type: {
-                    name: string;
-                    className: string;
-                };
-            };
             taskUpdateOptions: {
                 required: boolean;
                 serializedName: string;
@@ -12080,12 +12356,12 @@ export declare const ComputeNodeRebootOptionalParams: {
         name: string;
         className: string;
         modelProperties: {
-            nodeRebootOption: {
+            nodeRebootParameter: {
                 required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
-                    allowedValues: string[];
+                    className: string;
                 };
             };
             computeNodeRebootOptions: {
@@ -12106,12 +12382,12 @@ export declare const ComputeNodeReimageOptionalParams: {
         name: string;
         className: string;
         modelProperties: {
-            nodeReimageOption: {
+            nodeReimageParameter: {
                 required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
-                    allowedValues: string[];
+                    className: string;
                 };
             };
             computeNodeReimageOptions: {
@@ -12132,12 +12408,12 @@ export declare const ComputeNodeDisableSchedulingOptionalParams: {
         name: string;
         className: string;
         modelProperties: {
-            nodeDisableSchedulingOption: {
+            nodeDisableSchedulingParameter: {
                 required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
-                    allowedValues: string[];
+                    className: string;
                 };
             };
             computeNodeDisableSchedulingOptions: {
@@ -12195,6 +12471,24 @@ export declare const ComputeNodeGetRemoteDesktopOptionalParams: {
         className: string;
         modelProperties: {
             computeNodeGetRemoteDesktopOptions: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    className: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeUploadBatchServiceLogsOptionalParams: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            computeNodeUploadBatchServiceLogsOptions: {
                 required: boolean;
                 serializedName: string;
                 type: {
@@ -12338,6 +12632,38 @@ export declare const CloudPoolListResult: {
     };
 };
 export declare const AccountListNodeAgentSkusResult: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            value: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    element: {
+                        required: boolean;
+                        serializedName: string;
+                        type: {
+                            name: string;
+                            className: string;
+                        };
+                    };
+                };
+            };
+            odatanextLink: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolNodeCountsListResult: {
     required: boolean;
     serializedName: string;
     type: {

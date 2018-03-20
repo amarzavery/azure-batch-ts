@@ -351,7 +351,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -429,11 +428,7 @@ class Task {
      * @param {string} jobId The ID of the job to which the task collection is to
      * be added.
      *
-     * @param {TaskAddParameter[]} value The collection of tasks to add. The total
-     * serialized size of this collection must be less than 4MB. If it is greater
-     * than 4MB (for example if each task has 100's of resource files or
-     * environment variables), the request will fail with code
-     * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
+     * @param {TaskAddCollectionParameter} taskCollection The tasks to be added.
      *
      * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
      *
@@ -443,7 +438,7 @@ class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addCollectionWithHttpOperationResponse(jobId, value, options) {
+    addCollectionWithHttpOperationResponse(jobId, taskCollection, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let taskAddCollectionOptions = (options && options.taskAddCollectionOptions !== undefined) ? options.taskAddCollectionOptions : undefined;
@@ -452,13 +447,11 @@ class Task {
                 if (jobId === null || jobId === undefined || typeof jobId.valueOf() !== 'string') {
                     throw new Error('jobId cannot be null or undefined and it must be of type string.');
                 }
+                if (taskCollection === null || taskCollection === undefined) {
+                    throw new Error('taskCollection cannot be null or undefined.');
+                }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-                }
-                if (value !== null && value !== undefined) {
-                    if (value.length > 100) {
-                        throw new Error('"value" should satisfy the constraint - "MaxItems": 100');
-                    }
                 }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
@@ -471,7 +464,6 @@ class Task {
             let clientRequestId;
             let returnClientRequestId;
             let ocpDate;
-            let taskCollection = {};
             try {
                 if (taskAddCollectionOptions !== null && taskAddCollectionOptions !== undefined) {
                     timeout = taskAddCollectionOptions.timeout;
@@ -497,9 +489,6 @@ class Task {
                         (typeof ocpDate.valueOf() === 'string' && !isNaN(Date.parse(ocpDate))))) {
                         throw new Error('ocpDate must be of type date.');
                     }
-                }
-                if (value !== null && value !== undefined) {
-                    taskCollection.value = value;
                 }
             }
             catch (error) {
@@ -778,7 +767,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -997,7 +985,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1060,6 +1047,9 @@ class Task {
      *
      * @param {string} taskId The ID of the task to update.
      *
+     * @param {TaskUpdateParameter} taskUpdateParameter The parameters for the
+     * request.
+     *
      * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
      *
      * @returns {Promise} A promise is returned
@@ -1068,10 +1058,9 @@ class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateWithHttpOperationResponse(jobId, taskId, options) {
+    updateWithHttpOperationResponse(jobId, taskId, taskUpdateParameter, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
-            let constraints = (options && options.constraints !== undefined) ? options.constraints : undefined;
             let taskUpdateOptions = (options && options.taskUpdateOptions !== undefined) ? options.taskUpdateOptions : undefined;
             // Validate
             try {
@@ -1080,6 +1069,9 @@ class Task {
                 }
                 if (taskId === null || taskId === undefined || typeof taskId.valueOf() !== 'string') {
                     throw new Error('taskId cannot be null or undefined and it must be of type string.');
+                }
+                if (taskUpdateParameter === null || taskUpdateParameter === undefined) {
+                    throw new Error('taskUpdateParameter cannot be null or undefined.');
                 }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
@@ -1099,7 +1091,6 @@ class Task {
             let ifNoneMatch;
             let ifModifiedSince;
             let ifUnmodifiedSince;
-            let taskUpdateParameter = {};
             try {
                 if (taskUpdateOptions !== null && taskUpdateOptions !== undefined) {
                     timeout = taskUpdateOptions.timeout;
@@ -1151,9 +1142,6 @@ class Task {
                         (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince))))) {
                         throw new Error('ifUnmodifiedSince must be of type date.');
                     }
-                }
-                if (constraints !== null && constraints !== undefined) {
-                    taskUpdateParameter.constraints = constraints;
                 }
             }
             catch (error) {
@@ -1395,7 +1383,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1611,7 +1598,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1816,7 +1802,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1949,7 +1934,6 @@ class Task {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2051,21 +2035,21 @@ class Task {
             });
         }
     }
-    addCollection(jobId, value, options, callback) {
+    addCollection(jobId, taskCollection, options, callback) {
         if (!callback && typeof options === 'function') {
             callback = options;
             options = undefined;
         }
         let cb = callback;
         if (!callback) {
-            return this.addCollectionWithHttpOperationResponse(jobId, value, options).then((operationRes) => {
+            return this.addCollectionWithHttpOperationResponse(jobId, taskCollection, options).then((operationRes) => {
                 return Promise.resolve(operationRes.bodyAsJson);
             }).catch((err) => {
                 return Promise.reject(err);
             });
         }
         else {
-            msRest.promiseToCallback(this.addCollectionWithHttpOperationResponse(jobId, value, options))((err, data) => {
+            msRest.promiseToCallback(this.addCollectionWithHttpOperationResponse(jobId, taskCollection, options))((err, data) => {
                 if (err) {
                     return cb(err);
                 }
@@ -2120,21 +2104,21 @@ class Task {
             });
         }
     }
-    update(jobId, taskId, options, callback) {
+    update(jobId, taskId, taskUpdateParameter, options, callback) {
         if (!callback && typeof options === 'function') {
             callback = options;
             options = undefined;
         }
         let cb = callback;
         if (!callback) {
-            return this.updateWithHttpOperationResponse(jobId, taskId, options).then((operationRes) => {
+            return this.updateWithHttpOperationResponse(jobId, taskId, taskUpdateParameter, options).then((operationRes) => {
                 return Promise.resolve(operationRes.bodyAsJson);
             }).catch((err) => {
                 return Promise.reject(err);
             });
         }
         else {
-            msRest.promiseToCallback(this.updateWithHttpOperationResponse(jobId, taskId, options))((err, data) => {
+            msRest.promiseToCallback(this.updateWithHttpOperationResponse(jobId, taskId, taskUpdateParameter, options))((err, data) => {
                 if (err) {
                     return cb(err);
                 }

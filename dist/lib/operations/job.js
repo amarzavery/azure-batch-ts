@@ -135,7 +135,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -349,7 +348,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -558,7 +556,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1062,14 +1059,8 @@ class Job {
      *
      * @param {string} jobId The ID of the job to disable.
      *
-     * @param {DisableJobOption} disableTasks What to do with active tasks
-     * associated with the job. Values are:
-     *
-     * requeue - Terminate running tasks and requeue them. The tasks will run again
-     * when the job is enabled.
-     * terminate - Terminate running tasks. The tasks will not run again.
-     * wait - Allow currently running tasks to complete. Possible values include:
-     * 'requeue', 'terminate', 'wait'
+     * @param {JobDisableParameter} jobDisableParameter The parameters for the
+     * request.
      *
      * @param {JobDisableOptionalParams} [options] Optional Parameters.
      *
@@ -1079,7 +1070,7 @@ class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableWithHttpOperationResponse(jobId, disableTasks, options) {
+    disableWithHttpOperationResponse(jobId, jobDisableParameter, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let jobDisableOptions = (options && options.jobDisableOptions !== undefined) ? options.jobDisableOptions : undefined;
@@ -1088,17 +1079,11 @@ class Job {
                 if (jobId === null || jobId === undefined || typeof jobId.valueOf() !== 'string') {
                     throw new Error('jobId cannot be null or undefined and it must be of type string.');
                 }
+                if (jobDisableParameter === null || jobDisableParameter === undefined) {
+                    throw new Error('jobDisableParameter cannot be null or undefined.');
+                }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-                }
-                if (disableTasks) {
-                    let allowedValues = ['requeue', 'terminate', 'wait'];
-                    if (!allowedValues.some(function (item) { return item === disableTasks; })) {
-                        throw new Error(disableTasks + ' is not a valid value. The valid values are: ' + allowedValues);
-                    }
-                }
-                else {
-                    throw new Error('disableTasks cannot be null or undefined.');
                 }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
@@ -1115,7 +1100,6 @@ class Job {
             let ifNoneMatch;
             let ifModifiedSince;
             let ifUnmodifiedSince;
-            let jobDisableParameter = {};
             try {
                 if (jobDisableOptions !== null && jobDisableOptions !== undefined) {
                     timeout = jobDisableOptions.timeout;
@@ -1167,9 +1151,6 @@ class Job {
                         (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince))))) {
                         throw new Error('ifUnmodifiedSince must be of type date.');
                     }
-                }
-                if (disableTasks !== null && disableTasks !== undefined) {
-                    jobDisableParameter.disableTasks = disableTasks;
                 }
             }
             catch (error) {
@@ -1439,7 +1420,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -1500,7 +1480,7 @@ class Job {
     terminateWithHttpOperationResponse(jobId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = this.client;
-            let terminateReason = (options && options.terminateReason !== undefined) ? options.terminateReason : undefined;
+            let jobTerminateParameter = (options && options.jobTerminateParameter !== undefined) ? options.jobTerminateParameter : undefined;
             let jobTerminateOptions = (options && options.jobTerminateOptions !== undefined) ? options.jobTerminateOptions : undefined;
             // Validate
             try {
@@ -1509,9 +1489,6 @@ class Job {
                 }
                 if (this.client.apiVersion === null || this.client.apiVersion === undefined || typeof this.client.apiVersion.valueOf() !== 'string') {
                     throw new Error('this.client.apiVersion cannot be null or undefined and it must be of type string.');
-                }
-                if (terminateReason !== null && terminateReason !== undefined && typeof terminateReason.valueOf() !== 'string') {
-                    throw new Error('terminateReason must be of type string.');
                 }
                 if (this.client.acceptLanguage !== null && this.client.acceptLanguage !== undefined && typeof this.client.acceptLanguage.valueOf() !== 'string') {
                     throw new Error('this.client.acceptLanguage must be of type string.');
@@ -1528,7 +1505,6 @@ class Job {
             let ifNoneMatch;
             let ifModifiedSince;
             let ifUnmodifiedSince;
-            let jobTerminateParameter;
             try {
                 if (jobTerminateOptions !== null && jobTerminateOptions !== undefined) {
                     timeout = jobTerminateOptions.timeout;
@@ -1580,10 +1556,6 @@ class Job {
                         (typeof ifUnmodifiedSince.valueOf() === 'string' && !isNaN(Date.parse(ifUnmodifiedSince))))) {
                         throw new Error('ifUnmodifiedSince must be of type date.');
                     }
-                }
-                if (terminateReason !== null && terminateReason !== undefined) {
-                    jobTerminateParameter = {};
-                    jobTerminateParameter.terminateReason = terminateReason;
                 }
             }
             catch (error) {
@@ -2012,7 +1984,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2217,7 +2188,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2419,7 +2389,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2590,7 +2559,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2735,7 +2703,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -2882,7 +2849,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -3036,7 +3002,6 @@ class Job {
                     }
                 }
             }
-            httpRequest.body = null;
             // Send Request
             let operationRes;
             try {
@@ -3207,21 +3172,21 @@ class Job {
             });
         }
     }
-    disable(jobId, disableTasks, options, callback) {
+    disable(jobId, jobDisableParameter, options, callback) {
         if (!callback && typeof options === 'function') {
             callback = options;
             options = undefined;
         }
         let cb = callback;
         if (!callback) {
-            return this.disableWithHttpOperationResponse(jobId, disableTasks, options).then((operationRes) => {
+            return this.disableWithHttpOperationResponse(jobId, jobDisableParameter, options).then((operationRes) => {
                 return Promise.resolve(operationRes.bodyAsJson);
             }).catch((err) => {
                 return Promise.reject(err);
             });
         }
         else {
-            msRest.promiseToCallback(this.disableWithHttpOperationResponse(jobId, disableTasks, options))((err, data) => {
+            msRest.promiseToCallback(this.disableWithHttpOperationResponse(jobId, jobDisableParameter, options))((err, data) => {
                 if (err) {
                     return cb(err);
                 }

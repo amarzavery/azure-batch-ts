@@ -226,6 +226,34 @@ export declare class ComputeNodeOperations {
      */
     getRemoteDesktopWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
+     * @summary Upload Azure Batch service log files from the specified compute
+     * node to Azure Blob Storage.
+     *
+     * This is for gathering Azure Batch service log files in an automated fashion
+     * from nodes if you are experiencing an error and wish to escalate to Azure
+     * support. The Azure Batch service log files should be shared with Azure
+     * support to aid in debugging issues with the Batch service.
+     *
+     * @param {string} poolId The ID of the pool that contains the compute node.
+     *
+     * @param {string} nodeId The ID of the compute node from which you want to
+     * upload the Azure Batch service log files.
+     *
+     * @param {UploadBatchServiceLogsConfiguration}
+     * uploadBatchServiceLogsConfiguration The Azure Batch service log files upload
+     * configuration.
+     *
+     * @param {ComputeNodeUploadBatchServiceLogsOptionalParams} [options] Optional
+     * Parameters.
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    uploadBatchServiceLogsWithHttpOperationResponse(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options?: Models.ComputeNodeUploadBatchServiceLogsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    /**
      * @summary Lists the compute nodes in the specified pool.
      *
      * @param {string} poolId The ID of the pool from which you want to list nodes.
@@ -564,6 +592,45 @@ export declare class ComputeNodeOperations {
     getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<Response>;
     getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Response>): void;
     getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<Response>): void;
+    /**
+     * @summary Upload Azure Batch service log files from the specified compute
+     * node to Azure Blob Storage.
+     *
+     * This is for gathering Azure Batch service log files in an automated fashion
+     * from nodes if you are experiencing an error and wish to escalate to Azure
+     * support. The Azure Batch service log files should be shared with Azure
+     * support to aid in debugging issues with the Batch service.
+     *
+     * @param {string} poolId The ID of the pool that contains the compute node.
+     *
+     * @param {string} nodeId The ID of the compute node from which you want to
+     * upload the Azure Batch service log files.
+     *
+     * @param {UploadBatchServiceLogsConfiguration}
+     * uploadBatchServiceLogsConfiguration The Azure Batch service log files upload
+     * configuration.
+     *
+     * @param {ComputeNodeUploadBatchServiceLogsOptionalParams} [options] Optional
+     * Parameters.
+     *
+     * @param {ServiceCallback} callback - The callback.
+     *
+     * @returns {ServiceCallback} callback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {Models.UploadBatchServiceLogsResult} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link Models.UploadBatchServiceLogsResult} for
+     *                      more information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     */
+    uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration): Promise<Models.UploadBatchServiceLogsResult>;
+    uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options: Models.ComputeNodeUploadBatchServiceLogsOptionalParams): Promise<Models.UploadBatchServiceLogsResult>;
+    uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, callback: msRest.ServiceCallback<Models.UploadBatchServiceLogsResult>): void;
+    uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options: Models.ComputeNodeUploadBatchServiceLogsOptionalParams, callback: msRest.ServiceCallback<Models.UploadBatchServiceLogsResult>): void;
     /**
      * @summary Lists the compute nodes in the specified pool.
      *

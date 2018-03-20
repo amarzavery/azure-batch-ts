@@ -69,11 +69,7 @@ export declare class Task {
      * @param {string} jobId The ID of the job to which the task collection is to
      * be added.
      *
-     * @param {TaskAddParameter[]} value The collection of tasks to add. The total
-     * serialized size of this collection must be less than 4MB. If it is greater
-     * than 4MB (for example if each task has 100's of resource files or
-     * environment variables), the request will fail with code
-     * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
+     * @param {TaskAddCollectionParameter} taskCollection The tasks to be added.
      *
      * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
      *
@@ -83,7 +79,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addCollectionWithHttpOperationResponse(jobId: string, value: Models.TaskAddParameter[], options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addCollectionWithHttpOperationResponse(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
      * @summary Deletes a task from the specified job.
      *
@@ -133,6 +129,9 @@ export declare class Task {
      *
      * @param {string} taskId The ID of the task to update.
      *
+     * @param {TaskUpdateParameter} taskUpdateParameter The parameters for the
+     * request.
+     *
      * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
      *
      * @returns {Promise} A promise is returned
@@ -141,7 +140,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updateWithHttpOperationResponse(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse>;
     /**
      * @summary Lists all of the subtasks that are associated with the specified
      * multi-instance task.
@@ -308,11 +307,7 @@ export declare class Task {
      * @param {string} jobId The ID of the job to which the task collection is to
      * be added.
      *
-     * @param {TaskAddParameter[]} value The collection of tasks to add. The total
-     * serialized size of this collection must be less than 4MB. If it is greater
-     * than 4MB (for example if each task has 100's of resource files or
-     * environment variables), the request will fail with code
-     * 'RequestBodyTooLarge' and should be retried again with fewer tasks.
+     * @param {TaskAddCollectionParameter} taskCollection The tasks to be added.
      *
      * @param {TaskAddCollectionOptionalParams} [options] Optional Parameters.
      *
@@ -330,10 +325,10 @@ export declare class Task {
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    addCollection(jobId: string, value: Models.TaskAddParameter[]): Promise<Models.TaskAddCollectionResult>;
-    addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
-    addCollection(jobId: string, value: Models.TaskAddParameter[], callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
-    addCollection(jobId: string, value: Models.TaskAddParameter[], options: Models.TaskAddCollectionOptionalParams, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
+    addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter): Promise<Models.TaskAddCollectionResult>;
+    addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
+    addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
+    addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options: Models.TaskAddCollectionOptionalParams, callback: msRest.ServiceCallback<Models.TaskAddCollectionResult>): void;
     /**
      * @summary Deletes a task from the specified job.
      *
@@ -402,6 +397,9 @@ export declare class Task {
      *
      * @param {string} taskId The ID of the task to update.
      *
+     * @param {TaskUpdateParameter} taskUpdateParameter The parameters for the
+     * request.
+     *
      * @param {TaskUpdateOptionalParams} [options] Optional Parameters.
      *
      * @param {ServiceCallback} callback - The callback.
@@ -416,10 +414,10 @@ export declare class Task {
      *
      *                      {Response} [response] - The HTTP Response stream if an error did not occur.
      */
-    update(jobId: string, taskId: string): Promise<void>;
-    update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams): Promise<void>;
-    update(jobId: string, taskId: string, callback: msRest.ServiceCallback<void>): void;
-    update(jobId: string, taskId: string, options: Models.TaskUpdateOptionalParams, callback: msRest.ServiceCallback<void>): void;
+    update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter): Promise<void>;
+    update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options: Models.TaskUpdateOptionalParams): Promise<void>;
+    update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, callback: msRest.ServiceCallback<void>): void;
+    update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options: Models.TaskUpdateOptionalParams, callback: msRest.ServiceCallback<void>): void;
     /**
      * @summary Lists all of the subtasks that are associated with the specified
      * multi-instance task.
