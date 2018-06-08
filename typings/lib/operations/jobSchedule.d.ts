@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a JobSchedule. */
 export declare class JobSchedule {
     private readonly client;
     /**
      * Create a JobSchedule.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Checks the specified job schedule exists.
      *
@@ -23,7 +23,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    existsWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleExistsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    existsWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleExistsOptionalParams): Promise<Models.JobScheduleExistsResponse>;
     /**
      * @summary Deletes a job schedule from the specified account.
      *
@@ -45,7 +45,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteMethodWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteMethodWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDeleteMethodOptionalParams): Promise<Models.JobScheduleDeleteResponse>;
     /**
      * Gets information about the specified job schedule.
      *
@@ -59,7 +59,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleGetOptionalParams): Promise<Models.JobScheduleGetResponse>;
     /**
      * @summary Updates the properties of the specified job schedule.
      *
@@ -82,7 +82,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    patchWithHttpOperationResponse(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options?: Models.JobSchedulePatchOptionalParams): Promise<msRest.HttpOperationResponse>;
+    patchWithHttpOperationResponse(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options?: Models.JobSchedulePatchOptionalParams): Promise<Models.JobSchedulePatchResponse>;
     /**
      * @summary Updates the properties of the specified job schedule.
      *
@@ -105,7 +105,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateWithHttpOperationResponse(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options?: Models.JobScheduleUpdateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updateWithHttpOperationResponse(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options?: Models.JobScheduleUpdateOptionalParams): Promise<Models.JobScheduleUpdateResponse>;
     /**
      * @summary Disables a job schedule.
      *
@@ -121,7 +121,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDisableOptionalParams): Promise<msRest.HttpOperationResponse>;
+    disableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDisableOptionalParams): Promise<Models.JobScheduleDisableResponse>;
     /**
      * @summary Enables a job schedule.
      *
@@ -135,7 +135,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    enableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleEnableOptionalParams): Promise<msRest.HttpOperationResponse>;
+    enableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleEnableOptionalParams): Promise<Models.JobScheduleEnableResponse>;
     /**
      * @summary Terminates a job schedule.
      *
@@ -149,7 +149,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    terminateWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleTerminateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    terminateWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleTerminateOptionalParams): Promise<Models.JobScheduleTerminateResponse>;
     /**
      * @summary Adds a job schedule to the specified account.
      *
@@ -164,7 +164,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addWithHttpOperationResponse(cloudJobSchedule: Models.JobScheduleAddParameter, options?: Models.JobScheduleAddOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addWithHttpOperationResponse(cloudJobSchedule: Models.JobScheduleAddParameter, options?: Models.JobScheduleAddOptionalParams): Promise<Models.JobScheduleAddResponse>;
     /**
      * @summary Lists all of the job schedules in the specified account.
      *
@@ -176,7 +176,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(options?: Models.JobScheduleListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(options?: Models.JobScheduleListOptionalParams): Promise<Models.JobScheduleListResponse>;
     /**
      * @summary Lists all of the job schedules in the specified account.
      *
@@ -191,7 +191,7 @@ export declare class JobSchedule {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobScheduleListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobScheduleListNextOptionalParams): Promise<Models.JobScheduleListResponse>;
     /**
      * @summary Checks the specified job schedule exists.
      *
@@ -202,7 +202,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -210,7 +210,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     exists(jobScheduleId: string): Promise<boolean>;
     exists(jobScheduleId: string, options: Models.JobScheduleExistsOptionalParams): Promise<boolean>;
@@ -233,7 +233,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -241,7 +241,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteMethod(jobScheduleId: string): Promise<void>;
     deleteMethod(jobScheduleId: string, options: Models.JobScheduleDeleteMethodOptionalParams): Promise<void>;
@@ -256,7 +256,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -266,7 +266,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(jobScheduleId: string): Promise<Models.CloudJobSchedule>;
     get(jobScheduleId: string, options: Models.JobScheduleGetOptionalParams): Promise<Models.CloudJobSchedule>;
@@ -290,7 +290,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -298,7 +298,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     patch(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter): Promise<void>;
     patch(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options: Models.JobSchedulePatchOptionalParams): Promise<void>;
@@ -322,7 +322,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -330,7 +330,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     update(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter): Promise<void>;
     update(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options: Models.JobScheduleUpdateOptionalParams): Promise<void>;
@@ -347,7 +347,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -355,7 +355,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     disable(jobScheduleId: string): Promise<void>;
     disable(jobScheduleId: string, options: Models.JobScheduleDisableOptionalParams): Promise<void>;
@@ -370,7 +370,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -378,7 +378,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     enable(jobScheduleId: string): Promise<void>;
     enable(jobScheduleId: string, options: Models.JobScheduleEnableOptionalParams): Promise<void>;
@@ -393,7 +393,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -401,7 +401,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     terminate(jobScheduleId: string): Promise<void>;
     terminate(jobScheduleId: string, options: Models.JobScheduleTerminateOptionalParams): Promise<void>;
@@ -417,7 +417,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -425,7 +425,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     add(cloudJobSchedule: Models.JobScheduleAddParameter): Promise<void>;
     add(cloudJobSchedule: Models.JobScheduleAddParameter, options: Models.JobScheduleAddOptionalParams): Promise<void>;
@@ -438,7 +438,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -448,7 +448,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(): Promise<Models.CloudJobScheduleListResult>;
     list(options: Models.JobScheduleListOptionalParams): Promise<Models.CloudJobScheduleListResult>;
@@ -464,7 +464,7 @@ export declare class JobSchedule {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -474,7 +474,7 @@ export declare class JobSchedule {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.CloudJobScheduleListResult>;
     listNext(nextPageLink: string, options: Models.JobScheduleListNextOptionalParams): Promise<Models.CloudJobScheduleListResult>;

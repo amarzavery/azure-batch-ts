@@ -8,26 +8,24 @@
  * regenerated.
  */
 
-import * as Models from "./models";
-import * as Mappers from "./models/mappers";
 import * as msRest from "ms-rest-js";
 import * as msRestAzure from "ms-rest-azure-js";
-import { BatchServiceClientContext } from "./batchServiceClientContext";
-import * as operations from "./operations";
+import * as Mappers from "./models/mappers";
 
+const packageName = "azure-batch-js";
+const packageVersion = "0.1.0";
 
-class BatchServiceClient extends BatchServiceClientContext {
+export class BatchServiceClientContext extends msRestAzure.AzureServiceClient {
 
-  // Operation groups
-  application: operations.Application;
-  pool: operations.Pool;
-  account: operations.Account;
-  job: operations.Job;
-  certificate: operations.CertificateOperations;
-  file: operations.File;
-  jobSchedule: operations.JobSchedule;
-  task: operations.Task;
-  computeNode: operations.ComputeNodeOperations;
+  credentials: msRest.ServiceClientCredentials;
+
+  apiVersion: string;
+
+  acceptLanguage: string;
+
+  longRunningOperationRetryTimeout: number;
+  baseUri: string;
+  serializer: msRest.Serializer;
 
   /**
    * @class
@@ -55,17 +53,38 @@ class BatchServiceClient extends BatchServiceClientContext {
    *
    */
   constructor(credentials: msRest.ServiceClientCredentials, baseUri?: string, options?: msRestAzure.AzureServiceClientOptions) {
-    super(credentials, baseUri, options);
-    this.application = new operations.Application(this);
-    this.pool = new operations.Pool(this);
-    this.account = new operations.Account(this);
-    this.job = new operations.Job(this);
-    this.certificate = new operations.CertificateOperations(this);
-    this.file = new operations.File(this);
-    this.jobSchedule = new operations.JobSchedule(this);
-    this.task = new operations.Task(this);
-    this.computeNode = new operations.ComputeNodeOperations(this);
+    if (credentials == undefined) {
+      throw new Error('\'credentials\' cannot be null.');
+    }
+
+    if (!options) {
+      options = {};
+    }
+    if (!options.serializer) {
+      options = {
+        ...options,
+        serializer: new msRest.Serializer(Mappers, false)
+      };
+    }
+    super(credentials, options);
+
+    this.serializer = new msRest.Serializer(Mappers);
+
+    this.apiVersion = '2018-03-01.6.1';
+    this.acceptLanguage = 'en-US';
+    this.longRunningOperationRetryTimeout = 30;
+    this.baseUri = baseUri as string;
+    if (!this.baseUri) {
+      this.baseUri = 'https://batch.core.windows.net';
+    }
+    this.credentials = credentials;
+
+    this.addUserAgentInfo(`${packageName}/${packageVersion}`);
+    if(options.acceptLanguage !== null && options.acceptLanguage !== undefined) {
+      this.acceptLanguage = options.acceptLanguage;
+    }
+    if(options.longRunningOperationRetryTimeout !== null && options.longRunningOperationRetryTimeout !== undefined) {
+      this.longRunningOperationRetryTimeout = options.longRunningOperationRetryTimeout;
+    }
   }
 }
-
-export { BatchServiceClient, Models as BatchServiceModels, Mappers as BatchServiceMappers };

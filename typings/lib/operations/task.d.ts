@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a Task. */
 export declare class Task {
     private readonly client;
     /**
      * Create a Task.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Adds a task to the specified job.
      *
@@ -28,7 +28,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addWithHttpOperationResponse(jobId: string, task: Models.TaskAddParameter, options?: Models.TaskAddOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addWithHttpOperationResponse(jobId: string, task: Models.TaskAddParameter, options?: Models.TaskAddOptionalParams): Promise<Models.TaskAddResponse>;
     /**
      * @summary Lists all of the tasks that are associated with the specified job.
      *
@@ -46,7 +46,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(jobId: string, options?: Models.TaskListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(jobId: string, options?: Models.TaskListOptionalParams): Promise<Models.TaskListResponse>;
     /**
      * @summary Adds a collection of tasks to the specified job.
      *
@@ -79,7 +79,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addCollectionWithHttpOperationResponse(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options?: Models.TaskAddCollectionOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addCollectionWithHttpOperationResponse(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options?: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResponse>;
     /**
      * @summary Deletes a task from the specified job.
      *
@@ -101,7 +101,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteMethodWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteMethodWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskDeleteMethodOptionalParams): Promise<Models.TaskDeleteResponse>;
     /**
      * @summary Gets information about the specified task.
      *
@@ -121,7 +121,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskGetOptionalParams): Promise<Models.TaskGetResponse>;
     /**
      * Updates the properties of the specified task.
      *
@@ -140,7 +140,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateWithHttpOperationResponse(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options?: Models.TaskUpdateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updateWithHttpOperationResponse(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options?: Models.TaskUpdateOptionalParams): Promise<Models.TaskUpdateResponse>;
     /**
      * @summary Lists all of the subtasks that are associated with the specified
      * multi-instance task.
@@ -160,7 +160,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listSubtasksWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskListSubtasksOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listSubtasksWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskListSubtasksOptionalParams): Promise<Models.TaskListSubtasksResponse>;
     /**
      * @summary Terminates the specified task.
      *
@@ -181,7 +181,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    terminateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskTerminateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    terminateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskTerminateOptionalParams): Promise<Models.TaskTerminateResponse>;
     /**
      * @summary Reactivates a task, allowing it to run again even if its retry
      * count has been exhausted.
@@ -207,7 +207,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    reactivateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskReactivateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    reactivateWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.TaskReactivateOptionalParams): Promise<Models.TaskReactivateResponse>;
     /**
      * @summary Lists all of the tasks that are associated with the specified job.
      *
@@ -226,7 +226,7 @@ export declare class Task {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.TaskListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.TaskListNextOptionalParams): Promise<Models.TaskListResponse>;
     /**
      * @summary Adds a task to the specified job.
      *
@@ -242,7 +242,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -250,7 +250,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     add(jobId: string, task: Models.TaskAddParameter): Promise<void>;
     add(jobId: string, task: Models.TaskAddParameter, options: Models.TaskAddOptionalParams): Promise<void>;
@@ -269,7 +269,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -279,7 +279,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(jobId: string): Promise<Models.CloudTaskListResult>;
     list(jobId: string, options: Models.TaskListOptionalParams): Promise<Models.CloudTaskListResult>;
@@ -313,7 +313,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -323,7 +323,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter): Promise<Models.TaskAddCollectionResult>;
     addCollection(jobId: string, taskCollection: Models.TaskAddCollectionParameter, options: Models.TaskAddCollectionOptionalParams): Promise<Models.TaskAddCollectionResult>;
@@ -346,7 +346,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -354,7 +354,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteMethod(jobId: string, taskId: string): Promise<void>;
     deleteMethod(jobId: string, taskId: string, options: Models.TaskDeleteMethodOptionalParams): Promise<void>;
@@ -375,7 +375,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -384,7 +384,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(jobId: string, taskId: string): Promise<Models.CloudTask>;
     get(jobId: string, taskId: string, options: Models.TaskGetOptionalParams): Promise<Models.CloudTask>;
@@ -404,7 +404,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -412,7 +412,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter): Promise<void>;
     update(jobId: string, taskId: string, taskUpdateParameter: Models.TaskUpdateParameter, options: Models.TaskUpdateOptionalParams): Promise<void>;
@@ -433,7 +433,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -443,7 +443,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listSubtasks(jobId: string, taskId: string): Promise<Models.CloudTaskListSubtasksResult>;
     listSubtasks(jobId: string, taskId: string, options: Models.TaskListSubtasksOptionalParams): Promise<Models.CloudTaskListSubtasksResult>;
@@ -465,7 +465,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -473,7 +473,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     terminate(jobId: string, taskId: string): Promise<void>;
     terminate(jobId: string, taskId: string, options: Models.TaskTerminateOptionalParams): Promise<void>;
@@ -500,7 +500,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -508,7 +508,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     reactivate(jobId: string, taskId: string): Promise<void>;
     reactivate(jobId: string, taskId: string, options: Models.TaskReactivateOptionalParams): Promise<void>;
@@ -528,7 +528,7 @@ export declare class Task {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -538,7 +538,7 @@ export declare class Task {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.CloudTaskListResult>;
     listNext(nextPageLink: string, options: Models.TaskListNextOptionalParams): Promise<Models.CloudTaskListResult>;

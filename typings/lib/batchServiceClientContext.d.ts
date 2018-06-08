@@ -1,19 +1,12 @@
-import * as Models from "./models";
-import * as Mappers from "./models/mappers";
 import * as msRest from "ms-rest-js";
 import * as msRestAzure from "ms-rest-azure-js";
-import { BatchServiceClientContext } from "./batchServiceClientContext";
-import * as operations from "./operations";
-declare class BatchServiceClient extends BatchServiceClientContext {
-    application: operations.Application;
-    pool: operations.Pool;
-    account: operations.Account;
-    job: operations.Job;
-    certificate: operations.CertificateOperations;
-    file: operations.File;
-    jobSchedule: operations.JobSchedule;
-    task: operations.Task;
-    computeNode: operations.ComputeNodeOperations;
+export declare class BatchServiceClientContext extends msRestAzure.AzureServiceClient {
+    credentials: msRest.ServiceClientCredentials;
+    apiVersion: string;
+    acceptLanguage: string;
+    longRunningOperationRetryTimeout: number;
+    baseUri: string;
+    serializer: msRest.Serializer;
     /**
      * @class
      * Initializes a new instance of the BatchServiceClient class.
@@ -41,4 +34,3 @@ declare class BatchServiceClient extends BatchServiceClientContext {
      */
     constructor(credentials: msRest.ServiceClientCredentials, baseUri?: string, options?: msRestAzure.AzureServiceClientOptions);
 }
-export { BatchServiceClient, Models as BatchServiceModels, Mappers as BatchServiceMappers };

@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a Application. */
 export declare class Application {
     private readonly client;
     /**
      * Create a Application.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Lists all of the applications available in the specified account.
      *
@@ -26,7 +26,7 @@ export declare class Application {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(options?: Models.ApplicationListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(options?: Models.ApplicationListOptionalParams): Promise<Models.ApplicationListResponse>;
     /**
      * @summary Gets information about the specified application.
      *
@@ -46,7 +46,7 @@ export declare class Application {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(applicationId: string, options?: Models.ApplicationGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(applicationId: string, options?: Models.ApplicationGetOptionalParams): Promise<Models.ApplicationGetResponse>;
     /**
      * @summary Lists all of the applications available in the specified account.
      *
@@ -67,7 +67,7 @@ export declare class Application {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ApplicationListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ApplicationListNextOptionalParams): Promise<Models.ApplicationListResponse>;
     /**
      * @summary Lists all of the applications available in the specified account.
      *
@@ -81,7 +81,7 @@ export declare class Application {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -91,7 +91,7 @@ export declare class Application {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(): Promise<Models.ApplicationListResult>;
     list(options: Models.ApplicationListOptionalParams): Promise<Models.ApplicationListResult>;
@@ -112,7 +112,7 @@ export declare class Application {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -122,7 +122,7 @@ export declare class Application {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(applicationId: string): Promise<Models.ApplicationSummary>;
     get(applicationId: string, options: Models.ApplicationGetOptionalParams): Promise<Models.ApplicationSummary>;
@@ -144,7 +144,7 @@ export declare class Application {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -154,7 +154,7 @@ export declare class Application {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.ApplicationListResult>;
     listNext(nextPageLink: string, options: Models.ApplicationListNextOptionalParams): Promise<Models.ApplicationListResult>;

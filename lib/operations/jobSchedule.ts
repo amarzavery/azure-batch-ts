@@ -11,18 +11,18 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 
 const WebResource = msRest.WebResource;
 
 /** Class representing a JobSchedule. */
 export class JobSchedule {
-  private readonly client: BatchServiceClient;
+  private readonly client: BatchServiceClientContext;
   /**
    * Create a JobSchedule.
-   * @param {BatchServiceClient} client Reference to the service client.
+   * @param {BatchServiceClientContext} client Reference to the service client.
    */
-  constructor(client: BatchServiceClient) {
+  constructor(client: BatchServiceClientContext) {
     this.client = client;
   }
 
@@ -40,7 +40,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async existsWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleExistsOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async existsWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleExistsOptionalParams): Promise<Models.JobScheduleExistsResponse> {
     let client = this.client;
     let jobScheduleExistsOptions = (options && options.jobScheduleExistsOptions !== undefined) ? options.jobScheduleExistsOptions : undefined;
     // Validate
@@ -129,72 +129,150 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'HEAD';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "HEAD",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200 && statusCode !== 404) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -203,7 +281,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -213,7 +291,15 @@ export class JobSchedule {
         }
         return Promise.reject(error);
       }
-      operationRes.bodyAsJson = (statusCode === 200);
+      operationRes.parsedBody = (statusCode === 200);
+      // Deserialize Response
+      if (statusCode === 200) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleExistsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
+      }
+      // Deserialize Response
+      if (statusCode === 404) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleExistsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
+      }
 
     } catch(err) {
       return Promise.reject(err);
@@ -243,7 +329,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async deleteMethodWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async deleteMethodWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDeleteMethodOptionalParams): Promise<Models.JobScheduleDeleteResponse> {
     let client = this.client;
     let jobScheduleDeleteMethodOptions = (options && options.jobScheduleDeleteMethodOptions !== undefined) ? options.jobScheduleDeleteMethodOptions : undefined;
     // Validate
@@ -332,72 +418,150 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'DELETE';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "DELETE",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 202) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -406,7 +570,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -415,6 +579,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 202) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleDeleteHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -437,7 +605,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleGetOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleGetOptionalParams): Promise<Models.JobScheduleGetResponse> {
     let client = this.client;
     let jobScheduleGetOptions = (options && options.jobScheduleGetOptions !== undefined) ? options.jobScheduleGetOptions : undefined;
     // Validate
@@ -542,78 +710,170 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (select !== null && select !== undefined) {
-      queryParamsArray.push('$select=' + encodeURIComponent(select));
-    }
-    if (expand !== null && expand !== undefined) {
-      queryParamsArray.push('$expand=' + encodeURIComponent(expand));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          select,
+          expand,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "select",
+              mapper: {
+                serializedName: "$select",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "expand",
+              mapper: {
+                serializedName: "$expand",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -622,7 +882,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -634,18 +894,19 @@ export class JobSchedule {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.CloudJobSchedule;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.CloudJobSchedule;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleGetHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -677,7 +938,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async patchWithHttpOperationResponse(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options?: Models.JobSchedulePatchOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async patchWithHttpOperationResponse(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options?: Models.JobSchedulePatchOptionalParams): Promise<Models.JobSchedulePatchResponse> {
     let client = this.client;
     let jobSchedulePatchOptions = (options && options.jobSchedulePatchOptions !== undefined) ? options.jobSchedulePatchOptions : undefined;
     if (jobSchedulePatchParameter === null || jobSchedulePatchParameter === undefined)
@@ -773,87 +1034,154 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'PATCH';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Serialize Request
-    let requestContent = null;
-    let requestModel = null;
-    try {
-      if (jobSchedulePatchParameter !== null && jobSchedulePatchParameter !== undefined) {
-        let requestModelMapper = Mappers.JobSchedulePatchParameter;
-        requestModel = client.serializer.serialize(requestModelMapper, jobSchedulePatchParameter, 'jobSchedulePatchParameter');
-        requestContent = JSON.stringify(requestModel);
-      }
-    } catch (error) {
-      let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-          `payload - ${JSON.stringify(jobSchedulePatchParameter, null, 2)}.`);
-      return Promise.reject(serializationError);
-    }
-    httpRequest.body = requestContent;
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          jobSchedulePatchParameter,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "PATCH",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ],
+          requestBodyMapper: Mappers.JobSchedulePatchParameter,
+          requestBodyName: "jobSchedulePatchParameter",
+          contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -862,7 +1190,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -871,6 +1199,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 200) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobSchedulePatchHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -902,7 +1234,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async updateWithHttpOperationResponse(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options?: Models.JobScheduleUpdateOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async updateWithHttpOperationResponse(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options?: Models.JobScheduleUpdateOptionalParams): Promise<Models.JobScheduleUpdateResponse> {
     let client = this.client;
     let jobScheduleUpdateOptions = (options && options.jobScheduleUpdateOptions !== undefined) ? options.jobScheduleUpdateOptions : undefined;
     if (jobScheduleUpdateParameter === null || jobScheduleUpdateParameter === undefined)
@@ -998,87 +1330,154 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'PUT';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Serialize Request
-    let requestContent = null;
-    let requestModel = null;
-    try {
-      if (jobScheduleUpdateParameter !== null && jobScheduleUpdateParameter !== undefined) {
-        let requestModelMapper = Mappers.JobScheduleUpdateParameter;
-        requestModel = client.serializer.serialize(requestModelMapper, jobScheduleUpdateParameter, 'jobScheduleUpdateParameter');
-        requestContent = JSON.stringify(requestModel);
-      }
-    } catch (error) {
-      let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-          `payload - ${JSON.stringify(jobScheduleUpdateParameter, null, 2)}.`);
-      return Promise.reject(serializationError);
-    }
-    httpRequest.body = requestContent;
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          jobScheduleUpdateParameter,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "PUT",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ],
+          requestBodyMapper: Mappers.JobScheduleUpdateParameter,
+          requestBodyName: "jobScheduleUpdateParameter",
+          contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1087,7 +1486,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1096,6 +1495,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 200) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleUpdateHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1120,7 +1523,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async disableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDisableOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async disableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleDisableOptionalParams): Promise<Models.JobScheduleDisableResponse> {
     let client = this.client;
     let jobScheduleDisableOptions = (options && options.jobScheduleDisableOptions !== undefined) ? options.jobScheduleDisableOptions : undefined;
     // Validate
@@ -1209,72 +1612,150 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}/disable';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}/disable",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 204) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1283,7 +1764,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1292,6 +1773,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 204) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleDisableHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1314,7 +1799,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async enableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleEnableOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async enableWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleEnableOptionalParams): Promise<Models.JobScheduleEnableResponse> {
     let client = this.client;
     let jobScheduleEnableOptions = (options && options.jobScheduleEnableOptions !== undefined) ? options.jobScheduleEnableOptions : undefined;
     // Validate
@@ -1403,72 +1888,150 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}/enable';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}/enable",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 204) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1477,7 +2040,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1486,6 +2049,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 204) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleEnableHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1508,7 +2075,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async terminateWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleTerminateOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async terminateWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobScheduleTerminateOptionalParams): Promise<Models.JobScheduleTerminateResponse> {
     let client = this.client;
     let jobScheduleTerminateOptions = (options && options.jobScheduleTerminateOptions !== undefined) ? options.jobScheduleTerminateOptions : undefined;
     // Validate
@@ -1597,72 +2164,150 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules/{jobScheduleId}/terminate';
-    requestUrl = requestUrl.replace('{jobScheduleId}', encodeURIComponent(jobScheduleId));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if (ifMatch !== undefined && ifMatch !== null) {
-      httpRequest.headers['If-Match'] = ifMatch;
-    }
-    if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-      httpRequest.headers['If-None-Match'] = ifNoneMatch;
-    }
-    if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-      httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-    }
-    if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-      httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          jobScheduleId,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate,
+          ifMatch,
+          ifNoneMatch,
+          ifModifiedSince,
+          ifUnmodifiedSince
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules/{jobScheduleId}/terminate",
+          urlParameters: [
+            {
+              parameterName: "jobScheduleId",
+              mapper: {
+                required: true,
+                serializedName: "jobScheduleId",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifMatch",
+              mapper: {
+                serializedName: "If-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifNoneMatch",
+              mapper: {
+                serializedName: "If-None-Match",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "ifModifiedSince",
+              mapper: {
+                serializedName: "If-Modified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            },
+            {
+              parameterName: "ifUnmodifiedSince",
+              mapper: {
+                serializedName: "If-Unmodified-Since",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 202) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1671,7 +2316,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1680,6 +2325,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 202) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleTerminateHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1703,7 +2352,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addWithHttpOperationResponse(cloudJobSchedule: Models.JobScheduleAddParameter, options?: Models.JobScheduleAddOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async addWithHttpOperationResponse(cloudJobSchedule: Models.JobScheduleAddParameter, options?: Models.JobScheduleAddOptionalParams): Promise<Models.JobScheduleAddResponse> {
     let client = this.client;
     let jobScheduleAddOptions = (options && options.jobScheduleAddOptions !== undefined) ? options.jobScheduleAddOptions : undefined;
     if (cloudJobSchedule === null || cloudJobSchedule === undefined)
@@ -1762,74 +2411,101 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Serialize Request
-    let requestContent = null;
-    let requestModel = null;
-    try {
-      if (cloudJobSchedule !== null && cloudJobSchedule !== undefined) {
-        let requestModelMapper = Mappers.JobScheduleAddParameter;
-        requestModel = client.serializer.serialize(requestModelMapper, cloudJobSchedule, 'cloudJobSchedule');
-        requestContent = JSON.stringify(requestModel);
-      }
-    } catch (error) {
-      let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-          `payload - ${JSON.stringify(cloudJobSchedule, null, 2)}.`);
-      return Promise.reject(serializationError);
-    }
-    httpRequest.body = requestContent;
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          cloudJobSchedule,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ],
+          requestBodyMapper: Mappers.JobScheduleAddParameter,
+          requestBodyName: "cloudJobSchedule",
+          contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 201) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1838,7 +2514,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1847,6 +2523,10 @@ export class JobSchedule {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 201) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleAddHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1867,7 +2547,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(options?: Models.JobScheduleListOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(options?: Models.JobScheduleListOptionalParams): Promise<Models.JobScheduleListResponse> {
     let client = this.client;
     let jobScheduleListOptions = (options && options.jobScheduleListOptions !== undefined) ? options.jobScheduleListOptions : undefined;
     // Validate
@@ -1951,71 +2631,142 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'jobschedules';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (filter !== null && filter !== undefined) {
-      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-    }
-    if (select !== null && select !== undefined) {
-      queryParamsArray.push('$select=' + encodeURIComponent(select));
-    }
-    if (expand !== null && expand !== undefined) {
-      queryParamsArray.push('$expand=' + encodeURIComponent(expand));
-    }
-    if (maxResults !== null && maxResults !== undefined) {
-      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          filter,
+          select,
+          expand,
+          maxResults,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "jobschedules",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "filter",
+              mapper: {
+                serializedName: "$filter",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "select",
+              mapper: {
+                serializedName: "$select",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "expand",
+              mapper: {
+                serializedName: "$expand",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "maxResults",
+              mapper: {
+                serializedName: "maxresults",
+                defaultValue: 1000,
+                constraints: {
+                  InclusiveMaximum: 1000,
+                  InclusiveMinimum: 1
+                },
+                type: {
+                  name: "Number"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -2024,7 +2775,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -2036,18 +2787,19 @@ export class JobSchedule {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.CloudJobScheduleListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.CloudJobScheduleListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -2071,7 +2823,7 @@ export class JobSchedule {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobScheduleListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobScheduleListNextOptionalParams): Promise<Models.JobScheduleListResponse> {
     let client = this.client;
     let jobScheduleListNextOptions = (options && options.jobScheduleListNextOptions !== undefined) ? options.jobScheduleListNextOptions : undefined;
     // Validate
@@ -2115,51 +2867,87 @@ export class JobSchedule {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let requestUrl = '{nextLink}';
-    requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          nextPageLink,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: "https://batch.core.windows.net",
+          path: "{nextLink}",
+          urlParameters: [
+            {
+              parameterName: "nextPageLink",
+              skipEncoding: true,
+              mapper: {
+                required: true,
+                serializedName: "nextLink",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -2168,7 +2956,7 @@ export class JobSchedule {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -2180,18 +2968,19 @@ export class JobSchedule {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.CloudJobScheduleListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.CloudJobScheduleListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.JobScheduleListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -2211,7 +3000,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2219,7 +3008,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   exists(jobScheduleId: string): Promise<boolean>;
   exists(jobScheduleId: string, options: Models.JobScheduleExistsOptionalParams): Promise<boolean>;
@@ -2233,7 +3022,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<boolean>;
     if (!callback) {
       return this.existsWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as boolean);
+        return Promise.resolve(operationRes.parsedBody as boolean);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2242,8 +3031,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as boolean;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as boolean;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2265,7 +3054,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2273,7 +3062,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   deleteMethod(jobScheduleId: string): Promise<void>;
   deleteMethod(jobScheduleId: string, options: Models.JobScheduleDeleteMethodOptionalParams): Promise<void>;
@@ -2287,7 +3076,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.deleteMethodWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2296,8 +3085,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2311,7 +3100,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2321,7 +3110,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   get(jobScheduleId: string): Promise<Models.CloudJobSchedule>;
   get(jobScheduleId: string, options: Models.JobScheduleGetOptionalParams): Promise<Models.CloudJobSchedule>;
@@ -2335,7 +3124,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<Models.CloudJobSchedule>;
     if (!callback) {
       return this.getWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.CloudJobSchedule);
+        return Promise.resolve(operationRes.parsedBody as Models.CloudJobSchedule);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2344,8 +3133,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.CloudJobSchedule;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.CloudJobSchedule;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2368,7 +3157,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2376,7 +3165,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   patch(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter): Promise<void>;
   patch(jobScheduleId: string, jobSchedulePatchParameter: Models.JobSchedulePatchParameter, options: Models.JobSchedulePatchOptionalParams): Promise<void>;
@@ -2390,7 +3179,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.patchWithHttpOperationResponse(jobScheduleId, jobSchedulePatchParameter, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2399,8 +3188,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2423,7 +3212,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2431,7 +3220,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   update(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter): Promise<void>;
   update(jobScheduleId: string, jobScheduleUpdateParameter: Models.JobScheduleUpdateParameter, options: Models.JobScheduleUpdateOptionalParams): Promise<void>;
@@ -2445,7 +3234,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.updateWithHttpOperationResponse(jobScheduleId, jobScheduleUpdateParameter, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2454,8 +3243,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2471,7 +3260,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2479,7 +3268,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   disable(jobScheduleId: string): Promise<void>;
   disable(jobScheduleId: string, options: Models.JobScheduleDisableOptionalParams): Promise<void>;
@@ -2493,7 +3282,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.disableWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2502,8 +3291,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2517,7 +3306,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2525,7 +3314,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   enable(jobScheduleId: string): Promise<void>;
   enable(jobScheduleId: string, options: Models.JobScheduleEnableOptionalParams): Promise<void>;
@@ -2539,7 +3328,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.enableWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2548,8 +3337,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2563,7 +3352,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2571,7 +3360,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   terminate(jobScheduleId: string): Promise<void>;
   terminate(jobScheduleId: string, options: Models.JobScheduleTerminateOptionalParams): Promise<void>;
@@ -2585,7 +3374,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.terminateWithHttpOperationResponse(jobScheduleId, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2594,8 +3383,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2610,7 +3399,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2618,7 +3407,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   add(cloudJobSchedule: Models.JobScheduleAddParameter): Promise<void>;
   add(cloudJobSchedule: Models.JobScheduleAddParameter, options: Models.JobScheduleAddOptionalParams): Promise<void>;
@@ -2632,7 +3421,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.addWithHttpOperationResponse(cloudJobSchedule, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2641,8 +3430,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2654,7 +3443,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2664,7 +3453,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   list(): Promise<Models.CloudJobScheduleListResult>;
   list(options: Models.JobScheduleListOptionalParams): Promise<Models.CloudJobScheduleListResult>;
@@ -2678,7 +3467,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<Models.CloudJobScheduleListResult>;
     if (!callback) {
       return this.listWithHttpOperationResponse(options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.CloudJobScheduleListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.CloudJobScheduleListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2687,8 +3476,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.CloudJobScheduleListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.CloudJobScheduleListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -2703,7 +3492,7 @@ export class JobSchedule {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -2713,7 +3502,7 @@ export class JobSchedule {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.CloudJobScheduleListResult>;
   listNext(nextPageLink: string, options: Models.JobScheduleListNextOptionalParams): Promise<Models.CloudJobScheduleListResult>;
@@ -2727,7 +3516,7 @@ export class JobSchedule {
     let cb = callback as msRest.ServiceCallback<Models.CloudJobScheduleListResult>;
     if (!callback) {
       return this.listNextWithHttpOperationResponse(nextPageLink, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.CloudJobScheduleListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.CloudJobScheduleListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -2736,8 +3525,8 @@ export class JobSchedule {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.CloudJobScheduleListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.CloudJobScheduleListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }

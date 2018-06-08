@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a ComputeNodeOperations. */
 export declare class ComputeNodeOperations {
     private readonly client;
     /**
      * Create a ComputeNodeOperations.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Adds a user account to the specified compute node.
      *
@@ -30,7 +30,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addUserWithHttpOperationResponse(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: Models.ComputeNodeAddUserOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addUserWithHttpOperationResponse(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options?: Models.ComputeNodeAddUserOptionalParams): Promise<Models.ComputeNodeAddUserResponse>;
     /**
      * @summary Deletes a user account from the specified compute node.
      *
@@ -52,7 +52,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, options?: Models.ComputeNodeDeleteUserOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, options?: Models.ComputeNodeDeleteUserOptionalParams): Promise<Models.ComputeNodeDeleteUserResponse>;
     /**
      * @summary Updates the password and expiration time of a user account on the
      * specified compute node.
@@ -80,7 +80,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: Models.ComputeNodeUpdateUserOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updateUserWithHttpOperationResponse(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options?: Models.ComputeNodeUpdateUserOptionalParams): Promise<Models.ComputeNodeUpdateUserResponse>;
     /**
      * @summary Gets information about the specified compute node.
      *
@@ -97,7 +97,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetOptionalParams): Promise<Models.ComputeNodeGetResponse>;
     /**
      * @summary Restarts the specified compute node.
      *
@@ -115,7 +115,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    rebootWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeRebootOptionalParams): Promise<msRest.HttpOperationResponse>;
+    rebootWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeRebootOptionalParams): Promise<Models.ComputeNodeRebootResponse>;
     /**
      * @summary Reinstalls the operating system on the specified compute node.
      *
@@ -135,7 +135,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    reimageWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeReimageOptionalParams): Promise<msRest.HttpOperationResponse>;
+    reimageWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeReimageOptionalParams): Promise<Models.ComputeNodeReimageResponse>;
     /**
      * @summary Disables task scheduling on the specified compute node.
      *
@@ -156,7 +156,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeDisableSchedulingOptionalParams): Promise<msRest.HttpOperationResponse>;
+    disableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeDisableSchedulingOptionalParams): Promise<Models.ComputeNodeDisableSchedulingResponse>;
     /**
      * @summary Enables task scheduling on the specified compute node.
      *
@@ -177,7 +177,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    enableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeEnableSchedulingOptionalParams): Promise<msRest.HttpOperationResponse>;
+    enableSchedulingWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeEnableSchedulingOptionalParams): Promise<Models.ComputeNodeEnableSchedulingResponse>;
     /**
      * @summary Gets the settings required for remote login to a compute node.
      *
@@ -200,7 +200,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getRemoteLoginSettingsWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getRemoteLoginSettingsWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams): Promise<Models.ComputeNodeGetRemoteLoginSettingsResponse>;
     /**
      * @summary Gets the Remote Desktop Protocol file for the specified compute
      * node.
@@ -224,7 +224,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getRemoteDesktopWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getRemoteDesktopWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<Models.ComputeNodeGetRemoteDesktopResponse>;
     /**
      * @summary Upload Azure Batch service log files from the specified compute
      * node to Azure Blob Storage.
@@ -252,7 +252,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    uploadBatchServiceLogsWithHttpOperationResponse(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options?: Models.ComputeNodeUploadBatchServiceLogsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    uploadBatchServiceLogsWithHttpOperationResponse(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options?: Models.ComputeNodeUploadBatchServiceLogsOptionalParams): Promise<Models.ComputeNodeUploadBatchServiceLogsResponse>;
     /**
      * @summary Lists the compute nodes in the specified pool.
      *
@@ -266,7 +266,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(poolId: string, options?: Models.ComputeNodeListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(poolId: string, options?: Models.ComputeNodeListOptionalParams): Promise<Models.ComputeNodeListResponse>;
     /**
      * @summary Lists the compute nodes in the specified pool.
      *
@@ -281,7 +281,7 @@ export declare class ComputeNodeOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ComputeNodeListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.ComputeNodeListNextOptionalParams): Promise<Models.ComputeNodeListResponse>;
     /**
      * @summary Adds a user account to the specified compute node.
      *
@@ -299,7 +299,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -307,7 +307,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser): Promise<void>;
     addUser(poolId: string, nodeId: string, user: Models.ComputeNodeUser, options: Models.ComputeNodeAddUserOptionalParams): Promise<void>;
@@ -330,7 +330,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -338,7 +338,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteUser(poolId: string, nodeId: string, userName: string): Promise<void>;
     deleteUser(poolId: string, nodeId: string, userName: string, options: Models.ComputeNodeDeleteUserOptionalParams): Promise<void>;
@@ -367,7 +367,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -375,7 +375,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter): Promise<void>;
     updateUser(poolId: string, nodeId: string, userName: string, nodeUpdateUserParameter: Models.NodeUpdateUserParameter, options: Models.ComputeNodeUpdateUserOptionalParams): Promise<void>;
@@ -393,7 +393,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -402,7 +402,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(poolId: string, nodeId: string): Promise<Models.ComputeNode>;
     get(poolId: string, nodeId: string, options: Models.ComputeNodeGetOptionalParams): Promise<Models.ComputeNode>;
@@ -421,7 +421,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -429,7 +429,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     reboot(poolId: string, nodeId: string): Promise<void>;
     reboot(poolId: string, nodeId: string, options: Models.ComputeNodeRebootOptionalParams): Promise<void>;
@@ -450,7 +450,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -458,7 +458,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     reimage(poolId: string, nodeId: string): Promise<void>;
     reimage(poolId: string, nodeId: string, options: Models.ComputeNodeReimageOptionalParams): Promise<void>;
@@ -480,7 +480,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -488,7 +488,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     disableScheduling(poolId: string, nodeId: string): Promise<void>;
     disableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeDisableSchedulingOptionalParams): Promise<void>;
@@ -510,7 +510,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -518,7 +518,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     enableScheduling(poolId: string, nodeId: string): Promise<void>;
     enableScheduling(poolId: string, nodeId: string, options: Models.ComputeNodeEnableSchedulingOptionalParams): Promise<void>;
@@ -542,7 +542,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -553,45 +553,12 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getRemoteLoginSettings(poolId: string, nodeId: string): Promise<Models.ComputeNodeGetRemoteLoginSettingsResult>;
     getRemoteLoginSettings(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams): Promise<Models.ComputeNodeGetRemoteLoginSettingsResult>;
     getRemoteLoginSettings(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): void;
     getRemoteLoginSettings(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteLoginSettingsOptionalParams, callback: msRest.ServiceCallback<Models.ComputeNodeGetRemoteLoginSettingsResult>): void;
-    /**
-     * @summary Gets the Remote Desktop Protocol file for the specified compute
-     * node.
-     *
-     * Before you can access a node by using the RDP file, you must create a user
-     * account on the node. This API can only be invoked on pools created with a
-     * cloud service configuration. For pools created with a virtual machine
-     * configuration, see the GetRemoteLoginSettings API.
-     *
-     * @param {string} poolId The ID of the pool that contains the compute node.
-     *
-     * @param {string} nodeId The ID of the compute node for which you want to get
-     * the Remote Desktop Protocol file.
-     *
-     * @param {ComputeNodeGetRemoteDesktopOptionalParams} [options] Optional
-     * Parameters.
-     *
-     * @param {ServiceCallback} callback - The callback.
-     *
-     * @returns {ServiceCallback} callback(err, result, request, response)
-     *
-     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
-     *
-     *                      {Response} [result]   - The deserialized result object if an error did not occur.
-     *
-     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
-     *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
-     */
-    getRemoteDesktop(poolId: string, nodeId: string): Promise<Response>;
-    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams): Promise<Response>;
-    getRemoteDesktop(poolId: string, nodeId: string, callback: msRest.ServiceCallback<Response>): void;
-    getRemoteDesktop(poolId: string, nodeId: string, options: Models.ComputeNodeGetRemoteDesktopOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * @summary Upload Azure Batch service log files from the specified compute
      * node to Azure Blob Storage.
@@ -615,7 +582,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -625,7 +592,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration): Promise<Models.UploadBatchServiceLogsResult>;
     uploadBatchServiceLogs(poolId: string, nodeId: string, uploadBatchServiceLogsConfiguration: Models.UploadBatchServiceLogsConfiguration, options: Models.ComputeNodeUploadBatchServiceLogsOptionalParams): Promise<Models.UploadBatchServiceLogsResult>;
@@ -640,7 +607,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -650,7 +617,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(poolId: string): Promise<Models.ComputeNodeListResult>;
     list(poolId: string, options: Models.ComputeNodeListOptionalParams): Promise<Models.ComputeNodeListResult>;
@@ -666,7 +633,7 @@ export declare class ComputeNodeOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -676,7 +643,7 @@ export declare class ComputeNodeOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.ComputeNodeListResult>;
     listNext(nextPageLink: string, options: Models.ComputeNodeListNextOptionalParams): Promise<Models.ComputeNodeListResult>;

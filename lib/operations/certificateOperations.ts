@@ -11,18 +11,18 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 
 const WebResource = msRest.WebResource;
 
 /** Class representing a CertificateOperations. */
 export class CertificateOperations {
-  private readonly client: BatchServiceClient;
+  private readonly client: BatchServiceClientContext;
   /**
    * Create a CertificateOperations.
-   * @param {BatchServiceClient} client Reference to the service client.
+   * @param {BatchServiceClientContext} client Reference to the service client.
    */
-  constructor(client: BatchServiceClient) {
+  constructor(client: BatchServiceClientContext) {
     this.client = client;
   }
 
@@ -39,7 +39,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams): Promise<Models.CertificateAddResponse> {
     let client = this.client;
     let certificateAddOptions = (options && options.certificateAddOptions !== undefined) ? options.certificateAddOptions : undefined;
     // Validate
@@ -94,74 +94,101 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Serialize Request
-    let requestContent = null;
-    let requestModel = null;
-    try {
-      if (certificate !== null && certificate !== undefined) {
-        let requestModelMapper = Mappers.CertificateAddParameter;
-        requestModel = client.serializer.serialize(requestModelMapper, certificate, 'certificate');
-        requestContent = JSON.stringify(requestModel);
-      }
-    } catch (error) {
-      let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-          `payload - ${JSON.stringify(certificate, null, 2)}.`);
-      return Promise.reject(serializationError);
-    }
-    httpRequest.body = requestContent;
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          certificate,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "certificates",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ],
+          requestBodyMapper: Mappers.CertificateAddParameter,
+          requestBodyName: "certificate",
+          contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 201) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -170,7 +197,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -179,6 +206,10 @@ export class CertificateOperations {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 201) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateAddHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -200,7 +231,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listWithHttpOperationResponse(options?: Models.CertificateListOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listWithHttpOperationResponse(options?: Models.CertificateListOptionalParams): Promise<Models.CertificateListResponse> {
     let client = this.client;
     let certificateListOptions = (options && options.certificateListOptions !== undefined) ? options.certificateListOptions : undefined;
     // Validate
@@ -276,68 +307,132 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (filter !== null && filter !== undefined) {
-      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-    }
-    if (select !== null && select !== undefined) {
-      queryParamsArray.push('$select=' + encodeURIComponent(select));
-    }
-    if (maxResults !== null && maxResults !== undefined) {
-      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          filter,
+          select,
+          maxResults,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "certificates",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "filter",
+              mapper: {
+                serializedName: "$filter",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "select",
+              mapper: {
+                serializedName: "$select",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "maxResults",
+              mapper: {
+                serializedName: "maxresults",
+                defaultValue: 1000,
+                constraints: {
+                  InclusiveMaximum: 1000,
+                  InclusiveMinimum: 1
+                },
+                type: {
+                  name: "Number"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -346,7 +441,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -358,18 +453,19 @@ export class CertificateOperations {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.CertificateListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.CertificateListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -405,7 +501,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams): Promise<Models.CertificateCancelDeletionResponse> {
     let client = this.client;
     let certificateCancelDeletionOptions = (options && options.certificateCancelDeletionOptions !== undefined) ? options.certificateCancelDeletionOptions : undefined;
     // Validate
@@ -463,61 +559,121 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})/canceldelete';
-    requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-    requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'POST';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          thumbprintAlgorithm,
+          thumbprint,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "POST",
+          baseUrl: this.client.baseUri,
+          path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})/canceldelete",
+          urlParameters: [
+            {
+              parameterName: "thumbprintAlgorithm",
+              mapper: {
+                required: true,
+                serializedName: "thumbprintAlgorithm",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "thumbprint",
+              mapper: {
+                required: true,
+                serializedName: "thumbprint",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 204) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -526,7 +682,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -535,6 +691,10 @@ export class CertificateOperations {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 204) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateCancelDeletionHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -572,7 +732,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams): Promise<Models.CertificateDeleteResponse> {
     let client = this.client;
     let certificateDeleteMethodOptions = (options && options.certificateDeleteMethodOptions !== undefined) ? options.certificateDeleteMethodOptions : undefined;
     // Validate
@@ -630,61 +790,121 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
-    requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-    requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'DELETE';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          thumbprintAlgorithm,
+          thumbprint,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "DELETE",
+          baseUrl: this.client.baseUri,
+          path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})",
+          urlParameters: [
+            {
+              parameterName: "thumbprintAlgorithm",
+              mapper: {
+                required: true,
+                serializedName: "thumbprintAlgorithm",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "thumbprint",
+              mapper: {
+                required: true,
+                serializedName: "thumbprint",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 202) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -693,7 +913,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -702,6 +922,10 @@ export class CertificateOperations {
           return Promise.reject(error);
         }
         return Promise.reject(error);
+      }
+      // Deserialize Response
+      if (statusCode === 202) {
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateDeleteHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -727,7 +951,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams): Promise<Models.CertificateGetResponse> {
     let client = this.client;
     let certificateGetOptions = (options && options.certificateGetOptions !== undefined) ? options.certificateGetOptions : undefined;
     // Validate
@@ -793,64 +1017,131 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
-    requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-    requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (select !== null && select !== undefined) {
-      queryParamsArray.push('$select=' + encodeURIComponent(select));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          thumbprintAlgorithm,
+          thumbprint,
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          select,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})",
+          urlParameters: [
+            {
+              parameterName: "thumbprintAlgorithm",
+              mapper: {
+                required: true,
+                serializedName: "thumbprintAlgorithm",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "thumbprint",
+              mapper: {
+                required: true,
+                serializedName: "thumbprint",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "select",
+              mapper: {
+                serializedName: "$select",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -859,7 +1150,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -871,18 +1162,19 @@ export class CertificateOperations {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.Certificate;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.Certificate;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateGetHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -907,7 +1199,7 @@ export class CertificateOperations {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.CertificateListNextOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.CertificateListNextOptionalParams): Promise<Models.CertificateListResponse> {
     let client = this.client;
     let certificateListNextOptions = (options && options.certificateListNextOptions !== undefined) ? options.certificateListNextOptions : undefined;
     // Validate
@@ -951,51 +1243,87 @@ export class CertificateOperations {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let requestUrl = '{nextLink}';
-    requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          nextPageLink,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: "https://batch.core.windows.net",
+          path: "{nextLink}",
+          urlParameters: [
+            {
+              parameterName: "nextPageLink",
+              skipEncoding: true,
+              mapper: {
+                required: true,
+                serializedName: "nextLink",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -1004,7 +1332,7 @@ export class CertificateOperations {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -1016,18 +1344,19 @@ export class CertificateOperations {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.CertificateListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.CertificateListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -1046,7 +1375,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1054,7 +1383,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   add(certificate: Models.CertificateAddParameter): Promise<void>;
   add(certificate: Models.CertificateAddParameter, options: Models.CertificateAddOptionalParams): Promise<void>;
@@ -1068,7 +1397,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.addWithHttpOperationResponse(certificate, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1077,8 +1406,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -1091,7 +1420,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1101,7 +1430,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   list(): Promise<Models.CertificateListResult>;
   list(options: Models.CertificateListOptionalParams): Promise<Models.CertificateListResult>;
@@ -1115,7 +1444,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<Models.CertificateListResult>;
     if (!callback) {
       return this.listWithHttpOperationResponse(options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.CertificateListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.CertificateListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1124,8 +1453,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.CertificateListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.CertificateListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -1152,7 +1481,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1160,7 +1489,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   cancelDeletion(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
   cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateCancelDeletionOptionalParams): Promise<void>;
@@ -1174,7 +1503,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1183,8 +1512,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -1213,7 +1542,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1221,7 +1550,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   deleteMethod(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
   deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateDeleteMethodOptionalParams): Promise<void>;
@@ -1235,7 +1564,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<void>;
     if (!callback) {
       return this.deleteMethodWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as void);
+        return Promise.resolve(operationRes.parsedBody as void);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1244,8 +1573,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as void;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as void;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -1262,7 +1591,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1271,7 +1600,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   get(thumbprintAlgorithm: string, thumbprint: string): Promise<Models.Certificate>;
   get(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateGetOptionalParams): Promise<Models.Certificate>;
@@ -1285,7 +1614,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<Models.Certificate>;
     if (!callback) {
       return this.getWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.Certificate);
+        return Promise.resolve(operationRes.parsedBody as Models.Certificate);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1294,8 +1623,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.Certificate;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.Certificate;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -1311,7 +1640,7 @@ export class CertificateOperations {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -1321,7 +1650,7 @@ export class CertificateOperations {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listNext(nextPageLink: string): Promise<Models.CertificateListResult>;
   listNext(nextPageLink: string, options: Models.CertificateListNextOptionalParams): Promise<Models.CertificateListResult>;
@@ -1335,7 +1664,7 @@ export class CertificateOperations {
     let cb = callback as msRest.ServiceCallback<Models.CertificateListResult>;
     if (!callback) {
       return this.listNextWithHttpOperationResponse(nextPageLink, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.CertificateListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.CertificateListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -1344,8 +1673,8 @@ export class CertificateOperations {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.CertificateListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.CertificateListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }

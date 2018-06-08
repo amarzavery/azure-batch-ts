@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a Pool. */
 export declare class Pool {
     private readonly client;
     /**
      * Create a Pool.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Lists the usage metrics, aggregated by pool across individual time
      * intervals, for the specified account.
@@ -28,13 +28,15 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listUsageMetricsWithHttpOperationResponse(options?: Models.PoolListUsageMetricsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listUsageMetricsWithHttpOperationResponse(options?: Models.PoolListUsageMetricsOptionalParams): Promise<Models.PoolListUsageMetricsResponse>;
     /**
      * @summary Gets lifetime summary statistics for all of the pools in the
      * specified account.
      *
      * Statistics are aggregated across all pools that have ever existed in the
      * account, from account creation to the last update time of the statistics.
+     * The statistics may not be immediately available. The Batch service performs
+     * periodic roll-up of statistics. The typical delay is about 30 minutes.
      *
      * @param {PoolGetAllLifetimeStatisticsOptionalParams} [options] Optional
      * Parameters.
@@ -45,7 +47,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getAllLifetimeStatisticsWithHttpOperationResponse(options?: Models.PoolGetAllLifetimeStatisticsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getAllLifetimeStatisticsWithHttpOperationResponse(options?: Models.PoolGetAllLifetimeStatisticsOptionalParams): Promise<Models.PoolGetAllLifetimeStatisticsResponse>;
     /**
      * @summary Adds a pool to the specified account.
      *
@@ -63,7 +65,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addWithHttpOperationResponse(pool: Models.PoolAddParameter, options?: Models.PoolAddOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addWithHttpOperationResponse(pool: Models.PoolAddParameter, options?: Models.PoolAddOptionalParams): Promise<Models.PoolAddResponse>;
     /**
      * @summary Lists all of the pools in the specified account.
      *
@@ -75,7 +77,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(options?: Models.PoolListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(options?: Models.PoolListOptionalParams): Promise<Models.PoolListResponse>;
     /**
      * @summary Deletes a pool from the specified account.
      *
@@ -102,7 +104,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteMethodWithHttpOperationResponse(poolId: string, options?: Models.PoolDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteMethodWithHttpOperationResponse(poolId: string, options?: Models.PoolDeleteMethodOptionalParams): Promise<Models.PoolDeleteResponse>;
     /**
      * Gets basic properties of a pool.
      *
@@ -116,7 +118,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    existsWithHttpOperationResponse(poolId: string, options?: Models.PoolExistsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    existsWithHttpOperationResponse(poolId: string, options?: Models.PoolExistsOptionalParams): Promise<Models.PoolExistsResponse>;
     /**
      * Gets information about the specified pool.
      *
@@ -130,7 +132,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(poolId: string, options?: Models.PoolGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(poolId: string, options?: Models.PoolGetOptionalParams): Promise<Models.PoolGetResponse>;
     /**
      * @summary Updates the properties of the specified pool.
      *
@@ -152,7 +154,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    patchWithHttpOperationResponse(poolId: string, poolPatchParameter: Models.PoolPatchParameter, options?: Models.PoolPatchOptionalParams): Promise<msRest.HttpOperationResponse>;
+    patchWithHttpOperationResponse(poolId: string, poolPatchParameter: Models.PoolPatchParameter, options?: Models.PoolPatchOptionalParams): Promise<Models.PoolPatchResponse>;
     /**
      * @summary Disables automatic scaling for a pool.
      *
@@ -167,7 +169,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableAutoScaleWithHttpOperationResponse(poolId: string, options?: Models.PoolDisableAutoScaleOptionalParams): Promise<msRest.HttpOperationResponse>;
+    disableAutoScaleWithHttpOperationResponse(poolId: string, options?: Models.PoolDisableAutoScaleOptionalParams): Promise<Models.PoolDisableAutoScaleResponse>;
     /**
      * @summary Enables automatic scaling for a pool.
      *
@@ -192,7 +194,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    enableAutoScaleWithHttpOperationResponse(poolId: string, poolEnableAutoScaleParameter: Models.PoolEnableAutoScaleParameter, options?: Models.PoolEnableAutoScaleOptionalParams): Promise<msRest.HttpOperationResponse>;
+    enableAutoScaleWithHttpOperationResponse(poolId: string, poolEnableAutoScaleParameter: Models.PoolEnableAutoScaleParameter, options?: Models.PoolEnableAutoScaleOptionalParams): Promise<Models.PoolEnableAutoScaleResponse>;
     /**
      * @summary Gets the result of evaluating an automatic scaling formula on the
      * pool.
@@ -215,7 +217,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    evaluateAutoScaleWithHttpOperationResponse(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options?: Models.PoolEvaluateAutoScaleOptionalParams): Promise<msRest.HttpOperationResponse>;
+    evaluateAutoScaleWithHttpOperationResponse(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options?: Models.PoolEvaluateAutoScaleOptionalParams): Promise<Models.PoolEvaluateAutoScaleResponse>;
     /**
      * @summary Changes the number of compute nodes that are assigned to a pool.
      *
@@ -240,7 +242,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    resizeWithHttpOperationResponse(poolId: string, poolResizeParameter: Models.PoolResizeParameter, options?: Models.PoolResizeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    resizeWithHttpOperationResponse(poolId: string, poolResizeParameter: Models.PoolResizeParameter, options?: Models.PoolResizeOptionalParams): Promise<Models.PoolResizeResponse>;
     /**
      * @summary Stops an ongoing resize operation on the pool.
      *
@@ -263,7 +265,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    stopResizeWithHttpOperationResponse(poolId: string, options?: Models.PoolStopResizeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    stopResizeWithHttpOperationResponse(poolId: string, options?: Models.PoolStopResizeOptionalParams): Promise<Models.PoolStopResizeResponse>;
     /**
      * @summary Updates the properties of the specified pool.
      *
@@ -285,7 +287,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updatePropertiesWithHttpOperationResponse(poolId: string, poolUpdatePropertiesParameter: Models.PoolUpdatePropertiesParameter, options?: Models.PoolUpdatePropertiesOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updatePropertiesWithHttpOperationResponse(poolId: string, poolUpdatePropertiesParameter: Models.PoolUpdatePropertiesParameter, options?: Models.PoolUpdatePropertiesOptionalParams): Promise<Models.PoolUpdatePropertiesResponse>;
     /**
      * @summary Upgrades the operating system of the specified pool.
      *
@@ -319,7 +321,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    upgradeOSWithHttpOperationResponse(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options?: Models.PoolUpgradeOSOptionalParams): Promise<msRest.HttpOperationResponse>;
+    upgradeOSWithHttpOperationResponse(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options?: Models.PoolUpgradeOSOptionalParams): Promise<Models.PoolUpgradeOSResponse>;
     /**
      * @summary Removes compute nodes from the specified pool.
      *
@@ -341,7 +343,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    removeNodesWithHttpOperationResponse(poolId: string, nodeRemoveParameter: Models.NodeRemoveParameter, options?: Models.PoolRemoveNodesOptionalParams): Promise<msRest.HttpOperationResponse>;
+    removeNodesWithHttpOperationResponse(poolId: string, nodeRemoveParameter: Models.NodeRemoveParameter, options?: Models.PoolRemoveNodesOptionalParams): Promise<Models.PoolRemoveNodesResponse>;
     /**
      * @summary Lists the usage metrics, aggregated by pool across individual time
      * intervals, for the specified account.
@@ -365,7 +367,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listUsageMetricsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.PoolListUsageMetricsNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listUsageMetricsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.PoolListUsageMetricsNextOptionalParams): Promise<Models.PoolListUsageMetricsResponse>;
     /**
      * @summary Lists all of the pools in the specified account.
      *
@@ -380,7 +382,7 @@ export declare class Pool {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.PoolListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.PoolListNextOptionalParams): Promise<Models.PoolListResponse>;
     /**
      * @summary Lists the usage metrics, aggregated by pool across individual time
      * intervals, for the specified account.
@@ -396,7 +398,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -406,7 +408,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listUsageMetrics(): Promise<Models.PoolListUsageMetricsResult>;
     listUsageMetrics(options: Models.PoolListUsageMetricsOptionalParams): Promise<Models.PoolListUsageMetricsResult>;
@@ -418,13 +420,15 @@ export declare class Pool {
      *
      * Statistics are aggregated across all pools that have ever existed in the
      * account, from account creation to the last update time of the statistics.
+     * The statistics may not be immediately available. The Batch service performs
+     * periodic roll-up of statistics. The typical delay is about 30 minutes.
      *
      * @param {PoolGetAllLifetimeStatisticsOptionalParams} [options] Optional
      * Parameters.
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -433,7 +437,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getAllLifetimeStatistics(): Promise<Models.PoolStatistics>;
     getAllLifetimeStatistics(options: Models.PoolGetAllLifetimeStatisticsOptionalParams): Promise<Models.PoolStatistics>;
@@ -452,7 +456,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -460,7 +464,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     add(pool: Models.PoolAddParameter): Promise<void>;
     add(pool: Models.PoolAddParameter, options: Models.PoolAddOptionalParams): Promise<void>;
@@ -473,7 +477,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -483,7 +487,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(): Promise<Models.CloudPoolListResult>;
     list(options: Models.PoolListOptionalParams): Promise<Models.CloudPoolListResult>;
@@ -511,7 +515,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -519,7 +523,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteMethod(poolId: string): Promise<void>;
     deleteMethod(poolId: string, options: Models.PoolDeleteMethodOptionalParams): Promise<void>;
@@ -534,7 +538,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -542,7 +546,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     exists(poolId: string): Promise<boolean>;
     exists(poolId: string, options: Models.PoolExistsOptionalParams): Promise<boolean>;
@@ -557,7 +561,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -566,7 +570,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(poolId: string): Promise<Models.CloudPool>;
     get(poolId: string, options: Models.PoolGetOptionalParams): Promise<Models.CloudPool>;
@@ -589,7 +593,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -597,7 +601,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     patch(poolId: string, poolPatchParameter: Models.PoolPatchParameter): Promise<void>;
     patch(poolId: string, poolPatchParameter: Models.PoolPatchParameter, options: Models.PoolPatchOptionalParams): Promise<void>;
@@ -613,7 +617,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -621,7 +625,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     disableAutoScale(poolId: string): Promise<void>;
     disableAutoScale(poolId: string, options: Models.PoolDisableAutoScaleOptionalParams): Promise<void>;
@@ -647,7 +651,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -655,7 +659,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     enableAutoScale(poolId: string, poolEnableAutoScaleParameter: Models.PoolEnableAutoScaleParameter): Promise<void>;
     enableAutoScale(poolId: string, poolEnableAutoScaleParameter: Models.PoolEnableAutoScaleParameter, options: Models.PoolEnableAutoScaleOptionalParams): Promise<void>;
@@ -679,7 +683,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -688,7 +692,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter): Promise<Models.AutoScaleRun>;
     evaluateAutoScale(poolId: string, poolEvaluateAutoScaleParameter: Models.PoolEvaluateAutoScaleParameter, options: Models.PoolEvaluateAutoScaleOptionalParams): Promise<Models.AutoScaleRun>;
@@ -714,7 +718,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -722,7 +726,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     resize(poolId: string, poolResizeParameter: Models.PoolResizeParameter): Promise<void>;
     resize(poolId: string, poolResizeParameter: Models.PoolResizeParameter, options: Models.PoolResizeOptionalParams): Promise<void>;
@@ -746,7 +750,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -754,7 +758,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     stopResize(poolId: string): Promise<void>;
     stopResize(poolId: string, options: Models.PoolStopResizeOptionalParams): Promise<void>;
@@ -777,7 +781,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -785,7 +789,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     updateProperties(poolId: string, poolUpdatePropertiesParameter: Models.PoolUpdatePropertiesParameter): Promise<void>;
     updateProperties(poolId: string, poolUpdatePropertiesParameter: Models.PoolUpdatePropertiesParameter, options: Models.PoolUpdatePropertiesOptionalParams): Promise<void>;
@@ -820,7 +824,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -828,7 +832,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter): Promise<void>;
     upgradeOS(poolId: string, poolUpgradeOSParameter: Models.PoolUpgradeOSParameter, options: Models.PoolUpgradeOSOptionalParams): Promise<void>;
@@ -851,7 +855,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -859,7 +863,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     removeNodes(poolId: string, nodeRemoveParameter: Models.NodeRemoveParameter): Promise<void>;
     removeNodes(poolId: string, nodeRemoveParameter: Models.NodeRemoveParameter, options: Models.PoolRemoveNodesOptionalParams): Promise<void>;
@@ -884,7 +888,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -894,7 +898,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listUsageMetricsNext(nextPageLink: string): Promise<Models.PoolListUsageMetricsResult>;
     listUsageMetricsNext(nextPageLink: string, options: Models.PoolListUsageMetricsNextOptionalParams): Promise<Models.PoolListUsageMetricsResult>;
@@ -910,7 +914,7 @@ export declare class Pool {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -920,7 +924,7 @@ export declare class Pool {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.CloudPoolListResult>;
     listNext(nextPageLink: string, options: Models.PoolListNextOptionalParams): Promise<Models.CloudPoolListResult>;

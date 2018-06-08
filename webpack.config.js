@@ -11,9 +11,6 @@ module.exports = {
     libraryTarget: 'var',
     library: 'batchServiceClient'
   },
-  plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-  ],
   module: {
     rules: [
       {

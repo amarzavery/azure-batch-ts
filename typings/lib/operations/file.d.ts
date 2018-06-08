@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a File. */
 export declare class File {
     private readonly client;
     /**
      * Create a File.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Deletes the specified task file from the compute node where the
      * task ran.
@@ -28,7 +28,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileDeleteFromTaskOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileDeleteFromTaskOptionalParams): Promise<Models.FileDeleteFromTaskResponse>;
     /**
      * Returns the content of the specified task file.
      *
@@ -47,7 +47,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileGetFromTaskOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileGetFromTaskOptionalParams): Promise<Models.FileGetFromTaskResponse>;
     /**
      * Gets the properties of the specified task file.
      *
@@ -68,7 +68,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getPropertiesFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileGetPropertiesFromTaskOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getPropertiesFromTaskWithHttpOperationResponse(jobId: string, taskId: string, filePath: string, options?: Models.FileGetPropertiesFromTaskOptionalParams): Promise<Models.FileGetPropertiesFromTaskResponse>;
     /**
      * @summary Deletes the specified file from the compute node.
      *
@@ -89,7 +89,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileDeleteFromComputeNodeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileDeleteFromComputeNodeOptionalParams): Promise<Models.FileDeleteFromComputeNodeResponse>;
     /**
      * Returns the content of the specified compute node file.
      *
@@ -108,7 +108,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetFromComputeNodeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetFromComputeNodeOptionalParams): Promise<Models.FileGetFromComputeNodeResponse>;
     /**
      * Gets the properties of the specified compute node file.
      *
@@ -128,7 +128,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getPropertiesFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetPropertiesFromComputeNodeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getPropertiesFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, filePath: string, options?: Models.FileGetPropertiesFromComputeNodeOptionalParams): Promise<Models.FileGetPropertiesFromComputeNodeResponse>;
     /**
      * @summary Lists the files in a task's directory on its compute node.
      *
@@ -144,7 +144,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromTaskWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.FileListFromTaskOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromTaskWithHttpOperationResponse(jobId: string, taskId: string, options?: Models.FileListFromTaskOptionalParams): Promise<Models.FileListFromTaskResponse>;
     /**
      * @summary Lists all of the files in task directories on the specified compute
      * node.
@@ -163,7 +163,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.FileListFromComputeNodeOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromComputeNodeWithHttpOperationResponse(poolId: string, nodeId: string, options?: Models.FileListFromComputeNodeOptionalParams): Promise<Models.FileListFromComputeNodeResponse>;
     /**
      * @summary Lists the files in a task's directory on its compute node.
      *
@@ -178,7 +178,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromTaskNextWithHttpOperationResponse(nextPageLink: string, options?: Models.FileListFromTaskNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromTaskNextWithHttpOperationResponse(nextPageLink: string, options?: Models.FileListFromTaskNextOptionalParams): Promise<Models.FileListFromTaskResponse>;
     /**
      * @summary Lists all of the files in task directories on the specified compute
      * node.
@@ -195,7 +195,7 @@ export declare class File {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromComputeNodeNextWithHttpOperationResponse(nextPageLink: string, options?: Models.FileListFromComputeNodeNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromComputeNodeNextWithHttpOperationResponse(nextPageLink: string, options?: Models.FileListFromComputeNodeNextOptionalParams): Promise<Models.FileListFromComputeNodeResponse>;
     /**
      * @summary Deletes the specified task file from the compute node where the
      * task ran.
@@ -211,7 +211,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -219,40 +219,12 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteFromTask(jobId: string, taskId: string, filePath: string): Promise<void>;
     deleteFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileDeleteFromTaskOptionalParams): Promise<void>;
     deleteFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<void>): void;
     deleteFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileDeleteFromTaskOptionalParams, callback: msRest.ServiceCallback<void>): void;
-    /**
-     * Returns the content of the specified task file.
-     *
-     * @param {string} jobId The ID of the job that contains the task.
-     *
-     * @param {string} taskId The ID of the task whose file you want to retrieve.
-     *
-     * @param {string} filePath The path to the task file that you want to get the
-     * content of.
-     *
-     * @param {FileGetFromTaskOptionalParams} [options] Optional Parameters.
-     *
-     * @param {ServiceCallback} callback - The callback.
-     *
-     * @returns {ServiceCallback} callback(err, result, request, response)
-     *
-     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
-     *
-     *                      {Response} [result]   - The deserialized result object if an error did not occur.
-     *
-     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
-     *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
-     */
-    getFromTask(jobId: string, taskId: string, filePath: string): Promise<Response>;
-    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams): Promise<Response>;
-    getFromTask(jobId: string, taskId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
-    getFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetFromTaskOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * Gets the properties of the specified task file.
      *
@@ -269,7 +241,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -277,7 +249,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getPropertiesFromTask(jobId: string, taskId: string, filePath: string): Promise<void>;
     getPropertiesFromTask(jobId: string, taskId: string, filePath: string, options: Models.FileGetPropertiesFromTaskOptionalParams): Promise<void>;
@@ -299,7 +271,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -307,40 +279,12 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<void>;
     deleteFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileDeleteFromComputeNodeOptionalParams): Promise<void>;
     deleteFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<void>): void;
     deleteFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileDeleteFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<void>): void;
-    /**
-     * Returns the content of the specified compute node file.
-     *
-     * @param {string} poolId The ID of the pool that contains the compute node.
-     *
-     * @param {string} nodeId The ID of the compute node that contains the file.
-     *
-     * @param {string} filePath The path to the compute node file that you want to
-     * get the content of.
-     *
-     * @param {FileGetFromComputeNodeOptionalParams} [options] Optional Parameters.
-     *
-     * @param {ServiceCallback} callback - The callback.
-     *
-     * @returns {ServiceCallback} callback(err, result, request, response)
-     *
-     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
-     *
-     *                      {Response} [result]   - The deserialized result object if an error did not occur.
-     *
-     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
-     *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
-     */
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<Response>;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams): Promise<Response>;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, callback: msRest.ServiceCallback<Response>): void;
-    getFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetFromComputeNodeOptionalParams, callback: msRest.ServiceCallback<Response>): void;
     /**
      * Gets the properties of the specified compute node file.
      *
@@ -356,7 +300,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -364,7 +308,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getPropertiesFromComputeNode(poolId: string, nodeId: string, filePath: string): Promise<void>;
     getPropertiesFromComputeNode(poolId: string, nodeId: string, filePath: string, options: Models.FileGetPropertiesFromComputeNodeOptionalParams): Promise<void>;
@@ -381,7 +325,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -391,7 +335,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromTask(jobId: string, taskId: string): Promise<Models.NodeFileListResult>;
     listFromTask(jobId: string, taskId: string, options: Models.FileListFromTaskOptionalParams): Promise<Models.NodeFileListResult>;
@@ -411,7 +355,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -421,7 +365,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromComputeNode(poolId: string, nodeId: string): Promise<Models.NodeFileListResult>;
     listFromComputeNode(poolId: string, nodeId: string, options: Models.FileListFromComputeNodeOptionalParams): Promise<Models.NodeFileListResult>;
@@ -437,7 +381,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -447,7 +391,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromTaskNext(nextPageLink: string): Promise<Models.NodeFileListResult>;
     listFromTaskNext(nextPageLink: string, options: Models.FileListFromTaskNextOptionalParams): Promise<Models.NodeFileListResult>;
@@ -465,7 +409,7 @@ export declare class File {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -475,7 +419,7 @@ export declare class File {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromComputeNodeNext(nextPageLink: string): Promise<Models.NodeFileListResult>;
     listFromComputeNodeNext(nextPageLink: string, options: Models.FileListFromComputeNodeNextOptionalParams): Promise<Models.NodeFileListResult>;
