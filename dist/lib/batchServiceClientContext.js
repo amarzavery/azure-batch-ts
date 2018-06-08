@@ -9,13 +9,12 @@
  * regenerated.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const Models = require("./models");
-exports.BatchServiceModels = Models;
+const msRest = require("ms-rest-js");
+const msRestAzure = require("ms-rest-azure-js");
 const Mappers = require("./models/mappers");
-exports.BatchServiceMappers = Mappers;
-const batchServiceClientContext_1 = require("./batchServiceClientContext");
-const operations = require("./operations");
-class BatchServiceClient extends batchServiceClientContext_1.BatchServiceClientContext {
+const packageName = "azure-batch-js";
+const packageVersion = "0.1.0";
+class BatchServiceClientContext extends msRestAzure.AzureServiceClient {
     /**
      * @class
      * Initializes a new instance of the BatchServiceClient class.
@@ -42,17 +41,33 @@ class BatchServiceClient extends batchServiceClientContext_1.BatchServiceClientC
      *
      */
     constructor(credentials, baseUri, options) {
-        super(credentials, baseUri, options);
-        this.application = new operations.Application(this);
-        this.pool = new operations.Pool(this);
-        this.account = new operations.Account(this);
-        this.job = new operations.Job(this);
-        this.certificate = new operations.CertificateOperations(this);
-        this.file = new operations.File(this);
-        this.jobSchedule = new operations.JobSchedule(this);
-        this.task = new operations.Task(this);
-        this.computeNode = new operations.ComputeNodeOperations(this);
+        if (credentials == undefined) {
+            throw new Error('\'credentials\' cannot be null.');
+        }
+        if (!options) {
+            options = {};
+        }
+        if (!options.serializer) {
+            options = Object.assign({}, options, { serializer: new msRest.Serializer(Mappers, false) });
+        }
+        super(credentials, options);
+        this.serializer = new msRest.Serializer(Mappers);
+        this.apiVersion = '2018-03-01.6.1';
+        this.acceptLanguage = 'en-US';
+        this.longRunningOperationRetryTimeout = 30;
+        this.baseUri = baseUri;
+        if (!this.baseUri) {
+            this.baseUri = 'https://batch.core.windows.net';
+        }
+        this.credentials = credentials;
+        this.addUserAgentInfo(`${packageName}/${packageVersion}`);
+        if (options.acceptLanguage !== null && options.acceptLanguage !== undefined) {
+            this.acceptLanguage = options.acceptLanguage;
+        }
+        if (options.longRunningOperationRetryTimeout !== null && options.longRunningOperationRetryTimeout !== undefined) {
+            this.longRunningOperationRetryTimeout = options.longRunningOperationRetryTimeout;
+        }
     }
 }
-exports.BatchServiceClient = BatchServiceClient;
-//# sourceMappingURL=batchServiceClient.js.map
+exports.BatchServiceClientContext = BatchServiceClientContext;
+//# sourceMappingURL=batchServiceClientContext.js.map

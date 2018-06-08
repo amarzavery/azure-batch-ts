@@ -14,59 +14,58 @@ export const CloudError = CloudErrorMapper;
 export const BaseResource = BaseResourceMapper;
 
 export const PoolUsageMetrics = {
-  required: false,
-  serializedName: 'PoolUsageMetrics',
+  serializedName: "PoolUsageMetrics",
   type: {
-    name: 'Composite',
-    className: 'PoolUsageMetrics',
+    name: "Composite",
+    className: "PoolUsageMetrics",
     modelProperties: {
       poolId: {
         required: true,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
         required: true,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       vmSize: {
         required: true,
-        serializedName: 'vmSize',
+        serializedName: "vmSize",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       totalCoreHours: {
         required: true,
-        serializedName: 'totalCoreHours',
+        serializedName: "totalCoreHours",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       dataIngressGiB: {
         required: true,
-        serializedName: 'dataIngressGiB',
+        serializedName: "dataIngressGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       dataEgressGiB: {
         required: true,
-        serializedName: 'dataEgressGiB',
+        serializedName: "dataEgressGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -74,45 +73,39 @@ export const PoolUsageMetrics = {
 };
 
 export const ImageReference = {
-  required: false,
-  serializedName: 'ImageReference',
+  serializedName: "ImageReference",
   type: {
-    name: 'Composite',
-    className: 'ImageReference',
+    name: "Composite",
+    className: "ImageReference",
     modelProperties: {
       publisher: {
-        required: false,
-        serializedName: 'publisher',
+        serializedName: "publisher",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       offer: {
-        required: false,
-        serializedName: 'offer',
+        serializedName: "offer",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       sku: {
-        required: false,
-        serializedName: 'sku',
+        serializedName: "sku",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       version: {
-        required: false,
-        serializedName: 'version',
+        serializedName: "version",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       virtualMachineImageId: {
-        required: false,
-        serializedName: 'virtualMachineImageId',
+        serializedName: "virtualMachineImageId",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -120,40 +113,38 @@ export const ImageReference = {
 };
 
 export const NodeAgentSku = {
-  required: false,
-  serializedName: 'NodeAgentSku',
+  serializedName: "NodeAgentSku",
   type: {
-    name: 'Composite',
-    className: 'NodeAgentSku',
+    name: "Composite",
+    className: "NodeAgentSku",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       verifiedImageReferences: {
-        required: false,
-        serializedName: 'verifiedImageReferences',
+        serializedName: "verifiedImageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ImageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ImageReference'
-              }
+            serializedName: "ImageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ImageReference"
+            }
           }
         }
       },
       osType: {
-        required: false,
-        serializedName: 'osType',
+        serializedName: "osType",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'linux', 'windows' ]
+          name: "Enum",
+          allowedValues: [
+            "linux",
+            "windows"
+          ]
         }
       }
     }
@@ -161,24 +152,23 @@ export const NodeAgentSku = {
 };
 
 export const AuthenticationTokenSettings = {
-  required: false,
-  serializedName: 'AuthenticationTokenSettings',
+  serializedName: "AuthenticationTokenSettings",
   type: {
-    name: 'Composite',
-    className: 'AuthenticationTokenSettings',
+    name: "Composite",
+    className: "AuthenticationTokenSettings",
     modelProperties: {
       access: {
-        required: false,
-        serializedName: 'access',
+        serializedName: "access",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'AccessScopeElementType',
-              type: {
-                name: 'Enum',
-                allowedValues: [ 'job' ]
-              }
+            serializedName: "AccessScopeElementType",
+            type: {
+              name: "Enum",
+              allowedValues: [
+                "job"
+              ]
+            }
           }
         }
       }
@@ -187,31 +177,30 @@ export const AuthenticationTokenSettings = {
 };
 
 export const UsageStatistics = {
-  required: false,
-  serializedName: 'UsageStatistics',
+  serializedName: "UsageStatistics",
   type: {
-    name: 'Composite',
-    className: 'UsageStatistics',
+    name: "Composite",
+    className: "UsageStatistics",
     modelProperties: {
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       dedicatedCoreTime: {
         required: true,
-        serializedName: 'dedicatedCoreTime',
+        serializedName: "dedicatedCoreTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -219,101 +208,100 @@ export const UsageStatistics = {
 };
 
 export const ResourceStatistics = {
-  required: false,
-  serializedName: 'ResourceStatistics',
+  serializedName: "ResourceStatistics",
   type: {
-    name: 'Composite',
-    className: 'ResourceStatistics',
+    name: "Composite",
+    className: "ResourceStatistics",
     modelProperties: {
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       avgCPUPercentage: {
         required: true,
-        serializedName: 'avgCPUPercentage',
+        serializedName: "avgCPUPercentage",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       avgMemoryGiB: {
         required: true,
-        serializedName: 'avgMemoryGiB',
+        serializedName: "avgMemoryGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       peakMemoryGiB: {
         required: true,
-        serializedName: 'peakMemoryGiB',
+        serializedName: "peakMemoryGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       avgDiskGiB: {
         required: true,
-        serializedName: 'avgDiskGiB',
+        serializedName: "avgDiskGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       peakDiskGiB: {
         required: true,
-        serializedName: 'peakDiskGiB',
+        serializedName: "peakDiskGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       diskReadIOps: {
         required: true,
-        serializedName: 'diskReadIOps',
+        serializedName: "diskReadIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       diskWriteIOps: {
         required: true,
-        serializedName: 'diskWriteIOps',
+        serializedName: "diskWriteIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       diskReadGiB: {
         required: true,
-        serializedName: 'diskReadGiB',
+        serializedName: "diskReadGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       diskWriteGiB: {
         required: true,
-        serializedName: 'diskWriteGiB',
+        serializedName: "diskWriteGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       networkReadGiB: {
         required: true,
-        serializedName: 'networkReadGiB',
+        serializedName: "networkReadGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       networkWriteGiB: {
         required: true,
-        serializedName: 'networkWriteGiB',
+        serializedName: "networkWriteGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -321,47 +309,44 @@ export const ResourceStatistics = {
 };
 
 export const PoolStatistics = {
-  required: false,
-  serializedName: 'PoolStatistics',
+  serializedName: "PoolStatistics",
   type: {
-    name: 'Composite',
-    className: 'PoolStatistics',
+    name: "Composite",
+    className: "PoolStatistics",
     modelProperties: {
       url: {
         required: true,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       usageStats: {
-        required: false,
-        serializedName: 'usageStats',
+        serializedName: "usageStats",
         type: {
-          name: 'Composite',
-          className: 'UsageStatistics'
+          name: "Composite",
+          className: "UsageStatistics"
         }
       },
       resourceStats: {
-        required: false,
-        serializedName: 'resourceStats',
+        serializedName: "resourceStats",
         type: {
-          name: 'Composite',
-          className: 'ResourceStatistics'
+          name: "Composite",
+          className: "ResourceStatistics"
         }
       }
     }
@@ -369,108 +354,107 @@ export const PoolStatistics = {
 };
 
 export const JobStatistics = {
-  required: false,
-  serializedName: 'JobStatistics',
+  serializedName: "JobStatistics",
   type: {
-    name: 'Composite',
-    className: 'JobStatistics',
+    name: "Composite",
+    className: "JobStatistics",
     modelProperties: {
       url: {
         required: true,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       userCPUTime: {
         required: true,
-        serializedName: 'userCPUTime',
+        serializedName: "userCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       kernelCPUTime: {
         required: true,
-        serializedName: 'kernelCPUTime',
+        serializedName: "kernelCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       wallClockTime: {
         required: true,
-        serializedName: 'wallClockTime',
+        serializedName: "wallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       readIOps: {
         required: true,
-        serializedName: 'readIOps',
+        serializedName: "readIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOps: {
         required: true,
-        serializedName: 'writeIOps',
+        serializedName: "writeIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       readIOGiB: {
         required: true,
-        serializedName: 'readIOGiB',
+        serializedName: "readIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOGiB: {
         required: true,
-        serializedName: 'writeIOGiB',
+        serializedName: "writeIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numSucceededTasks: {
         required: true,
-        serializedName: 'numSucceededTasks',
+        serializedName: "numSucceededTasks",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numFailedTasks: {
         required: true,
-        serializedName: 'numFailedTasks',
+        serializedName: "numFailedTasks",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numTaskRetries: {
         required: true,
-        serializedName: 'numTaskRetries',
+        serializedName: "numTaskRetries",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       waitTime: {
         required: true,
-        serializedName: 'waitTime',
+        serializedName: "waitTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -478,24 +462,21 @@ export const JobStatistics = {
 };
 
 export const NameValuePair = {
-  required: false,
-  serializedName: 'NameValuePair',
+  serializedName: "NameValuePair",
   type: {
-    name: 'Composite',
-    className: 'NameValuePair',
+    name: "Composite",
+    className: "NameValuePair",
     modelProperties: {
       name: {
-        required: false,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -503,38 +484,33 @@ export const NameValuePair = {
 };
 
 export const DeleteCertificateError = {
-  required: false,
-  serializedName: 'DeleteCertificateError',
+  serializedName: "DeleteCertificateError",
   type: {
-    name: 'Composite',
-    className: 'DeleteCertificateError',
+    name: "Composite",
+    className: "DeleteCertificateError",
     modelProperties: {
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       values: {
-        required: false,
-        serializedName: 'values',
+        serializedName: "values",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -543,76 +519,74 @@ export const DeleteCertificateError = {
 };
 
 export const Certificate = {
-  required: false,
-  serializedName: 'Certificate',
+  serializedName: "Certificate",
   type: {
-    name: 'Composite',
-    className: 'Certificate',
+    name: "Composite",
+    className: "Certificate",
     modelProperties: {
       thumbprint: {
-        required: false,
-        serializedName: 'thumbprint',
+        serializedName: "thumbprint",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       thumbprintAlgorithm: {
-        required: false,
-        serializedName: 'thumbprintAlgorithm',
+        serializedName: "thumbprintAlgorithm",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'deleting', 'deletefailed' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "deleting",
+            "deletefailed"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       previousState: {
-        required: false,
-        serializedName: 'previousState',
+        serializedName: "previousState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'deleting', 'deletefailed' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "deleting",
+            "deletefailed"
+          ]
         }
       },
       previousStateTransitionTime: {
-        required: false,
-        serializedName: 'previousStateTransitionTime',
+        serializedName: "previousStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       publicData: {
-        required: false,
-        serializedName: 'publicData',
+        serializedName: "publicData",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       deleteCertificateError: {
-        required: false,
-        serializedName: 'deleteCertificateError',
+        serializedName: "deleteCertificateError",
         type: {
-          name: 'Composite',
-          className: 'DeleteCertificateError'
+          name: "Composite",
+          className: "DeleteCertificateError"
         }
       }
     }
@@ -620,24 +594,22 @@ export const Certificate = {
 };
 
 export const ApplicationPackageReference = {
-  required: false,
-  serializedName: 'ApplicationPackageReference',
+  serializedName: "ApplicationPackageReference",
   type: {
-    name: 'Composite',
-    className: 'ApplicationPackageReference',
+    name: "Composite",
+    className: "ApplicationPackageReference",
     modelProperties: {
       applicationId: {
         required: true,
-        serializedName: 'applicationId',
+        serializedName: "applicationId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       version: {
-        required: false,
-        serializedName: 'version',
+        serializedName: "version",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -645,37 +617,35 @@ export const ApplicationPackageReference = {
 };
 
 export const ApplicationSummary = {
-  required: false,
-  serializedName: 'ApplicationSummary',
+  serializedName: "ApplicationSummary",
   type: {
-    name: 'Composite',
-    className: 'ApplicationSummary',
+    name: "Composite",
+    className: "ApplicationSummary",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
         required: true,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       versions: {
         required: true,
-        serializedName: 'versions',
+        serializedName: "versions",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       }
@@ -684,46 +654,46 @@ export const ApplicationSummary = {
 };
 
 export const CertificateAddParameter = {
-  required: false,
-  serializedName: 'CertificateAddParameter',
+  serializedName: "CertificateAddParameter",
   type: {
-    name: 'Composite',
-    className: 'CertificateAddParameter',
+    name: "Composite",
+    className: "CertificateAddParameter",
     modelProperties: {
       thumbprint: {
         required: true,
-        serializedName: 'thumbprint',
+        serializedName: "thumbprint",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       thumbprintAlgorithm: {
         required: true,
-        serializedName: 'thumbprintAlgorithm',
+        serializedName: "thumbprintAlgorithm",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       data: {
         required: true,
-        serializedName: 'data',
+        serializedName: "data",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       certificateFormat: {
-        required: false,
-        serializedName: 'certificateFormat',
+        serializedName: "certificateFormat",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'pfx', 'cer' ]
+          name: "Enum",
+          allowedValues: [
+            "pfx",
+            "cer"
+          ]
         }
       },
       password: {
-        required: false,
-        serializedName: 'password',
+        serializedName: "password",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -731,45 +701,41 @@ export const CertificateAddParameter = {
 };
 
 export const FileProperties = {
-  required: false,
-  serializedName: 'FileProperties',
+  serializedName: "FileProperties",
   type: {
-    name: 'Composite',
-    className: 'FileProperties',
+    name: "Composite",
+    className: "FileProperties",
     modelProperties: {
       creationTime: {
-        required: false,
-        serializedName: 'creationTime',
+        serializedName: "creationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastModified: {
         required: true,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       contentLength: {
         required: true,
-        serializedName: 'contentLength',
+        serializedName: "contentLength",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       contentType: {
-        required: false,
-        serializedName: 'contentType',
+        serializedName: "contentType",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       fileMode: {
-        required: false,
-        serializedName: 'fileMode',
+        serializedName: "fileMode",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -777,39 +743,34 @@ export const FileProperties = {
 };
 
 export const NodeFile = {
-  required: false,
-  serializedName: 'NodeFile',
+  serializedName: "NodeFile",
   type: {
-    name: 'Composite',
-    className: 'NodeFile',
+    name: "Composite",
+    className: "NodeFile",
     modelProperties: {
       name: {
-        required: false,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       isDirectory: {
-        required: false,
-        serializedName: 'isDirectory',
+        serializedName: "isDirectory",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       properties: {
-        required: false,
-        serializedName: 'properties',
+        serializedName: "properties",
         type: {
-          name: 'Composite',
-          className: 'FileProperties'
+          name: "Composite",
+          className: "FileProperties"
         }
       }
     }
@@ -817,38 +778,33 @@ export const NodeFile = {
 };
 
 export const Schedule = {
-  required: false,
-  serializedName: 'Schedule',
+  serializedName: "Schedule",
   type: {
-    name: 'Composite',
-    className: 'Schedule',
+    name: "Composite",
+    className: "Schedule",
     modelProperties: {
       doNotRunUntil: {
-        required: false,
-        serializedName: 'doNotRunUntil',
+        serializedName: "doNotRunUntil",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       doNotRunAfter: {
-        required: false,
-        serializedName: 'doNotRunAfter',
+        serializedName: "doNotRunAfter",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       startWindow: {
-        required: false,
-        serializedName: 'startWindow',
+        serializedName: "startWindow",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       recurrenceInterval: {
-        required: false,
-        serializedName: 'recurrenceInterval',
+        serializedName: "recurrenceInterval",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -856,24 +812,21 @@ export const Schedule = {
 };
 
 export const JobConstraints = {
-  required: false,
-  serializedName: 'JobConstraints',
+  serializedName: "JobConstraints",
   type: {
-    name: 'Composite',
-    className: 'JobConstraints',
+    name: "Composite",
+    className: "JobConstraints",
     modelProperties: {
       maxWallClockTime: {
-        required: false,
-        serializedName: 'maxWallClockTime',
+        serializedName: "maxWallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       maxTaskRetryCount: {
-        required: false,
-        serializedName: 'maxTaskRetryCount',
+        serializedName: "maxTaskRetryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -881,31 +834,29 @@ export const JobConstraints = {
 };
 
 export const ContainerRegistry = {
-  required: false,
-  serializedName: 'ContainerRegistry',
+  serializedName: "ContainerRegistry",
   type: {
-    name: 'Composite',
-    className: 'ContainerRegistry',
+    name: "Composite",
+    className: "ContainerRegistry",
     modelProperties: {
       registryServer: {
-        required: false,
-        serializedName: 'registryServer',
+        serializedName: "registryServer",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       userName: {
         required: true,
-        serializedName: 'username',
+        serializedName: "username",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       password: {
         required: true,
-        serializedName: 'password',
+        serializedName: "password",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -913,32 +864,29 @@ export const ContainerRegistry = {
 };
 
 export const TaskContainerSettings = {
-  required: false,
-  serializedName: 'TaskContainerSettings',
+  serializedName: "TaskContainerSettings",
   type: {
-    name: 'Composite',
-    className: 'TaskContainerSettings',
+    name: "Composite",
+    className: "TaskContainerSettings",
     modelProperties: {
       containerRunOptions: {
-        required: false,
-        serializedName: 'containerRunOptions',
+        serializedName: "containerRunOptions",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       imageName: {
         required: true,
-        serializedName: 'imageName',
+        serializedName: "imageName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       registry: {
-        required: false,
-        serializedName: 'registry',
+        serializedName: "registry",
         type: {
-          name: 'Composite',
-          className: 'ContainerRegistry'
+          name: "Composite",
+          className: "ContainerRegistry"
         }
       }
     }
@@ -946,31 +894,29 @@ export const TaskContainerSettings = {
 };
 
 export const ResourceFile = {
-  required: false,
-  serializedName: 'ResourceFile',
+  serializedName: "ResourceFile",
   type: {
-    name: 'Composite',
-    className: 'ResourceFile',
+    name: "Composite",
+    className: "ResourceFile",
     modelProperties: {
       blobSource: {
         required: true,
-        serializedName: 'blobSource',
+        serializedName: "blobSource",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       filePath: {
         required: true,
-        serializedName: 'filePath',
+        serializedName: "filePath",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       fileMode: {
-        required: false,
-        serializedName: 'fileMode',
+        serializedName: "fileMode",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -978,24 +924,22 @@ export const ResourceFile = {
 };
 
 export const EnvironmentSetting = {
-  required: false,
-  serializedName: 'EnvironmentSetting',
+  serializedName: "EnvironmentSetting",
   type: {
-    name: 'Composite',
-    className: 'EnvironmentSetting',
+    name: "Composite",
+    className: "EnvironmentSetting",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -1003,26 +947,30 @@ export const EnvironmentSetting = {
 };
 
 export const ExitOptions = {
-  required: false,
-  serializedName: 'ExitOptions',
+  serializedName: "ExitOptions",
   type: {
-    name: 'Composite',
-    className: 'ExitOptions',
+    name: "Composite",
+    className: "ExitOptions",
     modelProperties: {
       jobAction: {
-        required: false,
-        serializedName: 'jobAction',
+        serializedName: "jobAction",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'none', 'disable', 'terminate' ]
+          name: "Enum",
+          allowedValues: [
+            "none",
+            "disable",
+            "terminate"
+          ]
         }
       },
       dependencyAction: {
-        required: false,
-        serializedName: 'dependencyAction',
+        serializedName: "dependencyAction",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'satisfy', 'block' ]
+          name: "Enum",
+          allowedValues: [
+            "satisfy",
+            "block"
+          ]
         }
       }
     }
@@ -1030,25 +978,24 @@ export const ExitOptions = {
 };
 
 export const ExitCodeMapping = {
-  required: false,
-  serializedName: 'ExitCodeMapping',
+  serializedName: "ExitCodeMapping",
   type: {
-    name: 'Composite',
-    className: 'ExitCodeMapping',
+    name: "Composite",
+    className: "ExitCodeMapping",
     modelProperties: {
       code: {
         required: true,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       exitOptions: {
         required: true,
-        serializedName: 'exitOptions',
+        serializedName: "exitOptions",
         type: {
-          name: 'Composite',
-          className: 'ExitOptions'
+          name: "Composite",
+          className: "ExitOptions"
         }
       }
     }
@@ -1056,32 +1003,31 @@ export const ExitCodeMapping = {
 };
 
 export const ExitCodeRangeMapping = {
-  required: false,
-  serializedName: 'ExitCodeRangeMapping',
+  serializedName: "ExitCodeRangeMapping",
   type: {
-    name: 'Composite',
-    className: 'ExitCodeRangeMapping',
+    name: "Composite",
+    className: "ExitCodeRangeMapping",
     modelProperties: {
       start: {
         required: true,
-        serializedName: 'start',
+        serializedName: "start",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       end: {
         required: true,
-        serializedName: 'end',
+        serializedName: "end",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       exitOptions: {
         required: true,
-        serializedName: 'exitOptions',
+        serializedName: "exitOptions",
         type: {
-          name: 'Composite',
-          className: 'ExitOptions'
+          name: "Composite",
+          className: "ExitOptions"
         }
       }
     }
@@ -1089,64 +1035,56 @@ export const ExitCodeRangeMapping = {
 };
 
 export const ExitConditions = {
-  required: false,
-  serializedName: 'ExitConditions',
+  serializedName: "ExitConditions",
   type: {
-    name: 'Composite',
-    className: 'ExitConditions',
+    name: "Composite",
+    className: "ExitConditions",
     modelProperties: {
       exitCodes: {
-        required: false,
-        serializedName: 'exitCodes',
+        serializedName: "exitCodes",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ExitCodeMappingElementType',
-              type: {
-                name: 'Composite',
-                className: 'ExitCodeMapping'
-              }
+            serializedName: "ExitCodeMappingElementType",
+            type: {
+              name: "Composite",
+              className: "ExitCodeMapping"
+            }
           }
         }
       },
       exitCodeRanges: {
-        required: false,
-        serializedName: 'exitCodeRanges',
+        serializedName: "exitCodeRanges",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ExitCodeRangeMappingElementType',
-              type: {
-                name: 'Composite',
-                className: 'ExitCodeRangeMapping'
-              }
+            serializedName: "ExitCodeRangeMappingElementType",
+            type: {
+              name: "Composite",
+              className: "ExitCodeRangeMapping"
+            }
           }
         }
       },
       preProcessingError: {
-        required: false,
-        serializedName: 'preProcessingError',
+        serializedName: "preProcessingError",
         type: {
-          name: 'Composite',
-          className: 'ExitOptions'
+          name: "Composite",
+          className: "ExitOptions"
         }
       },
       fileUploadError: {
-        required: false,
-        serializedName: 'fileUploadError',
+        serializedName: "fileUploadError",
         type: {
-          name: 'Composite',
-          className: 'ExitOptions'
+          name: "Composite",
+          className: "ExitOptions"
         }
       },
       default: {
-        required: false,
-        serializedName: 'default',
+        serializedName: "default",
         type: {
-          name: 'Composite',
-          className: 'ExitOptions'
+          name: "Composite",
+          className: "ExitOptions"
         }
       }
     }
@@ -1154,26 +1092,29 @@ export const ExitConditions = {
 };
 
 export const AutoUserSpecification = {
-  required: false,
-  serializedName: 'AutoUserSpecification',
+  serializedName: "AutoUserSpecification",
   type: {
-    name: 'Composite',
-    className: 'AutoUserSpecification',
+    name: "Composite",
+    className: "AutoUserSpecification",
     modelProperties: {
       scope: {
-        required: false,
-        serializedName: 'scope',
+        serializedName: "scope",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'task', 'pool' ]
+          name: "Enum",
+          allowedValues: [
+            "task",
+            "pool"
+          ]
         }
       },
       elevationLevel: {
-        required: false,
-        serializedName: 'elevationLevel',
+        serializedName: "elevationLevel",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'nonadmin', 'admin' ]
+          name: "Enum",
+          allowedValues: [
+            "nonadmin",
+            "admin"
+          ]
         }
       }
     }
@@ -1181,25 +1122,22 @@ export const AutoUserSpecification = {
 };
 
 export const UserIdentity = {
-  required: false,
-  serializedName: 'UserIdentity',
+  serializedName: "UserIdentity",
   type: {
-    name: 'Composite',
-    className: 'UserIdentity',
+    name: "Composite",
+    className: "UserIdentity",
     modelProperties: {
       userName: {
-        required: false,
-        serializedName: 'username',
+        serializedName: "username",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoUser: {
-        required: false,
-        serializedName: 'autoUser',
+        serializedName: "autoUser",
         type: {
-          name: 'Composite',
-          className: 'AutoUserSpecification'
+          name: "Composite",
+          className: "AutoUserSpecification"
         }
       }
     }
@@ -1207,31 +1145,27 @@ export const UserIdentity = {
 };
 
 export const LinuxUserConfiguration = {
-  required: false,
-  serializedName: 'LinuxUserConfiguration',
+  serializedName: "LinuxUserConfiguration",
   type: {
-    name: 'Composite',
-    className: 'LinuxUserConfiguration',
+    name: "Composite",
+    className: "LinuxUserConfiguration",
     modelProperties: {
       uid: {
-        required: false,
-        serializedName: 'uid',
+        serializedName: "uid",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       gid: {
-        required: false,
-        serializedName: 'gid',
+        serializedName: "gid",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       sshPrivateKey: {
-        required: false,
-        serializedName: 'sshPrivateKey',
+        serializedName: "sshPrivateKey",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -1239,40 +1173,40 @@ export const LinuxUserConfiguration = {
 };
 
 export const UserAccount = {
-  required: false,
-  serializedName: 'UserAccount',
+  serializedName: "UserAccount",
   type: {
-    name: 'Composite',
-    className: 'UserAccount',
+    name: "Composite",
+    className: "UserAccount",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       password: {
         required: true,
-        serializedName: 'password',
+        serializedName: "password",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       elevationLevel: {
-        required: false,
-        serializedName: 'elevationLevel',
+        serializedName: "elevationLevel",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'nonadmin', 'admin' ]
+          name: "Enum",
+          allowedValues: [
+            "nonadmin",
+            "admin"
+          ]
         }
       },
       linuxUserConfiguration: {
-        required: false,
-        serializedName: 'linuxUserConfiguration',
+        serializedName: "linuxUserConfiguration",
         type: {
-          name: 'Composite',
-          className: 'LinuxUserConfiguration'
+          name: "Composite",
+          className: "LinuxUserConfiguration"
         }
       }
     }
@@ -1280,31 +1214,27 @@ export const UserAccount = {
 };
 
 export const TaskConstraints = {
-  required: false,
-  serializedName: 'TaskConstraints',
+  serializedName: "TaskConstraints",
   type: {
-    name: 'Composite',
-    className: 'TaskConstraints',
+    name: "Composite",
+    className: "TaskConstraints",
     modelProperties: {
       maxWallClockTime: {
-        required: false,
-        serializedName: 'maxWallClockTime',
+        serializedName: "maxWallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       retentionTime: {
-        required: false,
-        serializedName: 'retentionTime',
+        serializedName: "retentionTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       maxTaskRetryCount: {
-        required: false,
-        serializedName: 'maxTaskRetryCount',
+        serializedName: "maxTaskRetryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -1312,24 +1242,22 @@ export const TaskConstraints = {
 };
 
 export const OutputFileBlobContainerDestination = {
-  required: false,
-  serializedName: 'OutputFileBlobContainerDestination',
+  serializedName: "OutputFileBlobContainerDestination",
   type: {
-    name: 'Composite',
-    className: 'OutputFileBlobContainerDestination',
+    name: "Composite",
+    className: "OutputFileBlobContainerDestination",
     modelProperties: {
       path: {
-        required: false,
-        serializedName: 'path',
+        serializedName: "path",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerUrl: {
         required: true,
-        serializedName: 'containerUrl',
+        serializedName: "containerUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -1337,18 +1265,16 @@ export const OutputFileBlobContainerDestination = {
 };
 
 export const OutputFileDestination = {
-  required: false,
-  serializedName: 'OutputFileDestination',
+  serializedName: "OutputFileDestination",
   type: {
-    name: 'Composite',
-    className: 'OutputFileDestination',
+    name: "Composite",
+    className: "OutputFileDestination",
     modelProperties: {
       container: {
-        required: false,
-        serializedName: 'container',
+        serializedName: "container",
         type: {
-          name: 'Composite',
-          className: 'OutputFileBlobContainerDestination'
+          name: "Composite",
+          className: "OutputFileBlobContainerDestination"
         }
       }
     }
@@ -1356,18 +1282,21 @@ export const OutputFileDestination = {
 };
 
 export const OutputFileUploadOptions = {
-  required: false,
-  serializedName: 'OutputFileUploadOptions',
+  serializedName: "OutputFileUploadOptions",
   type: {
-    name: 'Composite',
-    className: 'OutputFileUploadOptions',
+    name: "Composite",
+    className: "OutputFileUploadOptions",
     modelProperties: {
       uploadCondition: {
         required: true,
-        serializedName: 'uploadCondition',
+        serializedName: "uploadCondition",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'tasksuccess', 'taskfailure', 'taskcompletion' ]
+          name: "Enum",
+          allowedValues: [
+            "tasksuccess",
+            "taskfailure",
+            "taskcompletion"
+          ]
         }
       }
     }
@@ -1375,33 +1304,32 @@ export const OutputFileUploadOptions = {
 };
 
 export const OutputFile = {
-  required: false,
-  serializedName: 'OutputFile',
+  serializedName: "OutputFile",
   type: {
-    name: 'Composite',
-    className: 'OutputFile',
+    name: "Composite",
+    className: "OutputFile",
     modelProperties: {
       filePattern: {
         required: true,
-        serializedName: 'filePattern',
+        serializedName: "filePattern",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       destination: {
         required: true,
-        serializedName: 'destination',
+        serializedName: "destination",
         type: {
-          name: 'Composite',
-          className: 'OutputFileDestination'
+          name: "Composite",
+          className: "OutputFileDestination"
         }
       },
       uploadOptions: {
         required: true,
-        serializedName: 'uploadOptions',
+        serializedName: "uploadOptions",
         type: {
-          name: 'Composite',
-          className: 'OutputFileUploadOptions'
+          name: "Composite",
+          className: "OutputFileUploadOptions"
         }
       }
     }
@@ -1409,144 +1337,127 @@ export const OutputFile = {
 };
 
 export const JobManagerTask = {
-  required: false,
-  serializedName: 'JobManagerTask',
+  serializedName: "JobManagerTask",
   type: {
-    name: 'Composite',
-    className: 'JobManagerTask',
+    name: "Composite",
+    className: "JobManagerTask",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       commandLine: {
         required: true,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       outputFiles: {
-        required: false,
-        serializedName: 'outputFiles',
+        serializedName: "outputFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'OutputFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'OutputFile'
-              }
+            serializedName: "OutputFileElementType",
+            type: {
+              name: "Composite",
+              className: "OutputFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'TaskConstraints'
+          name: "Composite",
+          className: "TaskConstraints"
         }
       },
       killJobOnCompletion: {
-        required: false,
-        serializedName: 'killJobOnCompletion',
+        serializedName: "killJobOnCompletion",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       },
       runExclusive: {
-        required: false,
-        serializedName: 'runExclusive',
+        serializedName: "runExclusive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       authenticationTokenSettings: {
-        required: false,
-        serializedName: 'authenticationTokenSettings',
+        serializedName: "authenticationTokenSettings",
         type: {
-          name: 'Composite',
-          className: 'AuthenticationTokenSettings'
+          name: "Composite",
+          className: "AuthenticationTokenSettings"
         }
       },
       allowLowPriorityNode: {
-        required: false,
-        serializedName: 'allowLowPriorityNode',
+        serializedName: "allowLowPriorityNode",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       }
     }
@@ -1554,92 +1465,81 @@ export const JobManagerTask = {
 };
 
 export const JobPreparationTask = {
-  required: false,
-  serializedName: 'JobPreparationTask',
+  serializedName: "JobPreparationTask",
   type: {
-    name: 'Composite',
-    className: 'JobPreparationTask',
+    name: "Composite",
+    className: "JobPreparationTask",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       commandLine: {
         required: true,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'TaskConstraints'
+          name: "Composite",
+          className: "TaskConstraints"
         }
       },
       waitForSuccess: {
-        required: false,
-        serializedName: 'waitForSuccess',
+        serializedName: "waitForSuccess",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       },
       rerunOnNodeRebootAfterSuccess: {
-        required: false,
-        serializedName: 'rerunOnNodeRebootAfterSuccess',
+        serializedName: "rerunOnNodeRebootAfterSuccess",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       }
     }
@@ -1647,84 +1547,74 @@ export const JobPreparationTask = {
 };
 
 export const JobReleaseTask = {
-  required: false,
-  serializedName: 'JobReleaseTask',
+  serializedName: "JobReleaseTask",
   type: {
-    name: 'Composite',
-    className: 'JobReleaseTask',
+    name: "Composite",
+    className: "JobReleaseTask",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       commandLine: {
         required: true,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       maxWallClockTime: {
-        required: false,
-        serializedName: 'maxWallClockTime',
+        serializedName: "maxWallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       retentionTime: {
-        required: false,
-        serializedName: 'retentionTime',
+        serializedName: "retentionTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       }
     }
@@ -1732,18 +1622,20 @@ export const JobReleaseTask = {
 };
 
 export const TaskSchedulingPolicy = {
-  required: false,
-  serializedName: 'TaskSchedulingPolicy',
+  serializedName: "TaskSchedulingPolicy",
   type: {
-    name: 'Composite',
-    className: 'TaskSchedulingPolicy',
+    name: "Composite",
+    className: "TaskSchedulingPolicy",
     modelProperties: {
       nodeFillType: {
         required: true,
-        serializedName: 'nodeFillType',
+        serializedName: "nodeFillType",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'spread', 'pack' ]
+          name: "Enum",
+          allowedValues: [
+            "spread",
+            "pack"
+          ]
         }
       }
     }
@@ -1751,77 +1643,68 @@ export const TaskSchedulingPolicy = {
 };
 
 export const StartTask = {
-  required: false,
-  serializedName: 'StartTask',
+  serializedName: "StartTask",
   type: {
-    name: 'Composite',
-    className: 'StartTask',
+    name: "Composite",
+    className: "StartTask",
     modelProperties: {
       commandLine: {
         required: true,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       },
       maxTaskRetryCount: {
-        required: false,
-        serializedName: 'maxTaskRetryCount',
+        serializedName: "maxTaskRetryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       waitForSuccess: {
-        required: false,
-        serializedName: 'waitForSuccess',
+        serializedName: "waitForSuccess",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       }
     }
@@ -1829,53 +1712,55 @@ export const StartTask = {
 };
 
 export const CertificateReference = {
-  required: false,
-  serializedName: 'CertificateReference',
+  serializedName: "CertificateReference",
   type: {
-    name: 'Composite',
-    className: 'CertificateReference',
+    name: "Composite",
+    className: "CertificateReference",
     modelProperties: {
       thumbprint: {
         required: true,
-        serializedName: 'thumbprint',
+        serializedName: "thumbprint",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       thumbprintAlgorithm: {
         required: true,
-        serializedName: 'thumbprintAlgorithm',
+        serializedName: "thumbprintAlgorithm",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       storeLocation: {
-        required: false,
-        serializedName: 'storeLocation',
+        serializedName: "storeLocation",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'currentuser', 'localmachine' ]
+          name: "Enum",
+          allowedValues: [
+            "currentuser",
+            "localmachine"
+          ]
         }
       },
       storeName: {
-        required: false,
-        serializedName: 'storeName',
+        serializedName: "storeName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       visibility: {
-        required: false,
-        serializedName: 'visibility',
+        serializedName: "visibility",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateVisibilityElementType',
-              type: {
-                name: 'Enum',
-                allowedValues: [ 'starttask', 'task', 'remoteuser' ]
-              }
+            serializedName: "CertificateVisibilityElementType",
+            type: {
+              name: "Enum",
+              allowedValues: [
+                "starttask",
+                "task",
+                "remoteuser"
+              ]
+            }
           }
         }
       }
@@ -1884,24 +1769,23 @@ export const CertificateReference = {
 };
 
 export const MetadataItem = {
-  required: false,
-  serializedName: 'MetadataItem',
+  serializedName: "MetadataItem",
   type: {
-    name: 'Composite',
-    className: 'MetadataItem',
+    name: "Composite",
+    className: "MetadataItem",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       value: {
         required: true,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -1909,32 +1793,29 @@ export const MetadataItem = {
 };
 
 export const CloudServiceConfiguration = {
-  required: false,
-  serializedName: 'CloudServiceConfiguration',
+  serializedName: "CloudServiceConfiguration",
   type: {
-    name: 'Composite',
-    className: 'CloudServiceConfiguration',
+    name: "Composite",
+    className: "CloudServiceConfiguration",
     modelProperties: {
       osFamily: {
         required: true,
-        serializedName: 'osFamily',
+        serializedName: "osFamily",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       targetOSVersion: {
-        required: false,
-        serializedName: 'targetOSVersion',
+        serializedName: "targetOSVersion",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       currentOSVersion: {
-        required: false,
         readOnly: true,
-        serializedName: 'currentOSVersion',
+        serializedName: "currentOSVersion",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -1942,18 +1823,20 @@ export const CloudServiceConfiguration = {
 };
 
 export const OSDisk = {
-  required: false,
-  serializedName: 'OSDisk',
+  serializedName: "OSDisk",
   type: {
-    name: 'Composite',
-    className: 'OSDisk',
+    name: "Composite",
+    className: "OSDisk",
     modelProperties: {
       caching: {
-        required: false,
-        serializedName: 'caching',
+        serializedName: "caching",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'none', 'readonly', 'readwrite' ]
+          name: "Enum",
+          allowedValues: [
+            "none",
+            "readonly",
+            "readwrite"
+          ]
         }
       }
     }
@@ -1961,17 +1844,15 @@ export const OSDisk = {
 };
 
 export const WindowsConfiguration = {
-  required: false,
-  serializedName: 'WindowsConfiguration',
+  serializedName: "WindowsConfiguration",
   type: {
-    name: 'Composite',
-    className: 'WindowsConfiguration',
+    name: "Composite",
+    className: "WindowsConfiguration",
     modelProperties: {
       enableAutomaticUpdates: {
-        required: false,
-        serializedName: 'enableAutomaticUpdates',
+        serializedName: "enableAutomaticUpdates",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       }
     }
@@ -1979,40 +1860,44 @@ export const WindowsConfiguration = {
 };
 
 export const DataDisk = {
-  required: false,
-  serializedName: 'DataDisk',
+  serializedName: "DataDisk",
   type: {
-    name: 'Composite',
-    className: 'DataDisk',
+    name: "Composite",
+    className: "DataDisk",
     modelProperties: {
       lun: {
         required: true,
-        serializedName: 'lun',
+        serializedName: "lun",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       caching: {
-        required: false,
-        serializedName: 'caching',
+        serializedName: "caching",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'none', 'readonly', 'readwrite' ]
+          name: "Enum",
+          allowedValues: [
+            "none",
+            "readonly",
+            "readwrite"
+          ]
         }
       },
       diskSizeGB: {
         required: true,
-        serializedName: 'diskSizeGB',
+        serializedName: "diskSizeGB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       storageAccountType: {
-        required: false,
-        serializedName: 'storageAccountType',
+        serializedName: "storageAccountType",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'standard_lrs', 'premium_lrs' ]
+          name: "Enum",
+          allowedValues: [
+            "standard_lrs",
+            "premium_lrs"
+          ]
         }
       }
     }
@@ -2020,47 +1905,42 @@ export const DataDisk = {
 };
 
 export const ContainerConfiguration = {
-  required: false,
-  serializedName: 'ContainerConfiguration',
+  serializedName: "ContainerConfiguration",
   type: {
-    name: 'Composite',
-    className: 'ContainerConfiguration',
+    name: "Composite",
+    className: "ContainerConfiguration",
     modelProperties: {
       type: {
         required: true,
         isConstant: true,
-        serializedName: 'type',
+        serializedName: "type",
         defaultValue: 'docker',
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerImageNames: {
-        required: false,
-        serializedName: 'containerImageNames',
+        serializedName: "containerImageNames",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       containerRegistries: {
-        required: false,
-        serializedName: 'containerRegistries',
+        serializedName: "containerRegistries",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ContainerRegistryElementType',
-              type: {
-                name: 'Composite',
-                className: 'ContainerRegistry'
-              }
+            serializedName: "ContainerRegistryElementType",
+            type: {
+              name: "Composite",
+              className: "ContainerRegistry"
+            }
           }
         }
       }
@@ -2069,71 +1949,64 @@ export const ContainerConfiguration = {
 };
 
 export const VirtualMachineConfiguration = {
-  required: false,
-  serializedName: 'VirtualMachineConfiguration',
+  serializedName: "VirtualMachineConfiguration",
   type: {
-    name: 'Composite',
-    className: 'VirtualMachineConfiguration',
+    name: "Composite",
+    className: "VirtualMachineConfiguration",
     modelProperties: {
       imageReference: {
         required: true,
-        serializedName: 'imageReference',
+        serializedName: "imageReference",
         type: {
-          name: 'Composite',
-          className: 'ImageReference'
+          name: "Composite",
+          className: "ImageReference"
         }
       },
       osDisk: {
-        required: false,
-        serializedName: 'osDisk',
+        serializedName: "osDisk",
         type: {
-          name: 'Composite',
-          className: 'OSDisk'
+          name: "Composite",
+          className: "OSDisk"
         }
       },
       nodeAgentSKUId: {
         required: true,
-        serializedName: 'nodeAgentSKUId',
+        serializedName: "nodeAgentSKUId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       windowsConfiguration: {
-        required: false,
-        serializedName: 'windowsConfiguration',
+        serializedName: "windowsConfiguration",
         type: {
-          name: 'Composite',
-          className: 'WindowsConfiguration'
+          name: "Composite",
+          className: "WindowsConfiguration"
         }
       },
       dataDisks: {
-        required: false,
-        serializedName: 'dataDisks',
+        serializedName: "dataDisks",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'DataDiskElementType',
-              type: {
-                name: 'Composite',
-                className: 'DataDisk'
-              }
+            serializedName: "DataDiskElementType",
+            type: {
+              name: "Composite",
+              className: "DataDisk"
+            }
           }
         }
       },
       licenseType: {
-        required: false,
-        serializedName: 'licenseType',
+        serializedName: "licenseType",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerConfiguration: {
-        required: false,
-        serializedName: 'containerConfiguration',
+        serializedName: "containerConfiguration",
         type: {
-          name: 'Composite',
-          className: 'ContainerConfiguration'
+          name: "Composite",
+          className: "ContainerConfiguration"
         }
       }
     }
@@ -2141,32 +2014,34 @@ export const VirtualMachineConfiguration = {
 };
 
 export const NetworkSecurityGroupRule = {
-  required: false,
-  serializedName: 'NetworkSecurityGroupRule',
+  serializedName: "NetworkSecurityGroupRule",
   type: {
-    name: 'Composite',
-    className: 'NetworkSecurityGroupRule',
+    name: "Composite",
+    className: "NetworkSecurityGroupRule",
     modelProperties: {
       priority: {
         required: true,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       access: {
         required: true,
-        serializedName: 'access',
+        serializedName: "access",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'allow', 'deny' ]
+          name: "Enum",
+          allowedValues: [
+            "allow",
+            "deny"
+          ]
         }
       },
       sourceAddressPrefix: {
         required: true,
-        serializedName: 'sourceAddressPrefix',
+        serializedName: "sourceAddressPrefix",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -2174,60 +2049,60 @@ export const NetworkSecurityGroupRule = {
 };
 
 export const InboundNATPool = {
-  required: false,
-  serializedName: 'InboundNATPool',
+  serializedName: "InboundNATPool",
   type: {
-    name: 'Composite',
-    className: 'InboundNATPool',
+    name: "Composite",
+    className: "InboundNATPool",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       protocol: {
         required: true,
-        serializedName: 'protocol',
+        serializedName: "protocol",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'tcp', 'udp' ]
+          name: "Enum",
+          allowedValues: [
+            "tcp",
+            "udp"
+          ]
         }
       },
       backendPort: {
         required: true,
-        serializedName: 'backendPort',
+        serializedName: "backendPort",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       frontendPortRangeStart: {
         required: true,
-        serializedName: 'frontendPortRangeStart',
+        serializedName: "frontendPortRangeStart",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       frontendPortRangeEnd: {
         required: true,
-        serializedName: 'frontendPortRangeEnd',
+        serializedName: "frontendPortRangeEnd",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       networkSecurityGroupRules: {
-        required: false,
-        serializedName: 'networkSecurityGroupRules',
+        serializedName: "networkSecurityGroupRules",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NetworkSecurityGroupRuleElementType',
-              type: {
-                name: 'Composite',
-                className: 'NetworkSecurityGroupRule'
-              }
+            serializedName: "NetworkSecurityGroupRuleElementType",
+            type: {
+              name: "Composite",
+              className: "NetworkSecurityGroupRule"
+            }
           }
         }
       }
@@ -2236,24 +2111,22 @@ export const InboundNATPool = {
 };
 
 export const PoolEndpointConfiguration = {
-  required: false,
-  serializedName: 'PoolEndpointConfiguration',
+  serializedName: "PoolEndpointConfiguration",
   type: {
-    name: 'Composite',
-    className: 'PoolEndpointConfiguration',
+    name: "Composite",
+    className: "PoolEndpointConfiguration",
     modelProperties: {
       inboundNATPools: {
         required: true,
-        serializedName: 'inboundNATPools',
+        serializedName: "inboundNATPools",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'InboundNATPoolElementType',
-              type: {
-                name: 'Composite',
-                className: 'InboundNATPool'
-              }
+            serializedName: "InboundNATPoolElementType",
+            type: {
+              name: "Composite",
+              className: "InboundNATPool"
+            }
           }
         }
       }
@@ -2262,25 +2135,22 @@ export const PoolEndpointConfiguration = {
 };
 
 export const NetworkConfiguration = {
-  required: false,
-  serializedName: 'NetworkConfiguration',
+  serializedName: "NetworkConfiguration",
   type: {
-    name: 'Composite',
-    className: 'NetworkConfiguration',
+    name: "Composite",
+    className: "NetworkConfiguration",
     modelProperties: {
       subnetId: {
-        required: false,
-        serializedName: 'subnetId',
+        serializedName: "subnetId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       endpointConfiguration: {
-        required: false,
-        serializedName: 'endpointConfiguration',
+        serializedName: "endpointConfiguration",
         type: {
-          name: 'Composite',
-          className: 'PoolEndpointConfiguration'
+          name: "Composite",
+          className: "PoolEndpointConfiguration"
         }
       }
     }
@@ -2288,193 +2158,168 @@ export const NetworkConfiguration = {
 };
 
 export const PoolSpecification = {
-  required: false,
-  serializedName: 'PoolSpecification',
+  serializedName: "PoolSpecification",
   type: {
-    name: 'Composite',
-    className: 'PoolSpecification',
+    name: "Composite",
+    className: "PoolSpecification",
     modelProperties: {
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       vmSize: {
         required: true,
-        serializedName: 'vmSize',
+        serializedName: "vmSize",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       cloudServiceConfiguration: {
-        required: false,
-        serializedName: 'cloudServiceConfiguration',
+        serializedName: "cloudServiceConfiguration",
         type: {
-          name: 'Composite',
-          className: 'CloudServiceConfiguration'
+          name: "Composite",
+          className: "CloudServiceConfiguration"
         }
       },
       virtualMachineConfiguration: {
-        required: false,
-        serializedName: 'virtualMachineConfiguration',
+        serializedName: "virtualMachineConfiguration",
         type: {
-          name: 'Composite',
-          className: 'VirtualMachineConfiguration'
+          name: "Composite",
+          className: "VirtualMachineConfiguration"
         }
       },
       maxTasksPerNode: {
-        required: false,
-        serializedName: 'maxTasksPerNode',
+        serializedName: "maxTasksPerNode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       taskSchedulingPolicy: {
-        required: false,
-        serializedName: 'taskSchedulingPolicy',
+        serializedName: "taskSchedulingPolicy",
         type: {
-          name: 'Composite',
-          className: 'TaskSchedulingPolicy'
+          name: "Composite",
+          className: "TaskSchedulingPolicy"
         }
       },
       resizeTimeout: {
-        required: false,
-        serializedName: 'resizeTimeout',
+        serializedName: "resizeTimeout",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       targetDedicatedNodes: {
-        required: false,
-        serializedName: 'targetDedicatedNodes',
+        serializedName: "targetDedicatedNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       targetLowPriorityNodes: {
-        required: false,
-        serializedName: 'targetLowPriorityNodes',
+        serializedName: "targetLowPriorityNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       enableAutoScale: {
-        required: false,
-        serializedName: 'enableAutoScale',
+        serializedName: "enableAutoScale",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       autoScaleFormula: {
-        required: false,
-        serializedName: 'autoScaleFormula',
+        serializedName: "autoScaleFormula",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoScaleEvaluationInterval: {
-        required: false,
-        serializedName: 'autoScaleEvaluationInterval',
+        serializedName: "autoScaleEvaluationInterval",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       enableInterNodeCommunication: {
-        required: false,
-        serializedName: 'enableInterNodeCommunication',
+        serializedName: "enableInterNodeCommunication",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       networkConfiguration: {
-        required: false,
-        serializedName: 'networkConfiguration',
+        serializedName: "networkConfiguration",
         type: {
-          name: 'Composite',
-          className: 'NetworkConfiguration'
+          name: "Composite",
+          className: "NetworkConfiguration"
         }
       },
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       certificateReferences: {
-        required: false,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       applicationLicenses: {
-        required: false,
-        serializedName: 'applicationLicenses',
+        serializedName: "applicationLicenses",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       userAccounts: {
-        required: false,
-        serializedName: 'userAccounts',
+        serializedName: "userAccounts",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'UserAccountElementType',
-              type: {
-                name: 'Composite',
-                className: 'UserAccount'
-              }
+            serializedName: "UserAccountElementType",
+            type: {
+              name: "Composite",
+              className: "UserAccount"
+            }
           }
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -2483,40 +2328,39 @@ export const PoolSpecification = {
 };
 
 export const AutoPoolSpecification = {
-  required: false,
-  serializedName: 'AutoPoolSpecification',
+  serializedName: "AutoPoolSpecification",
   type: {
-    name: 'Composite',
-    className: 'AutoPoolSpecification',
+    name: "Composite",
+    className: "AutoPoolSpecification",
     modelProperties: {
       autoPoolIdPrefix: {
-        required: false,
-        serializedName: 'autoPoolIdPrefix',
+        serializedName: "autoPoolIdPrefix",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       poolLifetimeOption: {
         required: true,
-        serializedName: 'poolLifetimeOption',
+        serializedName: "poolLifetimeOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'jobschedule', 'job' ]
+          name: "Enum",
+          allowedValues: [
+            "jobschedule",
+            "job"
+          ]
         }
       },
       keepAlive: {
-        required: false,
-        serializedName: 'keepAlive',
+        serializedName: "keepAlive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       pool: {
-        required: false,
-        serializedName: 'pool',
+        serializedName: "pool",
         type: {
-          name: 'Composite',
-          className: 'PoolSpecification'
+          name: "Composite",
+          className: "PoolSpecification"
         }
       }
     }
@@ -2524,25 +2368,22 @@ export const AutoPoolSpecification = {
 };
 
 export const PoolInformation = {
-  required: false,
-  serializedName: 'PoolInformation',
+  serializedName: "PoolInformation",
   type: {
-    name: 'Composite',
-    className: 'PoolInformation',
+    name: "Composite",
+    className: "PoolInformation",
     modelProperties: {
       poolId: {
-        required: false,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoPoolSpecification: {
-        required: false,
-        serializedName: 'autoPoolSpecification',
+        serializedName: "autoPoolSpecification",
         type: {
-          name: 'Composite',
-          className: 'AutoPoolSpecification'
+          name: "Composite",
+          className: "AutoPoolSpecification"
         }
       }
     }
@@ -2550,117 +2391,109 @@ export const PoolInformation = {
 };
 
 export const JobSpecification = {
-  required: false,
-  serializedName: 'JobSpecification',
+  serializedName: "JobSpecification",
   type: {
-    name: 'Composite',
-    className: 'JobSpecification',
+    name: "Composite",
+    className: "JobSpecification",
     modelProperties: {
       priority: {
-        required: false,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       usesTaskDependencies: {
-        required: false,
-        serializedName: 'usesTaskDependencies',
+        serializedName: "usesTaskDependencies",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       onAllTasksComplete: {
-        required: false,
-        serializedName: 'onAllTasksComplete',
+        serializedName: "onAllTasksComplete",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'terminatejob' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "terminatejob"
+          ]
         }
       },
       onTaskFailure: {
-        required: false,
-        serializedName: 'onTaskFailure',
+        serializedName: "onTaskFailure",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'performexitoptionsjobaction' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "performexitoptionsjobaction"
+          ]
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'JobConstraints'
+          name: "Composite",
+          className: "JobConstraints"
         }
       },
       jobManagerTask: {
-        required: false,
-        serializedName: 'jobManagerTask',
+        serializedName: "jobManagerTask",
         type: {
-          name: 'Composite',
-          className: 'JobManagerTask'
+          name: "Composite",
+          className: "JobManagerTask"
         }
       },
       jobPreparationTask: {
-        required: false,
-        serializedName: 'jobPreparationTask',
+        serializedName: "jobPreparationTask",
         type: {
-          name: 'Composite',
-          className: 'JobPreparationTask'
+          name: "Composite",
+          className: "JobPreparationTask"
         }
       },
       jobReleaseTask: {
-        required: false,
-        serializedName: 'jobReleaseTask',
+        serializedName: "jobReleaseTask",
         type: {
-          name: 'Composite',
-          className: 'JobReleaseTask'
+          name: "Composite",
+          className: "JobReleaseTask"
         }
       },
       commonEnvironmentSettings: {
-        required: false,
-        serializedName: 'commonEnvironmentSettings',
+        serializedName: "commonEnvironmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       poolInfo: {
         required: true,
-        serializedName: 'poolInfo',
+        serializedName: "poolInfo",
         defaultValue: {},
         type: {
-          name: 'Composite',
-          className: 'PoolInformation'
+          name: "Composite",
+          className: "PoolInformation"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -2669,24 +2502,21 @@ export const JobSpecification = {
 };
 
 export const RecentJob = {
-  required: false,
-  serializedName: 'RecentJob',
+  serializedName: "RecentJob",
   type: {
-    name: 'Composite',
-    className: 'RecentJob',
+    name: "Composite",
+    className: "RecentJob",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -2694,32 +2524,28 @@ export const RecentJob = {
 };
 
 export const JobScheduleExecutionInformation = {
-  required: false,
-  serializedName: 'JobScheduleExecutionInformation',
+  serializedName: "JobScheduleExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleExecutionInformation',
+    name: "Composite",
+    className: "JobScheduleExecutionInformation",
     modelProperties: {
       nextRunTime: {
-        required: false,
-        serializedName: 'nextRunTime',
+        serializedName: "nextRunTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       recentJob: {
-        required: false,
-        serializedName: 'recentJob',
+        serializedName: "recentJob",
         type: {
-          name: 'Composite',
-          className: 'RecentJob'
+          name: "Composite",
+          className: "RecentJob"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       }
     }
@@ -2727,108 +2553,107 @@ export const JobScheduleExecutionInformation = {
 };
 
 export const JobScheduleStatistics = {
-  required: false,
-  serializedName: 'JobScheduleStatistics',
+  serializedName: "JobScheduleStatistics",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleStatistics',
+    name: "Composite",
+    className: "JobScheduleStatistics",
     modelProperties: {
       url: {
         required: true,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       userCPUTime: {
         required: true,
-        serializedName: 'userCPUTime',
+        serializedName: "userCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       kernelCPUTime: {
         required: true,
-        serializedName: 'kernelCPUTime',
+        serializedName: "kernelCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       wallClockTime: {
         required: true,
-        serializedName: 'wallClockTime',
+        serializedName: "wallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       readIOps: {
         required: true,
-        serializedName: 'readIOps',
+        serializedName: "readIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOps: {
         required: true,
-        serializedName: 'writeIOps',
+        serializedName: "writeIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       readIOGiB: {
         required: true,
-        serializedName: 'readIOGiB',
+        serializedName: "readIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOGiB: {
         required: true,
-        serializedName: 'writeIOGiB',
+        serializedName: "writeIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numSucceededTasks: {
         required: true,
-        serializedName: 'numSucceededTasks',
+        serializedName: "numSucceededTasks",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numFailedTasks: {
         required: true,
-        serializedName: 'numFailedTasks',
+        serializedName: "numFailedTasks",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       numTaskRetries: {
         required: true,
-        serializedName: 'numTaskRetries',
+        serializedName: "numTaskRetries",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       waitTime: {
         required: true,
-        serializedName: 'waitTime',
+        serializedName: "waitTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -2836,129 +2661,124 @@ export const JobScheduleStatistics = {
 };
 
 export const CloudJobSchedule = {
-  required: false,
-  serializedName: 'CloudJobSchedule',
+  serializedName: "CloudJobSchedule",
   type: {
-    name: 'Composite',
-    className: 'CloudJobSchedule',
+    name: "Composite",
+    className: "CloudJobSchedule",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       eTag: {
-        required: false,
-        serializedName: 'eTag',
+        serializedName: "eTag",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       lastModified: {
-        required: false,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       creationTime: {
-        required: false,
-        serializedName: 'creationTime',
+        serializedName: "creationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'completed', 'disabled', 'terminating', 'deleting' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "completed",
+            "disabled",
+            "terminating",
+            "deleting"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       previousState: {
-        required: false,
-        serializedName: 'previousState',
+        serializedName: "previousState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'completed', 'disabled', 'terminating', 'deleting' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "completed",
+            "disabled",
+            "terminating",
+            "deleting"
+          ]
         }
       },
       previousStateTransitionTime: {
-        required: false,
-        serializedName: 'previousStateTransitionTime',
+        serializedName: "previousStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       schedule: {
-        required: false,
-        serializedName: 'schedule',
+        serializedName: "schedule",
         type: {
-          name: 'Composite',
-          className: 'Schedule'
+          name: "Composite",
+          className: "Schedule"
         }
       },
       jobSpecification: {
-        required: false,
-        serializedName: 'jobSpecification',
+        serializedName: "jobSpecification",
         type: {
-          name: 'Composite',
-          className: 'JobSpecification'
+          name: "Composite",
+          className: "JobSpecification"
         }
       },
       executionInfo: {
-        required: false,
-        serializedName: 'executionInfo',
+        serializedName: "executionInfo",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleExecutionInformation'
+          name: "Composite",
+          className: "JobScheduleExecutionInformation"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       },
       stats: {
-        required: false,
-        serializedName: 'stats',
+        serializedName: "stats",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleStatistics'
+          name: "Composite",
+          className: "JobScheduleStatistics"
         }
       }
     }
@@ -2966,55 +2786,51 @@ export const CloudJobSchedule = {
 };
 
 export const JobScheduleAddParameter = {
-  required: false,
-  serializedName: 'JobScheduleAddParameter',
+  serializedName: "JobScheduleAddParameter",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleAddParameter',
+    name: "Composite",
+    className: "JobScheduleAddParameter",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       schedule: {
         required: true,
-        serializedName: 'schedule',
+        serializedName: "schedule",
         type: {
-          name: 'Composite',
-          className: 'Schedule'
+          name: "Composite",
+          className: "Schedule"
         }
       },
       jobSpecification: {
         required: true,
-        serializedName: 'jobSpecification',
+        serializedName: "jobSpecification",
         defaultValue: {},
         type: {
-          name: 'Composite',
-          className: 'JobSpecification'
+          name: "Composite",
+          className: "JobSpecification"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -3023,46 +2839,44 @@ export const JobScheduleAddParameter = {
 };
 
 export const JobSchedulingError = {
-  required: false,
-  serializedName: 'JobSchedulingError',
+  serializedName: "JobSchedulingError",
   type: {
-    name: 'Composite',
-    className: 'JobSchedulingError',
+    name: "Composite",
+    className: "JobSchedulingError",
     modelProperties: {
       category: {
         required: true,
-        serializedName: 'category',
+        serializedName: "category",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'usererror', 'servererror' ]
+          name: "Enum",
+          allowedValues: [
+            "usererror",
+            "servererror"
+          ]
         }
       },
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       details: {
-        required: false,
-        serializedName: 'details',
+        serializedName: "details",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -3071,46 +2885,41 @@ export const JobSchedulingError = {
 };
 
 export const JobExecutionInformation = {
-  required: false,
-  serializedName: 'JobExecutionInformation',
+  serializedName: "JobExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'JobExecutionInformation',
+    name: "Composite",
+    className: "JobExecutionInformation",
     modelProperties: {
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       poolId: {
-        required: false,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       schedulingError: {
-        required: false,
-        serializedName: 'schedulingError',
+        serializedName: "schedulingError",
         type: {
-          name: 'Composite',
-          className: 'JobSchedulingError'
+          name: "Composite",
+          className: "JobSchedulingError"
         }
       },
       terminateReason: {
-        required: false,
-        serializedName: 'terminateReason',
+        serializedName: "terminateReason",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -3118,198 +2927,194 @@ export const JobExecutionInformation = {
 };
 
 export const CloudJob = {
-  required: false,
-  serializedName: 'CloudJob',
+  serializedName: "CloudJob",
   type: {
-    name: 'Composite',
-    className: 'CloudJob',
+    name: "Composite",
+    className: "CloudJob",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       usesTaskDependencies: {
-        required: false,
-        serializedName: 'usesTaskDependencies',
+        serializedName: "usesTaskDependencies",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       eTag: {
-        required: false,
-        serializedName: 'eTag',
+        serializedName: "eTag",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       lastModified: {
-        required: false,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       creationTime: {
-        required: false,
-        serializedName: 'creationTime',
+        serializedName: "creationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'disabling', 'disabled', 'enabling', 'terminating', 'completed', 'deleting' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "disabling",
+            "disabled",
+            "enabling",
+            "terminating",
+            "completed",
+            "deleting"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       previousState: {
-        required: false,
-        serializedName: 'previousState',
+        serializedName: "previousState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'disabling', 'disabled', 'enabling', 'terminating', 'completed', 'deleting' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "disabling",
+            "disabled",
+            "enabling",
+            "terminating",
+            "completed",
+            "deleting"
+          ]
         }
       },
       previousStateTransitionTime: {
-        required: false,
-        serializedName: 'previousStateTransitionTime',
+        serializedName: "previousStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       priority: {
-        required: false,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'JobConstraints'
+          name: "Composite",
+          className: "JobConstraints"
         }
       },
       jobManagerTask: {
-        required: false,
-        serializedName: 'jobManagerTask',
+        serializedName: "jobManagerTask",
         type: {
-          name: 'Composite',
-          className: 'JobManagerTask'
+          name: "Composite",
+          className: "JobManagerTask"
         }
       },
       jobPreparationTask: {
-        required: false,
-        serializedName: 'jobPreparationTask',
+        serializedName: "jobPreparationTask",
         type: {
-          name: 'Composite',
-          className: 'JobPreparationTask'
+          name: "Composite",
+          className: "JobPreparationTask"
         }
       },
       jobReleaseTask: {
-        required: false,
-        serializedName: 'jobReleaseTask',
+        serializedName: "jobReleaseTask",
         type: {
-          name: 'Composite',
-          className: 'JobReleaseTask'
+          name: "Composite",
+          className: "JobReleaseTask"
         }
       },
       commonEnvironmentSettings: {
-        required: false,
-        serializedName: 'commonEnvironmentSettings',
+        serializedName: "commonEnvironmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       poolInfo: {
-        required: false,
-        serializedName: 'poolInfo',
+        serializedName: "poolInfo",
         type: {
-          name: 'Composite',
-          className: 'PoolInformation'
+          name: "Composite",
+          className: "PoolInformation"
         }
       },
       onAllTasksComplete: {
-        required: false,
-        serializedName: 'onAllTasksComplete',
+        serializedName: "onAllTasksComplete",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'terminatejob' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "terminatejob"
+          ]
         }
       },
       onTaskFailure: {
-        required: false,
-        serializedName: 'onTaskFailure',
+        serializedName: "onTaskFailure",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'performexitoptionsjobaction' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "performexitoptionsjobaction"
+          ]
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       },
       executionInfo: {
-        required: false,
-        serializedName: 'executionInfo',
+        serializedName: "executionInfo",
         type: {
-          name: 'Composite',
-          className: 'JobExecutionInformation'
+          name: "Composite",
+          className: "JobExecutionInformation"
         }
       },
       stats: {
-        required: false,
-        serializedName: 'stats',
+        serializedName: "stats",
         type: {
-          name: 'Composite',
-          className: 'JobStatistics'
+          name: "Composite",
+          className: "JobStatistics"
         }
       }
     }
@@ -3317,125 +3122,117 @@ export const CloudJob = {
 };
 
 export const JobAddParameter = {
-  required: false,
-  serializedName: 'JobAddParameter',
+  serializedName: "JobAddParameter",
   type: {
-    name: 'Composite',
-    className: 'JobAddParameter',
+    name: "Composite",
+    className: "JobAddParameter",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       priority: {
-        required: false,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'JobConstraints'
+          name: "Composite",
+          className: "JobConstraints"
         }
       },
       jobManagerTask: {
-        required: false,
-        serializedName: 'jobManagerTask',
+        serializedName: "jobManagerTask",
         type: {
-          name: 'Composite',
-          className: 'JobManagerTask'
+          name: "Composite",
+          className: "JobManagerTask"
         }
       },
       jobPreparationTask: {
-        required: false,
-        serializedName: 'jobPreparationTask',
+        serializedName: "jobPreparationTask",
         type: {
-          name: 'Composite',
-          className: 'JobPreparationTask'
+          name: "Composite",
+          className: "JobPreparationTask"
         }
       },
       jobReleaseTask: {
-        required: false,
-        serializedName: 'jobReleaseTask',
+        serializedName: "jobReleaseTask",
         type: {
-          name: 'Composite',
-          className: 'JobReleaseTask'
+          name: "Composite",
+          className: "JobReleaseTask"
         }
       },
       commonEnvironmentSettings: {
-        required: false,
-        serializedName: 'commonEnvironmentSettings',
+        serializedName: "commonEnvironmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       poolInfo: {
         required: true,
-        serializedName: 'poolInfo',
+        serializedName: "poolInfo",
         defaultValue: {},
         type: {
-          name: 'Composite',
-          className: 'PoolInformation'
+          name: "Composite",
+          className: "PoolInformation"
         }
       },
       onAllTasksComplete: {
-        required: false,
-        serializedName: 'onAllTasksComplete',
+        serializedName: "onAllTasksComplete",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'terminatejob' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "terminatejob"
+          ]
         }
       },
       onTaskFailure: {
-        required: false,
-        serializedName: 'onTaskFailure',
+        serializedName: "onTaskFailure",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'performexitoptionsjobaction' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "performexitoptionsjobaction"
+          ]
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       },
       usesTaskDependencies: {
-        required: false,
-        serializedName: 'usesTaskDependencies',
+        serializedName: "usesTaskDependencies",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       }
     }
@@ -3443,31 +3240,27 @@ export const JobAddParameter = {
 };
 
 export const TaskContainerExecutionInformation = {
-  required: false,
-  serializedName: 'TaskContainerExecutionInformation',
+  serializedName: "TaskContainerExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'TaskContainerExecutionInformation',
+    name: "Composite",
+    className: "TaskContainerExecutionInformation",
     modelProperties: {
       containerId: {
-        required: false,
-        serializedName: 'containerId',
+        serializedName: "containerId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       error: {
-        required: false,
-        serializedName: 'error',
+        serializedName: "error",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -3475,46 +3268,44 @@ export const TaskContainerExecutionInformation = {
 };
 
 export const TaskFailureInformation = {
-  required: false,
-  serializedName: 'TaskFailureInformation',
+  serializedName: "TaskFailureInformation",
   type: {
-    name: 'Composite',
-    className: 'TaskFailureInformation',
+    name: "Composite",
+    className: "TaskFailureInformation",
     modelProperties: {
       category: {
         required: true,
-        serializedName: 'category',
+        serializedName: "category",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'usererror', 'servererror' ]
+          name: "Enum",
+          allowedValues: [
+            "usererror",
+            "servererror"
+          ]
         }
       },
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       details: {
-        required: false,
-        serializedName: 'details',
+        serializedName: "details",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -3523,91 +3314,88 @@ export const TaskFailureInformation = {
 };
 
 export const JobPreparationTaskExecutionInformation = {
-  required: false,
-  serializedName: 'JobPreparationTaskExecutionInformation',
+  serializedName: "JobPreparationTaskExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'JobPreparationTaskExecutionInformation',
+    name: "Composite",
+    className: "JobPreparationTaskExecutionInformation",
     modelProperties: {
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       state: {
         required: true,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "running",
+            "completed"
+          ]
         }
       },
       taskRootDirectory: {
-        required: false,
-        serializedName: 'taskRootDirectory',
+        serializedName: "taskRootDirectory",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       taskRootDirectoryUrl: {
-        required: false,
-        serializedName: 'taskRootDirectoryUrl',
+        serializedName: "taskRootDirectoryUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       exitCode: {
-        required: false,
-        serializedName: 'exitCode',
+        serializedName: "exitCode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       containerInfo: {
-        required: false,
-        serializedName: 'containerInfo',
+        serializedName: "containerInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerExecutionInformation'
+          name: "Composite",
+          className: "TaskContainerExecutionInformation"
         }
       },
       failureInfo: {
-        required: false,
-        serializedName: 'failureInfo',
+        serializedName: "failureInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskFailureInformation'
+          name: "Composite",
+          className: "TaskFailureInformation"
         }
       },
       retryCount: {
         required: true,
-        serializedName: 'retryCount',
+        serializedName: "retryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       lastRetryTime: {
-        required: false,
-        serializedName: 'lastRetryTime',
+        serializedName: "lastRetryTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       result: {
-        required: false,
-        serializedName: 'result',
+        serializedName: "result",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'failure' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "failure"
+          ]
         }
       }
     }
@@ -3615,77 +3403,75 @@ export const JobPreparationTaskExecutionInformation = {
 };
 
 export const JobReleaseTaskExecutionInformation = {
-  required: false,
-  serializedName: 'JobReleaseTaskExecutionInformation',
+  serializedName: "JobReleaseTaskExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'JobReleaseTaskExecutionInformation',
+    name: "Composite",
+    className: "JobReleaseTaskExecutionInformation",
     modelProperties: {
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       state: {
         required: true,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "running",
+            "completed"
+          ]
         }
       },
       taskRootDirectory: {
-        required: false,
-        serializedName: 'taskRootDirectory',
+        serializedName: "taskRootDirectory",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       taskRootDirectoryUrl: {
-        required: false,
-        serializedName: 'taskRootDirectoryUrl',
+        serializedName: "taskRootDirectoryUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       exitCode: {
-        required: false,
-        serializedName: 'exitCode',
+        serializedName: "exitCode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       containerInfo: {
-        required: false,
-        serializedName: 'containerInfo',
+        serializedName: "containerInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerExecutionInformation'
+          name: "Composite",
+          className: "TaskContainerExecutionInformation"
         }
       },
       failureInfo: {
-        required: false,
-        serializedName: 'failureInfo',
+        serializedName: "failureInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskFailureInformation'
+          name: "Composite",
+          className: "TaskFailureInformation"
         }
       },
       result: {
-        required: false,
-        serializedName: 'result',
+        serializedName: "result",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'failure' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "failure"
+          ]
         }
       }
     }
@@ -3693,47 +3479,41 @@ export const JobReleaseTaskExecutionInformation = {
 };
 
 export const JobPreparationAndReleaseTaskExecutionInformation = {
-  required: false,
-  serializedName: 'JobPreparationAndReleaseTaskExecutionInformation',
+  serializedName: "JobPreparationAndReleaseTaskExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'JobPreparationAndReleaseTaskExecutionInformation',
+    name: "Composite",
+    className: "JobPreparationAndReleaseTaskExecutionInformation",
     modelProperties: {
       poolId: {
-        required: false,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       nodeId: {
-        required: false,
-        serializedName: 'nodeId',
+        serializedName: "nodeId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       nodeUrl: {
-        required: false,
-        serializedName: 'nodeUrl',
+        serializedName: "nodeUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       jobPreparationTaskExecutionInfo: {
-        required: false,
-        serializedName: 'jobPreparationTaskExecutionInfo',
+        serializedName: "jobPreparationTaskExecutionInfo",
         type: {
-          name: 'Composite',
-          className: 'JobPreparationTaskExecutionInformation'
+          name: "Composite",
+          className: "JobPreparationTaskExecutionInformation"
         }
       },
       jobReleaseTaskExecutionInfo: {
-        required: false,
-        serializedName: 'jobReleaseTaskExecutionInfo',
+        serializedName: "jobReleaseTaskExecutionInfo",
         type: {
-          name: 'Composite',
-          className: 'JobReleaseTaskExecutionInformation'
+          name: "Composite",
+          className: "JobReleaseTaskExecutionInformation"
         }
       }
     }
@@ -3741,53 +3521,55 @@ export const JobPreparationAndReleaseTaskExecutionInformation = {
 };
 
 export const TaskCounts = {
-  required: false,
-  serializedName: 'TaskCounts',
+  serializedName: "TaskCounts",
   type: {
-    name: 'Composite',
-    className: 'TaskCounts',
+    name: "Composite",
+    className: "TaskCounts",
     modelProperties: {
       active: {
         required: true,
-        serializedName: 'active',
+        serializedName: "active",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       running: {
         required: true,
-        serializedName: 'running',
+        serializedName: "running",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       completed: {
         required: true,
-        serializedName: 'completed',
+        serializedName: "completed",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       succeeded: {
         required: true,
-        serializedName: 'succeeded',
+        serializedName: "succeeded",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       failed: {
         required: true,
-        serializedName: 'failed',
+        serializedName: "failed",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       validationStatus: {
         required: true,
-        serializedName: 'validationStatus',
+        serializedName: "validationStatus",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'validated', 'unvalidated' ]
+          name: "Enum",
+          allowedValues: [
+            "validated",
+            "unvalidated"
+          ]
         }
       }
     }
@@ -3795,38 +3577,33 @@ export const TaskCounts = {
 };
 
 export const AutoScaleRunError = {
-  required: false,
-  serializedName: 'AutoScaleRunError',
+  serializedName: "AutoScaleRunError",
   type: {
-    name: 'Composite',
-    className: 'AutoScaleRunError',
+    name: "Composite",
+    className: "AutoScaleRunError",
     modelProperties: {
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       values: {
-        required: false,
-        serializedName: 'values',
+        serializedName: "values",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -3835,32 +3612,29 @@ export const AutoScaleRunError = {
 };
 
 export const AutoScaleRun = {
-  required: false,
-  serializedName: 'AutoScaleRun',
+  serializedName: "AutoScaleRun",
   type: {
-    name: 'Composite',
-    className: 'AutoScaleRun',
+    name: "Composite",
+    className: "AutoScaleRun",
     modelProperties: {
       timestamp: {
         required: true,
-        serializedName: 'timestamp',
+        serializedName: "timestamp",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       results: {
-        required: false,
-        serializedName: 'results',
+        serializedName: "results",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       error: {
-        required: false,
-        serializedName: 'error',
+        serializedName: "error",
         type: {
-          name: 'Composite',
-          className: 'AutoScaleRunError'
+          name: "Composite",
+          className: "AutoScaleRunError"
         }
       }
     }
@@ -3868,38 +3642,33 @@ export const AutoScaleRun = {
 };
 
 export const ResizeError = {
-  required: false,
-  serializedName: 'ResizeError',
+  serializedName: "ResizeError",
   type: {
-    name: 'Composite',
-    className: 'ResizeError',
+    name: "Composite",
+    className: "ResizeError",
     modelProperties: {
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       values: {
-        required: false,
-        serializedName: 'values',
+        serializedName: "values",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -3908,304 +3677,271 @@ export const ResizeError = {
 };
 
 export const CloudPool = {
-  required: false,
-  serializedName: 'CloudPool',
+  serializedName: "CloudPool",
   type: {
-    name: 'Composite',
-    className: 'CloudPool',
+    name: "Composite",
+    className: "CloudPool",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       eTag: {
-        required: false,
-        serializedName: 'eTag',
+        serializedName: "eTag",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       lastModified: {
-        required: false,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       creationTime: {
-        required: false,
-        serializedName: 'creationTime',
+        serializedName: "creationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'deleting', 'upgrading' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "deleting",
+            "upgrading"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       allocationState: {
-        required: false,
-        serializedName: 'allocationState',
+        serializedName: "allocationState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'steady', 'resizing', 'stopping' ]
+          name: "Enum",
+          allowedValues: [
+            "steady",
+            "resizing",
+            "stopping"
+          ]
         }
       },
       allocationStateTransitionTime: {
-        required: false,
-        serializedName: 'allocationStateTransitionTime',
+        serializedName: "allocationStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       vmSize: {
-        required: false,
-        serializedName: 'vmSize',
+        serializedName: "vmSize",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       cloudServiceConfiguration: {
-        required: false,
-        serializedName: 'cloudServiceConfiguration',
+        serializedName: "cloudServiceConfiguration",
         type: {
-          name: 'Composite',
-          className: 'CloudServiceConfiguration'
+          name: "Composite",
+          className: "CloudServiceConfiguration"
         }
       },
       virtualMachineConfiguration: {
-        required: false,
-        serializedName: 'virtualMachineConfiguration',
+        serializedName: "virtualMachineConfiguration",
         type: {
-          name: 'Composite',
-          className: 'VirtualMachineConfiguration'
+          name: "Composite",
+          className: "VirtualMachineConfiguration"
         }
       },
       resizeTimeout: {
-        required: false,
-        serializedName: 'resizeTimeout',
+        serializedName: "resizeTimeout",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       resizeErrors: {
-        required: false,
-        serializedName: 'resizeErrors',
+        serializedName: "resizeErrors",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResizeErrorElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResizeError'
-              }
+            serializedName: "ResizeErrorElementType",
+            type: {
+              name: "Composite",
+              className: "ResizeError"
+            }
           }
         }
       },
       currentDedicatedNodes: {
-        required: false,
-        serializedName: 'currentDedicatedNodes',
+        serializedName: "currentDedicatedNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       currentLowPriorityNodes: {
-        required: false,
-        serializedName: 'currentLowPriorityNodes',
+        serializedName: "currentLowPriorityNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       targetDedicatedNodes: {
-        required: false,
-        serializedName: 'targetDedicatedNodes',
+        serializedName: "targetDedicatedNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       targetLowPriorityNodes: {
-        required: false,
-        serializedName: 'targetLowPriorityNodes',
+        serializedName: "targetLowPriorityNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       enableAutoScale: {
-        required: false,
-        serializedName: 'enableAutoScale',
+        serializedName: "enableAutoScale",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       autoScaleFormula: {
-        required: false,
-        serializedName: 'autoScaleFormula',
+        serializedName: "autoScaleFormula",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoScaleEvaluationInterval: {
-        required: false,
-        serializedName: 'autoScaleEvaluationInterval',
+        serializedName: "autoScaleEvaluationInterval",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       autoScaleRun: {
-        required: false,
-        serializedName: 'autoScaleRun',
+        serializedName: "autoScaleRun",
         type: {
-          name: 'Composite',
-          className: 'AutoScaleRun'
+          name: "Composite",
+          className: "AutoScaleRun"
         }
       },
       enableInterNodeCommunication: {
-        required: false,
-        serializedName: 'enableInterNodeCommunication',
+        serializedName: "enableInterNodeCommunication",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       networkConfiguration: {
-        required: false,
-        serializedName: 'networkConfiguration',
+        serializedName: "networkConfiguration",
         type: {
-          name: 'Composite',
-          className: 'NetworkConfiguration'
+          name: "Composite",
+          className: "NetworkConfiguration"
         }
       },
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       certificateReferences: {
-        required: false,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       applicationLicenses: {
-        required: false,
-        serializedName: 'applicationLicenses',
+        serializedName: "applicationLicenses",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       maxTasksPerNode: {
-        required: false,
-        serializedName: 'maxTasksPerNode',
+        serializedName: "maxTasksPerNode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       taskSchedulingPolicy: {
-        required: false,
-        serializedName: 'taskSchedulingPolicy',
+        serializedName: "taskSchedulingPolicy",
         type: {
-          name: 'Composite',
-          className: 'TaskSchedulingPolicy'
+          name: "Composite",
+          className: "TaskSchedulingPolicy"
         }
       },
       userAccounts: {
-        required: false,
-        serializedName: 'userAccounts',
+        serializedName: "userAccounts",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'UserAccountElementType',
-              type: {
-                name: 'Composite',
-                className: 'UserAccount'
-              }
+            serializedName: "UserAccountElementType",
+            type: {
+              name: "Composite",
+              className: "UserAccount"
+            }
           }
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       },
       stats: {
-        required: false,
-        serializedName: 'stats',
+        serializedName: "stats",
         type: {
-          name: 'Composite',
-          className: 'PoolStatistics'
+          name: "Composite",
+          className: "PoolStatistics"
         }
       }
     }
@@ -4213,200 +3949,175 @@ export const CloudPool = {
 };
 
 export const PoolAddParameter = {
-  required: false,
-  serializedName: 'PoolAddParameter',
+  serializedName: "PoolAddParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolAddParameter',
+    name: "Composite",
+    className: "PoolAddParameter",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       vmSize: {
         required: true,
-        serializedName: 'vmSize',
+        serializedName: "vmSize",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       cloudServiceConfiguration: {
-        required: false,
-        serializedName: 'cloudServiceConfiguration',
+        serializedName: "cloudServiceConfiguration",
         type: {
-          name: 'Composite',
-          className: 'CloudServiceConfiguration'
+          name: "Composite",
+          className: "CloudServiceConfiguration"
         }
       },
       virtualMachineConfiguration: {
-        required: false,
-        serializedName: 'virtualMachineConfiguration',
+        serializedName: "virtualMachineConfiguration",
         type: {
-          name: 'Composite',
-          className: 'VirtualMachineConfiguration'
+          name: "Composite",
+          className: "VirtualMachineConfiguration"
         }
       },
       resizeTimeout: {
-        required: false,
-        serializedName: 'resizeTimeout',
+        serializedName: "resizeTimeout",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       targetDedicatedNodes: {
-        required: false,
-        serializedName: 'targetDedicatedNodes',
+        serializedName: "targetDedicatedNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       targetLowPriorityNodes: {
-        required: false,
-        serializedName: 'targetLowPriorityNodes',
+        serializedName: "targetLowPriorityNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       enableAutoScale: {
-        required: false,
-        serializedName: 'enableAutoScale',
+        serializedName: "enableAutoScale",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       autoScaleFormula: {
-        required: false,
-        serializedName: 'autoScaleFormula',
+        serializedName: "autoScaleFormula",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoScaleEvaluationInterval: {
-        required: false,
-        serializedName: 'autoScaleEvaluationInterval',
+        serializedName: "autoScaleEvaluationInterval",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       enableInterNodeCommunication: {
-        required: false,
-        serializedName: 'enableInterNodeCommunication',
+        serializedName: "enableInterNodeCommunication",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       networkConfiguration: {
-        required: false,
-        serializedName: 'networkConfiguration',
+        serializedName: "networkConfiguration",
         type: {
-          name: 'Composite',
-          className: 'NetworkConfiguration'
+          name: "Composite",
+          className: "NetworkConfiguration"
         }
       },
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       certificateReferences: {
-        required: false,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       applicationLicenses: {
-        required: false,
-        serializedName: 'applicationLicenses',
+        serializedName: "applicationLicenses",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       maxTasksPerNode: {
-        required: false,
-        serializedName: 'maxTasksPerNode',
+        serializedName: "maxTasksPerNode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       taskSchedulingPolicy: {
-        required: false,
-        serializedName: 'taskSchedulingPolicy',
+        serializedName: "taskSchedulingPolicy",
         type: {
-          name: 'Composite',
-          className: 'TaskSchedulingPolicy'
+          name: "Composite",
+          className: "TaskSchedulingPolicy"
         }
       },
       userAccounts: {
-        required: false,
-        serializedName: 'userAccounts',
+        serializedName: "userAccounts",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'UserAccountElementType',
-              type: {
-                name: 'Composite',
-                className: 'UserAccount'
-              }
+            serializedName: "UserAccountElementType",
+            type: {
+              name: "Composite",
+              className: "UserAccount"
+            }
           }
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -4415,17 +4126,16 @@ export const PoolAddParameter = {
 };
 
 export const AffinityInformation = {
-  required: false,
-  serializedName: 'AffinityInformation',
+  serializedName: "AffinityInformation",
   type: {
-    name: 'Composite',
-    className: 'AffinityInformation',
+    name: "Composite",
+    className: "AffinityInformation",
     modelProperties: {
       affinityId: {
         required: true,
-        serializedName: 'affinityId',
+        serializedName: "affinityId",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -4433,83 +4143,77 @@ export const AffinityInformation = {
 };
 
 export const TaskExecutionInformation = {
-  required: false,
-  serializedName: 'TaskExecutionInformation',
+  serializedName: "TaskExecutionInformation",
   type: {
-    name: 'Composite',
-    className: 'TaskExecutionInformation',
+    name: "Composite",
+    className: "TaskExecutionInformation",
     modelProperties: {
       startTime: {
-        required: false,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       exitCode: {
-        required: false,
-        serializedName: 'exitCode',
+        serializedName: "exitCode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       containerInfo: {
-        required: false,
-        serializedName: 'containerInfo',
+        serializedName: "containerInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerExecutionInformation'
+          name: "Composite",
+          className: "TaskContainerExecutionInformation"
         }
       },
       failureInfo: {
-        required: false,
-        serializedName: 'failureInfo',
+        serializedName: "failureInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskFailureInformation'
+          name: "Composite",
+          className: "TaskFailureInformation"
         }
       },
       retryCount: {
         required: true,
-        serializedName: 'retryCount',
+        serializedName: "retryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       lastRetryTime: {
-        required: false,
-        serializedName: 'lastRetryTime',
+        serializedName: "lastRetryTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       requeueCount: {
         required: true,
-        serializedName: 'requeueCount',
+        serializedName: "requeueCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       lastRequeueTime: {
-        required: false,
-        serializedName: 'lastRequeueTime',
+        serializedName: "lastRequeueTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       result: {
-        required: false,
-        serializedName: 'result',
+        serializedName: "result",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'failure' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "failure"
+          ]
         }
       }
     }
@@ -4517,52 +4221,45 @@ export const TaskExecutionInformation = {
 };
 
 export const ComputeNodeInformation = {
-  required: false,
-  serializedName: 'ComputeNodeInformation',
+  serializedName: "ComputeNodeInformation",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeInformation',
+    name: "Composite",
+    className: "ComputeNodeInformation",
     modelProperties: {
       affinityId: {
-        required: false,
-        serializedName: 'affinityId',
+        serializedName: "affinityId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       nodeUrl: {
-        required: false,
-        serializedName: 'nodeUrl',
+        serializedName: "nodeUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       poolId: {
-        required: false,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       nodeId: {
-        required: false,
-        serializedName: 'nodeId',
+        serializedName: "nodeId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       taskRootDirectory: {
-        required: false,
-        serializedName: 'taskRootDirectory',
+        serializedName: "taskRootDirectory",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       taskRootDirectoryUrl: {
-        required: false,
-        serializedName: 'taskRootDirectoryUrl',
+        serializedName: "taskRootDirectoryUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -4570,38 +4267,34 @@ export const ComputeNodeInformation = {
 };
 
 export const MultiInstanceSettings = {
-  required: false,
-  serializedName: 'MultiInstanceSettings',
+  serializedName: "MultiInstanceSettings",
   type: {
-    name: 'Composite',
-    className: 'MultiInstanceSettings',
+    name: "Composite",
+    className: "MultiInstanceSettings",
     modelProperties: {
       numberOfInstances: {
-        required: false,
-        serializedName: 'numberOfInstances',
+        serializedName: "numberOfInstances",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       coordinationCommandLine: {
         required: true,
-        serializedName: 'coordinationCommandLine',
+        serializedName: "coordinationCommandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       commonResourceFiles: {
-        required: false,
-        serializedName: 'commonResourceFiles',
+        serializedName: "commonResourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       }
@@ -4610,87 +4303,86 @@ export const MultiInstanceSettings = {
 };
 
 export const TaskStatistics = {
-  required: false,
-  serializedName: 'TaskStatistics',
+  serializedName: "TaskStatistics",
   type: {
-    name: 'Composite',
-    className: 'TaskStatistics',
+    name: "Composite",
+    className: "TaskStatistics",
     modelProperties: {
       url: {
         required: true,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastUpdateTime: {
         required: true,
-        serializedName: 'lastUpdateTime',
+        serializedName: "lastUpdateTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       userCPUTime: {
         required: true,
-        serializedName: 'userCPUTime',
+        serializedName: "userCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       kernelCPUTime: {
         required: true,
-        serializedName: 'kernelCPUTime',
+        serializedName: "kernelCPUTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       wallClockTime: {
         required: true,
-        serializedName: 'wallClockTime',
+        serializedName: "wallClockTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       readIOps: {
         required: true,
-        serializedName: 'readIOps',
+        serializedName: "readIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOps: {
         required: true,
-        serializedName: 'writeIOps',
+        serializedName: "writeIOps",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       readIOGiB: {
         required: true,
-        serializedName: 'readIOGiB',
+        serializedName: "readIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       writeIOGiB: {
         required: true,
-        serializedName: 'writeIOGiB',
+        serializedName: "writeIOGiB",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       waitTime: {
         required: true,
-        serializedName: 'waitTime',
+        serializedName: "waitTime",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -4698,24 +4390,23 @@ export const TaskStatistics = {
 };
 
 export const TaskIdRange = {
-  required: false,
-  serializedName: 'TaskIdRange',
+  serializedName: "TaskIdRange",
   type: {
-    name: 'Composite',
-    className: 'TaskIdRange',
+    name: "Composite",
+    className: "TaskIdRange",
     modelProperties: {
       start: {
         required: true,
-        serializedName: 'start',
+        serializedName: "start",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       end: {
         required: true,
-        serializedName: 'end',
+        serializedName: "end",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -4723,38 +4414,33 @@ export const TaskIdRange = {
 };
 
 export const TaskDependencies = {
-  required: false,
-  serializedName: 'TaskDependencies',
+  serializedName: "TaskDependencies",
   type: {
-    name: 'Composite',
-    className: 'TaskDependencies',
+    name: "Composite",
+    className: "TaskDependencies",
     modelProperties: {
       taskIds: {
-        required: false,
-        serializedName: 'taskIds',
+        serializedName: "taskIds",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       taskIdRanges: {
-        required: false,
-        serializedName: 'taskIdRanges',
+        serializedName: "taskIdRanges",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'TaskIdRangeElementType',
-              type: {
-                name: 'Composite',
-                className: 'TaskIdRange'
-              }
+            serializedName: "TaskIdRangeElementType",
+            type: {
+              name: "Composite",
+              className: "TaskIdRange"
+            }
           }
         }
       }
@@ -4763,237 +4449,216 @@ export const TaskDependencies = {
 };
 
 export const CloudTask = {
-  required: false,
-  serializedName: 'CloudTask',
+  serializedName: "CloudTask",
   type: {
-    name: 'Composite',
-    className: 'CloudTask',
+    name: "Composite",
+    className: "CloudTask",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       eTag: {
-        required: false,
-        serializedName: 'eTag',
+        serializedName: "eTag",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       lastModified: {
-        required: false,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       creationTime: {
-        required: false,
-        serializedName: 'creationTime',
+        serializedName: "creationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       exitConditions: {
-        required: false,
-        serializedName: 'exitConditions',
+        serializedName: "exitConditions",
         type: {
-          name: 'Composite',
-          className: 'ExitConditions'
+          name: "Composite",
+          className: "ExitConditions"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'preparing', 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "preparing",
+            "running",
+            "completed"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       previousState: {
-        required: false,
-        serializedName: 'previousState',
+        serializedName: "previousState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'preparing', 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "preparing",
+            "running",
+            "completed"
+          ]
         }
       },
       previousStateTransitionTime: {
-        required: false,
-        serializedName: 'previousStateTransitionTime',
+        serializedName: "previousStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       commandLine: {
-        required: false,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       outputFiles: {
-        required: false,
-        serializedName: 'outputFiles',
+        serializedName: "outputFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'OutputFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'OutputFile'
-              }
+            serializedName: "OutputFileElementType",
+            type: {
+              name: "Composite",
+              className: "OutputFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       affinityInfo: {
-        required: false,
-        serializedName: 'affinityInfo',
+        serializedName: "affinityInfo",
         type: {
-          name: 'Composite',
-          className: 'AffinityInformation'
+          name: "Composite",
+          className: "AffinityInformation"
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'TaskConstraints'
+          name: "Composite",
+          className: "TaskConstraints"
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       },
       executionInfo: {
-        required: false,
-        serializedName: 'executionInfo',
+        serializedName: "executionInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskExecutionInformation'
+          name: "Composite",
+          className: "TaskExecutionInformation"
         }
       },
       nodeInfo: {
-        required: false,
-        serializedName: 'nodeInfo',
+        serializedName: "nodeInfo",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeInformation'
+          name: "Composite",
+          className: "ComputeNodeInformation"
         }
       },
       multiInstanceSettings: {
-        required: false,
-        serializedName: 'multiInstanceSettings',
+        serializedName: "multiInstanceSettings",
         type: {
-          name: 'Composite',
-          className: 'MultiInstanceSettings'
+          name: "Composite",
+          className: "MultiInstanceSettings"
         }
       },
       stats: {
-        required: false,
-        serializedName: 'stats',
+        serializedName: "stats",
         type: {
-          name: 'Composite',
-          className: 'TaskStatistics'
+          name: "Composite",
+          className: "TaskStatistics"
         }
       },
       dependsOn: {
-        required: false,
-        serializedName: 'dependsOn',
+        serializedName: "dependsOn",
         type: {
-          name: 'Composite',
-          className: 'TaskDependencies'
+          name: "Composite",
+          className: "TaskDependencies"
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       authenticationTokenSettings: {
-        required: false,
-        serializedName: 'authenticationTokenSettings',
+        serializedName: "authenticationTokenSettings",
         type: {
-          name: 'Composite',
-          className: 'AuthenticationTokenSettings'
+          name: "Composite",
+          className: "AuthenticationTokenSettings"
         }
       }
     }
@@ -5001,155 +4666,137 @@ export const CloudTask = {
 };
 
 export const TaskAddParameter = {
-  required: false,
-  serializedName: 'TaskAddParameter',
+  serializedName: "TaskAddParameter",
   type: {
-    name: 'Composite',
-    className: 'TaskAddParameter',
+    name: "Composite",
+    className: "TaskAddParameter",
     modelProperties: {
       id: {
         required: true,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       displayName: {
-        required: false,
-        serializedName: 'displayName',
+        serializedName: "displayName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       commandLine: {
         required: true,
-        serializedName: 'commandLine',
+        serializedName: "commandLine",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       containerSettings: {
-        required: false,
-        serializedName: 'containerSettings',
+        serializedName: "containerSettings",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerSettings'
+          name: "Composite",
+          className: "TaskContainerSettings"
         }
       },
       exitConditions: {
-        required: false,
-        serializedName: 'exitConditions',
+        serializedName: "exitConditions",
         type: {
-          name: 'Composite',
-          className: 'ExitConditions'
+          name: "Composite",
+          className: "ExitConditions"
         }
       },
       resourceFiles: {
-        required: false,
-        serializedName: 'resourceFiles',
+        serializedName: "resourceFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ResourceFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'ResourceFile'
-              }
+            serializedName: "ResourceFileElementType",
+            type: {
+              name: "Composite",
+              className: "ResourceFile"
+            }
           }
         }
       },
       outputFiles: {
-        required: false,
-        serializedName: 'outputFiles',
+        serializedName: "outputFiles",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'OutputFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'OutputFile'
-              }
+            serializedName: "OutputFileElementType",
+            type: {
+              name: "Composite",
+              className: "OutputFile"
+            }
           }
         }
       },
       environmentSettings: {
-        required: false,
-        serializedName: 'environmentSettings',
+        serializedName: "environmentSettings",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'EnvironmentSettingElementType',
-              type: {
-                name: 'Composite',
-                className: 'EnvironmentSetting'
-              }
+            serializedName: "EnvironmentSettingElementType",
+            type: {
+              name: "Composite",
+              className: "EnvironmentSetting"
+            }
           }
         }
       },
       affinityInfo: {
-        required: false,
-        serializedName: 'affinityInfo',
+        serializedName: "affinityInfo",
         type: {
-          name: 'Composite',
-          className: 'AffinityInformation'
+          name: "Composite",
+          className: "AffinityInformation"
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'TaskConstraints'
+          name: "Composite",
+          className: "TaskConstraints"
         }
       },
       userIdentity: {
-        required: false,
-        serializedName: 'userIdentity',
+        serializedName: "userIdentity",
         type: {
-          name: 'Composite',
-          className: 'UserIdentity'
+          name: "Composite",
+          className: "UserIdentity"
         }
       },
       multiInstanceSettings: {
-        required: false,
-        serializedName: 'multiInstanceSettings',
+        serializedName: "multiInstanceSettings",
         type: {
-          name: 'Composite',
-          className: 'MultiInstanceSettings'
+          name: "Composite",
+          className: "MultiInstanceSettings"
         }
       },
       dependsOn: {
-        required: false,
-        serializedName: 'dependsOn',
+        serializedName: "dependsOn",
         type: {
-          name: 'Composite',
-          className: 'TaskDependencies'
+          name: "Composite",
+          className: "TaskDependencies"
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       authenticationTokenSettings: {
-        required: false,
-        serializedName: 'authenticationTokenSettings',
+        serializedName: "authenticationTokenSettings",
         type: {
-          name: 'Composite',
-          className: 'AuthenticationTokenSettings'
+          name: "Composite",
+          className: "AuthenticationTokenSettings"
         }
       }
     }
@@ -5157,27 +4804,25 @@ export const TaskAddParameter = {
 };
 
 export const TaskAddCollectionParameter = {
-  required: false,
-  serializedName: 'TaskAddCollectionParameter',
+  serializedName: "TaskAddCollectionParameter",
   type: {
-    name: 'Composite',
-    className: 'TaskAddCollectionParameter',
+    name: "Composite",
+    className: "TaskAddCollectionParameter",
     modelProperties: {
       value: {
         required: true,
-        serializedName: 'value',
+        serializedName: "value",
         constraints: {
           MaxItems: 100
         },
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'TaskAddParameterElementType',
-              type: {
-                name: 'Composite',
-                className: 'TaskAddParameter'
-              }
+            serializedName: "TaskAddParameterElementType",
+            type: {
+              name: "Composite",
+              className: "TaskAddParameter"
+            }
           }
         }
       }
@@ -5186,24 +4831,21 @@ export const TaskAddCollectionParameter = {
 };
 
 export const ErrorMessage = {
-  required: false,
-  serializedName: 'ErrorMessage',
+  serializedName: "ErrorMessage",
   type: {
-    name: 'Composite',
-    className: 'ErrorMessage',
+    name: "Composite",
+    className: "ErrorMessage",
     modelProperties: {
       lang: {
-        required: false,
-        serializedName: 'lang',
+        serializedName: "lang",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -5211,24 +4853,21 @@ export const ErrorMessage = {
 };
 
 export const BatchErrorDetail = {
-  required: false,
-  serializedName: 'BatchErrorDetail',
+  serializedName: "BatchErrorDetail",
   type: {
-    name: 'Composite',
-    className: 'BatchErrorDetail',
+    name: "Composite",
+    className: "BatchErrorDetail",
     modelProperties: {
       key: {
-        required: false,
-        serializedName: 'key',
+        serializedName: "key",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -5236,39 +4875,34 @@ export const BatchErrorDetail = {
 };
 
 export const BatchError = {
-  required: false,
-  serializedName: 'BatchError',
+  serializedName: "BatchError",
   type: {
-    name: 'Composite',
-    className: 'BatchError',
+    name: "Composite",
+    className: "BatchError",
     modelProperties: {
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'Composite',
-          className: 'ErrorMessage'
+          name: "Composite",
+          className: "ErrorMessage"
         }
       },
       values: {
-        required: false,
-        serializedName: 'values',
+        serializedName: "values",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'BatchErrorDetailElementType',
-              type: {
-                name: 'Composite',
-                className: 'BatchErrorDetail'
-              }
+            serializedName: "BatchErrorDetailElementType",
+            type: {
+              name: "Composite",
+              className: "BatchErrorDetail"
+            }
           }
         }
       }
@@ -5277,54 +4911,53 @@ export const BatchError = {
 };
 
 export const TaskAddResult = {
-  required: false,
-  serializedName: 'TaskAddResult',
+  serializedName: "TaskAddResult",
   type: {
-    name: 'Composite',
-    className: 'TaskAddResult',
+    name: "Composite",
+    className: "TaskAddResult",
     modelProperties: {
       status: {
         required: true,
-        serializedName: 'status',
+        serializedName: "status",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'clienterror', 'servererror' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "clienterror",
+            "servererror"
+          ]
         }
       },
       taskId: {
         required: true,
-        serializedName: 'taskId',
+        serializedName: "taskId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       eTag: {
-        required: false,
-        serializedName: 'eTag',
+        serializedName: "eTag",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       lastModified: {
-        required: false,
-        serializedName: 'lastModified',
+        serializedName: "lastModified",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       location: {
-        required: false,
-        serializedName: 'location',
+        serializedName: "location",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       error: {
-        required: false,
-        serializedName: 'error',
+        serializedName: "error",
         type: {
-          name: 'Composite',
-          className: 'BatchError'
+          name: "Composite",
+          className: "BatchError"
         }
       }
     }
@@ -5332,24 +4965,21 @@ export const TaskAddResult = {
 };
 
 export const TaskAddCollectionResult = {
-  required: false,
-  serializedName: 'TaskAddCollectionResult',
+  serializedName: "TaskAddCollectionResult",
   type: {
-    name: 'Composite',
-    className: 'TaskAddCollectionResult',
+    name: "Composite",
+    className: "TaskAddCollectionResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'TaskAddResultElementType',
-              type: {
-                name: 'Composite',
-                className: 'TaskAddResult'
-              }
+            serializedName: "TaskAddResultElementType",
+            type: {
+              name: "Composite",
+              className: "TaskAddResult"
+            }
           }
         }
       }
@@ -5358,100 +4988,98 @@ export const TaskAddCollectionResult = {
 };
 
 export const SubtaskInformation = {
-  required: false,
-  serializedName: 'SubtaskInformation',
+  serializedName: "SubtaskInformation",
   type: {
-    name: 'Composite',
-    className: 'SubtaskInformation',
+    name: "Composite",
+    className: "SubtaskInformation",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       nodeInfo: {
-        required: false,
-        serializedName: 'nodeInfo',
+        serializedName: "nodeInfo",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeInformation'
+          name: "Composite",
+          className: "ComputeNodeInformation"
         }
       },
       startTime: {
-        required: false,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       exitCode: {
-        required: false,
-        serializedName: 'exitCode',
+        serializedName: "exitCode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       containerInfo: {
-        required: false,
-        serializedName: 'containerInfo',
+        serializedName: "containerInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerExecutionInformation'
+          name: "Composite",
+          className: "TaskContainerExecutionInformation"
         }
       },
       failureInfo: {
-        required: false,
-        serializedName: 'failureInfo',
+        serializedName: "failureInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskFailureInformation'
+          name: "Composite",
+          className: "TaskFailureInformation"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'preparing', 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "preparing",
+            "running",
+            "completed"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       previousState: {
-        required: false,
-        serializedName: 'previousState',
+        serializedName: "previousState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'preparing', 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "preparing",
+            "running",
+            "completed"
+          ]
         }
       },
       previousStateTransitionTime: {
-        required: false,
-        serializedName: 'previousStateTransitionTime',
+        serializedName: "previousStateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       result: {
-        required: false,
-        serializedName: 'result',
+        serializedName: "result",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'failure' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "failure"
+          ]
         }
       }
     }
@@ -5459,24 +5087,21 @@ export const SubtaskInformation = {
 };
 
 export const CloudTaskListSubtasksResult = {
-  required: false,
-  serializedName: 'CloudTaskListSubtasksResult',
+  serializedName: "CloudTaskListSubtasksResult",
   type: {
-    name: 'Composite',
-    className: 'CloudTaskListSubtasksResult',
+    name: "Composite",
+    className: "CloudTaskListSubtasksResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: 'value',
+        serializedName: "value",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'SubtaskInformationElementType',
-              type: {
-                name: 'Composite',
-                className: 'SubtaskInformation'
-              }
+            serializedName: "SubtaskInformationElementType",
+            type: {
+              name: "Composite",
+              className: "SubtaskInformation"
+            }
           }
         }
       }
@@ -5485,54 +5110,53 @@ export const CloudTaskListSubtasksResult = {
 };
 
 export const TaskInformation = {
-  required: false,
-  serializedName: 'TaskInformation',
+  serializedName: "TaskInformation",
   type: {
-    name: 'Composite',
-    className: 'TaskInformation',
+    name: "Composite",
+    className: "TaskInformation",
     modelProperties: {
       taskUrl: {
-        required: false,
-        serializedName: 'taskUrl',
+        serializedName: "taskUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       jobId: {
-        required: false,
-        serializedName: 'jobId',
+        serializedName: "jobId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       taskId: {
-        required: false,
-        serializedName: 'taskId',
+        serializedName: "taskId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       subtaskId: {
-        required: false,
-        serializedName: 'subtaskId',
+        serializedName: "subtaskId",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       taskState: {
         required: true,
-        serializedName: 'taskState',
+        serializedName: "taskState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'active', 'preparing', 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "active",
+            "preparing",
+            "running",
+            "completed"
+          ]
         }
       },
       executionInfo: {
-        required: false,
-        serializedName: 'executionInfo',
+        serializedName: "executionInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskExecutionInformation'
+          name: "Composite",
+          className: "TaskExecutionInformation"
         }
       }
     }
@@ -5540,77 +5164,76 @@ export const TaskInformation = {
 };
 
 export const StartTaskInformation = {
-  required: false,
-  serializedName: 'StartTaskInformation',
+  serializedName: "StartTaskInformation",
   type: {
-    name: 'Composite',
-    className: 'StartTaskInformation',
+    name: "Composite",
+    className: "StartTaskInformation",
     modelProperties: {
       state: {
         required: true,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'running', 'completed' ]
+          name: "Enum",
+          allowedValues: [
+            "running",
+            "completed"
+          ]
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       exitCode: {
-        required: false,
-        serializedName: 'exitCode',
+        serializedName: "exitCode",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       containerInfo: {
-        required: false,
-        serializedName: 'containerInfo',
+        serializedName: "containerInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskContainerExecutionInformation'
+          name: "Composite",
+          className: "TaskContainerExecutionInformation"
         }
       },
       failureInfo: {
-        required: false,
-        serializedName: 'failureInfo',
+        serializedName: "failureInfo",
         type: {
-          name: 'Composite',
-          className: 'TaskFailureInformation'
+          name: "Composite",
+          className: "TaskFailureInformation"
         }
       },
       retryCount: {
         required: true,
-        serializedName: 'retryCount',
+        serializedName: "retryCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       lastRetryTime: {
-        required: false,
-        serializedName: 'lastRetryTime',
+        serializedName: "lastRetryTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       result: {
-        required: false,
-        serializedName: 'result',
+        serializedName: "result",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'success', 'failure' ]
+          name: "Enum",
+          allowedValues: [
+            "success",
+            "failure"
+          ]
         }
       }
     }
@@ -5618,38 +5241,33 @@ export const StartTaskInformation = {
 };
 
 export const ComputeNodeError = {
-  required: false,
-  serializedName: 'ComputeNodeError',
+  serializedName: "ComputeNodeError",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeError',
+    name: "Composite",
+    className: "ComputeNodeError",
     modelProperties: {
       code: {
-        required: false,
-        serializedName: 'code',
+        serializedName: "code",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       message: {
-        required: false,
-        serializedName: 'message',
+        serializedName: "message",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       errorDetails: {
-        required: false,
-        serializedName: 'errorDetails',
+        serializedName: "errorDetails",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NameValuePairElementType',
-              type: {
-                name: 'Composite',
-                className: 'NameValuePair'
-              }
+            serializedName: "NameValuePairElementType",
+            type: {
+              name: "Composite",
+              className: "NameValuePair"
+            }
           }
         }
       }
@@ -5658,53 +5276,55 @@ export const ComputeNodeError = {
 };
 
 export const InboundEndpoint = {
-  required: false,
-  serializedName: 'InboundEndpoint',
+  serializedName: "InboundEndpoint",
   type: {
-    name: 'Composite',
-    className: 'InboundEndpoint',
+    name: "Composite",
+    className: "InboundEndpoint",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       protocol: {
         required: true,
-        serializedName: 'protocol',
+        serializedName: "protocol",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'tcp', 'udp' ]
+          name: "Enum",
+          allowedValues: [
+            "tcp",
+            "udp"
+          ]
         }
       },
       publicIPAddress: {
         required: true,
-        serializedName: 'publicIPAddress',
+        serializedName: "publicIPAddress",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       publicFQDN: {
         required: true,
-        serializedName: 'publicFQDN',
+        serializedName: "publicFQDN",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       frontendPort: {
         required: true,
-        serializedName: 'frontendPort',
+        serializedName: "frontendPort",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       backendPort: {
         required: true,
-        serializedName: 'backendPort',
+        serializedName: "backendPort",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -5712,24 +5332,22 @@ export const InboundEndpoint = {
 };
 
 export const ComputeNodeEndpointConfiguration = {
-  required: false,
-  serializedName: 'ComputeNodeEndpointConfiguration',
+  serializedName: "ComputeNodeEndpointConfiguration",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeEndpointConfiguration',
+    name: "Composite",
+    className: "ComputeNodeEndpointConfiguration",
     modelProperties: {
       inboundEndpoints: {
         required: true,
-        serializedName: 'inboundEndpoints',
+        serializedName: "inboundEndpoints",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'InboundEndpointElementType',
-              type: {
-                name: 'Composite',
-                className: 'InboundEndpoint'
-              }
+            serializedName: "InboundEndpointElementType",
+            type: {
+              name: "Composite",
+              className: "InboundEndpoint"
+            }
           }
         }
       }
@@ -5738,179 +5356,172 @@ export const ComputeNodeEndpointConfiguration = {
 };
 
 export const ComputeNode = {
-  required: false,
-  serializedName: 'ComputeNode',
+  serializedName: "ComputeNode",
   type: {
-    name: 'Composite',
-    className: 'ComputeNode',
+    name: "Composite",
+    className: "ComputeNode",
     modelProperties: {
       id: {
-        required: false,
-        serializedName: 'id',
+        serializedName: "id",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       url: {
-        required: false,
-        serializedName: 'url',
+        serializedName: "url",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       state: {
-        required: false,
-        serializedName: 'state',
+        serializedName: "state",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'idle', 'rebooting', 'reimaging', 'running', 'unusable', 'creating', 'starting', 'waitingforstarttask', 'starttaskfailed', 'unknown', 'leavingpool', 'offline', 'preempted' ]
+          name: "Enum",
+          allowedValues: [
+            "idle",
+            "rebooting",
+            "reimaging",
+            "running",
+            "unusable",
+            "creating",
+            "starting",
+            "waitingforstarttask",
+            "starttaskfailed",
+            "unknown",
+            "leavingpool",
+            "offline",
+            "preempted"
+          ]
         }
       },
       schedulingState: {
-        required: false,
-        serializedName: 'schedulingState',
+        serializedName: "schedulingState",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'enabled', 'disabled' ]
+          name: "Enum",
+          allowedValues: [
+            "enabled",
+            "disabled"
+          ]
         }
       },
       stateTransitionTime: {
-        required: false,
-        serializedName: 'stateTransitionTime',
+        serializedName: "stateTransitionTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       lastBootTime: {
-        required: false,
-        serializedName: 'lastBootTime',
+        serializedName: "lastBootTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       allocationTime: {
-        required: false,
-        serializedName: 'allocationTime',
+        serializedName: "allocationTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       ipAddress: {
-        required: false,
-        serializedName: 'ipAddress',
+        serializedName: "ipAddress",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       affinityId: {
-        required: false,
-        serializedName: 'affinityId',
+        serializedName: "affinityId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       vmSize: {
-        required: false,
-        serializedName: 'vmSize',
+        serializedName: "vmSize",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       totalTasksRun: {
-        required: false,
-        serializedName: 'totalTasksRun',
+        serializedName: "totalTasksRun",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       runningTasksCount: {
-        required: false,
-        serializedName: 'runningTasksCount',
+        serializedName: "runningTasksCount",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       totalTasksSucceeded: {
-        required: false,
-        serializedName: 'totalTasksSucceeded',
+        serializedName: "totalTasksSucceeded",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       recentTasks: {
-        required: false,
-        serializedName: 'recentTasks',
+        serializedName: "recentTasks",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'TaskInformationElementType',
-              type: {
-                name: 'Composite',
-                className: 'TaskInformation'
-              }
+            serializedName: "TaskInformationElementType",
+            type: {
+              name: "Composite",
+              className: "TaskInformation"
+            }
           }
         }
       },
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       startTaskInfo: {
-        required: false,
-        serializedName: 'startTaskInfo',
+        serializedName: "startTaskInfo",
         type: {
-          name: 'Composite',
-          className: 'StartTaskInformation'
+          name: "Composite",
+          className: "StartTaskInformation"
         }
       },
       certificateReferences: {
-        required: false,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       errors: {
-        required: false,
-        serializedName: 'errors',
+        serializedName: "errors",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ComputeNodeErrorElementType',
-              type: {
-                name: 'Composite',
-                className: 'ComputeNodeError'
-              }
+            serializedName: "ComputeNodeErrorElementType",
+            type: {
+              name: "Composite",
+              className: "ComputeNodeError"
+            }
           }
         }
       },
       isDedicated: {
-        required: false,
-        serializedName: 'isDedicated',
+        serializedName: "isDedicated",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       endpointConfiguration: {
-        required: false,
-        serializedName: 'endpointConfiguration',
+        serializedName: "endpointConfiguration",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeEndpointConfiguration'
+          name: "Composite",
+          className: "ComputeNodeEndpointConfiguration"
         }
       }
     }
@@ -5918,45 +5529,40 @@ export const ComputeNode = {
 };
 
 export const ComputeNodeUser = {
-  required: false,
-  serializedName: 'ComputeNodeUser',
+  serializedName: "ComputeNodeUser",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeUser',
+    name: "Composite",
+    className: "ComputeNodeUser",
     modelProperties: {
       name: {
         required: true,
-        serializedName: 'name',
+        serializedName: "name",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       isAdmin: {
-        required: false,
-        serializedName: 'isAdmin',
+        serializedName: "isAdmin",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       expiryTime: {
-        required: false,
-        serializedName: 'expiryTime',
+        serializedName: "expiryTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       password: {
-        required: false,
-        serializedName: 'password',
+        serializedName: "password",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       sshPublicKey: {
-        required: false,
-        serializedName: 'sshPublicKey',
+        serializedName: "sshPublicKey",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -5964,24 +5570,23 @@ export const ComputeNodeUser = {
 };
 
 export const ComputeNodeGetRemoteLoginSettingsResult = {
-  required: false,
-  serializedName: 'ComputeNodeGetRemoteLoginSettingsResult',
+  serializedName: "ComputeNodeGetRemoteLoginSettingsResult",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetRemoteLoginSettingsResult',
+    name: "Composite",
+    className: "ComputeNodeGetRemoteLoginSettingsResult",
     modelProperties: {
       remoteLoginIPAddress: {
         required: true,
-        serializedName: 'remoteLoginIPAddress',
+        serializedName: "remoteLoginIPAddress",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       remoteLoginPort: {
         required: true,
-        serializedName: 'remoteLoginPort',
+        serializedName: "remoteLoginPort",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -5989,40 +5594,35 @@ export const ComputeNodeGetRemoteLoginSettingsResult = {
 };
 
 export const JobSchedulePatchParameter = {
-  required: false,
-  serializedName: 'JobSchedulePatchParameter',
+  serializedName: "JobSchedulePatchParameter",
   type: {
-    name: 'Composite',
-    className: 'JobSchedulePatchParameter',
+    name: "Composite",
+    className: "JobSchedulePatchParameter",
     modelProperties: {
       schedule: {
-        required: false,
-        serializedName: 'schedule',
+        serializedName: "schedule",
         type: {
-          name: 'Composite',
-          className: 'Schedule'
+          name: "Composite",
+          className: "Schedule"
         }
       },
       jobSpecification: {
-        required: false,
-        serializedName: 'jobSpecification',
+        serializedName: "jobSpecification",
         type: {
-          name: 'Composite',
-          className: 'JobSpecification'
+          name: "Composite",
+          className: "JobSpecification"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -6031,41 +5631,38 @@ export const JobSchedulePatchParameter = {
 };
 
 export const JobScheduleUpdateParameter = {
-  required: false,
-  serializedName: 'JobScheduleUpdateParameter',
+  serializedName: "JobScheduleUpdateParameter",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleUpdateParameter',
+    name: "Composite",
+    className: "JobScheduleUpdateParameter",
     modelProperties: {
       schedule: {
         required: true,
-        serializedName: 'schedule',
+        serializedName: "schedule",
         type: {
-          name: 'Composite',
-          className: 'Schedule'
+          name: "Composite",
+          className: "Schedule"
         }
       },
       jobSpecification: {
         required: true,
-        serializedName: 'jobSpecification',
+        serializedName: "jobSpecification",
         defaultValue: {},
         type: {
-          name: 'Composite',
-          className: 'JobSpecification'
+          name: "Composite",
+          className: "JobSpecification"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -6074,18 +5671,21 @@ export const JobScheduleUpdateParameter = {
 };
 
 export const JobDisableParameter = {
-  required: false,
-  serializedName: 'JobDisableParameter',
+  serializedName: "JobDisableParameter",
   type: {
-    name: 'Composite',
-    className: 'JobDisableParameter',
+    name: "Composite",
+    className: "JobDisableParameter",
     modelProperties: {
       disableTasks: {
         required: true,
-        serializedName: 'disableTasks',
+        serializedName: "disableTasks",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'wait' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "wait"
+          ]
         }
       }
     }
@@ -6093,17 +5693,15 @@ export const JobDisableParameter = {
 };
 
 export const JobTerminateParameter = {
-  required: false,
-  serializedName: 'JobTerminateParameter',
+  serializedName: "JobTerminateParameter",
   type: {
-    name: 'Composite',
-    className: 'JobTerminateParameter',
+    name: "Composite",
+    className: "JobTerminateParameter",
     modelProperties: {
       terminateReason: {
-        required: false,
-        serializedName: 'terminateReason',
+        serializedName: "terminateReason",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -6111,55 +5709,51 @@ export const JobTerminateParameter = {
 };
 
 export const JobPatchParameter = {
-  required: false,
-  serializedName: 'JobPatchParameter',
+  serializedName: "JobPatchParameter",
   type: {
-    name: 'Composite',
-    className: 'JobPatchParameter',
+    name: "Composite",
+    className: "JobPatchParameter",
     modelProperties: {
       priority: {
-        required: false,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       onAllTasksComplete: {
-        required: false,
-        serializedName: 'onAllTasksComplete',
+        serializedName: "onAllTasksComplete",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'terminatejob' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "terminatejob"
+          ]
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'JobConstraints'
+          name: "Composite",
+          className: "JobConstraints"
         }
       },
       poolInfo: {
-        required: false,
-        serializedName: 'poolInfo',
+        serializedName: "poolInfo",
         type: {
-          name: 'Composite',
-          className: 'PoolInformation'
+          name: "Composite",
+          className: "PoolInformation"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -6168,57 +5762,54 @@ export const JobPatchParameter = {
 };
 
 export const JobUpdateParameter = {
-  required: false,
-  serializedName: 'JobUpdateParameter',
+  serializedName: "JobUpdateParameter",
   type: {
-    name: 'Composite',
-    className: 'JobUpdateParameter',
+    name: "Composite",
+    className: "JobUpdateParameter",
     modelProperties: {
       priority: {
-        required: false,
-        serializedName: 'priority',
+        serializedName: "priority",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'JobConstraints'
+          name: "Composite",
+          className: "JobConstraints"
         }
       },
       poolInfo: {
         required: true,
-        serializedName: 'poolInfo',
+        serializedName: "poolInfo",
         defaultValue: {},
         type: {
-          name: 'Composite',
-          className: 'PoolInformation'
+          name: "Composite",
+          className: "PoolInformation"
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       },
       onAllTasksComplete: {
-        required: false,
-        serializedName: 'onAllTasksComplete',
+        serializedName: "onAllTasksComplete",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'noaction', 'terminatejob' ]
+          name: "Enum",
+          allowedValues: [
+            "noaction",
+            "terminatejob"
+          ]
         }
       }
     }
@@ -6226,24 +5817,21 @@ export const JobUpdateParameter = {
 };
 
 export const PoolEnableAutoScaleParameter = {
-  required: false,
-  serializedName: 'PoolEnableAutoScaleParameter',
+  serializedName: "PoolEnableAutoScaleParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolEnableAutoScaleParameter',
+    name: "Composite",
+    className: "PoolEnableAutoScaleParameter",
     modelProperties: {
       autoScaleFormula: {
-        required: false,
-        serializedName: 'autoScaleFormula',
+        serializedName: "autoScaleFormula",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       autoScaleEvaluationInterval: {
-        required: false,
-        serializedName: 'autoScaleEvaluationInterval',
+        serializedName: "autoScaleEvaluationInterval",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       }
     }
@@ -6251,17 +5839,16 @@ export const PoolEnableAutoScaleParameter = {
 };
 
 export const PoolEvaluateAutoScaleParameter = {
-  required: false,
-  serializedName: 'PoolEvaluateAutoScaleParameter',
+  serializedName: "PoolEvaluateAutoScaleParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolEvaluateAutoScaleParameter',
+    name: "Composite",
+    className: "PoolEvaluateAutoScaleParameter",
     modelProperties: {
       autoScaleFormula: {
         required: true,
-        serializedName: 'autoScaleFormula',
+        serializedName: "autoScaleFormula",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -6269,39 +5856,39 @@ export const PoolEvaluateAutoScaleParameter = {
 };
 
 export const PoolResizeParameter = {
-  required: false,
-  serializedName: 'PoolResizeParameter',
+  serializedName: "PoolResizeParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolResizeParameter',
+    name: "Composite",
+    className: "PoolResizeParameter",
     modelProperties: {
       targetDedicatedNodes: {
-        required: false,
-        serializedName: 'targetDedicatedNodes',
+        serializedName: "targetDedicatedNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       targetLowPriorityNodes: {
-        required: false,
-        serializedName: 'targetLowPriorityNodes',
+        serializedName: "targetLowPriorityNodes",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       resizeTimeout: {
-        required: false,
-        serializedName: 'resizeTimeout',
+        serializedName: "resizeTimeout",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       nodeDeallocationOption: {
-        required: false,
-        serializedName: 'nodeDeallocationOption',
+        serializedName: "nodeDeallocationOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'taskcompletion', 'retaineddata' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "taskcompletion",
+            "retaineddata"
+          ]
         }
       }
     }
@@ -6309,62 +5896,57 @@ export const PoolResizeParameter = {
 };
 
 export const PoolUpdatePropertiesParameter = {
-  required: false,
-  serializedName: 'PoolUpdatePropertiesParameter',
+  serializedName: "PoolUpdatePropertiesParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolUpdatePropertiesParameter',
+    name: "Composite",
+    className: "PoolUpdatePropertiesParameter",
     modelProperties: {
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       certificateReferences: {
         required: true,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       applicationPackageReferences: {
         required: true,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       metadata: {
         required: true,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -6373,17 +5955,16 @@ export const PoolUpdatePropertiesParameter = {
 };
 
 export const PoolUpgradeOSParameter = {
-  required: false,
-  serializedName: 'PoolUpgradeOSParameter',
+  serializedName: "PoolUpgradeOSParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolUpgradeOSParameter',
+    name: "Composite",
+    className: "PoolUpgradeOSParameter",
     modelProperties: {
       targetOSVersion: {
         required: true,
-        serializedName: 'targetOSVersion',
+        serializedName: "targetOSVersion",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -6391,62 +5972,54 @@ export const PoolUpgradeOSParameter = {
 };
 
 export const PoolPatchParameter = {
-  required: false,
-  serializedName: 'PoolPatchParameter',
+  serializedName: "PoolPatchParameter",
   type: {
-    name: 'Composite',
-    className: 'PoolPatchParameter',
+    name: "Composite",
+    className: "PoolPatchParameter",
     modelProperties: {
       startTask: {
-        required: false,
-        serializedName: 'startTask',
+        serializedName: "startTask",
         type: {
-          name: 'Composite',
-          className: 'StartTask'
+          name: "Composite",
+          className: "StartTask"
         }
       },
       certificateReferences: {
-        required: false,
-        serializedName: 'certificateReferences',
+        serializedName: "certificateReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'CertificateReference'
-              }
+            serializedName: "CertificateReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "CertificateReference"
+            }
           }
         }
       },
       applicationPackageReferences: {
-        required: false,
-        serializedName: 'applicationPackageReferences',
+        serializedName: "applicationPackageReferences",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationPackageReferenceElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationPackageReference'
-              }
+            serializedName: "ApplicationPackageReferenceElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationPackageReference"
+            }
           }
         }
       },
       metadata: {
-        required: false,
-        serializedName: 'metadata',
+        serializedName: "metadata",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'MetadataItemElementType',
-              type: {
-                name: 'Composite',
-                className: 'MetadataItem'
-              }
+            serializedName: "MetadataItemElementType",
+            type: {
+              name: "Composite",
+              className: "MetadataItem"
+            }
           }
         }
       }
@@ -6455,18 +6028,16 @@ export const PoolPatchParameter = {
 };
 
 export const TaskUpdateParameter = {
-  required: false,
-  serializedName: 'TaskUpdateParameter',
+  serializedName: "TaskUpdateParameter",
   type: {
-    name: 'Composite',
-    className: 'TaskUpdateParameter',
+    name: "Composite",
+    className: "TaskUpdateParameter",
     modelProperties: {
       constraints: {
-        required: false,
-        serializedName: 'constraints',
+        serializedName: "constraints",
         type: {
-          name: 'Composite',
-          className: 'TaskConstraints'
+          name: "Composite",
+          className: "TaskConstraints"
         }
       }
     }
@@ -6474,31 +6045,27 @@ export const TaskUpdateParameter = {
 };
 
 export const NodeUpdateUserParameter = {
-  required: false,
-  serializedName: 'NodeUpdateUserParameter',
+  serializedName: "NodeUpdateUserParameter",
   type: {
-    name: 'Composite',
-    className: 'NodeUpdateUserParameter',
+    name: "Composite",
+    className: "NodeUpdateUserParameter",
     modelProperties: {
       password: {
-        required: false,
-        serializedName: 'password',
+        serializedName: "password",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expiryTime: {
-        required: false,
-        serializedName: 'expiryTime',
+        serializedName: "expiryTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       sshPublicKey: {
-        required: false,
-        serializedName: 'sshPublicKey',
+        serializedName: "sshPublicKey",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -6506,18 +6073,21 @@ export const NodeUpdateUserParameter = {
 };
 
 export const NodeRebootParameter = {
-  required: false,
-  serializedName: 'NodeRebootParameter',
+  serializedName: "NodeRebootParameter",
   type: {
-    name: 'Composite',
-    className: 'NodeRebootParameter',
+    name: "Composite",
+    className: "NodeRebootParameter",
     modelProperties: {
       nodeRebootOption: {
-        required: false,
-        serializedName: 'nodeRebootOption',
+        serializedName: "nodeRebootOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'taskcompletion', 'retaineddata' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "taskcompletion",
+            "retaineddata"
+          ]
         }
       }
     }
@@ -6525,18 +6095,21 @@ export const NodeRebootParameter = {
 };
 
 export const NodeReimageParameter = {
-  required: false,
-  serializedName: 'NodeReimageParameter',
+  serializedName: "NodeReimageParameter",
   type: {
-    name: 'Composite',
-    className: 'NodeReimageParameter',
+    name: "Composite",
+    className: "NodeReimageParameter",
     modelProperties: {
       nodeReimageOption: {
-        required: false,
-        serializedName: 'nodeReimageOption',
+        serializedName: "nodeReimageOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'taskcompletion', 'retaineddata' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "taskcompletion",
+            "retaineddata"
+          ]
         }
       }
     }
@@ -6544,18 +6117,20 @@ export const NodeReimageParameter = {
 };
 
 export const NodeDisableSchedulingParameter = {
-  required: false,
-  serializedName: 'NodeDisableSchedulingParameter',
+  serializedName: "NodeDisableSchedulingParameter",
   type: {
-    name: 'Composite',
-    className: 'NodeDisableSchedulingParameter',
+    name: "Composite",
+    className: "NodeDisableSchedulingParameter",
     modelProperties: {
       nodeDisableSchedulingOption: {
-        required: false,
-        serializedName: 'nodeDisableSchedulingOption',
+        serializedName: "nodeDisableSchedulingOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'taskcompletion' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "taskcompletion"
+          ]
         }
       }
     }
@@ -6563,42 +6138,43 @@ export const NodeDisableSchedulingParameter = {
 };
 
 export const NodeRemoveParameter = {
-  required: false,
-  serializedName: 'NodeRemoveParameter',
+  serializedName: "NodeRemoveParameter",
   type: {
-    name: 'Composite',
-    className: 'NodeRemoveParameter',
+    name: "Composite",
+    className: "NodeRemoveParameter",
     modelProperties: {
       nodeList: {
         required: true,
-        serializedName: 'nodeList',
+        serializedName: "nodeList",
         constraints: {
           MaxItems: 100
         },
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'stringElementType',
-              type: {
-                name: 'String'
-              }
+            serializedName: "stringElementType",
+            type: {
+              name: "String"
+            }
           }
         }
       },
       resizeTimeout: {
-        required: false,
-        serializedName: 'resizeTimeout',
+        serializedName: "resizeTimeout",
         type: {
-          name: 'TimeSpan'
+          name: "TimeSpan"
         }
       },
       nodeDeallocationOption: {
-        required: false,
-        serializedName: 'nodeDeallocationOption',
+        serializedName: "nodeDeallocationOption",
         type: {
-          name: 'Enum',
-          allowedValues: [ 'requeue', 'terminate', 'taskcompletion', 'retaineddata' ]
+          name: "Enum",
+          allowedValues: [
+            "requeue",
+            "terminate",
+            "taskcompletion",
+            "retaineddata"
+          ]
         }
       }
     }
@@ -6606,31 +6182,29 @@ export const NodeRemoveParameter = {
 };
 
 export const UploadBatchServiceLogsConfiguration = {
-  required: false,
-  serializedName: 'UploadBatchServiceLogsConfiguration',
+  serializedName: "UploadBatchServiceLogsConfiguration",
   type: {
-    name: 'Composite',
-    className: 'UploadBatchServiceLogsConfiguration',
+    name: "Composite",
+    className: "UploadBatchServiceLogsConfiguration",
     modelProperties: {
       containerUrl: {
         required: true,
-        serializedName: 'containerUrl',
+        serializedName: "containerUrl",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       startTime: {
         required: true,
-        serializedName: 'startTime',
+        serializedName: "startTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
-        serializedName: 'endTime',
+        serializedName: "endTime",
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       }
     }
@@ -6638,24 +6212,23 @@ export const UploadBatchServiceLogsConfiguration = {
 };
 
 export const UploadBatchServiceLogsResult = {
-  required: false,
-  serializedName: 'UploadBatchServiceLogsResult',
+  serializedName: "UploadBatchServiceLogsResult",
   type: {
-    name: 'Composite',
-    className: 'UploadBatchServiceLogsResult',
+    name: "Composite",
+    className: "UploadBatchServiceLogsResult",
     modelProperties: {
       virtualDirectoryName: {
         required: true,
-        serializedName: 'virtualDirectoryName',
+        serializedName: "virtualDirectoryName",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       numberOfFilesUploaded: {
         required: true,
-        serializedName: 'numberOfFilesUploaded',
+        serializedName: "numberOfFilesUploaded",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -6663,101 +6236,107 @@ export const UploadBatchServiceLogsResult = {
 };
 
 export const NodeCounts = {
-  required: false,
-  serializedName: 'NodeCounts',
+  serializedName: "NodeCounts",
   type: {
-    name: 'Composite',
-    className: 'NodeCounts',
+    name: "Composite",
+    className: "NodeCounts",
     modelProperties: {
       creating: {
         required: true,
-        serializedName: 'creating',
+        serializedName: "creating",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       idle: {
         required: true,
-        serializedName: 'idle',
+        serializedName: "idle",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       offline: {
         required: true,
-        serializedName: 'offline',
+        serializedName: "offline",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       preempted: {
         required: true,
-        serializedName: 'preempted',
+        serializedName: "preempted",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       rebooting: {
         required: true,
-        serializedName: 'rebooting',
+        serializedName: "rebooting",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       reimaging: {
         required: true,
-        serializedName: 'reimaging',
+        serializedName: "reimaging",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       running: {
         required: true,
-        serializedName: 'running',
+        serializedName: "running",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       starting: {
         required: true,
-        serializedName: 'starting',
+        serializedName: "starting",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       startTaskFailed: {
         required: true,
-        serializedName: 'startTaskFailed',
+        serializedName: "startTaskFailed",
         type: {
-          name: 'Number'
+          name: "Number"
+        }
+      },
+      leavingPool: {
+        required: true,
+        serializedName: "leavingPool",
+        type: {
+          name: "Number"
         }
       },
       unknown: {
         required: true,
-        serializedName: 'unknown',
+        serializedName: "unknown",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       unusable: {
         required: true,
-        serializedName: 'unusable',
+        serializedName: "unusable",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       waitingForStartTask: {
         required: true,
-        serializedName: 'waitingForStartTask',
+        serializedName: "waitingForStartTask",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       total: {
         required: true,
-        serializedName: 'total',
+        serializedName: "total",
         type: {
-          name: 'Number'
+          name: "Number"
         }
       }
     }
@@ -6765,33 +6344,30 @@ export const NodeCounts = {
 };
 
 export const PoolNodeCounts = {
-  required: false,
-  serializedName: 'PoolNodeCounts',
+  serializedName: "PoolNodeCounts",
   type: {
-    name: 'Composite',
-    className: 'PoolNodeCounts',
+    name: "Composite",
+    className: "PoolNodeCounts",
     modelProperties: {
       poolId: {
         required: true,
-        serializedName: 'poolId',
+        serializedName: "poolId",
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       dedicated: {
-        required: false,
-        serializedName: 'dedicated',
+        serializedName: "dedicated",
         type: {
-          name: 'Composite',
-          className: 'NodeCounts'
+          name: "Composite",
+          className: "NodeCounts"
         }
       },
       lowPriority: {
-        required: false,
-        serializedName: 'lowPriority',
+        serializedName: "lowPriority",
         type: {
-          name: 'Composite',
-          className: 'NodeCounts'
+          name: "Composite",
+          className: "NodeCounts"
         }
       }
     }
@@ -6799,42 +6375,36 @@ export const PoolNodeCounts = {
 };
 
 export const ApplicationListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ApplicationListOptions',
+    name: "Composite",
+    className: "ApplicationListOptions",
     modelProperties: {
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -6842,35 +6412,30 @@ export const ApplicationListOptions = {
 };
 
 export const ApplicationGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ApplicationGetOptions',
+    name: "Composite",
+    className: "ApplicationGetOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -6878,60 +6443,51 @@ export const ApplicationGetOptions = {
 };
 
 export const PoolListUsageMetricsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolListUsageMetricsOptions',
+    name: "Composite",
+    className: "PoolListUsageMetricsOptions",
     modelProperties: {
       startTime: {
-        required: false,
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       endTime: {
-        required: false,
         type: {
-          name: 'DateTime'
+          name: "DateTime"
         }
       },
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -6939,35 +6495,30 @@ export const PoolListUsageMetricsOptions = {
 };
 
 export const PoolGetAllLifetimeStatisticsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolGetAllLifetimeStatisticsOptions',
+    name: "Composite",
+    className: "PoolGetAllLifetimeStatisticsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -6975,35 +6526,30 @@ export const PoolGetAllLifetimeStatisticsOptions = {
 };
 
 export const PoolAddOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolAddOptions',
+    name: "Composite",
+    className: "PoolAddOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7011,60 +6557,51 @@ export const PoolAddOptions = {
 };
 
 export const PoolListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolListOptions',
+    name: "Composite",
+    className: "PoolListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7072,59 +6609,50 @@ export const PoolListOptions = {
 };
 
 export const PoolDeleteMethodOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolDeleteMethodOptions',
+    name: "Composite",
+    className: "PoolDeleteMethodOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7132,59 +6660,50 @@ export const PoolDeleteMethodOptions = {
 };
 
 export const PoolExistsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolExistsOptions',
+    name: "Composite",
+    className: "PoolExistsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7192,71 +6711,60 @@ export const PoolExistsOptions = {
 };
 
 export const PoolGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolGetOptions',
+    name: "Composite",
+    className: "PoolGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7264,59 +6772,50 @@ export const PoolGetOptions = {
 };
 
 export const PoolPatchOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolPatchOptions',
+    name: "Composite",
+    className: "PoolPatchOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7324,35 +6823,30 @@ export const PoolPatchOptions = {
 };
 
 export const PoolDisableAutoScaleOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolDisableAutoScaleOptions',
+    name: "Composite",
+    className: "PoolDisableAutoScaleOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7360,59 +6854,50 @@ export const PoolDisableAutoScaleOptions = {
 };
 
 export const PoolEnableAutoScaleOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolEnableAutoScaleOptions',
+    name: "Composite",
+    className: "PoolEnableAutoScaleOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7420,35 +6905,30 @@ export const PoolEnableAutoScaleOptions = {
 };
 
 export const PoolEvaluateAutoScaleOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolEvaluateAutoScaleOptions',
+    name: "Composite",
+    className: "PoolEvaluateAutoScaleOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7456,59 +6936,50 @@ export const PoolEvaluateAutoScaleOptions = {
 };
 
 export const PoolResizeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolResizeOptions',
+    name: "Composite",
+    className: "PoolResizeOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7516,59 +6987,50 @@ export const PoolResizeOptions = {
 };
 
 export const PoolStopResizeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolStopResizeOptions',
+    name: "Composite",
+    className: "PoolStopResizeOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7576,35 +7038,30 @@ export const PoolStopResizeOptions = {
 };
 
 export const PoolUpdatePropertiesOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolUpdatePropertiesOptions',
+    name: "Composite",
+    className: "PoolUpdatePropertiesOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7612,59 +7069,50 @@ export const PoolUpdatePropertiesOptions = {
 };
 
 export const PoolUpgradeOSOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolUpgradeOSOptions',
+    name: "Composite",
+    className: "PoolUpgradeOSOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7672,59 +7120,50 @@ export const PoolUpgradeOSOptions = {
 };
 
 export const PoolRemoveNodesOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolRemoveNodesOptions',
+    name: "Composite",
+    className: "PoolRemoveNodesOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7732,48 +7171,41 @@ export const PoolRemoveNodesOptions = {
 };
 
 export const AccountListNodeAgentSkusOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'AccountListNodeAgentSkusOptions',
+    name: "Composite",
+    className: "AccountListNodeAgentSkusOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7781,48 +7213,41 @@ export const AccountListNodeAgentSkusOptions = {
 };
 
 export const AccountListPoolNodeCountsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'AccountListPoolNodeCountsOptions',
+    name: "Composite",
+    className: "AccountListPoolNodeCountsOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 10,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7830,35 +7255,30 @@ export const AccountListPoolNodeCountsOptions = {
 };
 
 export const JobGetAllLifetimeStatisticsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobGetAllLifetimeStatisticsOptions',
+    name: "Composite",
+    className: "JobGetAllLifetimeStatisticsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7866,59 +7286,50 @@ export const JobGetAllLifetimeStatisticsOptions = {
 };
 
 export const JobDeleteMethodOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobDeleteMethodOptions',
+    name: "Composite",
+    className: "JobDeleteMethodOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7926,71 +7337,60 @@ export const JobDeleteMethodOptions = {
 };
 
 export const JobGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobGetOptions',
+    name: "Composite",
+    className: "JobGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -7998,59 +7398,50 @@ export const JobGetOptions = {
 };
 
 export const JobPatchOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobPatchOptions',
+    name: "Composite",
+    className: "JobPatchOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8058,59 +7449,50 @@ export const JobPatchOptions = {
 };
 
 export const JobUpdateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobUpdateOptions',
+    name: "Composite",
+    className: "JobUpdateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8118,59 +7500,50 @@ export const JobUpdateOptions = {
 };
 
 export const JobDisableOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobDisableOptions',
+    name: "Composite",
+    className: "JobDisableOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8178,59 +7551,50 @@ export const JobDisableOptions = {
 };
 
 export const JobEnableOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobEnableOptions',
+    name: "Composite",
+    className: "JobEnableOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8238,59 +7602,50 @@ export const JobEnableOptions = {
 };
 
 export const JobTerminateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobTerminateOptions',
+    name: "Composite",
+    className: "JobTerminateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8298,35 +7653,30 @@ export const JobTerminateOptions = {
 };
 
 export const JobAddOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobAddOptions',
+    name: "Composite",
+    className: "JobAddOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8334,60 +7684,51 @@ export const JobAddOptions = {
 };
 
 export const JobListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListOptions',
+    name: "Composite",
+    className: "JobListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8395,60 +7736,51 @@ export const JobListOptions = {
 };
 
 export const JobListFromJobScheduleOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListFromJobScheduleOptions',
+    name: "Composite",
+    className: "JobListFromJobScheduleOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8456,54 +7788,46 @@ export const JobListFromJobScheduleOptions = {
 };
 
 export const JobListPreparationAndReleaseTaskStatusOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListPreparationAndReleaseTaskStatusOptions',
+    name: "Composite",
+    className: "JobListPreparationAndReleaseTaskStatusOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8511,35 +7835,30 @@ export const JobListPreparationAndReleaseTaskStatusOptions = {
 };
 
 export const JobGetTaskCountsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobGetTaskCountsOptions',
+    name: "Composite",
+    className: "JobGetTaskCountsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8547,35 +7866,30 @@ export const JobGetTaskCountsOptions = {
 };
 
 export const CertificateAddOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateAddOptions',
+    name: "Composite",
+    className: "CertificateAddOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8583,54 +7897,46 @@ export const CertificateAddOptions = {
 };
 
 export const CertificateListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateListOptions',
+    name: "Composite",
+    className: "CertificateListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8638,35 +7944,30 @@ export const CertificateListOptions = {
 };
 
 export const CertificateCancelDeletionOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateCancelDeletionOptions',
+    name: "Composite",
+    className: "CertificateCancelDeletionOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8674,35 +7975,30 @@ export const CertificateCancelDeletionOptions = {
 };
 
 export const CertificateDeleteMethodOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateDeleteMethodOptions',
+    name: "Composite",
+    className: "CertificateDeleteMethodOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8710,41 +8006,35 @@ export const CertificateDeleteMethodOptions = {
 };
 
 export const CertificateGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateGetOptions',
+    name: "Composite",
+    className: "CertificateGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8752,35 +8042,30 @@ export const CertificateGetOptions = {
 };
 
 export const FileDeleteFromTaskOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileDeleteFromTaskOptions',
+    name: "Composite",
+    className: "FileDeleteFromTaskOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8788,53 +8073,45 @@ export const FileDeleteFromTaskOptions = {
 };
 
 export const FileGetFromTaskOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileGetFromTaskOptions',
+    name: "Composite",
+    className: "FileGetFromTaskOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ocpRange: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8842,47 +8119,40 @@ export const FileGetFromTaskOptions = {
 };
 
 export const FileGetPropertiesFromTaskOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileGetPropertiesFromTaskOptions',
+    name: "Composite",
+    className: "FileGetPropertiesFromTaskOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8890,35 +8160,30 @@ export const FileGetPropertiesFromTaskOptions = {
 };
 
 export const FileDeleteFromComputeNodeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileDeleteFromComputeNodeOptions',
+    name: "Composite",
+    className: "FileDeleteFromComputeNodeOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8926,53 +8191,45 @@ export const FileDeleteFromComputeNodeOptions = {
 };
 
 export const FileGetFromComputeNodeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileGetFromComputeNodeOptions',
+    name: "Composite",
+    className: "FileGetFromComputeNodeOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ocpRange: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -8980,47 +8237,40 @@ export const FileGetFromComputeNodeOptions = {
 };
 
 export const FileGetPropertiesFromComputeNodeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileGetPropertiesFromComputeNodeOptions',
+    name: "Composite",
+    className: "FileGetPropertiesFromComputeNodeOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9028,48 +8278,41 @@ export const FileGetPropertiesFromComputeNodeOptions = {
 };
 
 export const FileListFromTaskOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileListFromTaskOptions',
+    name: "Composite",
+    className: "FileListFromTaskOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9077,48 +8320,41 @@ export const FileListFromTaskOptions = {
 };
 
 export const FileListFromComputeNodeOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileListFromComputeNodeOptions',
+    name: "Composite",
+    className: "FileListFromComputeNodeOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9126,59 +8362,50 @@ export const FileListFromComputeNodeOptions = {
 };
 
 export const JobScheduleExistsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleExistsOptions',
+    name: "Composite",
+    className: "JobScheduleExistsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9186,59 +8413,50 @@ export const JobScheduleExistsOptions = {
 };
 
 export const JobScheduleDeleteMethodOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleDeleteMethodOptions',
+    name: "Composite",
+    className: "JobScheduleDeleteMethodOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9246,71 +8464,60 @@ export const JobScheduleDeleteMethodOptions = {
 };
 
 export const JobScheduleGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleGetOptions',
+    name: "Composite",
+    className: "JobScheduleGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9318,59 +8525,50 @@ export const JobScheduleGetOptions = {
 };
 
 export const JobSchedulePatchOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobSchedulePatchOptions',
+    name: "Composite",
+    className: "JobSchedulePatchOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9378,59 +8576,50 @@ export const JobSchedulePatchOptions = {
 };
 
 export const JobScheduleUpdateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleUpdateOptions',
+    name: "Composite",
+    className: "JobScheduleUpdateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9438,59 +8627,50 @@ export const JobScheduleUpdateOptions = {
 };
 
 export const JobScheduleDisableOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleDisableOptions',
+    name: "Composite",
+    className: "JobScheduleDisableOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9498,59 +8678,50 @@ export const JobScheduleDisableOptions = {
 };
 
 export const JobScheduleEnableOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleEnableOptions',
+    name: "Composite",
+    className: "JobScheduleEnableOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9558,59 +8729,50 @@ export const JobScheduleEnableOptions = {
 };
 
 export const JobScheduleTerminateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleTerminateOptions',
+    name: "Composite",
+    className: "JobScheduleTerminateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9618,35 +8780,30 @@ export const JobScheduleTerminateOptions = {
 };
 
 export const JobScheduleAddOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleAddOptions',
+    name: "Composite",
+    className: "JobScheduleAddOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9654,60 +8811,51 @@ export const JobScheduleAddOptions = {
 };
 
 export const JobScheduleListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleListOptions',
+    name: "Composite",
+    className: "JobScheduleListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9715,35 +8863,30 @@ export const JobScheduleListOptions = {
 };
 
 export const TaskAddOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskAddOptions',
+    name: "Composite",
+    className: "TaskAddOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9751,60 +8894,51 @@ export const TaskAddOptions = {
 };
 
 export const TaskListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskListOptions',
+    name: "Composite",
+    className: "TaskListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9812,35 +8946,30 @@ export const TaskListOptions = {
 };
 
 export const TaskAddCollectionOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskAddCollectionOptions',
+    name: "Composite",
+    className: "TaskAddCollectionOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9848,59 +8977,50 @@ export const TaskAddCollectionOptions = {
 };
 
 export const TaskDeleteMethodOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskDeleteMethodOptions',
+    name: "Composite",
+    className: "TaskDeleteMethodOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9908,71 +9028,60 @@ export const TaskDeleteMethodOptions = {
 };
 
 export const TaskGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskGetOptions',
+    name: "Composite",
+    className: "TaskGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       expand: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -9980,59 +9089,50 @@ export const TaskGetOptions = {
 };
 
 export const TaskUpdateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskUpdateOptions',
+    name: "Composite",
+    className: "TaskUpdateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10040,41 +9140,35 @@ export const TaskUpdateOptions = {
 };
 
 export const TaskListSubtasksOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskListSubtasksOptions',
+    name: "Composite",
+    className: "TaskListSubtasksOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10082,59 +9176,50 @@ export const TaskListSubtasksOptions = {
 };
 
 export const TaskTerminateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskTerminateOptions',
+    name: "Composite",
+    className: "TaskTerminateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10142,59 +9227,50 @@ export const TaskTerminateOptions = {
 };
 
 export const TaskReactivateOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskReactivateOptions',
+    name: "Composite",
+    className: "TaskReactivateOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifNoneMatch: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       ifModifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       },
       ifUnmodifiedSince: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10202,35 +9278,30 @@ export const TaskReactivateOptions = {
 };
 
 export const ComputeNodeAddUserOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeAddUserOptions',
+    name: "Composite",
+    className: "ComputeNodeAddUserOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10238,35 +9309,30 @@ export const ComputeNodeAddUserOptions = {
 };
 
 export const ComputeNodeDeleteUserOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeDeleteUserOptions',
+    name: "Composite",
+    className: "ComputeNodeDeleteUserOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10274,35 +9340,30 @@ export const ComputeNodeDeleteUserOptions = {
 };
 
 export const ComputeNodeUpdateUserOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeUpdateUserOptions',
+    name: "Composite",
+    className: "ComputeNodeUpdateUserOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10310,41 +9371,35 @@ export const ComputeNodeUpdateUserOptions = {
 };
 
 export const ComputeNodeGetOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetOptions',
+    name: "Composite",
+    className: "ComputeNodeGetOptions",
     modelProperties: {
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10352,35 +9407,30 @@ export const ComputeNodeGetOptions = {
 };
 
 export const ComputeNodeRebootOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeRebootOptions',
+    name: "Composite",
+    className: "ComputeNodeRebootOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10388,35 +9438,30 @@ export const ComputeNodeRebootOptions = {
 };
 
 export const ComputeNodeReimageOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeReimageOptions',
+    name: "Composite",
+    className: "ComputeNodeReimageOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10424,35 +9469,30 @@ export const ComputeNodeReimageOptions = {
 };
 
 export const ComputeNodeDisableSchedulingOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeDisableSchedulingOptions',
+    name: "Composite",
+    className: "ComputeNodeDisableSchedulingOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10460,35 +9500,30 @@ export const ComputeNodeDisableSchedulingOptions = {
 };
 
 export const ComputeNodeEnableSchedulingOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeEnableSchedulingOptions',
+    name: "Composite",
+    className: "ComputeNodeEnableSchedulingOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10496,35 +9531,30 @@ export const ComputeNodeEnableSchedulingOptions = {
 };
 
 export const ComputeNodeGetRemoteLoginSettingsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetRemoteLoginSettingsOptions',
+    name: "Composite",
+    className: "ComputeNodeGetRemoteLoginSettingsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10532,35 +9562,30 @@ export const ComputeNodeGetRemoteLoginSettingsOptions = {
 };
 
 export const ComputeNodeGetRemoteDesktopOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetRemoteDesktopOptions',
+    name: "Composite",
+    className: "ComputeNodeGetRemoteDesktopOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10568,35 +9593,30 @@ export const ComputeNodeGetRemoteDesktopOptions = {
 };
 
 export const ComputeNodeUploadBatchServiceLogsOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeUploadBatchServiceLogsOptions',
+    name: "Composite",
+    className: "ComputeNodeUploadBatchServiceLogsOptions",
     modelProperties: {
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10604,54 +9624,46 @@ export const ComputeNodeUploadBatchServiceLogsOptions = {
 };
 
 export const ComputeNodeListOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeListOptions',
+    name: "Composite",
+    className: "ComputeNodeListOptions",
     modelProperties: {
       filter: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       select: {
-        required: false,
         type: {
-          name: 'String'
+          name: "String"
         }
       },
       maxResults: {
-        required: false,
         defaultValue: 1000,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       timeout: {
-        required: false,
         defaultValue: 30,
         type: {
-          name: 'Number'
+          name: "Number"
         }
       },
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10659,28 +9671,24 @@ export const ComputeNodeListOptions = {
 };
 
 export const ApplicationListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ApplicationListNextOptions',
+    name: "Composite",
+    className: "ApplicationListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10688,28 +9696,24 @@ export const ApplicationListNextOptions = {
 };
 
 export const PoolListUsageMetricsNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolListUsageMetricsNextOptions',
+    name: "Composite",
+    className: "PoolListUsageMetricsNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10717,28 +9721,24 @@ export const PoolListUsageMetricsNextOptions = {
 };
 
 export const PoolListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'PoolListNextOptions',
+    name: "Composite",
+    className: "PoolListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10746,28 +9746,24 @@ export const PoolListNextOptions = {
 };
 
 export const AccountListNodeAgentSkusNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'AccountListNodeAgentSkusNextOptions',
+    name: "Composite",
+    className: "AccountListNodeAgentSkusNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10775,28 +9771,24 @@ export const AccountListNodeAgentSkusNextOptions = {
 };
 
 export const AccountListPoolNodeCountsNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'AccountListPoolNodeCountsNextOptions',
+    name: "Composite",
+    className: "AccountListPoolNodeCountsNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10804,28 +9796,24 @@ export const AccountListPoolNodeCountsNextOptions = {
 };
 
 export const JobListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListNextOptions',
+    name: "Composite",
+    className: "JobListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10833,28 +9821,24 @@ export const JobListNextOptions = {
 };
 
 export const JobListFromJobScheduleNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListFromJobScheduleNextOptions',
+    name: "Composite",
+    className: "JobListFromJobScheduleNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10862,28 +9846,24 @@ export const JobListFromJobScheduleNextOptions = {
 };
 
 export const JobListPreparationAndReleaseTaskStatusNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobListPreparationAndReleaseTaskStatusNextOptions',
+    name: "Composite",
+    className: "JobListPreparationAndReleaseTaskStatusNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10891,28 +9871,24 @@ export const JobListPreparationAndReleaseTaskStatusNextOptions = {
 };
 
 export const CertificateListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'CertificateListNextOptions',
+    name: "Composite",
+    className: "CertificateListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10920,28 +9896,24 @@ export const CertificateListNextOptions = {
 };
 
 export const FileListFromTaskNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileListFromTaskNextOptions',
+    name: "Composite",
+    className: "FileListFromTaskNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10949,28 +9921,24 @@ export const FileListFromTaskNextOptions = {
 };
 
 export const FileListFromComputeNodeNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'FileListFromComputeNodeNextOptions',
+    name: "Composite",
+    className: "FileListFromComputeNodeNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -10978,28 +9946,24 @@ export const FileListFromComputeNodeNextOptions = {
 };
 
 export const JobScheduleListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'JobScheduleListNextOptions',
+    name: "Composite",
+    className: "JobScheduleListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -11007,28 +9971,24 @@ export const JobScheduleListNextOptions = {
 };
 
 export const TaskListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'TaskListNextOptions',
+    name: "Composite",
+    className: "TaskListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -11036,28 +9996,24 @@ export const TaskListNextOptions = {
 };
 
 export const ComputeNodeListNextOptions = {
-  required: false,
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeListNextOptions',
+    name: "Composite",
+    className: "ComputeNodeListNextOptions",
     modelProperties: {
       clientRequestId: {
-        required: false,
         type: {
-          name: 'String'
+          name: "Uuid"
         }
       },
       returnClientRequestId: {
-        required: false,
         defaultValue: false,
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       ocpDate: {
-        required: false,
         type: {
-          name: 'DateTimeRfc1123'
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -11065,18 +10021,16 @@ export const ComputeNodeListNextOptions = {
 };
 
 export const ApplicationListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'ApplicationListOptionalParams',
+    name: "Composite",
+    className: "ApplicationListOptionalParams",
     modelProperties: {
       applicationListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ApplicationListOptions'
+          name: "Composite",
+          className: "ApplicationListOptions"
         }
       }
     }
@@ -11084,18 +10038,16 @@ export const ApplicationListOptionalParams = {
 };
 
 export const ApplicationGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'ApplicationGetOptionalParams',
+    name: "Composite",
+    className: "ApplicationGetOptionalParams",
     modelProperties: {
       applicationGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ApplicationGetOptions'
+          name: "Composite",
+          className: "ApplicationGetOptions"
         }
       }
     }
@@ -11103,18 +10055,16 @@ export const ApplicationGetOptionalParams = {
 };
 
 export const ApplicationListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'ApplicationListNextOptionalParams',
+    name: "Composite",
+    className: "ApplicationListNextOptionalParams",
     modelProperties: {
       applicationListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ApplicationListNextOptions'
+          name: "Composite",
+          className: "ApplicationListNextOptions"
         }
       }
     }
@@ -11122,18 +10072,16 @@ export const ApplicationListNextOptionalParams = {
 };
 
 export const PoolListUsageMetricsOptionalParams = {
-  required: false,
-  serializedName: 'ListUsageMetricsOptions',
+  serializedName: "ListUsageMetricsOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolListUsageMetricsOptionalParams',
+    name: "Composite",
+    className: "PoolListUsageMetricsOptionalParams",
     modelProperties: {
       poolListUsageMetricsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolListUsageMetricsOptions'
+          name: "Composite",
+          className: "PoolListUsageMetricsOptions"
         }
       }
     }
@@ -11141,18 +10089,16 @@ export const PoolListUsageMetricsOptionalParams = {
 };
 
 export const PoolGetAllLifetimeStatisticsOptionalParams = {
-  required: false,
-  serializedName: 'GetAllLifetimeStatisticsOptions',
+  serializedName: "GetAllLifetimeStatisticsOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolGetAllLifetimeStatisticsOptionalParams',
+    name: "Composite",
+    className: "PoolGetAllLifetimeStatisticsOptionalParams",
     modelProperties: {
       poolGetAllLifetimeStatisticsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolGetAllLifetimeStatisticsOptions'
+          name: "Composite",
+          className: "PoolGetAllLifetimeStatisticsOptions"
         }
       }
     }
@@ -11160,18 +10106,16 @@ export const PoolGetAllLifetimeStatisticsOptionalParams = {
 };
 
 export const PoolAddOptionalParams = {
-  required: false,
-  serializedName: 'AddOptions',
+  serializedName: "AddOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolAddOptionalParams',
+    name: "Composite",
+    className: "PoolAddOptionalParams",
     modelProperties: {
       poolAddOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolAddOptions'
+          name: "Composite",
+          className: "PoolAddOptions"
         }
       }
     }
@@ -11179,18 +10123,16 @@ export const PoolAddOptionalParams = {
 };
 
 export const PoolListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolListOptionalParams',
+    name: "Composite",
+    className: "PoolListOptionalParams",
     modelProperties: {
       poolListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolListOptions'
+          name: "Composite",
+          className: "PoolListOptions"
         }
       }
     }
@@ -11198,18 +10140,16 @@ export const PoolListOptionalParams = {
 };
 
 export const PoolDeleteMethodOptionalParams = {
-  required: false,
-  serializedName: 'DeleteMethodOptions',
+  serializedName: "DeleteMethodOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolDeleteMethodOptionalParams',
+    name: "Composite",
+    className: "PoolDeleteMethodOptionalParams",
     modelProperties: {
       poolDeleteMethodOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolDeleteMethodOptions'
+          name: "Composite",
+          className: "PoolDeleteMethodOptions"
         }
       }
     }
@@ -11217,18 +10157,16 @@ export const PoolDeleteMethodOptionalParams = {
 };
 
 export const PoolExistsOptionalParams = {
-  required: false,
-  serializedName: 'ExistsOptions',
+  serializedName: "ExistsOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolExistsOptionalParams',
+    name: "Composite",
+    className: "PoolExistsOptionalParams",
     modelProperties: {
       poolExistsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolExistsOptions'
+          name: "Composite",
+          className: "PoolExistsOptions"
         }
       }
     }
@@ -11236,18 +10174,16 @@ export const PoolExistsOptionalParams = {
 };
 
 export const PoolGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolGetOptionalParams',
+    name: "Composite",
+    className: "PoolGetOptionalParams",
     modelProperties: {
       poolGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolGetOptions'
+          name: "Composite",
+          className: "PoolGetOptions"
         }
       }
     }
@@ -11255,18 +10191,16 @@ export const PoolGetOptionalParams = {
 };
 
 export const PoolPatchOptionalParams = {
-  required: false,
-  serializedName: 'PatchOptions',
+  serializedName: "PatchOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolPatchOptionalParams',
+    name: "Composite",
+    className: "PoolPatchOptionalParams",
     modelProperties: {
       poolPatchOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolPatchOptions'
+          name: "Composite",
+          className: "PoolPatchOptions"
         }
       }
     }
@@ -11274,18 +10208,16 @@ export const PoolPatchOptionalParams = {
 };
 
 export const PoolDisableAutoScaleOptionalParams = {
-  required: false,
-  serializedName: 'DisableAutoScaleOptions',
+  serializedName: "DisableAutoScaleOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolDisableAutoScaleOptionalParams',
+    name: "Composite",
+    className: "PoolDisableAutoScaleOptionalParams",
     modelProperties: {
       poolDisableAutoScaleOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolDisableAutoScaleOptions'
+          name: "Composite",
+          className: "PoolDisableAutoScaleOptions"
         }
       }
     }
@@ -11293,18 +10225,16 @@ export const PoolDisableAutoScaleOptionalParams = {
 };
 
 export const PoolEnableAutoScaleOptionalParams = {
-  required: false,
-  serializedName: 'EnableAutoScaleOptions',
+  serializedName: "EnableAutoScaleOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolEnableAutoScaleOptionalParams',
+    name: "Composite",
+    className: "PoolEnableAutoScaleOptionalParams",
     modelProperties: {
       poolEnableAutoScaleOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolEnableAutoScaleOptions'
+          name: "Composite",
+          className: "PoolEnableAutoScaleOptions"
         }
       }
     }
@@ -11312,18 +10242,16 @@ export const PoolEnableAutoScaleOptionalParams = {
 };
 
 export const PoolEvaluateAutoScaleOptionalParams = {
-  required: false,
-  serializedName: 'EvaluateAutoScaleOptions',
+  serializedName: "EvaluateAutoScaleOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolEvaluateAutoScaleOptionalParams',
+    name: "Composite",
+    className: "PoolEvaluateAutoScaleOptionalParams",
     modelProperties: {
       poolEvaluateAutoScaleOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolEvaluateAutoScaleOptions'
+          name: "Composite",
+          className: "PoolEvaluateAutoScaleOptions"
         }
       }
     }
@@ -11331,18 +10259,16 @@ export const PoolEvaluateAutoScaleOptionalParams = {
 };
 
 export const PoolResizeOptionalParams = {
-  required: false,
-  serializedName: 'ResizeOptions',
+  serializedName: "ResizeOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolResizeOptionalParams',
+    name: "Composite",
+    className: "PoolResizeOptionalParams",
     modelProperties: {
       poolResizeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolResizeOptions'
+          name: "Composite",
+          className: "PoolResizeOptions"
         }
       }
     }
@@ -11350,18 +10276,16 @@ export const PoolResizeOptionalParams = {
 };
 
 export const PoolStopResizeOptionalParams = {
-  required: false,
-  serializedName: 'StopResizeOptions',
+  serializedName: "StopResizeOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolStopResizeOptionalParams',
+    name: "Composite",
+    className: "PoolStopResizeOptionalParams",
     modelProperties: {
       poolStopResizeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolStopResizeOptions'
+          name: "Composite",
+          className: "PoolStopResizeOptions"
         }
       }
     }
@@ -11369,18 +10293,16 @@ export const PoolStopResizeOptionalParams = {
 };
 
 export const PoolUpdatePropertiesOptionalParams = {
-  required: false,
-  serializedName: 'UpdatePropertiesOptions',
+  serializedName: "UpdatePropertiesOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolUpdatePropertiesOptionalParams',
+    name: "Composite",
+    className: "PoolUpdatePropertiesOptionalParams",
     modelProperties: {
       poolUpdatePropertiesOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolUpdatePropertiesOptions'
+          name: "Composite",
+          className: "PoolUpdatePropertiesOptions"
         }
       }
     }
@@ -11388,18 +10310,16 @@ export const PoolUpdatePropertiesOptionalParams = {
 };
 
 export const PoolUpgradeOSOptionalParams = {
-  required: false,
-  serializedName: 'UpgradeOSOptions',
+  serializedName: "UpgradeOSOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolUpgradeOSOptionalParams',
+    name: "Composite",
+    className: "PoolUpgradeOSOptionalParams",
     modelProperties: {
       poolUpgradeOSOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolUpgradeOSOptions'
+          name: "Composite",
+          className: "PoolUpgradeOSOptions"
         }
       }
     }
@@ -11407,18 +10327,16 @@ export const PoolUpgradeOSOptionalParams = {
 };
 
 export const PoolRemoveNodesOptionalParams = {
-  required: false,
-  serializedName: 'RemoveNodesOptions',
+  serializedName: "RemoveNodesOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolRemoveNodesOptionalParams',
+    name: "Composite",
+    className: "PoolRemoveNodesOptionalParams",
     modelProperties: {
       poolRemoveNodesOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolRemoveNodesOptions'
+          name: "Composite",
+          className: "PoolRemoveNodesOptions"
         }
       }
     }
@@ -11426,18 +10344,16 @@ export const PoolRemoveNodesOptionalParams = {
 };
 
 export const PoolListUsageMetricsNextOptionalParams = {
-  required: false,
-  serializedName: 'ListUsageMetricsNextOptions',
+  serializedName: "ListUsageMetricsNextOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolListUsageMetricsNextOptionalParams',
+    name: "Composite",
+    className: "PoolListUsageMetricsNextOptionalParams",
     modelProperties: {
       poolListUsageMetricsNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolListUsageMetricsNextOptions'
+          name: "Composite",
+          className: "PoolListUsageMetricsNextOptions"
         }
       }
     }
@@ -11445,18 +10361,16 @@ export const PoolListUsageMetricsNextOptionalParams = {
 };
 
 export const PoolListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'PoolListNextOptionalParams',
+    name: "Composite",
+    className: "PoolListNextOptionalParams",
     modelProperties: {
       poolListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'PoolListNextOptions'
+          name: "Composite",
+          className: "PoolListNextOptions"
         }
       }
     }
@@ -11464,18 +10378,16 @@ export const PoolListNextOptionalParams = {
 };
 
 export const AccountListNodeAgentSkusOptionalParams = {
-  required: false,
-  serializedName: 'ListNodeAgentSkusOptions',
+  serializedName: "ListNodeAgentSkusOptions",
   type: {
-    name: 'Composite',
-    className: 'AccountListNodeAgentSkusOptionalParams',
+    name: "Composite",
+    className: "AccountListNodeAgentSkusOptionalParams",
     modelProperties: {
       accountListNodeAgentSkusOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'AccountListNodeAgentSkusOptions'
+          name: "Composite",
+          className: "AccountListNodeAgentSkusOptions"
         }
       }
     }
@@ -11483,18 +10395,16 @@ export const AccountListNodeAgentSkusOptionalParams = {
 };
 
 export const AccountListPoolNodeCountsOptionalParams = {
-  required: false,
-  serializedName: 'ListPoolNodeCountsOptions',
+  serializedName: "ListPoolNodeCountsOptions",
   type: {
-    name: 'Composite',
-    className: 'AccountListPoolNodeCountsOptionalParams',
+    name: "Composite",
+    className: "AccountListPoolNodeCountsOptionalParams",
     modelProperties: {
       accountListPoolNodeCountsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'AccountListPoolNodeCountsOptions'
+          name: "Composite",
+          className: "AccountListPoolNodeCountsOptions"
         }
       }
     }
@@ -11502,18 +10412,16 @@ export const AccountListPoolNodeCountsOptionalParams = {
 };
 
 export const AccountListNodeAgentSkusNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNodeAgentSkusNextOptions',
+  serializedName: "ListNodeAgentSkusNextOptions",
   type: {
-    name: 'Composite',
-    className: 'AccountListNodeAgentSkusNextOptionalParams',
+    name: "Composite",
+    className: "AccountListNodeAgentSkusNextOptionalParams",
     modelProperties: {
       accountListNodeAgentSkusNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'AccountListNodeAgentSkusNextOptions'
+          name: "Composite",
+          className: "AccountListNodeAgentSkusNextOptions"
         }
       }
     }
@@ -11521,18 +10429,16 @@ export const AccountListNodeAgentSkusNextOptionalParams = {
 };
 
 export const AccountListPoolNodeCountsNextOptionalParams = {
-  required: false,
-  serializedName: 'ListPoolNodeCountsNextOptions',
+  serializedName: "ListPoolNodeCountsNextOptions",
   type: {
-    name: 'Composite',
-    className: 'AccountListPoolNodeCountsNextOptionalParams',
+    name: "Composite",
+    className: "AccountListPoolNodeCountsNextOptionalParams",
     modelProperties: {
       accountListPoolNodeCountsNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'AccountListPoolNodeCountsNextOptions'
+          name: "Composite",
+          className: "AccountListPoolNodeCountsNextOptions"
         }
       }
     }
@@ -11540,18 +10446,16 @@ export const AccountListPoolNodeCountsNextOptionalParams = {
 };
 
 export const JobGetAllLifetimeStatisticsOptionalParams = {
-  required: false,
-  serializedName: 'GetAllLifetimeStatisticsOptions',
+  serializedName: "GetAllLifetimeStatisticsOptions",
   type: {
-    name: 'Composite',
-    className: 'JobGetAllLifetimeStatisticsOptionalParams',
+    name: "Composite",
+    className: "JobGetAllLifetimeStatisticsOptionalParams",
     modelProperties: {
       jobGetAllLifetimeStatisticsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobGetAllLifetimeStatisticsOptions'
+          name: "Composite",
+          className: "JobGetAllLifetimeStatisticsOptions"
         }
       }
     }
@@ -11559,18 +10463,16 @@ export const JobGetAllLifetimeStatisticsOptionalParams = {
 };
 
 export const JobDeleteMethodOptionalParams = {
-  required: false,
-  serializedName: 'DeleteMethodOptions',
+  serializedName: "DeleteMethodOptions",
   type: {
-    name: 'Composite',
-    className: 'JobDeleteMethodOptionalParams',
+    name: "Composite",
+    className: "JobDeleteMethodOptionalParams",
     modelProperties: {
       jobDeleteMethodOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobDeleteMethodOptions'
+          name: "Composite",
+          className: "JobDeleteMethodOptions"
         }
       }
     }
@@ -11578,18 +10480,16 @@ export const JobDeleteMethodOptionalParams = {
 };
 
 export const JobGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'JobGetOptionalParams',
+    name: "Composite",
+    className: "JobGetOptionalParams",
     modelProperties: {
       jobGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobGetOptions'
+          name: "Composite",
+          className: "JobGetOptions"
         }
       }
     }
@@ -11597,18 +10497,16 @@ export const JobGetOptionalParams = {
 };
 
 export const JobPatchOptionalParams = {
-  required: false,
-  serializedName: 'PatchOptions',
+  serializedName: "PatchOptions",
   type: {
-    name: 'Composite',
-    className: 'JobPatchOptionalParams',
+    name: "Composite",
+    className: "JobPatchOptionalParams",
     modelProperties: {
       jobPatchOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobPatchOptions'
+          name: "Composite",
+          className: "JobPatchOptions"
         }
       }
     }
@@ -11616,18 +10514,16 @@ export const JobPatchOptionalParams = {
 };
 
 export const JobUpdateOptionalParams = {
-  required: false,
-  serializedName: 'UpdateOptions',
+  serializedName: "UpdateOptions",
   type: {
-    name: 'Composite',
-    className: 'JobUpdateOptionalParams',
+    name: "Composite",
+    className: "JobUpdateOptionalParams",
     modelProperties: {
       jobUpdateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobUpdateOptions'
+          name: "Composite",
+          className: "JobUpdateOptions"
         }
       }
     }
@@ -11635,18 +10531,16 @@ export const JobUpdateOptionalParams = {
 };
 
 export const JobDisableOptionalParams = {
-  required: false,
-  serializedName: 'DisableOptions',
+  serializedName: "DisableOptions",
   type: {
-    name: 'Composite',
-    className: 'JobDisableOptionalParams',
+    name: "Composite",
+    className: "JobDisableOptionalParams",
     modelProperties: {
       jobDisableOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobDisableOptions'
+          name: "Composite",
+          className: "JobDisableOptions"
         }
       }
     }
@@ -11654,18 +10548,16 @@ export const JobDisableOptionalParams = {
 };
 
 export const JobEnableOptionalParams = {
-  required: false,
-  serializedName: 'EnableOptions',
+  serializedName: "EnableOptions",
   type: {
-    name: 'Composite',
-    className: 'JobEnableOptionalParams',
+    name: "Composite",
+    className: "JobEnableOptionalParams",
     modelProperties: {
       jobEnableOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobEnableOptions'
+          name: "Composite",
+          className: "JobEnableOptions"
         }
       }
     }
@@ -11673,26 +10565,23 @@ export const JobEnableOptionalParams = {
 };
 
 export const JobTerminateOptionalParams = {
-  required: false,
-  serializedName: 'TerminateOptions',
+  serializedName: "TerminateOptions",
   type: {
-    name: 'Composite',
-    className: 'JobTerminateOptionalParams',
+    name: "Composite",
+    className: "JobTerminateOptionalParams",
     modelProperties: {
       jobTerminateParameter: {
-        required: false,
-        serializedName: 'jobTerminateParameter',
+        serializedName: "jobTerminateParameter",
         type: {
-          name: 'Composite',
-          className: 'JobTerminateParameter'
+          name: "Composite",
+          className: "JobTerminateParameter"
         }
       },
       jobTerminateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobTerminateOptions'
+          name: "Composite",
+          className: "JobTerminateOptions"
         }
       }
     }
@@ -11700,18 +10589,16 @@ export const JobTerminateOptionalParams = {
 };
 
 export const JobAddOptionalParams = {
-  required: false,
-  serializedName: 'AddOptions',
+  serializedName: "AddOptions",
   type: {
-    name: 'Composite',
-    className: 'JobAddOptionalParams',
+    name: "Composite",
+    className: "JobAddOptionalParams",
     modelProperties: {
       jobAddOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobAddOptions'
+          name: "Composite",
+          className: "JobAddOptions"
         }
       }
     }
@@ -11719,18 +10606,16 @@ export const JobAddOptionalParams = {
 };
 
 export const JobListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListOptionalParams',
+    name: "Composite",
+    className: "JobListOptionalParams",
     modelProperties: {
       jobListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListOptions'
+          name: "Composite",
+          className: "JobListOptions"
         }
       }
     }
@@ -11738,18 +10623,16 @@ export const JobListOptionalParams = {
 };
 
 export const JobListFromJobScheduleOptionalParams = {
-  required: false,
-  serializedName: 'ListFromJobScheduleOptions',
+  serializedName: "ListFromJobScheduleOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListFromJobScheduleOptionalParams',
+    name: "Composite",
+    className: "JobListFromJobScheduleOptionalParams",
     modelProperties: {
       jobListFromJobScheduleOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListFromJobScheduleOptions'
+          name: "Composite",
+          className: "JobListFromJobScheduleOptions"
         }
       }
     }
@@ -11757,18 +10640,16 @@ export const JobListFromJobScheduleOptionalParams = {
 };
 
 export const JobListPreparationAndReleaseTaskStatusOptionalParams = {
-  required: false,
-  serializedName: 'ListPreparationAndReleaseTaskStatusOptions',
+  serializedName: "ListPreparationAndReleaseTaskStatusOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListPreparationAndReleaseTaskStatusOptionalParams',
+    name: "Composite",
+    className: "JobListPreparationAndReleaseTaskStatusOptionalParams",
     modelProperties: {
       jobListPreparationAndReleaseTaskStatusOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListPreparationAndReleaseTaskStatusOptions'
+          name: "Composite",
+          className: "JobListPreparationAndReleaseTaskStatusOptions"
         }
       }
     }
@@ -11776,18 +10657,16 @@ export const JobListPreparationAndReleaseTaskStatusOptionalParams = {
 };
 
 export const JobGetTaskCountsOptionalParams = {
-  required: false,
-  serializedName: 'GetTaskCountsOptions',
+  serializedName: "GetTaskCountsOptions",
   type: {
-    name: 'Composite',
-    className: 'JobGetTaskCountsOptionalParams',
+    name: "Composite",
+    className: "JobGetTaskCountsOptionalParams",
     modelProperties: {
       jobGetTaskCountsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobGetTaskCountsOptions'
+          name: "Composite",
+          className: "JobGetTaskCountsOptions"
         }
       }
     }
@@ -11795,18 +10674,16 @@ export const JobGetTaskCountsOptionalParams = {
 };
 
 export const JobListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListNextOptionalParams',
+    name: "Composite",
+    className: "JobListNextOptionalParams",
     modelProperties: {
       jobListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListNextOptions'
+          name: "Composite",
+          className: "JobListNextOptions"
         }
       }
     }
@@ -11814,18 +10691,16 @@ export const JobListNextOptionalParams = {
 };
 
 export const JobListFromJobScheduleNextOptionalParams = {
-  required: false,
-  serializedName: 'ListFromJobScheduleNextOptions',
+  serializedName: "ListFromJobScheduleNextOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListFromJobScheduleNextOptionalParams',
+    name: "Composite",
+    className: "JobListFromJobScheduleNextOptionalParams",
     modelProperties: {
       jobListFromJobScheduleNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListFromJobScheduleNextOptions'
+          name: "Composite",
+          className: "JobListFromJobScheduleNextOptions"
         }
       }
     }
@@ -11833,18 +10708,16 @@ export const JobListFromJobScheduleNextOptionalParams = {
 };
 
 export const JobListPreparationAndReleaseTaskStatusNextOptionalParams = {
-  required: false,
-  serializedName: 'ListPreparationAndReleaseTaskStatusNextOptions',
+  serializedName: "ListPreparationAndReleaseTaskStatusNextOptions",
   type: {
-    name: 'Composite',
-    className: 'JobListPreparationAndReleaseTaskStatusNextOptionalParams',
+    name: "Composite",
+    className: "JobListPreparationAndReleaseTaskStatusNextOptionalParams",
     modelProperties: {
       jobListPreparationAndReleaseTaskStatusNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobListPreparationAndReleaseTaskStatusNextOptions'
+          name: "Composite",
+          className: "JobListPreparationAndReleaseTaskStatusNextOptions"
         }
       }
     }
@@ -11852,18 +10725,16 @@ export const JobListPreparationAndReleaseTaskStatusNextOptionalParams = {
 };
 
 export const CertificateAddOptionalParams = {
-  required: false,
-  serializedName: 'AddOptions',
+  serializedName: "AddOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateAddOptionalParams',
+    name: "Composite",
+    className: "CertificateAddOptionalParams",
     modelProperties: {
       certificateAddOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateAddOptions'
+          name: "Composite",
+          className: "CertificateAddOptions"
         }
       }
     }
@@ -11871,18 +10742,16 @@ export const CertificateAddOptionalParams = {
 };
 
 export const CertificateListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateListOptionalParams',
+    name: "Composite",
+    className: "CertificateListOptionalParams",
     modelProperties: {
       certificateListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateListOptions'
+          name: "Composite",
+          className: "CertificateListOptions"
         }
       }
     }
@@ -11890,18 +10759,16 @@ export const CertificateListOptionalParams = {
 };
 
 export const CertificateCancelDeletionOptionalParams = {
-  required: false,
-  serializedName: 'CancelDeletionOptions',
+  serializedName: "CancelDeletionOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateCancelDeletionOptionalParams',
+    name: "Composite",
+    className: "CertificateCancelDeletionOptionalParams",
     modelProperties: {
       certificateCancelDeletionOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateCancelDeletionOptions'
+          name: "Composite",
+          className: "CertificateCancelDeletionOptions"
         }
       }
     }
@@ -11909,18 +10776,16 @@ export const CertificateCancelDeletionOptionalParams = {
 };
 
 export const CertificateDeleteMethodOptionalParams = {
-  required: false,
-  serializedName: 'DeleteMethodOptions',
+  serializedName: "DeleteMethodOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateDeleteMethodOptionalParams',
+    name: "Composite",
+    className: "CertificateDeleteMethodOptionalParams",
     modelProperties: {
       certificateDeleteMethodOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateDeleteMethodOptions'
+          name: "Composite",
+          className: "CertificateDeleteMethodOptions"
         }
       }
     }
@@ -11928,18 +10793,16 @@ export const CertificateDeleteMethodOptionalParams = {
 };
 
 export const CertificateGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateGetOptionalParams',
+    name: "Composite",
+    className: "CertificateGetOptionalParams",
     modelProperties: {
       certificateGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateGetOptions'
+          name: "Composite",
+          className: "CertificateGetOptions"
         }
       }
     }
@@ -11947,18 +10810,16 @@ export const CertificateGetOptionalParams = {
 };
 
 export const CertificateListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'CertificateListNextOptionalParams',
+    name: "Composite",
+    className: "CertificateListNextOptionalParams",
     modelProperties: {
       certificateListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'CertificateListNextOptions'
+          name: "Composite",
+          className: "CertificateListNextOptions"
         }
       }
     }
@@ -11966,25 +10827,22 @@ export const CertificateListNextOptionalParams = {
 };
 
 export const FileDeleteFromTaskOptionalParams = {
-  required: false,
-  serializedName: 'DeleteFromTaskOptions',
+  serializedName: "DeleteFromTaskOptions",
   type: {
-    name: 'Composite',
-    className: 'FileDeleteFromTaskOptionalParams',
+    name: "Composite",
+    className: "FileDeleteFromTaskOptionalParams",
     modelProperties: {
       recursive: {
-        required: false,
-        serializedName: 'recursive',
+        serializedName: "recursive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       fileDeleteFromTaskOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileDeleteFromTaskOptions'
+          name: "Composite",
+          className: "FileDeleteFromTaskOptions"
         }
       }
     }
@@ -11992,18 +10850,16 @@ export const FileDeleteFromTaskOptionalParams = {
 };
 
 export const FileGetFromTaskOptionalParams = {
-  required: false,
-  serializedName: 'GetFromTaskOptions',
+  serializedName: "GetFromTaskOptions",
   type: {
-    name: 'Composite',
-    className: 'FileGetFromTaskOptionalParams',
+    name: "Composite",
+    className: "FileGetFromTaskOptionalParams",
     modelProperties: {
       fileGetFromTaskOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileGetFromTaskOptions'
+          name: "Composite",
+          className: "FileGetFromTaskOptions"
         }
       }
     }
@@ -12011,18 +10867,16 @@ export const FileGetFromTaskOptionalParams = {
 };
 
 export const FileGetPropertiesFromTaskOptionalParams = {
-  required: false,
-  serializedName: 'GetPropertiesFromTaskOptions',
+  serializedName: "GetPropertiesFromTaskOptions",
   type: {
-    name: 'Composite',
-    className: 'FileGetPropertiesFromTaskOptionalParams',
+    name: "Composite",
+    className: "FileGetPropertiesFromTaskOptionalParams",
     modelProperties: {
       fileGetPropertiesFromTaskOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileGetPropertiesFromTaskOptions'
+          name: "Composite",
+          className: "FileGetPropertiesFromTaskOptions"
         }
       }
     }
@@ -12030,25 +10884,22 @@ export const FileGetPropertiesFromTaskOptionalParams = {
 };
 
 export const FileDeleteFromComputeNodeOptionalParams = {
-  required: false,
-  serializedName: 'DeleteFromComputeNodeOptions',
+  serializedName: "DeleteFromComputeNodeOptions",
   type: {
-    name: 'Composite',
-    className: 'FileDeleteFromComputeNodeOptionalParams',
+    name: "Composite",
+    className: "FileDeleteFromComputeNodeOptionalParams",
     modelProperties: {
       recursive: {
-        required: false,
-        serializedName: 'recursive',
+        serializedName: "recursive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       fileDeleteFromComputeNodeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileDeleteFromComputeNodeOptions'
+          name: "Composite",
+          className: "FileDeleteFromComputeNodeOptions"
         }
       }
     }
@@ -12056,18 +10907,16 @@ export const FileDeleteFromComputeNodeOptionalParams = {
 };
 
 export const FileGetFromComputeNodeOptionalParams = {
-  required: false,
-  serializedName: 'GetFromComputeNodeOptions',
+  serializedName: "GetFromComputeNodeOptions",
   type: {
-    name: 'Composite',
-    className: 'FileGetFromComputeNodeOptionalParams',
+    name: "Composite",
+    className: "FileGetFromComputeNodeOptionalParams",
     modelProperties: {
       fileGetFromComputeNodeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileGetFromComputeNodeOptions'
+          name: "Composite",
+          className: "FileGetFromComputeNodeOptions"
         }
       }
     }
@@ -12075,18 +10924,16 @@ export const FileGetFromComputeNodeOptionalParams = {
 };
 
 export const FileGetPropertiesFromComputeNodeOptionalParams = {
-  required: false,
-  serializedName: 'GetPropertiesFromComputeNodeOptions',
+  serializedName: "GetPropertiesFromComputeNodeOptions",
   type: {
-    name: 'Composite',
-    className: 'FileGetPropertiesFromComputeNodeOptionalParams',
+    name: "Composite",
+    className: "FileGetPropertiesFromComputeNodeOptionalParams",
     modelProperties: {
       fileGetPropertiesFromComputeNodeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileGetPropertiesFromComputeNodeOptions'
+          name: "Composite",
+          className: "FileGetPropertiesFromComputeNodeOptions"
         }
       }
     }
@@ -12094,25 +10941,22 @@ export const FileGetPropertiesFromComputeNodeOptionalParams = {
 };
 
 export const FileListFromTaskOptionalParams = {
-  required: false,
-  serializedName: 'ListFromTaskOptions',
+  serializedName: "ListFromTaskOptions",
   type: {
-    name: 'Composite',
-    className: 'FileListFromTaskOptionalParams',
+    name: "Composite",
+    className: "FileListFromTaskOptionalParams",
     modelProperties: {
       recursive: {
-        required: false,
-        serializedName: 'recursive',
+        serializedName: "recursive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       fileListFromTaskOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileListFromTaskOptions'
+          name: "Composite",
+          className: "FileListFromTaskOptions"
         }
       }
     }
@@ -12120,25 +10964,22 @@ export const FileListFromTaskOptionalParams = {
 };
 
 export const FileListFromComputeNodeOptionalParams = {
-  required: false,
-  serializedName: 'ListFromComputeNodeOptions',
+  serializedName: "ListFromComputeNodeOptions",
   type: {
-    name: 'Composite',
-    className: 'FileListFromComputeNodeOptionalParams',
+    name: "Composite",
+    className: "FileListFromComputeNodeOptionalParams",
     modelProperties: {
       recursive: {
-        required: false,
-        serializedName: 'recursive',
+        serializedName: "recursive",
         type: {
-          name: 'Boolean'
+          name: "Boolean"
         }
       },
       fileListFromComputeNodeOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileListFromComputeNodeOptions'
+          name: "Composite",
+          className: "FileListFromComputeNodeOptions"
         }
       }
     }
@@ -12146,18 +10987,16 @@ export const FileListFromComputeNodeOptionalParams = {
 };
 
 export const FileListFromTaskNextOptionalParams = {
-  required: false,
-  serializedName: 'ListFromTaskNextOptions',
+  serializedName: "ListFromTaskNextOptions",
   type: {
-    name: 'Composite',
-    className: 'FileListFromTaskNextOptionalParams',
+    name: "Composite",
+    className: "FileListFromTaskNextOptionalParams",
     modelProperties: {
       fileListFromTaskNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileListFromTaskNextOptions'
+          name: "Composite",
+          className: "FileListFromTaskNextOptions"
         }
       }
     }
@@ -12165,18 +11004,16 @@ export const FileListFromTaskNextOptionalParams = {
 };
 
 export const FileListFromComputeNodeNextOptionalParams = {
-  required: false,
-  serializedName: 'ListFromComputeNodeNextOptions',
+  serializedName: "ListFromComputeNodeNextOptions",
   type: {
-    name: 'Composite',
-    className: 'FileListFromComputeNodeNextOptionalParams',
+    name: "Composite",
+    className: "FileListFromComputeNodeNextOptionalParams",
     modelProperties: {
       fileListFromComputeNodeNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'FileListFromComputeNodeNextOptions'
+          name: "Composite",
+          className: "FileListFromComputeNodeNextOptions"
         }
       }
     }
@@ -12184,18 +11021,16 @@ export const FileListFromComputeNodeNextOptionalParams = {
 };
 
 export const JobScheduleExistsOptionalParams = {
-  required: false,
-  serializedName: 'ExistsOptions',
+  serializedName: "ExistsOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleExistsOptionalParams',
+    name: "Composite",
+    className: "JobScheduleExistsOptionalParams",
     modelProperties: {
       jobScheduleExistsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleExistsOptions'
+          name: "Composite",
+          className: "JobScheduleExistsOptions"
         }
       }
     }
@@ -12203,18 +11038,16 @@ export const JobScheduleExistsOptionalParams = {
 };
 
 export const JobScheduleDeleteMethodOptionalParams = {
-  required: false,
-  serializedName: 'DeleteMethodOptions',
+  serializedName: "DeleteMethodOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleDeleteMethodOptionalParams',
+    name: "Composite",
+    className: "JobScheduleDeleteMethodOptionalParams",
     modelProperties: {
       jobScheduleDeleteMethodOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleDeleteMethodOptions'
+          name: "Composite",
+          className: "JobScheduleDeleteMethodOptions"
         }
       }
     }
@@ -12222,18 +11055,16 @@ export const JobScheduleDeleteMethodOptionalParams = {
 };
 
 export const JobScheduleGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleGetOptionalParams',
+    name: "Composite",
+    className: "JobScheduleGetOptionalParams",
     modelProperties: {
       jobScheduleGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleGetOptions'
+          name: "Composite",
+          className: "JobScheduleGetOptions"
         }
       }
     }
@@ -12241,18 +11072,16 @@ export const JobScheduleGetOptionalParams = {
 };
 
 export const JobSchedulePatchOptionalParams = {
-  required: false,
-  serializedName: 'PatchOptions',
+  serializedName: "PatchOptions",
   type: {
-    name: 'Composite',
-    className: 'JobSchedulePatchOptionalParams',
+    name: "Composite",
+    className: "JobSchedulePatchOptionalParams",
     modelProperties: {
       jobSchedulePatchOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobSchedulePatchOptions'
+          name: "Composite",
+          className: "JobSchedulePatchOptions"
         }
       }
     }
@@ -12260,18 +11089,16 @@ export const JobSchedulePatchOptionalParams = {
 };
 
 export const JobScheduleUpdateOptionalParams = {
-  required: false,
-  serializedName: 'UpdateOptions',
+  serializedName: "UpdateOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleUpdateOptionalParams',
+    name: "Composite",
+    className: "JobScheduleUpdateOptionalParams",
     modelProperties: {
       jobScheduleUpdateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleUpdateOptions'
+          name: "Composite",
+          className: "JobScheduleUpdateOptions"
         }
       }
     }
@@ -12279,18 +11106,16 @@ export const JobScheduleUpdateOptionalParams = {
 };
 
 export const JobScheduleDisableOptionalParams = {
-  required: false,
-  serializedName: 'DisableOptions',
+  serializedName: "DisableOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleDisableOptionalParams',
+    name: "Composite",
+    className: "JobScheduleDisableOptionalParams",
     modelProperties: {
       jobScheduleDisableOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleDisableOptions'
+          name: "Composite",
+          className: "JobScheduleDisableOptions"
         }
       }
     }
@@ -12298,18 +11123,16 @@ export const JobScheduleDisableOptionalParams = {
 };
 
 export const JobScheduleEnableOptionalParams = {
-  required: false,
-  serializedName: 'EnableOptions',
+  serializedName: "EnableOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleEnableOptionalParams',
+    name: "Composite",
+    className: "JobScheduleEnableOptionalParams",
     modelProperties: {
       jobScheduleEnableOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleEnableOptions'
+          name: "Composite",
+          className: "JobScheduleEnableOptions"
         }
       }
     }
@@ -12317,18 +11140,16 @@ export const JobScheduleEnableOptionalParams = {
 };
 
 export const JobScheduleTerminateOptionalParams = {
-  required: false,
-  serializedName: 'TerminateOptions',
+  serializedName: "TerminateOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleTerminateOptionalParams',
+    name: "Composite",
+    className: "JobScheduleTerminateOptionalParams",
     modelProperties: {
       jobScheduleTerminateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleTerminateOptions'
+          name: "Composite",
+          className: "JobScheduleTerminateOptions"
         }
       }
     }
@@ -12336,18 +11157,16 @@ export const JobScheduleTerminateOptionalParams = {
 };
 
 export const JobScheduleAddOptionalParams = {
-  required: false,
-  serializedName: 'AddOptions',
+  serializedName: "AddOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleAddOptionalParams',
+    name: "Composite",
+    className: "JobScheduleAddOptionalParams",
     modelProperties: {
       jobScheduleAddOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleAddOptions'
+          name: "Composite",
+          className: "JobScheduleAddOptions"
         }
       }
     }
@@ -12355,18 +11174,16 @@ export const JobScheduleAddOptionalParams = {
 };
 
 export const JobScheduleListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleListOptionalParams',
+    name: "Composite",
+    className: "JobScheduleListOptionalParams",
     modelProperties: {
       jobScheduleListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleListOptions'
+          name: "Composite",
+          className: "JobScheduleListOptions"
         }
       }
     }
@@ -12374,18 +11191,16 @@ export const JobScheduleListOptionalParams = {
 };
 
 export const JobScheduleListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'JobScheduleListNextOptionalParams',
+    name: "Composite",
+    className: "JobScheduleListNextOptionalParams",
     modelProperties: {
       jobScheduleListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'JobScheduleListNextOptions'
+          name: "Composite",
+          className: "JobScheduleListNextOptions"
         }
       }
     }
@@ -12393,18 +11208,16 @@ export const JobScheduleListNextOptionalParams = {
 };
 
 export const TaskAddOptionalParams = {
-  required: false,
-  serializedName: 'AddOptions',
+  serializedName: "AddOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskAddOptionalParams',
+    name: "Composite",
+    className: "TaskAddOptionalParams",
     modelProperties: {
       taskAddOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskAddOptions'
+          name: "Composite",
+          className: "TaskAddOptions"
         }
       }
     }
@@ -12412,18 +11225,16 @@ export const TaskAddOptionalParams = {
 };
 
 export const TaskListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskListOptionalParams',
+    name: "Composite",
+    className: "TaskListOptionalParams",
     modelProperties: {
       taskListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskListOptions'
+          name: "Composite",
+          className: "TaskListOptions"
         }
       }
     }
@@ -12431,18 +11242,16 @@ export const TaskListOptionalParams = {
 };
 
 export const TaskAddCollectionOptionalParams = {
-  required: false,
-  serializedName: 'AddCollectionOptions',
+  serializedName: "AddCollectionOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskAddCollectionOptionalParams',
+    name: "Composite",
+    className: "TaskAddCollectionOptionalParams",
     modelProperties: {
       taskAddCollectionOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskAddCollectionOptions'
+          name: "Composite",
+          className: "TaskAddCollectionOptions"
         }
       }
     }
@@ -12450,18 +11259,16 @@ export const TaskAddCollectionOptionalParams = {
 };
 
 export const TaskDeleteMethodOptionalParams = {
-  required: false,
-  serializedName: 'DeleteMethodOptions',
+  serializedName: "DeleteMethodOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskDeleteMethodOptionalParams',
+    name: "Composite",
+    className: "TaskDeleteMethodOptionalParams",
     modelProperties: {
       taskDeleteMethodOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskDeleteMethodOptions'
+          name: "Composite",
+          className: "TaskDeleteMethodOptions"
         }
       }
     }
@@ -12469,18 +11276,16 @@ export const TaskDeleteMethodOptionalParams = {
 };
 
 export const TaskGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskGetOptionalParams',
+    name: "Composite",
+    className: "TaskGetOptionalParams",
     modelProperties: {
       taskGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskGetOptions'
+          name: "Composite",
+          className: "TaskGetOptions"
         }
       }
     }
@@ -12488,18 +11293,16 @@ export const TaskGetOptionalParams = {
 };
 
 export const TaskUpdateOptionalParams = {
-  required: false,
-  serializedName: 'UpdateOptions',
+  serializedName: "UpdateOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskUpdateOptionalParams',
+    name: "Composite",
+    className: "TaskUpdateOptionalParams",
     modelProperties: {
       taskUpdateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskUpdateOptions'
+          name: "Composite",
+          className: "TaskUpdateOptions"
         }
       }
     }
@@ -12507,18 +11310,16 @@ export const TaskUpdateOptionalParams = {
 };
 
 export const TaskListSubtasksOptionalParams = {
-  required: false,
-  serializedName: 'ListSubtasksOptions',
+  serializedName: "ListSubtasksOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskListSubtasksOptionalParams',
+    name: "Composite",
+    className: "TaskListSubtasksOptionalParams",
     modelProperties: {
       taskListSubtasksOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskListSubtasksOptions'
+          name: "Composite",
+          className: "TaskListSubtasksOptions"
         }
       }
     }
@@ -12526,18 +11327,16 @@ export const TaskListSubtasksOptionalParams = {
 };
 
 export const TaskTerminateOptionalParams = {
-  required: false,
-  serializedName: 'TerminateOptions',
+  serializedName: "TerminateOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskTerminateOptionalParams',
+    name: "Composite",
+    className: "TaskTerminateOptionalParams",
     modelProperties: {
       taskTerminateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskTerminateOptions'
+          name: "Composite",
+          className: "TaskTerminateOptions"
         }
       }
     }
@@ -12545,18 +11344,16 @@ export const TaskTerminateOptionalParams = {
 };
 
 export const TaskReactivateOptionalParams = {
-  required: false,
-  serializedName: 'ReactivateOptions',
+  serializedName: "ReactivateOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskReactivateOptionalParams',
+    name: "Composite",
+    className: "TaskReactivateOptionalParams",
     modelProperties: {
       taskReactivateOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskReactivateOptions'
+          name: "Composite",
+          className: "TaskReactivateOptions"
         }
       }
     }
@@ -12564,18 +11361,16 @@ export const TaskReactivateOptionalParams = {
 };
 
 export const TaskListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'TaskListNextOptionalParams',
+    name: "Composite",
+    className: "TaskListNextOptionalParams",
     modelProperties: {
       taskListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'TaskListNextOptions'
+          name: "Composite",
+          className: "TaskListNextOptions"
         }
       }
     }
@@ -12583,18 +11378,16 @@ export const TaskListNextOptionalParams = {
 };
 
 export const ComputeNodeAddUserOptionalParams = {
-  required: false,
-  serializedName: 'AddUserOptions',
+  serializedName: "AddUserOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeAddUserOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeAddUserOptionalParams",
     modelProperties: {
       computeNodeAddUserOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeAddUserOptions'
+          name: "Composite",
+          className: "ComputeNodeAddUserOptions"
         }
       }
     }
@@ -12602,18 +11395,16 @@ export const ComputeNodeAddUserOptionalParams = {
 };
 
 export const ComputeNodeDeleteUserOptionalParams = {
-  required: false,
-  serializedName: 'DeleteUserOptions',
+  serializedName: "DeleteUserOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeDeleteUserOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeDeleteUserOptionalParams",
     modelProperties: {
       computeNodeDeleteUserOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeDeleteUserOptions'
+          name: "Composite",
+          className: "ComputeNodeDeleteUserOptions"
         }
       }
     }
@@ -12621,18 +11412,16 @@ export const ComputeNodeDeleteUserOptionalParams = {
 };
 
 export const ComputeNodeUpdateUserOptionalParams = {
-  required: false,
-  serializedName: 'UpdateUserOptions',
+  serializedName: "UpdateUserOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeUpdateUserOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeUpdateUserOptionalParams",
     modelProperties: {
       computeNodeUpdateUserOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeUpdateUserOptions'
+          name: "Composite",
+          className: "ComputeNodeUpdateUserOptions"
         }
       }
     }
@@ -12640,18 +11429,16 @@ export const ComputeNodeUpdateUserOptionalParams = {
 };
 
 export const ComputeNodeGetOptionalParams = {
-  required: false,
-  serializedName: 'GetOptions',
+  serializedName: "GetOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeGetOptionalParams",
     modelProperties: {
       computeNodeGetOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeGetOptions'
+          name: "Composite",
+          className: "ComputeNodeGetOptions"
         }
       }
     }
@@ -12659,26 +11446,23 @@ export const ComputeNodeGetOptionalParams = {
 };
 
 export const ComputeNodeRebootOptionalParams = {
-  required: false,
-  serializedName: 'RebootOptions',
+  serializedName: "RebootOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeRebootOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeRebootOptionalParams",
     modelProperties: {
       nodeRebootParameter: {
-        required: false,
-        serializedName: 'nodeRebootParameter',
+        serializedName: "nodeRebootParameter",
         type: {
-          name: 'Composite',
-          className: 'NodeRebootParameter'
+          name: "Composite",
+          className: "NodeRebootParameter"
         }
       },
       computeNodeRebootOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeRebootOptions'
+          name: "Composite",
+          className: "ComputeNodeRebootOptions"
         }
       }
     }
@@ -12686,26 +11470,23 @@ export const ComputeNodeRebootOptionalParams = {
 };
 
 export const ComputeNodeReimageOptionalParams = {
-  required: false,
-  serializedName: 'ReimageOptions',
+  serializedName: "ReimageOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeReimageOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeReimageOptionalParams",
     modelProperties: {
       nodeReimageParameter: {
-        required: false,
-        serializedName: 'nodeReimageParameter',
+        serializedName: "nodeReimageParameter",
         type: {
-          name: 'Composite',
-          className: 'NodeReimageParameter'
+          name: "Composite",
+          className: "NodeReimageParameter"
         }
       },
       computeNodeReimageOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeReimageOptions'
+          name: "Composite",
+          className: "ComputeNodeReimageOptions"
         }
       }
     }
@@ -12713,26 +11494,23 @@ export const ComputeNodeReimageOptionalParams = {
 };
 
 export const ComputeNodeDisableSchedulingOptionalParams = {
-  required: false,
-  serializedName: 'DisableSchedulingOptions',
+  serializedName: "DisableSchedulingOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeDisableSchedulingOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeDisableSchedulingOptionalParams",
     modelProperties: {
       nodeDisableSchedulingParameter: {
-        required: false,
-        serializedName: 'nodeDisableSchedulingParameter',
+        serializedName: "nodeDisableSchedulingParameter",
         type: {
-          name: 'Composite',
-          className: 'NodeDisableSchedulingParameter'
+          name: "Composite",
+          className: "NodeDisableSchedulingParameter"
         }
       },
       computeNodeDisableSchedulingOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeDisableSchedulingOptions'
+          name: "Composite",
+          className: "ComputeNodeDisableSchedulingOptions"
         }
       }
     }
@@ -12740,18 +11518,16 @@ export const ComputeNodeDisableSchedulingOptionalParams = {
 };
 
 export const ComputeNodeEnableSchedulingOptionalParams = {
-  required: false,
-  serializedName: 'EnableSchedulingOptions',
+  serializedName: "EnableSchedulingOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeEnableSchedulingOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeEnableSchedulingOptionalParams",
     modelProperties: {
       computeNodeEnableSchedulingOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeEnableSchedulingOptions'
+          name: "Composite",
+          className: "ComputeNodeEnableSchedulingOptions"
         }
       }
     }
@@ -12759,18 +11535,16 @@ export const ComputeNodeEnableSchedulingOptionalParams = {
 };
 
 export const ComputeNodeGetRemoteLoginSettingsOptionalParams = {
-  required: false,
-  serializedName: 'GetRemoteLoginSettingsOptions',
+  serializedName: "GetRemoteLoginSettingsOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetRemoteLoginSettingsOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeGetRemoteLoginSettingsOptionalParams",
     modelProperties: {
       computeNodeGetRemoteLoginSettingsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeGetRemoteLoginSettingsOptions'
+          name: "Composite",
+          className: "ComputeNodeGetRemoteLoginSettingsOptions"
         }
       }
     }
@@ -12778,18 +11552,16 @@ export const ComputeNodeGetRemoteLoginSettingsOptionalParams = {
 };
 
 export const ComputeNodeGetRemoteDesktopOptionalParams = {
-  required: false,
-  serializedName: 'GetRemoteDesktopOptions',
+  serializedName: "GetRemoteDesktopOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeGetRemoteDesktopOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeGetRemoteDesktopOptionalParams",
     modelProperties: {
       computeNodeGetRemoteDesktopOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeGetRemoteDesktopOptions'
+          name: "Composite",
+          className: "ComputeNodeGetRemoteDesktopOptions"
         }
       }
     }
@@ -12797,18 +11569,16 @@ export const ComputeNodeGetRemoteDesktopOptionalParams = {
 };
 
 export const ComputeNodeUploadBatchServiceLogsOptionalParams = {
-  required: false,
-  serializedName: 'UploadBatchServiceLogsOptions',
+  serializedName: "UploadBatchServiceLogsOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeUploadBatchServiceLogsOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeUploadBatchServiceLogsOptionalParams",
     modelProperties: {
       computeNodeUploadBatchServiceLogsOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeUploadBatchServiceLogsOptions'
+          name: "Composite",
+          className: "ComputeNodeUploadBatchServiceLogsOptions"
         }
       }
     }
@@ -12816,18 +11586,16 @@ export const ComputeNodeUploadBatchServiceLogsOptionalParams = {
 };
 
 export const ComputeNodeListOptionalParams = {
-  required: false,
-  serializedName: 'ListOptions',
+  serializedName: "ListOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeListOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeListOptionalParams",
     modelProperties: {
       computeNodeListOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeListOptions'
+          name: "Composite",
+          className: "ComputeNodeListOptions"
         }
       }
     }
@@ -12835,18 +11603,2856 @@ export const ComputeNodeListOptionalParams = {
 };
 
 export const ComputeNodeListNextOptionalParams = {
-  required: false,
-  serializedName: 'ListNextOptions',
+  serializedName: "ListNextOptions",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeListNextOptionalParams',
+    name: "Composite",
+    className: "ComputeNodeListNextOptionalParams",
     modelProperties: {
       computeNodeListNextOptions: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Composite',
-          className: 'ComputeNodeListNextOptions'
+          name: "Composite",
+          className: "ComputeNodeListNextOptions"
+        }
+      }
+    }
+  }
+};
+
+export const ApplicationListHeaders = {
+  serializedName: "application-list-headers",
+  type: {
+    name: "Composite",
+    className: "ApplicationListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const ApplicationGetHeaders = {
+  serializedName: "application-get-headers",
+  type: {
+    name: "Composite",
+    className: "ApplicationGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const PoolListUsageMetricsHeaders = {
+  serializedName: "pool-listusagemetrics-headers",
+  type: {
+    name: "Composite",
+    className: "PoolListUsageMetricsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const AccountListNodeAgentSkusHeaders = {
+  serializedName: "account-listnodeagentskus-headers",
+  type: {
+    name: "Composite",
+    className: "AccountListNodeAgentSkusHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const AccountListPoolNodeCountsHeaders = {
+  serializedName: "account-listpoolnodecounts-headers",
+  type: {
+    name: "Composite",
+    className: "AccountListPoolNodeCountsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      }
+    }
+  }
+};
+
+export const PoolGetAllLifetimeStatisticsHeaders = {
+  serializedName: "pool-getalllifetimestatistics-headers",
+  type: {
+    name: "Composite",
+    className: "PoolGetAllLifetimeStatisticsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobGetAllLifetimeStatisticsHeaders = {
+  serializedName: "job-getalllifetimestatistics-headers",
+  type: {
+    name: "Composite",
+    className: "JobGetAllLifetimeStatisticsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const CertificateAddHeaders = {
+  serializedName: "certificate-add-headers",
+  type: {
+    name: "Composite",
+    className: "CertificateAddHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const CertificateListHeaders = {
+  serializedName: "certificate-list-headers",
+  type: {
+    name: "Composite",
+    className: "CertificateListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const CertificateCancelDeletionHeaders = {
+  serializedName: "certificate-canceldeletion-headers",
+  type: {
+    name: "Composite",
+    className: "CertificateCancelDeletionHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const CertificateDeleteHeaders = {
+  serializedName: "certificate-delete-headers",
+  type: {
+    name: "Composite",
+    className: "CertificateDeleteHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const CertificateGetHeaders = {
+  serializedName: "certificate-get-headers",
+  type: {
+    name: "Composite",
+    className: "CertificateGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const FileDeleteFromTaskHeaders = {
+  serializedName: "file-deletefromtask-headers",
+  type: {
+    name: "Composite",
+    className: "FileDeleteFromTaskHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const FileGetFromTaskHeaders = {
+  serializedName: "file-getfromtask-headers",
+  type: {
+    name: "Composite",
+    className: "FileGetFromTaskHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpCreationTime: {
+        serializedName: "ocp-creation-time",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpBatchFileIsdirectory: {
+        serializedName: "ocp-batch-file-isdirectory",
+        type: {
+          name: "Boolean"
+        }
+      },
+      ocpBatchFileUrl: {
+        serializedName: "ocp-batch-file-url",
+        type: {
+          name: "String"
+        }
+      },
+      ocpBatchFileMode: {
+        serializedName: "ocp-batch-file-mode",
+        type: {
+          name: "String"
+        }
+      },
+      contentType: {
+        serializedName: "content-type",
+        type: {
+          name: "String"
+        }
+      },
+      contentLength: {
+        serializedName: "content-length",
+        type: {
+          name: "Number"
+        }
+      }
+    }
+  }
+};
+
+export const FileGetPropertiesFromTaskHeaders = {
+  serializedName: "file-getpropertiesfromtask-headers",
+  type: {
+    name: "Composite",
+    className: "FileGetPropertiesFromTaskHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpCreationTime: {
+        serializedName: "ocp-creation-time",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpBatchFileIsdirectory: {
+        serializedName: "ocp-batch-file-isdirectory",
+        type: {
+          name: "Boolean"
+        }
+      },
+      ocpBatchFileUrl: {
+        serializedName: "ocp-batch-file-url",
+        type: {
+          name: "String"
+        }
+      },
+      ocpBatchFileMode: {
+        serializedName: "ocp-batch-file-mode",
+        type: {
+          name: "String"
+        }
+      },
+      contentType: {
+        serializedName: "content-type",
+        type: {
+          name: "String"
+        }
+      },
+      contentLength: {
+        serializedName: "content-length",
+        type: {
+          name: "Number"
+        }
+      }
+    }
+  }
+};
+
+export const FileDeleteFromComputeNodeHeaders = {
+  serializedName: "file-deletefromcomputenode-headers",
+  type: {
+    name: "Composite",
+    className: "FileDeleteFromComputeNodeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const FileGetFromComputeNodeHeaders = {
+  serializedName: "file-getfromcomputenode-headers",
+  type: {
+    name: "Composite",
+    className: "FileGetFromComputeNodeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpCreationTime: {
+        serializedName: "ocp-creation-time",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpBatchFileIsdirectory: {
+        serializedName: "ocp-batch-file-isdirectory",
+        type: {
+          name: "Boolean"
+        }
+      },
+      ocpBatchFileUrl: {
+        serializedName: "ocp-batch-file-url",
+        type: {
+          name: "String"
+        }
+      },
+      ocpBatchFileMode: {
+        serializedName: "ocp-batch-file-mode",
+        type: {
+          name: "String"
+        }
+      },
+      contentType: {
+        serializedName: "content-type",
+        type: {
+          name: "String"
+        }
+      },
+      contentLength: {
+        serializedName: "content-length",
+        type: {
+          name: "Number"
+        }
+      }
+    }
+  }
+};
+
+export const FileGetPropertiesFromComputeNodeHeaders = {
+  serializedName: "file-getpropertiesfromcomputenode-headers",
+  type: {
+    name: "Composite",
+    className: "FileGetPropertiesFromComputeNodeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpCreationTime: {
+        serializedName: "ocp-creation-time",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      ocpBatchFileIsdirectory: {
+        serializedName: "ocp-batch-file-isdirectory",
+        type: {
+          name: "Boolean"
+        }
+      },
+      ocpBatchFileUrl: {
+        serializedName: "ocp-batch-file-url",
+        type: {
+          name: "String"
+        }
+      },
+      ocpBatchFileMode: {
+        serializedName: "ocp-batch-file-mode",
+        type: {
+          name: "String"
+        }
+      },
+      contentType: {
+        serializedName: "content-type",
+        type: {
+          name: "String"
+        }
+      },
+      contentLength: {
+        serializedName: "content-length",
+        type: {
+          name: "Number"
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromTaskHeaders = {
+  serializedName: "file-listfromtask-headers",
+  type: {
+    name: "Composite",
+    className: "FileListFromTaskHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const FileListFromComputeNodeHeaders = {
+  serializedName: "file-listfromcomputenode-headers",
+  type: {
+    name: "Composite",
+    className: "FileListFromComputeNodeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleExistsHeaders = {
+  serializedName: "jobschedule-exists-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleExistsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleDeleteHeaders = {
+  serializedName: "jobschedule-delete-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleDeleteHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleGetHeaders = {
+  serializedName: "jobschedule-get-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobSchedulePatchHeaders = {
+  serializedName: "jobschedule-patch-headers",
+  type: {
+    name: "Composite",
+    className: "JobSchedulePatchHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleUpdateHeaders = {
+  serializedName: "jobschedule-update-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleUpdateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleDisableHeaders = {
+  serializedName: "jobschedule-disable-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleDisableHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleEnableHeaders = {
+  serializedName: "jobschedule-enable-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleEnableHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleTerminateHeaders = {
+  serializedName: "jobschedule-terminate-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleTerminateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleAddHeaders = {
+  serializedName: "jobschedule-add-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleAddHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobScheduleListHeaders = {
+  serializedName: "jobschedule-list-headers",
+  type: {
+    name: "Composite",
+    className: "JobScheduleListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobDeleteHeaders = {
+  serializedName: "job-delete-headers",
+  type: {
+    name: "Composite",
+    className: "JobDeleteHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobGetHeaders = {
+  serializedName: "job-get-headers",
+  type: {
+    name: "Composite",
+    className: "JobGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobPatchHeaders = {
+  serializedName: "job-patch-headers",
+  type: {
+    name: "Composite",
+    className: "JobPatchHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobUpdateHeaders = {
+  serializedName: "job-update-headers",
+  type: {
+    name: "Composite",
+    className: "JobUpdateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobDisableHeaders = {
+  serializedName: "job-disable-headers",
+  type: {
+    name: "Composite",
+    className: "JobDisableHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobEnableHeaders = {
+  serializedName: "job-enable-headers",
+  type: {
+    name: "Composite",
+    className: "JobEnableHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobTerminateHeaders = {
+  serializedName: "job-terminate-headers",
+  type: {
+    name: "Composite",
+    className: "JobTerminateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobAddHeaders = {
+  serializedName: "job-add-headers",
+  type: {
+    name: "Composite",
+    className: "JobAddHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const JobListHeaders = {
+  serializedName: "job-list-headers",
+  type: {
+    name: "Composite",
+    className: "JobListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobListFromJobScheduleHeaders = {
+  serializedName: "job-listfromjobschedule-headers",
+  type: {
+    name: "Composite",
+    className: "JobListFromJobScheduleHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobListPreparationAndReleaseTaskStatusHeaders = {
+  serializedName: "job-listpreparationandreleasetaskstatus-headers",
+  type: {
+    name: "Composite",
+    className: "JobListPreparationAndReleaseTaskStatusHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const JobGetTaskCountsHeaders = {
+  serializedName: "job-gettaskcounts-headers",
+  type: {
+    name: "Composite",
+    className: "JobGetTaskCountsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      }
+    }
+  }
+};
+
+export const PoolAddHeaders = {
+  serializedName: "pool-add-headers",
+  type: {
+    name: "Composite",
+    className: "PoolAddHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolListHeaders = {
+  serializedName: "pool-list-headers",
+  type: {
+    name: "Composite",
+    className: "PoolListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const PoolDeleteHeaders = {
+  serializedName: "pool-delete-headers",
+  type: {
+    name: "Composite",
+    className: "PoolDeleteHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolExistsHeaders = {
+  serializedName: "pool-exists-headers",
+  type: {
+    name: "Composite",
+    className: "PoolExistsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const PoolGetHeaders = {
+  serializedName: "pool-get-headers",
+  type: {
+    name: "Composite",
+    className: "PoolGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const PoolPatchHeaders = {
+  serializedName: "pool-patch-headers",
+  type: {
+    name: "Composite",
+    className: "PoolPatchHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolDisableAutoScaleHeaders = {
+  serializedName: "pool-disableautoscale-headers",
+  type: {
+    name: "Composite",
+    className: "PoolDisableAutoScaleHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolEnableAutoScaleHeaders = {
+  serializedName: "pool-enableautoscale-headers",
+  type: {
+    name: "Composite",
+    className: "PoolEnableAutoScaleHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolEvaluateAutoScaleHeaders = {
+  serializedName: "pool-evaluateautoscale-headers",
+  type: {
+    name: "Composite",
+    className: "PoolEvaluateAutoScaleHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolResizeHeaders = {
+  serializedName: "pool-resize-headers",
+  type: {
+    name: "Composite",
+    className: "PoolResizeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolStopResizeHeaders = {
+  serializedName: "pool-stopresize-headers",
+  type: {
+    name: "Composite",
+    className: "PoolStopResizeHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolUpdatePropertiesHeaders = {
+  serializedName: "pool-updateproperties-headers",
+  type: {
+    name: "Composite",
+    className: "PoolUpdatePropertiesHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolUpgradeOSHeaders = {
+  serializedName: "pool-upgradeos-headers",
+  type: {
+    name: "Composite",
+    className: "PoolUpgradeOSHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const PoolRemoveNodesHeaders = {
+  serializedName: "pool-removenodes-headers",
+  type: {
+    name: "Composite",
+    className: "PoolRemoveNodesHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskAddHeaders = {
+  serializedName: "task-add-headers",
+  type: {
+    name: "Composite",
+    className: "TaskAddHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskListHeaders = {
+  serializedName: "task-list-headers",
+  type: {
+    name: "Composite",
+    className: "TaskListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const TaskAddCollectionHeaders = {
+  serializedName: "task-addcollection-headers",
+  type: {
+    name: "Composite",
+    className: "TaskAddCollectionHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskDeleteHeaders = {
+  serializedName: "task-delete-headers",
+  type: {
+    name: "Composite",
+    className: "TaskDeleteHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskGetHeaders = {
+  serializedName: "task-get-headers",
+  type: {
+    name: "Composite",
+    className: "TaskGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskUpdateHeaders = {
+  serializedName: "task-update-headers",
+  type: {
+    name: "Composite",
+    className: "TaskUpdateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskListSubtasksHeaders = {
+  serializedName: "task-listsubtasks-headers",
+  type: {
+    name: "Composite",
+    className: "TaskListSubtasksHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const TaskTerminateHeaders = {
+  serializedName: "task-terminate-headers",
+  type: {
+    name: "Composite",
+    className: "TaskTerminateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const TaskReactivateHeaders = {
+  serializedName: "task-reactivate-headers",
+  type: {
+    name: "Composite",
+    className: "TaskReactivateHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeAddUserHeaders = {
+  serializedName: "computenode-adduser-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeAddUserHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeDeleteUserHeaders = {
+  serializedName: "computenode-deleteuser-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeDeleteUserHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "String"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeUpdateUserHeaders = {
+  serializedName: "computenode-updateuser-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeUpdateUserHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetHeaders = {
+  serializedName: "computenode-get-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeGetHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeRebootHeaders = {
+  serializedName: "computenode-reboot-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeRebootHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeReimageHeaders = {
+  serializedName: "computenode-reimage-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeReimageHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeDisableSchedulingHeaders = {
+  serializedName: "computenode-disablescheduling-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeDisableSchedulingHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeEnableSchedulingHeaders = {
+  serializedName: "computenode-enablescheduling-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeEnableSchedulingHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      },
+      dataServiceId: {
+        serializedName: "dataserviceid",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetRemoteLoginSettingsHeaders = {
+  serializedName: "computenode-getremoteloginsettings-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeGetRemoteLoginSettingsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeGetRemoteDesktopHeaders = {
+  serializedName: "computenode-getremotedesktop-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeGetRemoteDesktopHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeUploadBatchServiceLogsHeaders = {
+  serializedName: "computenode-uploadbatchservicelogs-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeUploadBatchServiceLogsHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      }
+    }
+  }
+};
+
+export const ComputeNodeListHeaders = {
+  serializedName: "computenode-list-headers",
+  type: {
+    name: "Composite",
+    className: "ComputeNodeListHeaders",
+    modelProperties: {
+      clientRequestId: {
+        serializedName: "client-request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      requestId: {
+        serializedName: "request-id",
+        type: {
+          name: "Uuid"
+        }
+      },
+      eTag: {
+        serializedName: "etag",
+        type: {
+          name: "String"
+        }
+      },
+      lastModified: {
+        serializedName: "last-modified",
+        type: {
+          name: "DateTimeRfc1123"
         }
       }
     }
@@ -12854,32 +14460,28 @@ export const ComputeNodeListNextOptionalParams = {
 };
 
 export const ApplicationListResult = {
-  required: false,
-  serializedName: 'ApplicationListResult',
+  serializedName: "ApplicationListResult",
   type: {
-    name: 'Composite',
-    className: 'ApplicationListResult',
+    name: "Composite",
+    className: "ApplicationListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ApplicationSummaryElementType',
-              type: {
-                name: 'Composite',
-                className: 'ApplicationSummary'
-              }
+            serializedName: "ApplicationSummaryElementType",
+            type: {
+              name: "Composite",
+              className: "ApplicationSummary"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -12887,32 +14489,28 @@ export const ApplicationListResult = {
 };
 
 export const PoolListUsageMetricsResult = {
-  required: false,
-  serializedName: 'PoolListUsageMetricsResult',
+  serializedName: "PoolListUsageMetricsResult",
   type: {
-    name: 'Composite',
-    className: 'PoolListUsageMetricsResult',
+    name: "Composite",
+    className: "PoolListUsageMetricsResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'PoolUsageMetricsElementType',
-              type: {
-                name: 'Composite',
-                className: 'PoolUsageMetrics'
-              }
+            serializedName: "PoolUsageMetricsElementType",
+            type: {
+              name: "Composite",
+              className: "PoolUsageMetrics"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -12920,32 +14518,28 @@ export const PoolListUsageMetricsResult = {
 };
 
 export const CloudPoolListResult = {
-  required: false,
-  serializedName: 'CloudPoolListResult',
+  serializedName: "CloudPoolListResult",
   type: {
-    name: 'Composite',
-    className: 'CloudPoolListResult',
+    name: "Composite",
+    className: "CloudPoolListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CloudPoolElementType',
-              type: {
-                name: 'Composite',
-                className: 'CloudPool'
-              }
+            serializedName: "CloudPoolElementType",
+            type: {
+              name: "Composite",
+              className: "CloudPool"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -12953,32 +14547,28 @@ export const CloudPoolListResult = {
 };
 
 export const AccountListNodeAgentSkusResult = {
-  required: false,
-  serializedName: 'AccountListNodeAgentSkusResult',
+  serializedName: "AccountListNodeAgentSkusResult",
   type: {
-    name: 'Composite',
-    className: 'AccountListNodeAgentSkusResult',
+    name: "Composite",
+    className: "AccountListNodeAgentSkusResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NodeAgentSkuElementType',
-              type: {
-                name: 'Composite',
-                className: 'NodeAgentSku'
-              }
+            serializedName: "NodeAgentSkuElementType",
+            type: {
+              name: "Composite",
+              className: "NodeAgentSku"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -12986,32 +14576,28 @@ export const AccountListNodeAgentSkusResult = {
 };
 
 export const PoolNodeCountsListResult = {
-  required: false,
-  serializedName: 'PoolNodeCountsListResult',
+  serializedName: "PoolNodeCountsListResult",
   type: {
-    name: 'Composite',
-    className: 'PoolNodeCountsListResult',
+    name: "Composite",
+    className: "PoolNodeCountsListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'PoolNodeCountsElementType',
-              type: {
-                name: 'Composite',
-                className: 'PoolNodeCounts'
-              }
+            serializedName: "PoolNodeCountsElementType",
+            type: {
+              name: "Composite",
+              className: "PoolNodeCounts"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13019,32 +14605,28 @@ export const PoolNodeCountsListResult = {
 };
 
 export const CloudJobListResult = {
-  required: false,
-  serializedName: 'CloudJobListResult',
+  serializedName: "CloudJobListResult",
   type: {
-    name: 'Composite',
-    className: 'CloudJobListResult',
+    name: "Composite",
+    className: "CloudJobListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CloudJobElementType',
-              type: {
-                name: 'Composite',
-                className: 'CloudJob'
-              }
+            serializedName: "CloudJobElementType",
+            type: {
+              name: "Composite",
+              className: "CloudJob"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13052,32 +14634,28 @@ export const CloudJobListResult = {
 };
 
 export const CloudJobListPreparationAndReleaseTaskStatusResult = {
-  required: false,
-  serializedName: 'CloudJobListPreparationAndReleaseTaskStatusResult',
+  serializedName: "CloudJobListPreparationAndReleaseTaskStatusResult",
   type: {
-    name: 'Composite',
-    className: 'CloudJobListPreparationAndReleaseTaskStatusResult',
+    name: "Composite",
+    className: "CloudJobListPreparationAndReleaseTaskStatusResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'JobPreparationAndReleaseTaskExecutionInformationElementType',
-              type: {
-                name: 'Composite',
-                className: 'JobPreparationAndReleaseTaskExecutionInformation'
-              }
+            serializedName: "JobPreparationAndReleaseTaskExecutionInformationElementType",
+            type: {
+              name: "Composite",
+              className: "JobPreparationAndReleaseTaskExecutionInformation"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13085,32 +14663,28 @@ export const CloudJobListPreparationAndReleaseTaskStatusResult = {
 };
 
 export const CertificateListResult = {
-  required: false,
-  serializedName: 'CertificateListResult',
+  serializedName: "CertificateListResult",
   type: {
-    name: 'Composite',
-    className: 'CertificateListResult',
+    name: "Composite",
+    className: "CertificateListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CertificateElementType',
-              type: {
-                name: 'Composite',
-                className: 'Certificate'
-              }
+            serializedName: "CertificateElementType",
+            type: {
+              name: "Composite",
+              className: "Certificate"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13118,32 +14692,28 @@ export const CertificateListResult = {
 };
 
 export const NodeFileListResult = {
-  required: false,
-  serializedName: 'NodeFileListResult',
+  serializedName: "NodeFileListResult",
   type: {
-    name: 'Composite',
-    className: 'NodeFileListResult',
+    name: "Composite",
+    className: "NodeFileListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'NodeFileElementType',
-              type: {
-                name: 'Composite',
-                className: 'NodeFile'
-              }
+            serializedName: "NodeFileElementType",
+            type: {
+              name: "Composite",
+              className: "NodeFile"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13151,32 +14721,28 @@ export const NodeFileListResult = {
 };
 
 export const CloudJobScheduleListResult = {
-  required: false,
-  serializedName: 'CloudJobScheduleListResult',
+  serializedName: "CloudJobScheduleListResult",
   type: {
-    name: 'Composite',
-    className: 'CloudJobScheduleListResult',
+    name: "Composite",
+    className: "CloudJobScheduleListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CloudJobScheduleElementType',
-              type: {
-                name: 'Composite',
-                className: 'CloudJobSchedule'
-              }
+            serializedName: "CloudJobScheduleElementType",
+            type: {
+              name: "Composite",
+              className: "CloudJobSchedule"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13184,32 +14750,28 @@ export const CloudJobScheduleListResult = {
 };
 
 export const CloudTaskListResult = {
-  required: false,
-  serializedName: 'CloudTaskListResult',
+  serializedName: "CloudTaskListResult",
   type: {
-    name: 'Composite',
-    className: 'CloudTaskListResult',
+    name: "Composite",
+    className: "CloudTaskListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'CloudTaskElementType',
-              type: {
-                name: 'Composite',
-                className: 'CloudTask'
-              }
+            serializedName: "CloudTaskElementType",
+            type: {
+              name: "Composite",
+              className: "CloudTask"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }
@@ -13217,32 +14779,28 @@ export const CloudTaskListResult = {
 };
 
 export const ComputeNodeListResult = {
-  required: false,
-  serializedName: 'ComputeNodeListResult',
+  serializedName: "ComputeNodeListResult",
   type: {
-    name: 'Composite',
-    className: 'ComputeNodeListResult',
+    name: "Composite",
+    className: "ComputeNodeListResult",
     modelProperties: {
       value: {
-        required: false,
-        serializedName: '',
+        serializedName: "",
         type: {
-          name: 'Sequence',
+          name: "Sequence",
           element: {
-              required: false,
-              serializedName: 'ComputeNodeElementType',
-              type: {
-                name: 'Composite',
-                className: 'ComputeNode'
-              }
+            serializedName: "ComputeNodeElementType",
+            type: {
+              name: "Composite",
+              className: "ComputeNode"
+            }
           }
         }
       },
       odatanextLink: {
-        required: false,
-        serializedName: 'odata\\.nextLink',
+        serializedName: "odata\\.nextLink",
         type: {
-          name: 'String'
+          name: "String"
         }
       }
     }

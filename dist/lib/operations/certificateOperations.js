@@ -8,15 +8,8 @@
  * Changes may cause incorrect behavior and will be lost if the code is
  * regenerated.
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
 const msRest = require("ms-rest-js");
 const Mappers = require("../models/mappers");
 const WebResource = msRest.WebResource;
@@ -24,7 +17,7 @@ const WebResource = msRest.WebResource;
 class CertificateOperations {
     /**
      * Create a CertificateOperations.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
     constructor(client) {
         this.client = client;
@@ -43,7 +36,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     addWithHttpOperationResponse(certificate, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateAddOptions = (options && options.certificateAddOptions !== undefined) ? options.certificateAddOptions : undefined;
             // Validate
@@ -95,74 +88,96 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (certificate !== null && certificate !== undefined) {
-                    let requestModelMapper = Mappers.CertificateAddParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, certificate, 'certificate');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(certificate, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    certificate,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "certificates",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.CertificateAddParameter,
+                    requestBodyName: "certificate",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 201) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -172,7 +187,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -182,6 +197,10 @@ class CertificateOperations {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 201) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateAddHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -203,7 +222,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     listWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateListOptions = (options && options.certificateListOptions !== undefined) ? options.certificateListOptions : undefined;
             // Validate
@@ -273,67 +292,127 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (filter !== null && filter !== undefined) {
-                queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-            }
-            if (select !== null && select !== undefined) {
-                queryParamsArray.push('$select=' + encodeURIComponent(select));
-            }
-            if (maxResults !== null && maxResults !== undefined) {
-                queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    filter,
+                    select,
+                    maxResults,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "certificates",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "filter",
+                            mapper: {
+                                serializedName: "$filter",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "select",
+                            mapper: {
+                                serializedName: "$select",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "maxResults",
+                            mapper: {
+                                serializedName: "maxresults",
+                                defaultValue: 1000,
+                                constraints: {
+                                    InclusiveMaximum: 1000,
+                                    InclusiveMinimum: 1
+                                },
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -343,7 +422,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -356,19 +435,20 @@ class CertificateOperations {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.CertificateListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.CertificateListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -404,7 +484,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateCancelDeletionOptions = (options && options.certificateCancelDeletionOptions !== undefined) ? options.certificateCancelDeletionOptions : undefined;
             // Validate
@@ -459,60 +539,116 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})/canceldelete';
-            requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-            requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    thumbprintAlgorithm,
+                    thumbprint,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})/canceldelete",
+                    urlParameters: [
+                        {
+                            parameterName: "thumbprintAlgorithm",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprintAlgorithm",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "thumbprint",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprint",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 204) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -522,7 +658,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -532,6 +668,10 @@ class CertificateOperations {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 204) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateCancelDeletionHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -569,7 +709,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     deleteMethodWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateDeleteMethodOptions = (options && options.certificateDeleteMethodOptions !== undefined) ? options.certificateDeleteMethodOptions : undefined;
             // Validate
@@ -624,60 +764,116 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
-            requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-            requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'DELETE';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    thumbprintAlgorithm,
+                    thumbprint,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "DELETE",
+                    baseUrl: this.client.baseUri,
+                    path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})",
+                    urlParameters: [
+                        {
+                            parameterName: "thumbprintAlgorithm",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprintAlgorithm",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "thumbprint",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprint",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -687,7 +883,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -697,6 +893,10 @@ class CertificateOperations {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateDeleteHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -722,7 +922,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     getWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateGetOptions = (options && options.certificateGetOptions !== undefined) ? options.certificateGetOptions : undefined;
             // Validate
@@ -784,63 +984,126 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})';
-            requestUrl = requestUrl.replace('{thumbprintAlgorithm}', encodeURIComponent(thumbprintAlgorithm));
-            requestUrl = requestUrl.replace('{thumbprint}', encodeURIComponent(thumbprint));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (select !== null && select !== undefined) {
-                queryParamsArray.push('$select=' + encodeURIComponent(select));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    thumbprintAlgorithm,
+                    thumbprint,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    select,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint})",
+                    urlParameters: [
+                        {
+                            parameterName: "thumbprintAlgorithm",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprintAlgorithm",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "thumbprint",
+                            mapper: {
+                                required: true,
+                                serializedName: "thumbprint",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "select",
+                            mapper: {
+                                serializedName: "$select",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -850,7 +1113,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -863,19 +1126,20 @@ class CertificateOperations {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.Certificate;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.Certificate;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateGetHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -900,7 +1164,7 @@ class CertificateOperations {
      * @reject {Error|ServiceError} - The error object.
      */
     listNextWithHttpOperationResponse(nextPageLink, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let certificateListNextOptions = (options && options.certificateListNextOptions !== undefined) ? options.certificateListNextOptions : undefined;
             // Validate
@@ -942,50 +1206,82 @@ class CertificateOperations {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let requestUrl = '{nextLink}';
-            requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    nextPageLink,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: "https://batch.core.windows.net",
+                    path: "{nextLink}",
+                    urlParameters: [
+                        {
+                            parameterName: "nextPageLink",
+                            skipEncoding: true,
+                            mapper: {
+                                required: true,
+                                serializedName: "nextLink",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -995,7 +1291,7 @@ class CertificateOperations {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1008,19 +1304,20 @@ class CertificateOperations {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.CertificateListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.CertificateListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.CertificateListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -1037,7 +1334,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.addWithHttpOperationResponse(certificate, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1047,8 +1344,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -1060,7 +1357,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.listWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1070,8 +1367,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -1083,7 +1380,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1093,8 +1390,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -1106,7 +1403,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.deleteMethodWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1116,8 +1413,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -1129,7 +1426,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.getWithHttpOperationResponse(thumbprintAlgorithm, thumbprint, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1139,8 +1436,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -1152,7 +1449,7 @@ class CertificateOperations {
         let cb = callback;
         if (!callback) {
             return this.listNextWithHttpOperationResponse(nextPageLink, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -1162,8 +1459,8 @@ class CertificateOperations {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }

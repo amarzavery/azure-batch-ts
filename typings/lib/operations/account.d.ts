@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a Account. */
 export declare class Account {
     private readonly client;
     /**
      * Create a Account.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Lists all node agent SKUs supported by the Azure Batch service.
      *
@@ -21,7 +21,7 @@ export declare class Account {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNodeAgentSkusWithHttpOperationResponse(options?: Models.AccountListNodeAgentSkusOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNodeAgentSkusWithHttpOperationResponse(options?: Models.AccountListNodeAgentSkusOptionalParams): Promise<Models.AccountListNodeAgentSkusResponse>;
     /**
      * Gets the number of nodes in each state, grouped by pool.
      *
@@ -34,7 +34,7 @@ export declare class Account {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listPoolNodeCountsWithHttpOperationResponse(options?: Models.AccountListPoolNodeCountsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listPoolNodeCountsWithHttpOperationResponse(options?: Models.AccountListPoolNodeCountsOptionalParams): Promise<Models.AccountListPoolNodeCountsResponse>;
     /**
      * @summary Lists all node agent SKUs supported by the Azure Batch service.
      *
@@ -50,7 +50,7 @@ export declare class Account {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<Models.AccountListNodeAgentSkusResponse>;
     /**
      * Gets the number of nodes in each state, grouped by pool.
      *
@@ -66,7 +66,7 @@ export declare class Account {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<Models.AccountListPoolNodeCountsResponse>;
     /**
      * @summary Lists all node agent SKUs supported by the Azure Batch service.
      *
@@ -75,7 +75,7 @@ export declare class Account {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -85,7 +85,7 @@ export declare class Account {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNodeAgentSkus(): Promise<Models.AccountListNodeAgentSkusResult>;
     listNodeAgentSkus(options: Models.AccountListNodeAgentSkusOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
@@ -99,7 +99,7 @@ export declare class Account {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -109,7 +109,7 @@ export declare class Account {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listPoolNodeCounts(): Promise<Models.PoolNodeCountsListResult>;
     listPoolNodeCounts(options: Models.AccountListPoolNodeCountsOptionalParams): Promise<Models.PoolNodeCountsListResult>;
@@ -126,7 +126,7 @@ export declare class Account {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -136,7 +136,7 @@ export declare class Account {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNodeAgentSkusNext(nextPageLink: string): Promise<Models.AccountListNodeAgentSkusResult>;
     listNodeAgentSkusNext(nextPageLink: string, options: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
@@ -153,7 +153,7 @@ export declare class Account {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -163,7 +163,7 @@ export declare class Account {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listPoolNodeCountsNext(nextPageLink: string): Promise<Models.PoolNodeCountsListResult>;
     listPoolNodeCountsNext(nextPageLink: string, options: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<Models.PoolNodeCountsListResult>;

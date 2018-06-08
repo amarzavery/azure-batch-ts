@@ -8,15 +8,8 @@
  * Changes may cause incorrect behavior and will be lost if the code is
  * regenerated.
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
 const msRest = require("ms-rest-js");
 const Mappers = require("../models/mappers");
 const WebResource = msRest.WebResource;
@@ -24,7 +17,7 @@ const WebResource = msRest.WebResource;
 class Account {
     /**
      * Create a Account.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
     constructor(client) {
         this.client = client;
@@ -42,7 +35,7 @@ class Account {
      * @reject {Error|ServiceError} - The error object.
      */
     listNodeAgentSkusWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let accountListNodeAgentSkusOptions = (options && options.accountListNodeAgentSkusOptions !== undefined) ? options.accountListNodeAgentSkusOptions : undefined;
             // Validate
@@ -105,64 +98,117 @@ class Account {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'nodeagentskus';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (filter !== null && filter !== undefined) {
-                queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-            }
-            if (maxResults !== null && maxResults !== undefined) {
-                queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    filter,
+                    maxResults,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "nodeagentskus",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "filter",
+                            mapper: {
+                                serializedName: "$filter",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "maxResults",
+                            mapper: {
+                                serializedName: "maxresults",
+                                defaultValue: 1000,
+                                constraints: {
+                                    InclusiveMaximum: 1000,
+                                    InclusiveMinimum: 1
+                                },
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -172,7 +218,7 @@ class Account {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -185,19 +231,20 @@ class Account {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.AccountListNodeAgentSkusResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.AccountListNodeAgentSkusResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListNodeAgentSkusHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -219,7 +266,7 @@ class Account {
      * @reject {Error|ServiceError} - The error object.
      */
     listPoolNodeCountsWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let accountListPoolNodeCountsOptions = (options && options.accountListPoolNodeCountsOptions !== undefined) ? options.accountListPoolNodeCountsOptions : undefined;
             // Validate
@@ -282,64 +329,117 @@ class Account {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'nodecounts';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (filter !== null && filter !== undefined) {
-                queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-            }
-            if (maxResults !== null && maxResults !== undefined) {
-                queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    filter,
+                    maxResults,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "nodecounts",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "filter",
+                            mapper: {
+                                serializedName: "$filter",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "maxResults",
+                            mapper: {
+                                serializedName: "maxresults",
+                                defaultValue: 10,
+                                constraints: {
+                                    InclusiveMaximum: 10,
+                                    InclusiveMinimum: 1
+                                },
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -349,7 +449,7 @@ class Account {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -362,19 +462,20 @@ class Account {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.PoolNodeCountsListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.PoolNodeCountsListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListPoolNodeCountsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -399,7 +500,7 @@ class Account {
      * @reject {Error|ServiceError} - The error object.
      */
     listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let accountListNodeAgentSkusNextOptions = (options && options.accountListNodeAgentSkusNextOptions !== undefined) ? options.accountListNodeAgentSkusNextOptions : undefined;
             // Validate
@@ -441,50 +542,82 @@ class Account {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let requestUrl = '{nextLink}';
-            requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    nextPageLink,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: "https://batch.core.windows.net",
+                    path: "{nextLink}",
+                    urlParameters: [
+                        {
+                            parameterName: "nextPageLink",
+                            skipEncoding: true,
+                            mapper: {
+                                required: true,
+                                serializedName: "nextLink",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -494,7 +627,7 @@ class Account {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -507,19 +640,20 @@ class Account {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.AccountListNodeAgentSkusResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.AccountListNodeAgentSkusResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListNodeAgentSkusHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -544,7 +678,7 @@ class Account {
      * @reject {Error|ServiceError} - The error object.
      */
     listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let accountListPoolNodeCountsNextOptions = (options && options.accountListPoolNodeCountsNextOptions !== undefined) ? options.accountListPoolNodeCountsNextOptions : undefined;
             // Validate
@@ -586,50 +720,82 @@ class Account {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let requestUrl = '{nextLink}';
-            requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    nextPageLink,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: "https://batch.core.windows.net",
+                    path: "{nextLink}",
+                    urlParameters: [
+                        {
+                            parameterName: "nextPageLink",
+                            skipEncoding: true,
+                            mapper: {
+                                required: true,
+                                serializedName: "nextLink",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -639,7 +805,7 @@ class Account {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -652,19 +818,20 @@ class Account {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.PoolNodeCountsListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.PoolNodeCountsListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListPoolNodeCountsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -681,7 +848,7 @@ class Account {
         let cb = callback;
         if (!callback) {
             return this.listNodeAgentSkusWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -691,8 +858,8 @@ class Account {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -704,7 +871,7 @@ class Account {
         let cb = callback;
         if (!callback) {
             return this.listPoolNodeCountsWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -714,8 +881,8 @@ class Account {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -727,7 +894,7 @@ class Account {
         let cb = callback;
         if (!callback) {
             return this.listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -737,8 +904,8 @@ class Account {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -750,7 +917,7 @@ class Account {
         let cb = callback;
         if (!callback) {
             return this.listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -760,8 +927,8 @@ class Account {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }

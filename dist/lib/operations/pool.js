@@ -8,15 +8,8 @@
  * Changes may cause incorrect behavior and will be lost if the code is
  * regenerated.
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
 const msRest = require("ms-rest-js");
 const Mappers = require("../models/mappers");
 const WebResource = msRest.WebResource;
@@ -24,7 +17,7 @@ const WebResource = msRest.WebResource;
 class Pool {
     /**
      * Create a Pool.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
     constructor(client) {
         this.client = client;
@@ -49,7 +42,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     listUsageMetricsWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolListUsageMetricsOptions = (options && options.poolListUsageMetricsOptions !== undefined) ? options.poolListUsageMetricsOptions : undefined;
             // Validate
@@ -128,70 +121,137 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'poolusagemetrics';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (startTime !== null && startTime !== undefined) {
-                queryParamsArray.push('starttime=' + encodeURIComponent(msRest.serializeObject(startTime)));
-            }
-            if (endTime !== null && endTime !== undefined) {
-                queryParamsArray.push('endtime=' + encodeURIComponent(msRest.serializeObject(endTime)));
-            }
-            if (filter !== null && filter !== undefined) {
-                queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-            }
-            if (maxResults !== null && maxResults !== undefined) {
-                queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    startTime,
+                    endTime,
+                    filter,
+                    maxResults,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "poolusagemetrics",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "startTime",
+                            mapper: {
+                                serializedName: "starttime",
+                                type: {
+                                    name: "DateTime"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "endTime",
+                            mapper: {
+                                serializedName: "endtime",
+                                type: {
+                                    name: "DateTime"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "filter",
+                            mapper: {
+                                serializedName: "$filter",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "maxResults",
+                            mapper: {
+                                serializedName: "maxresults",
+                                defaultValue: 1000,
+                                constraints: {
+                                    InclusiveMaximum: 1000,
+                                    InclusiveMinimum: 1
+                                },
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -201,7 +261,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -214,19 +274,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.PoolListUsageMetricsResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.PoolListUsageMetricsResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolListUsageMetricsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -241,6 +302,8 @@ class Pool {
      *
      * Statistics are aggregated across all pools that have ever existed in the
      * account, from account creation to the last update time of the statistics.
+     * The statistics may not be immediately available. The Batch service performs
+     * periodic roll-up of statistics. The typical delay is about 30 minutes.
      *
      * @param {PoolGetAllLifetimeStatisticsOptionalParams} [options] Optional
      * Parameters.
@@ -252,7 +315,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     getAllLifetimeStatisticsWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolGetAllLifetimeStatisticsOptions = (options && options.poolGetAllLifetimeStatisticsOptions !== undefined) ? options.poolGetAllLifetimeStatisticsOptions : undefined;
             // Validate
@@ -301,58 +364,92 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'lifetimepoolstats';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "lifetimepoolstats",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -362,7 +459,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -375,19 +472,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.PoolStatistics;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.PoolStatistics;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolGetAllLifetimeStatisticsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -414,7 +512,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     addWithHttpOperationResponse(pool, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolAddOptions = (options && options.poolAddOptions !== undefined) ? options.poolAddOptions : undefined;
             if (pool === null || pool === undefined) {
@@ -469,74 +567,96 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (pool !== null && pool !== undefined) {
-                    let requestModelMapper = Mappers.PoolAddParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, pool, 'pool');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(pool, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    pool,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolAddParameter,
+                    requestBodyName: "pool",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 201) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -546,7 +666,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -556,6 +676,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 201) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolAddHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -576,7 +700,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     listWithHttpOperationResponse(options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolListOptions = (options && options.poolListOptions !== undefined) ? options.poolListOptions : undefined;
             // Validate
@@ -653,70 +777,137 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools';
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (filter !== null && filter !== undefined) {
-                queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-            }
-            if (select !== null && select !== undefined) {
-                queryParamsArray.push('$select=' + encodeURIComponent(select));
-            }
-            if (expand !== null && expand !== undefined) {
-                queryParamsArray.push('$expand=' + encodeURIComponent(expand));
-            }
-            if (maxResults !== null && maxResults !== undefined) {
-                queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    filter,
+                    select,
+                    expand,
+                    maxResults,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "pools",
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "filter",
+                            mapper: {
+                                serializedName: "$filter",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "select",
+                            mapper: {
+                                serializedName: "$select",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "expand",
+                            mapper: {
+                                serializedName: "$expand",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "maxResults",
+                            mapper: {
+                                serializedName: "maxresults",
+                                defaultValue: 1000,
+                                constraints: {
+                                    InclusiveMaximum: 1000,
+                                    InclusiveMinimum: 1
+                                },
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -726,7 +917,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -739,19 +930,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.CloudPoolListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.CloudPoolListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -787,7 +979,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     deleteMethodWithHttpOperationResponse(poolId, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolDeleteMethodOptions = (options && options.poolDeleteMethodOptions !== undefined) ? options.poolDeleteMethodOptions : undefined;
             // Validate
@@ -869,71 +1061,145 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'DELETE';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "DELETE",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -943,7 +1209,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -953,6 +1219,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolDeleteHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -975,7 +1245,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     existsWithHttpOperationResponse(poolId, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolExistsOptions = (options && options.poolExistsOptions !== undefined) ? options.poolExistsOptions : undefined;
             // Validate
@@ -1057,71 +1327,145 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'HEAD';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "HEAD",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200 && statusCode !== 404) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -1131,7 +1475,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1142,7 +1486,15 @@ class Pool {
                     }
                     return Promise.reject(error);
                 }
-                operationRes.bodyAsJson = (statusCode === 200);
+                operationRes.parsedBody = (statusCode === 200);
+                // Deserialize Response
+                if (statusCode === 200) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolExistsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
+                }
+                // Deserialize Response
+                if (statusCode === 404) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolExistsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
+                }
             }
             catch (err) {
                 return Promise.reject(err);
@@ -1164,7 +1516,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     getWithHttpOperationResponse(poolId, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolGetOptions = (options && options.poolGetOptions !== undefined) ? options.poolGetOptions : undefined;
             // Validate
@@ -1260,77 +1612,165 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (select !== null && select !== undefined) {
-                queryParamsArray.push('$select=' + encodeURIComponent(select));
-            }
-            if (expand !== null && expand !== undefined) {
-                queryParamsArray.push('$expand=' + encodeURIComponent(expand));
-            }
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    select,
+                    expand,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "select",
+                            mapper: {
+                                serializedName: "$select",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "expand",
+                            mapper: {
+                                serializedName: "$expand",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -1340,7 +1780,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1353,19 +1793,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.CloudPool;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.CloudPool;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolGetHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -1396,7 +1837,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     patchWithHttpOperationResponse(poolId, poolPatchParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolPatchOptions = (options && options.poolPatchOptions !== undefined) ? options.poolPatchOptions : undefined;
             // Validate
@@ -1481,87 +1922,149 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'PATCH';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolPatchParameter !== null && poolPatchParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolPatchParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolPatchParameter, 'poolPatchParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolPatchParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolPatchParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "PATCH",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolPatchParameter,
+                    requestBodyName: "poolPatchParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -1571,7 +2074,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1581,6 +2084,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 200) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolPatchHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -1604,7 +2111,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     disableAutoScaleWithHttpOperationResponse(poolId, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolDisableAutoScaleOptions = (options && options.poolDisableAutoScaleOptions !== undefined) ? options.poolDisableAutoScaleOptions : undefined;
             // Validate
@@ -1656,59 +2163,105 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/disableautoscale';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/disableautoscale",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -1718,7 +2271,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1728,6 +2281,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 200) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolDisableAutoScaleHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -1761,7 +2318,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     enableAutoScaleWithHttpOperationResponse(poolId, poolEnableAutoScaleParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolEnableAutoScaleOptions = (options && options.poolEnableAutoScaleOptions !== undefined) ? options.poolEnableAutoScaleOptions : undefined;
             // Validate
@@ -1846,87 +2403,149 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/enableautoscale';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolEnableAutoScaleParameter !== null && poolEnableAutoScaleParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolEnableAutoScaleParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolEnableAutoScaleParameter, 'poolEnableAutoScaleParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolEnableAutoScaleParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolEnableAutoScaleParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/enableautoscale",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolEnableAutoScaleParameter,
+                    requestBodyName: "poolEnableAutoScaleParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -1936,7 +2555,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -1946,6 +2565,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 200) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolEnableAutoScaleHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -1977,7 +2600,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     evaluateAutoScaleWithHttpOperationResponse(poolId, poolEvaluateAutoScaleParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolEvaluateAutoScaleOptions = (options && options.poolEvaluateAutoScaleOptions !== undefined) ? options.poolEvaluateAutoScaleOptions : undefined;
             // Validate
@@ -2032,75 +2655,109 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/evaluateautoscale';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolEvaluateAutoScaleParameter !== null && poolEvaluateAutoScaleParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolEvaluateAutoScaleParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolEvaluateAutoScaleParameter, 'poolEvaluateAutoScaleParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolEvaluateAutoScaleParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolEvaluateAutoScaleParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/evaluateautoscale",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolEvaluateAutoScaleParameter,
+                    requestBodyName: "poolEvaluateAutoScaleParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -2110,7 +2767,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -2123,19 +2780,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.AutoScaleRun;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.AutoScaleRun;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolEvaluateAutoScaleHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -2169,7 +2827,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     resizeWithHttpOperationResponse(poolId, poolResizeParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolResizeOptions = (options && options.poolResizeOptions !== undefined) ? options.poolResizeOptions : undefined;
             // Validate
@@ -2254,87 +2912,149 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/resize';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolResizeParameter !== null && poolResizeParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolResizeParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolResizeParameter, 'poolResizeParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolResizeParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolResizeParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/resize",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolResizeParameter,
+                    requestBodyName: "poolResizeParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -2344,7 +3064,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -2354,6 +3074,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolResizeHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -2385,7 +3109,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     stopResizeWithHttpOperationResponse(poolId, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolStopResizeOptions = (options && options.poolStopResizeOptions !== undefined) ? options.poolStopResizeOptions : undefined;
             // Validate
@@ -2467,71 +3191,145 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/stopresize';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/stopresize",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -2541,7 +3339,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -2551,6 +3349,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolStopResizeHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -2581,7 +3383,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     updatePropertiesWithHttpOperationResponse(poolId, poolUpdatePropertiesParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolUpdatePropertiesOptions = (options && options.poolUpdatePropertiesOptions !== undefined) ? options.poolUpdatePropertiesOptions : undefined;
             // Validate
@@ -2636,75 +3438,109 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/updateproperties';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolUpdatePropertiesParameter !== null && poolUpdatePropertiesParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolUpdatePropertiesParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolUpdatePropertiesParameter, 'poolUpdatePropertiesParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolUpdatePropertiesParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolUpdatePropertiesParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/updateproperties",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolUpdatePropertiesParameter,
+                    requestBodyName: "poolUpdatePropertiesParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 204) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -2714,7 +3550,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -2724,6 +3560,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 204) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolUpdatePropertiesHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -2766,7 +3606,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     upgradeOSWithHttpOperationResponse(poolId, poolUpgradeOSParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolUpgradeOSOptions = (options && options.poolUpgradeOSOptions !== undefined) ? options.poolUpgradeOSOptions : undefined;
             // Validate
@@ -2851,87 +3691,149 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/upgradeos';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (poolUpgradeOSParameter !== null && poolUpgradeOSParameter !== undefined) {
-                    let requestModelMapper = Mappers.PoolUpgradeOSParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, poolUpgradeOSParameter, 'poolUpgradeOSParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(poolUpgradeOSParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    poolUpgradeOSParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/upgradeos",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.PoolUpgradeOSParameter,
+                    requestBodyName: "poolUpgradeOSParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -2941,7 +3843,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -2951,6 +3853,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolUpgradeOSHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -2981,7 +3887,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     removeNodesWithHttpOperationResponse(poolId, nodeRemoveParameter, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolRemoveNodesOptions = (options && options.poolRemoveNodesOptions !== undefined) ? options.poolRemoveNodesOptions : undefined;
             // Validate
@@ -3066,87 +3972,149 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let baseUrl = this.client.baseUri;
-            let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'pools/{poolId}/removenodes';
-            requestUrl = requestUrl.replace('{poolId}', encodeURIComponent(poolId));
-            let queryParamsArray = [];
-            queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-            if (timeout !== null && timeout !== undefined) {
-                queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-            }
-            if (queryParamsArray.length > 0) {
-                requestUrl += '?' + queryParamsArray.join('&');
-            }
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'POST';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (ifMatch !== undefined && ifMatch !== null) {
-                httpRequest.headers['If-Match'] = ifMatch;
-            }
-            if (ifNoneMatch !== undefined && ifNoneMatch !== null) {
-                httpRequest.headers['If-None-Match'] = ifNoneMatch;
-            }
-            if (ifModifiedSince !== undefined && ifModifiedSince !== null) {
-                httpRequest.headers['If-Modified-Since'] = ifModifiedSince instanceof Date ? ifModifiedSince.toUTCString() : ifModifiedSince;
-            }
-            if (ifUnmodifiedSince !== undefined && ifUnmodifiedSince !== null) {
-                httpRequest.headers['If-Unmodified-Since'] = ifUnmodifiedSince instanceof Date ? ifUnmodifiedSince.toUTCString() : ifUnmodifiedSince;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Serialize Request
-            let requestContent = null;
-            let requestModel = null;
-            try {
-                if (nodeRemoveParameter !== null && nodeRemoveParameter !== undefined) {
-                    let requestModelMapper = Mappers.NodeRemoveParameter;
-                    requestModel = client.serializer.serialize(requestModelMapper, nodeRemoveParameter, 'nodeRemoveParameter');
-                    requestContent = JSON.stringify(requestModel);
-                }
-            }
-            catch (error) {
-                let serializationError = new Error(`Error "${error.message}" occurred in serializing the ` +
-                    `payload - ${JSON.stringify(nodeRemoveParameter, null, 2)}.`);
-                return Promise.reject(serializationError);
-            }
-            httpRequest.body = requestContent;
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    poolId,
+                    nodeRemoveParameter,
+                    "this.client.apiVersion": this.client.apiVersion,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    timeout,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate,
+                    ifMatch,
+                    ifNoneMatch,
+                    ifModifiedSince,
+                    ifUnmodifiedSince
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "POST",
+                    baseUrl: this.client.baseUri,
+                    path: "pools/{poolId}/removenodes",
+                    urlParameters: [
+                        {
+                            parameterName: "poolId",
+                            mapper: {
+                                required: true,
+                                serializedName: "poolId",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    queryParameters: [
+                        {
+                            parameterName: "this.client.apiVersion",
+                            mapper: {
+                                required: true,
+                                serializedName: "api-version",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "timeout",
+                            mapper: {
+                                serializedName: "timeout",
+                                defaultValue: 30,
+                                type: {
+                                    name: "Number"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifMatch",
+                            mapper: {
+                                serializedName: "If-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifNoneMatch",
+                            mapper: {
+                                serializedName: "If-None-Match",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifModifiedSince",
+                            mapper: {
+                                serializedName: "If-Modified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ifUnmodifiedSince",
+                            mapper: {
+                                serializedName: "If-Unmodified-Since",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ],
+                    requestBodyMapper: Mappers.NodeRemoveParameter,
+                    requestBodyName: "nodeRemoveParameter",
+                    contentType: "application/json; odata=minimalmetadata; charset=utf-8"
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 202) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -3156,7 +4124,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -3166,6 +4134,10 @@ class Pool {
                         return Promise.reject(error);
                     }
                     return Promise.reject(error);
+                }
+                // Deserialize Response
+                if (statusCode === 202) {
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolRemoveNodesHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -3198,7 +4170,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     listUsageMetricsNextWithHttpOperationResponse(nextPageLink, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolListUsageMetricsNextOptions = (options && options.poolListUsageMetricsNextOptions !== undefined) ? options.poolListUsageMetricsNextOptions : undefined;
             // Validate
@@ -3240,50 +4212,82 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let requestUrl = '{nextLink}';
-            requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    nextPageLink,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: "https://batch.core.windows.net",
+                    path: "{nextLink}",
+                    urlParameters: [
+                        {
+                            parameterName: "nextPageLink",
+                            skipEncoding: true,
+                            mapper: {
+                                required: true,
+                                serializedName: "nextLink",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -3293,7 +4297,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -3306,19 +4310,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.PoolListUsageMetricsResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.PoolListUsageMetricsResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolListUsageMetricsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -3342,7 +4347,7 @@ class Pool {
      * @reject {Error|ServiceError} - The error object.
      */
     listNextWithHttpOperationResponse(nextPageLink, options) {
-        return __awaiter(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let client = this.client;
             let poolListNextOptions = (options && options.poolListNextOptions !== undefined) ? options.poolListNextOptions : undefined;
             // Validate
@@ -3384,50 +4389,82 @@ class Pool {
             catch (error) {
                 return Promise.reject(error);
             }
-            // Construct URL
-            let requestUrl = '{nextLink}';
-            requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
             // Create HTTP transport objects
-            let httpRequest = new WebResource();
-            httpRequest.method = 'GET';
-            httpRequest.url = requestUrl;
-            httpRequest.headers = {};
-            // Set Headers
-            httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-            if (this.client.generateClientRequestId) {
-                httpRequest.headers['client-request-id'] = msRest.generateUuid();
-            }
-            if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-                httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-            }
-            if (clientRequestId !== undefined && clientRequestId !== null) {
-                httpRequest.headers['client-request-id'] = clientRequestId.toString();
-            }
-            if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-                httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-            }
-            if (ocpDate !== undefined && ocpDate !== null) {
-                httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-            }
-            if (options && options.customHeaders) {
-                for (let headerName in options.customHeaders) {
-                    if (options.customHeaders.hasOwnProperty(headerName)) {
-                        httpRequest.headers[headerName] = options.customHeaders[headerName];
-                    }
-                }
-            }
-            // Send Request
+            const httpRequest = new WebResource();
             let operationRes;
             try {
-                operationRes = yield client.pipeline(httpRequest);
-                let response = operationRes.response;
-                let statusCode = response.status;
+                const operationArguments = msRest.createOperationArguments({
+                    nextPageLink,
+                    "this.client.acceptLanguage": this.client.acceptLanguage,
+                    clientRequestId,
+                    returnClientRequestId,
+                    ocpDate
+                }, options);
+                operationRes = yield client.sendOperationRequest(httpRequest, operationArguments, {
+                    httpMethod: "GET",
+                    baseUrl: "https://batch.core.windows.net",
+                    path: "{nextLink}",
+                    urlParameters: [
+                        {
+                            parameterName: "nextPageLink",
+                            skipEncoding: true,
+                            mapper: {
+                                required: true,
+                                serializedName: "nextLink",
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        }
+                    ],
+                    headerParameters: [
+                        {
+                            parameterName: "this.client.acceptLanguage",
+                            mapper: {
+                                serializedName: "accept-language",
+                                defaultValue: 'en-US',
+                                type: {
+                                    name: "String"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "clientRequestId",
+                            mapper: {
+                                serializedName: "client-request-id",
+                                type: {
+                                    name: "Uuid"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "returnClientRequestId",
+                            mapper: {
+                                serializedName: "return-client-request-id",
+                                defaultValue: false,
+                                type: {
+                                    name: "Boolean"
+                                }
+                            }
+                        },
+                        {
+                            parameterName: "ocpDate",
+                            mapper: {
+                                serializedName: "ocp-date",
+                                type: {
+                                    name: "DateTimeRfc1123"
+                                }
+                            }
+                        }
+                    ]
+                });
+                let statusCode = operationRes.status;
                 if (statusCode !== 200) {
                     let error = new msRest.RestError(operationRes.bodyAsText);
-                    error.statusCode = response.status;
+                    error.statusCode = operationRes.status;
                     error.request = msRest.stripRequest(httpRequest);
-                    error.response = msRest.stripResponse(response);
-                    let parsedErrorResponse = operationRes.bodyAsJson;
+                    error.response = msRest.stripResponse(operationRes);
+                    let parsedErrorResponse = operationRes.parsedBody;
                     try {
                         if (parsedErrorResponse) {
                             let internalError = null;
@@ -3437,7 +4474,7 @@ class Pool {
                             error.message = internalError ? internalError.message : parsedErrorResponse.message;
                         }
                         if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-                            let resultMapper = Mappers.BatchError;
+                            const resultMapper = Mappers.BatchError;
                             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
                         }
                     }
@@ -3450,19 +4487,20 @@ class Pool {
                 }
                 // Deserialize Response
                 if (statusCode === 200) {
-                    let parsedResponse = operationRes.bodyAsJson;
+                    let parsedResponse = operationRes.parsedBody;
                     try {
                         if (parsedResponse !== null && parsedResponse !== undefined) {
-                            let resultMapper = Mappers.CloudPoolListResult;
-                            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+                            const resultMapper = Mappers.CloudPoolListResult;
+                            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
                         }
                     }
                     catch (error) {
                         let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
                         deserializationError.request = msRest.stripRequest(httpRequest);
-                        deserializationError.response = msRest.stripResponse(response);
+                        deserializationError.response = msRest.stripResponse(operationRes);
                         return Promise.reject(deserializationError);
                     }
+                    operationRes.parsedHeaders = client.serializer.deserialize(Mappers.PoolListHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
                 }
             }
             catch (err) {
@@ -3479,7 +4517,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.listUsageMetricsWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3489,8 +4527,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3502,7 +4540,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.getAllLifetimeStatisticsWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3512,8 +4550,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3525,7 +4563,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.addWithHttpOperationResponse(pool, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3535,8 +4573,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3548,7 +4586,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.listWithHttpOperationResponse(options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3558,8 +4596,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3571,7 +4609,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.deleteMethodWithHttpOperationResponse(poolId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3581,8 +4619,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3594,7 +4632,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.existsWithHttpOperationResponse(poolId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3604,8 +4642,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3617,7 +4655,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.getWithHttpOperationResponse(poolId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3627,8 +4665,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3640,7 +4678,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.patchWithHttpOperationResponse(poolId, poolPatchParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3650,8 +4688,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3663,7 +4701,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.disableAutoScaleWithHttpOperationResponse(poolId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3673,8 +4711,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3686,7 +4724,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.enableAutoScaleWithHttpOperationResponse(poolId, poolEnableAutoScaleParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3696,8 +4734,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3709,7 +4747,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.evaluateAutoScaleWithHttpOperationResponse(poolId, poolEvaluateAutoScaleParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3719,8 +4757,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3732,7 +4770,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.resizeWithHttpOperationResponse(poolId, poolResizeParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3742,8 +4780,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3755,7 +4793,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.stopResizeWithHttpOperationResponse(poolId, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3765,8 +4803,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3778,7 +4816,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.updatePropertiesWithHttpOperationResponse(poolId, poolUpdatePropertiesParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3788,8 +4826,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3801,7 +4839,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.upgradeOSWithHttpOperationResponse(poolId, poolUpgradeOSParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3811,8 +4849,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3824,7 +4862,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.removeNodesWithHttpOperationResponse(poolId, nodeRemoveParameter, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3834,8 +4872,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3847,7 +4885,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.listUsageMetricsNextWithHttpOperationResponse(nextPageLink, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3857,8 +4895,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }
@@ -3870,7 +4908,7 @@ class Pool {
         let cb = callback;
         if (!callback) {
             return this.listNextWithHttpOperationResponse(nextPageLink, options).then((operationRes) => {
-                return Promise.resolve(operationRes.bodyAsJson);
+                return Promise.resolve(operationRes.parsedBody);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -3880,8 +4918,8 @@ class Pool {
                 if (err) {
                     return cb(err);
                 }
-                let result = data.bodyAsJson;
-                return cb(err, result, data.request, data.response);
+                let result = data.parsedBody;
+                return cb(err, result, data.request, data);
             });
         }
     }

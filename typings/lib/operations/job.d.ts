@@ -1,20 +1,22 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a Job. */
 export declare class Job {
     private readonly client;
     /**
      * Create a Job.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Gets lifetime summary statistics for all of the jobs in the
      * specified account.
      *
      * Statistics are aggregated across all jobs that have ever existed in the
      * account, from account creation to the last update time of the statistics.
+     * The statistics may not be immediately available. The Batch service performs
+     * periodic roll-up of statistics. The typical delay is about 30 minutes.
      *
      * @param {JobGetAllLifetimeStatisticsOptionalParams} [options] Optional
      * Parameters.
@@ -25,7 +27,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getAllLifetimeStatisticsWithHttpOperationResponse(options?: Models.JobGetAllLifetimeStatisticsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getAllLifetimeStatisticsWithHttpOperationResponse(options?: Models.JobGetAllLifetimeStatisticsOptionalParams): Promise<Models.JobGetAllLifetimeStatisticsResponse>;
     /**
      * @summary Deletes a job.
      *
@@ -48,7 +50,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteMethodWithHttpOperationResponse(jobId: string, options?: Models.JobDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteMethodWithHttpOperationResponse(jobId: string, options?: Models.JobDeleteMethodOptionalParams): Promise<Models.JobDeleteResponse>;
     /**
      * @summary Gets information about the specified job.
      *
@@ -62,7 +64,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(jobId: string, options?: Models.JobGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(jobId: string, options?: Models.JobGetOptionalParams): Promise<Models.JobGetResponse>;
     /**
      * @summary Updates the properties of the specified job.
      *
@@ -82,7 +84,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    patchWithHttpOperationResponse(jobId: string, jobPatchParameter: Models.JobPatchParameter, options?: Models.JobPatchOptionalParams): Promise<msRest.HttpOperationResponse>;
+    patchWithHttpOperationResponse(jobId: string, jobPatchParameter: Models.JobPatchParameter, options?: Models.JobPatchOptionalParams): Promise<Models.JobPatchResponse>;
     /**
      * @summary Updates the properties of the specified job.
      *
@@ -104,7 +106,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    updateWithHttpOperationResponse(jobId: string, jobUpdateParameter: Models.JobUpdateParameter, options?: Models.JobUpdateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    updateWithHttpOperationResponse(jobId: string, jobUpdateParameter: Models.JobUpdateParameter, options?: Models.JobUpdateOptionalParams): Promise<Models.JobUpdateResponse>;
     /**
      * @summary Disables the specified job, preventing new tasks from running.
      *
@@ -130,7 +132,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    disableWithHttpOperationResponse(jobId: string, jobDisableParameter: Models.JobDisableParameter, options?: Models.JobDisableOptionalParams): Promise<msRest.HttpOperationResponse>;
+    disableWithHttpOperationResponse(jobId: string, jobDisableParameter: Models.JobDisableParameter, options?: Models.JobDisableOptionalParams): Promise<Models.JobDisableResponse>;
     /**
      * @summary Enables the specified job, allowing new tasks to run.
      *
@@ -151,14 +153,17 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    enableWithHttpOperationResponse(jobId: string, options?: Models.JobEnableOptionalParams): Promise<msRest.HttpOperationResponse>;
+    enableWithHttpOperationResponse(jobId: string, options?: Models.JobEnableOptionalParams): Promise<Models.JobEnableResponse>;
     /**
      * @summary Terminates the specified job, marking it as completed.
      *
      * When a Terminate Job request is received, the Batch service sets the job to
-     * the terminating state. The Batch service then terminates any active or
-     * running tasks associated with the job, and runs any required Job Release
-     * tasks. The job then moves into the completed state.
+     * the terminating state. The Batch service then terminates any running tasks
+     * associated with the job and runs any required job release tasks. Then the
+     * job moves into the completed state. If there are any tasks in the job in the
+     * active state, they will remain in the active state. Once a job is
+     * terminated, new tasks cannot be added and any remaining active tasks will
+     * not be scheduled.
      *
      * @param {string} jobId The ID of the job to terminate.
      *
@@ -170,7 +175,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    terminateWithHttpOperationResponse(jobId: string, options?: Models.JobTerminateOptionalParams): Promise<msRest.HttpOperationResponse>;
+    terminateWithHttpOperationResponse(jobId: string, options?: Models.JobTerminateOptionalParams): Promise<Models.JobTerminateResponse>;
     /**
      * @summary Adds a job to the specified account.
      *
@@ -194,7 +199,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addWithHttpOperationResponse(job: Models.JobAddParameter, options?: Models.JobAddOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addWithHttpOperationResponse(job: Models.JobAddParameter, options?: Models.JobAddOptionalParams): Promise<Models.JobAddResponse>;
     /**
      * @summary Lists all of the jobs in the specified account.
      *
@@ -206,7 +211,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(options?: Models.JobListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(options?: Models.JobListOptionalParams): Promise<Models.JobListResponse>;
     /**
      * @summary Lists the jobs that have been created under the specified job
      * schedule.
@@ -222,7 +227,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromJobScheduleWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobListFromJobScheduleOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromJobScheduleWithHttpOperationResponse(jobScheduleId: string, options?: Models.JobListFromJobScheduleOptionalParams): Promise<Models.JobListFromJobScheduleResponse>;
     /**
      * @summary Lists the execution status of the Job Preparation and Job Release
      * task for the specified job across the compute nodes where the job has run.
@@ -245,7 +250,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listPreparationAndReleaseTaskStatusWithHttpOperationResponse(jobId: string, options?: Models.JobListPreparationAndReleaseTaskStatusOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listPreparationAndReleaseTaskStatusWithHttpOperationResponse(jobId: string, options?: Models.JobListPreparationAndReleaseTaskStatusOptionalParams): Promise<Models.JobListPreparationAndReleaseTaskStatusResponse>;
     /**
      * @summary Gets the task counts for the specified job.
      *
@@ -267,7 +272,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getTaskCountsWithHttpOperationResponse(jobId: string, options?: Models.JobGetTaskCountsOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getTaskCountsWithHttpOperationResponse(jobId: string, options?: Models.JobGetTaskCountsOptionalParams): Promise<Models.JobGetTaskCountsResponse>;
     /**
      * @summary Lists all of the jobs in the specified account.
      *
@@ -282,7 +287,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListNextOptionalParams): Promise<Models.JobListResponse>;
     /**
      * @summary Lists the jobs that have been created under the specified job
      * schedule.
@@ -299,7 +304,7 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listFromJobScheduleNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListFromJobScheduleNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listFromJobScheduleNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListFromJobScheduleNextOptionalParams): Promise<Models.JobListFromJobScheduleResponse>;
     /**
      * @summary Lists the execution status of the Job Preparation and Job Release
      * task for the specified job across the compute nodes where the job has run.
@@ -323,20 +328,22 @@ export declare class Job {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listPreparationAndReleaseTaskStatusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListPreparationAndReleaseTaskStatusNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listPreparationAndReleaseTaskStatusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.JobListPreparationAndReleaseTaskStatusNextOptionalParams): Promise<Models.JobListPreparationAndReleaseTaskStatusResponse>;
     /**
      * @summary Gets lifetime summary statistics for all of the jobs in the
      * specified account.
      *
      * Statistics are aggregated across all jobs that have ever existed in the
      * account, from account creation to the last update time of the statistics.
+     * The statistics may not be immediately available. The Batch service performs
+     * periodic roll-up of statistics. The typical delay is about 30 minutes.
      *
      * @param {JobGetAllLifetimeStatisticsOptionalParams} [options] Optional
      * Parameters.
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -345,7 +352,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getAllLifetimeStatistics(): Promise<Models.JobStatistics>;
     getAllLifetimeStatistics(options: Models.JobGetAllLifetimeStatisticsOptionalParams): Promise<Models.JobStatistics>;
@@ -369,7 +376,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -377,7 +384,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteMethod(jobId: string): Promise<void>;
     deleteMethod(jobId: string, options: Models.JobDeleteMethodOptionalParams): Promise<void>;
@@ -392,7 +399,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -401,7 +408,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(jobId: string): Promise<Models.CloudJob>;
     get(jobId: string, options: Models.JobGetOptionalParams): Promise<Models.CloudJob>;
@@ -422,7 +429,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -430,7 +437,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     patch(jobId: string, jobPatchParameter: Models.JobPatchParameter): Promise<void>;
     patch(jobId: string, jobPatchParameter: Models.JobPatchParameter, options: Models.JobPatchOptionalParams): Promise<void>;
@@ -453,7 +460,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -461,7 +468,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     update(jobId: string, jobUpdateParameter: Models.JobUpdateParameter): Promise<void>;
     update(jobId: string, jobUpdateParameter: Models.JobUpdateParameter, options: Models.JobUpdateOptionalParams): Promise<void>;
@@ -488,7 +495,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -496,7 +503,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     disable(jobId: string, jobDisableParameter: Models.JobDisableParameter): Promise<void>;
     disable(jobId: string, jobDisableParameter: Models.JobDisableParameter, options: Models.JobDisableOptionalParams): Promise<void>;
@@ -518,7 +525,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -526,7 +533,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     enable(jobId: string): Promise<void>;
     enable(jobId: string, options: Models.JobEnableOptionalParams): Promise<void>;
@@ -536,9 +543,12 @@ export declare class Job {
      * @summary Terminates the specified job, marking it as completed.
      *
      * When a Terminate Job request is received, the Batch service sets the job to
-     * the terminating state. The Batch service then terminates any active or
-     * running tasks associated with the job, and runs any required Job Release
-     * tasks. The job then moves into the completed state.
+     * the terminating state. The Batch service then terminates any running tasks
+     * associated with the job and runs any required job release tasks. Then the
+     * job moves into the completed state. If there are any tasks in the job in the
+     * active state, they will remain in the active state. Once a job is
+     * terminated, new tasks cannot be added and any remaining active tasks will
+     * not be scheduled.
      *
      * @param {string} jobId The ID of the job to terminate.
      *
@@ -546,7 +556,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -554,7 +564,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     terminate(jobId: string): Promise<void>;
     terminate(jobId: string, options: Models.JobTerminateOptionalParams): Promise<void>;
@@ -579,7 +589,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -587,7 +597,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     add(job: Models.JobAddParameter): Promise<void>;
     add(job: Models.JobAddParameter, options: Models.JobAddOptionalParams): Promise<void>;
@@ -600,7 +610,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -610,7 +620,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(): Promise<Models.CloudJobListResult>;
     list(options: Models.JobListOptionalParams): Promise<Models.CloudJobListResult>;
@@ -627,7 +637,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -637,7 +647,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromJobSchedule(jobScheduleId: string): Promise<Models.CloudJobListResult>;
     listFromJobSchedule(jobScheduleId: string, options: Models.JobListFromJobScheduleOptionalParams): Promise<Models.CloudJobListResult>;
@@ -661,7 +671,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -672,7 +682,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listPreparationAndReleaseTaskStatus(jobId: string): Promise<Models.CloudJobListPreparationAndReleaseTaskStatusResult>;
     listPreparationAndReleaseTaskStatus(jobId: string, options: Models.JobListPreparationAndReleaseTaskStatusOptionalParams): Promise<Models.CloudJobListPreparationAndReleaseTaskStatusResult>;
@@ -695,7 +705,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -704,7 +714,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     getTaskCounts(jobId: string): Promise<Models.TaskCounts>;
     getTaskCounts(jobId: string, options: Models.JobGetTaskCountsOptionalParams): Promise<Models.TaskCounts>;
@@ -720,7 +730,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -730,7 +740,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.CloudJobListResult>;
     listNext(nextPageLink: string, options: Models.JobListNextOptionalParams): Promise<Models.CloudJobListResult>;
@@ -748,7 +758,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -758,7 +768,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listFromJobScheduleNext(nextPageLink: string): Promise<Models.CloudJobListResult>;
     listFromJobScheduleNext(nextPageLink: string, options: Models.JobListFromJobScheduleNextOptionalParams): Promise<Models.CloudJobListResult>;
@@ -783,7 +793,7 @@ export declare class Job {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -794,7 +804,7 @@ export declare class Job {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listPreparationAndReleaseTaskStatusNext(nextPageLink: string): Promise<Models.CloudJobListPreparationAndReleaseTaskStatusResult>;
     listPreparationAndReleaseTaskStatusNext(nextPageLink: string, options: Models.JobListPreparationAndReleaseTaskStatusNextOptionalParams): Promise<Models.CloudJobListPreparationAndReleaseTaskStatusResult>;

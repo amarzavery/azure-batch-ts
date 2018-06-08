@@ -1,6 +1,5 @@
 import { BaseResource, CloudError } from "ms-rest-azure-js";
-import * as moment from "moment";
-import { RequestOptionsBase } from "ms-rest-js";
+import * as msRest from "ms-rest-js";
 export { BaseResource, CloudError };
 /**
  * @interface
@@ -167,10 +166,10 @@ export interface UsageStatistics {
      */
     lastUpdateTime: Date;
     /**
-     * @member {moment.Duration} dedicatedCoreTime The aggregated wall-clock time
-     * of the dedicated compute node cores being part of the pool.
+     * @member {string} dedicatedCoreTime The aggregated wall-clock time of the
+     * dedicated compute node cores being part of the pool.
      */
-    dedicatedCoreTime: moment.Duration;
+    dedicatedCoreTime: string;
 }
 /**
  * @interface
@@ -304,25 +303,24 @@ export interface JobStatistics {
      */
     lastUpdateTime: Date;
     /**
-     * @member {moment.Duration} userCPUTime The total user mode CPU time (summed
+     * @member {string} userCPUTime The total user mode CPU time (summed across
+     * all cores and all compute nodes) consumed by all tasks in the job.
+     */
+    userCPUTime: string;
+    /**
+     * @member {string} kernelCPUTime The total kernel mode CPU time (summed
      * across all cores and all compute nodes) consumed by all tasks in the job.
      */
-    userCPUTime: moment.Duration;
+    kernelCPUTime: string;
     /**
-     * @member {moment.Duration} kernelCPUTime The total kernel mode CPU time
-     * (summed across all cores and all compute nodes) consumed by all tasks in
-     * the job.
-     */
-    kernelCPUTime: moment.Duration;
-    /**
-     * @member {moment.Duration} wallClockTime The total wall clock time of all
-     * tasks in the job.  The wall clock time is the elapsed time from when the
-     * task started running on a compute node to when it finished (or to the last
-     * time the statistics were updated, if the task had not finished by then).
-     * If a task was retried, this includes the wall clock time of all the task
+     * @member {string} wallClockTime The total wall clock time of all tasks in
+     * the job.  The wall clock time is the elapsed time from when the task
+     * started running on a compute node to when it finished (or to the last time
+     * the statistics were updated, if the task had not finished by then). If a
+     * task was retried, this includes the wall clock time of all the task
      * retries.
      */
-    wallClockTime: moment.Duration;
+    wallClockTime: string;
     /**
      * @member {number} readIOps The total number of disk read operations made by
      * all tasks in the job.
@@ -361,14 +359,14 @@ export interface JobStatistics {
      */
     numTaskRetries: number;
     /**
-     * @member {moment.Duration} waitTime The total wait time of all tasks in the
-     * job. The wait time for a task is defined as the elapsed time between the
-     * creation of the task and the start of task execution. (If the task is
-     * retried due to failures, the wait time is the time to the most recent task
-     * execution.) This value is only reported in the account lifetime
-     * statistics; it is not included in the job statistics.
+     * @member {string} waitTime The total wait time of all tasks in the job. The
+     * wait time for a task is defined as the elapsed time between the creation
+     * of the task and the start of task execution. (If the task is retried due
+     * to failures, the wait time is the time to the most recent task execution.)
+     * This value is only reported in the account lifetime statistics; it is not
+     * included in the job statistics.
      */
-    waitTime: moment.Duration;
+    waitTime: string;
 }
 /**
  * @interface
@@ -629,41 +627,41 @@ export interface Schedule {
      */
     doNotRunAfter?: Date;
     /**
-     * @member {moment.Duration} [startWindow] The time interval, starting from
-     * the time at which the schedule indicates a job should be created, within
-     * which a job must be created. If a job is not created within the
-     * startWindow interval, then the 'opportunity' is lost; no job will be
-     * created until the next recurrence of the schedule. If the schedule is
-     * recurring, and the startWindow is longer than the recurrence interval,
-     * then this is equivalent to an infinite startWindow, because the job that
-     * is 'due' in one recurrenceInterval is not carried forward into the next
-     * recurrence interval. The default is infinite. The minimum value is 1
+     * @member {string} [startWindow] The time interval, starting from the time
+     * at which the schedule indicates a job should be created, within which a
+     * job must be created. If a job is not created within the startWindow
+     * interval, then the 'opportunity' is lost; no job will be created until the
+     * next recurrence of the schedule. If the schedule is recurring, and the
+     * startWindow is longer than the recurrence interval, then this is
+     * equivalent to an infinite startWindow, because the job that is 'due' in
+     * one recurrenceInterval is not carried forward into the next recurrence
+     * interval. The default is infinite. The minimum value is 1 minute. If you
+     * specify a lower value, the Batch service rejects the schedule with an
+     * error; if you are calling the REST API directly, the HTTP status code is
+     * 400 (Bad Request).
+     */
+    startWindow?: string;
+    /**
+     * @member {string} [recurrenceInterval] The time interval between the start
+     * times of two successive jobs under the job schedule. A job schedule can
+     * have at most one active job under it at any given time. Because a job
+     * schedule can have at most one active job under it at any given time, if it
+     * is time to create a new job under a job schedule, but the previous job is
+     * still running, the Batch service will not create the new job until the
+     * previous job finishes. If the previous job does not finish within the
+     * startWindow period of the new recurrenceInterval, then no new job will be
+     * scheduled for that interval. For recurring jobs, you should normally
+     * specify a jobManagerTask in the jobSpecification. If you do not use
+     * jobManagerTask, you will need an external process to monitor when jobs are
+     * created, add tasks to the jobs and terminate the jobs ready for the next
+     * recurrence. The default is that the schedule does not recur: one job is
+     * created, within the startWindow after the doNotRunUntil time, and the
+     * schedule is complete as soon as that job finishes. The minimum value is 1
      * minute. If you specify a lower value, the Batch service rejects the
      * schedule with an error; if you are calling the REST API directly, the HTTP
      * status code is 400 (Bad Request).
      */
-    startWindow?: moment.Duration;
-    /**
-     * @member {moment.Duration} [recurrenceInterval] The time interval between
-     * the start times of two successive jobs under the job schedule. A job
-     * schedule can have at most one active job under it at any given time.
-     * Because a job schedule can have at most one active job under it at any
-     * given time, if it is time to create a new job under a job schedule, but
-     * the previous job is still running, the Batch service will not create the
-     * new job until the previous job finishes. If the previous job does not
-     * finish within the startWindow period of the new recurrenceInterval, then
-     * no new job will be scheduled for that interval. For recurring jobs, you
-     * should normally specify a jobManagerTask in the jobSpecification. If you
-     * do not use jobManagerTask, you will need an external process to monitor
-     * when jobs are created, add tasks to the jobs and terminate the jobs ready
-     * for the next recurrence. The default is that the schedule does not recur:
-     * one job is created, within the startWindow after the doNotRunUntil time,
-     * and the schedule is complete as soon as that job finishes. The minimum
-     * value is 1 minute. If you specify a lower value, the Batch service rejects
-     * the schedule with an error; if you are calling the REST API directly, the
-     * HTTP status code is 400 (Bad Request).
-     */
-    recurrenceInterval?: moment.Duration;
+    recurrenceInterval?: string;
 }
 /**
  * @interface
@@ -673,14 +671,14 @@ export interface Schedule {
  */
 export interface JobConstraints {
     /**
-     * @member {moment.Duration} [maxWallClockTime] The maximum elapsed time that
-     * the job may run, measured from the time the job is created. If the job
-     * does not complete within the time limit, the Batch service terminates it
-     * and any tasks that are still running. In this case, the termination reason
-     * will be MaxWallClockTimeExpiry. If this property is not specified, there
-     * is no time limit on how long the job may run.
+     * @member {string} [maxWallClockTime] The maximum elapsed time that the job
+     * may run, measured from the time the job is created. If the job does not
+     * complete within the time limit, the Batch service terminates it and any
+     * tasks that are still running. In this case, the termination reason will be
+     * MaxWallClockTimeExpiry. If this property is not specified, there is no
+     * time limit on how long the job may run.
      */
-    maxWallClockTime?: moment.Duration;
+    maxWallClockTime?: string;
     /**
      * @member {number} [maxTaskRetryCount] The maximum number of times each task
      * may be retried. The Batch service retries a task if its exit code is
@@ -930,7 +928,10 @@ export interface AutoUserSpecification {
  * An interface representing UserIdentity.
  * @summary The definition of the user identity under which the task is run.
  *
- * Specify either the userName or autoUser property, but not both.
+ * Specify either the userName or autoUser property, but not both. On
+ * CloudServiceConfiguration pools, this user is logged in with the INTERACTIVE
+ * flag. On Windows VirtualMachineConfiguration pools, this user is logged in
+ * with the BATCH flag.
  *
  */
 export interface UserIdentity {
@@ -1018,31 +1019,32 @@ export interface UserAccount {
  */
 export interface TaskConstraints {
     /**
-     * @member {moment.Duration} [maxWallClockTime] The maximum elapsed time that
-     * the task may run, measured from the time the task starts. If the task does
-     * not complete within the time limit, the Batch service terminates it. If
-     * this is not specified, there is no time limit on how long the task may
-     * run.
+     * @member {string} [maxWallClockTime] The maximum elapsed time that the task
+     * may run, measured from the time the task starts. If the task does not
+     * complete within the time limit, the Batch service terminates it. If this
+     * is not specified, there is no time limit on how long the task may run.
      */
-    maxWallClockTime?: moment.Duration;
+    maxWallClockTime?: string;
     /**
-     * @member {moment.Duration} [retentionTime] The minimum time to retain the
-     * task directory on the compute node where it ran, from the time it
-     * completes execution. After this time, the Batch service may delete the
-     * task directory and all its contents. The default is infinite, i.e. the
-     * task directory will be retained until the compute node is removed or
-     * reimaged.
+     * @member {string} [retentionTime] The minimum time to retain the task
+     * directory on the compute node where it ran, from the time it completes
+     * execution. After this time, the Batch service may delete the task
+     * directory and all its contents. The default is infinite, i.e. the task
+     * directory will be retained until the compute node is removed or reimaged.
      */
-    retentionTime?: moment.Duration;
+    retentionTime?: string;
     /**
      * @member {number} [maxTaskRetryCount] The maximum number of times the task
      * may be retried. The Batch service retries a task if its exit code is
-     * nonzero. Note that this value specifically controls the number of retries.
-     * The Batch service will try the task once, and may then retry up to this
-     * limit. For example, if the maximum retry count is 3, Batch tries the task
-     * up to 4 times (one initial try and 3 retries). If the maximum retry count
-     * is 0, the Batch service does not retry the task. If the maximum retry
-     * count is -1, the Batch service retries the task without limit.
+     * nonzero. Note that this value specifically controls the number of retries
+     * for the task executable due to a nonzero exit code. The Batch service will
+     * try the task once, and may then retry up to this limit. For example, if
+     * the maximum retry count is 3, Batch tries the task up to 4 times (one
+     * initial try and 3 retries). If the maximum retry count is 0, the Batch
+     * service does not retry the task after the first attempt. If the maximum
+     * retry count is -1, the Batch service retries the task without limit.
+     * Resource files and application packages are only downloaded again if the
+     * task is retried on a new compute node.
      */
     maxTaskRetryCount?: number;
 }
@@ -1158,7 +1160,17 @@ export interface OutputFile {
  * task to restart. Note that a Job Manager task in one job does not have
  * priority over tasks in other jobs. Across jobs, only job level priorities
  * are observed. For example, if a Job Manager in a priority 0 job needs to be
- * restarted, it will not displace tasks of a priority 1 job.
+ * restarted, it will not displace tasks of a priority 1 job. Batch will retry
+ * tasks when a recovery operation is triggered on a compute node. Examples of
+ * recovery operations include (but are not limited to) when an unhealthy
+ * compute node is rebooted or a compute node disappeared due to host failure.
+ * Retries due to recovery operations are independent of and are not counted
+ * against the maxTaskRetryCount. Even if the maxTaskRetryCount is 0, an
+ * internal retry due to a recovery operation may occur. Because of this, all
+ * tasks should be idempotent. This means tasks need to tolerate being
+ * interrupted and restarted without causing any corruption or duplicate data.
+ * The best practice for long running tasks is to use some form of
+ * checkpointing.
  *
  */
 export interface JobManagerTask {
@@ -1181,7 +1193,10 @@ export interface JobManagerTask {
      * advantage of shell features such as environment variable expansion. If you
      * want to take advantage of such features, you should invoke the shell in
      * the command line, for example using "cmd /c MyCommand" in Windows or
-     * "/bin/sh -c MyCommand" in Linux.
+     * "/bin/sh -c MyCommand" in Linux. If the command line refers to file paths,
+     * it should use a relative path (relative to the task working directory), or
+     * use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine: string;
     /**
@@ -1280,7 +1295,7 @@ export interface JobManagerTask {
     authenticationTokenSettings?: AuthenticationTokenSettings;
     /**
      * @member {boolean} [allowLowPriorityNode] Whether the Job Manager task may
-     * run on a low-priority compute node. The default value is false.
+     * run on a low-priority compute node. The default value is true.
      */
     allowLowPriorityNode?: boolean;
 }
@@ -1306,7 +1321,17 @@ export interface JobManagerTask {
  * before scheduling any other task of the job, if
  * rerunOnNodeRebootAfterSuccess is true or if the Job Preparation task did not
  * previously complete. If the compute node is reimaged, the Job Preparation
- * task is run again before scheduling any task of the job.
+ * task is run again before scheduling any task of the job. Batch will retry
+ * tasks when a recovery operation is triggered on a compute node. Examples of
+ * recovery operations include (but are not limited to) when an unhealthy
+ * compute node is rebooted or a compute node disappeared due to host failure.
+ * Retries due to recovery operations are independent of and are not counted
+ * against the maxTaskRetryCount. Even if the maxTaskRetryCount is 0, an
+ * internal retry due to a recovery operation may occur. Because of this, all
+ * tasks should be idempotent. This means tasks need to tolerate being
+ * interrupted and restarted without causing any corruption or duplicate data.
+ * The best practice for long running tasks is to use some form of
+ * checkpointing.
  *
  */
 export interface JobPreparationTask {
@@ -1328,7 +1353,10 @@ export interface JobPreparationTask {
      * advantage of shell features such as environment variable expansion. If you
      * want to take advantage of such features, you should invoke the shell in
      * the command line, for example using "cmd /c MyCommand" in Windows or
-     * "/bin/sh -c MyCommand" in Linux.
+     * "/bin/sh -c MyCommand" in Linux. If the command line refers to file paths,
+     * it should use a relative path (relative to the task working directory), or
+     * use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine: string;
     /**
@@ -1435,7 +1463,10 @@ export interface JobReleaseTask {
      * advantage of shell features such as environment variable expansion. If you
      * want to take advantage of such features, you should invoke the shell in
      * the command line, for example using "cmd /c MyCommand" in Windows or
-     * "/bin/sh -c MyCommand" in Linux.
+     * "/bin/sh -c MyCommand" in Linux. If the command line refers to file paths,
+     * it should use a relative path (relative to the task working directory), or
+     * use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine: string;
     /**
@@ -1460,23 +1491,23 @@ export interface JobReleaseTask {
      */
     environmentSettings?: EnvironmentSetting[];
     /**
-     * @member {moment.Duration} [maxWallClockTime] The maximum elapsed time that
-     * the Job Release task may run on a given compute node, measured from the
-     * time the task starts. If the task does not complete within the time limit,
-     * the Batch service terminates it. The default value is 15 minutes. You may
-     * not specify a timeout longer than 15 minutes. If you do, the Batch service
+     * @member {string} [maxWallClockTime] The maximum elapsed time that the Job
+     * Release task may run on a given compute node, measured from the time the
+     * task starts. If the task does not complete within the time limit, the
+     * Batch service terminates it. The default value is 15 minutes. You may not
+     * specify a timeout longer than 15 minutes. If you do, the Batch service
      * rejects it with an error; if you are calling the REST API directly, the
      * HTTP status code is 400 (Bad Request).
      */
-    maxWallClockTime?: moment.Duration;
+    maxWallClockTime?: string;
     /**
-     * @member {moment.Duration} [retentionTime] The minimum time to retain the
-     * task directory for the Job Release task on the compute node. After this
-     * time, the Batch service may delete the task directory and all its
-     * contents. The default is infinite, i.e. the task directory will be
-     * retained until the compute node is removed or reimaged.
+     * @member {string} [retentionTime] The minimum time to retain the task
+     * directory for the Job Release task on the compute node. After this time,
+     * the Batch service may delete the task directory and all its contents. The
+     * default is infinite, i.e. the task directory will be retained until the
+     * compute node is removed or reimaged.
      */
-    retentionTime?: moment.Duration;
+    retentionTime?: string;
     /**
      * @member {UserIdentity} [userIdentity] The user identity under which the
      * Job Release task runs. If omitted, the task runs as a non-administrative
@@ -1503,6 +1534,17 @@ export interface TaskSchedulingPolicy {
  * @summary A task which is run when a compute node joins a pool in the Azure
  * Batch service, or when the compute node is rebooted or reimaged.
  *
+ * Batch will retry tasks when a recovery operation is triggered on a compute
+ * node. Examples of recovery operations include (but are not limited to) when
+ * an unhealthy compute node is rebooted or a compute node disappeared due to
+ * host failure. Retries due to recovery operations are independent of and are
+ * not counted against the maxTaskRetryCount. Even if the maxTaskRetryCount is
+ * 0, an internal retry due to a recovery operation may occur. Because of this,
+ * all tasks should be idempotent. This means tasks need to tolerate being
+ * interrupted and restarted without causing any corruption or duplicate data.
+ * The best practice for long running tasks is to use some form of
+ * checkpointing.
+ *
  */
 export interface StartTask {
     /**
@@ -1511,7 +1553,10 @@ export interface StartTask {
      * advantage of shell features such as environment variable expansion. If you
      * want to take advantage of such features, you should invoke the shell in
      * the command line, for example using "cmd /c MyCommand" in Windows or
-     * "/bin/sh -c MyCommand" in Linux.
+     * "/bin/sh -c MyCommand" in Linux. If the command line refers to file paths,
+     * it should use a relative path (relative to the task working directory), or
+     * use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine: string;
     /**
@@ -1998,7 +2043,7 @@ export interface PoolSpecification {
      * virtual machines in a pool are the same size. For information about
      * available sizes of virtual machines for Cloud Services pools (pools
      * created with cloudServiceConfiguration), see Sizes for Cloud Services
-     * (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
+     * (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
      * Batch supports all Cloud Services VM sizes except ExtraSmall, A1V2 and
      * A2V2. For information about available VM sizes for pools using images from
      * the Virtual Machines Marketplace (pools created with
@@ -2045,14 +2090,14 @@ export interface PoolSpecification {
      */
     taskSchedulingPolicy?: TaskSchedulingPolicy;
     /**
-     * @member {moment.Duration} [resizeTimeout] The timeout for allocation of
-     * compute nodes to the pool. This timeout applies only to manual scaling; it
-     * has no effect when enableAutoScale is set to true. The default value is 15
+     * @member {string} [resizeTimeout] The timeout for allocation of compute
+     * nodes to the pool. This timeout applies only to manual scaling; it has no
+     * effect when enableAutoScale is set to true. The default value is 15
      * minutes. The minimum value is 5 minutes. If you specify a value less than
      * 5 minutes, the Batch service rejects the request with an error; if you are
      * calling the REST API directly, the HTTP status code is 400 (Bad Request).
      */
-    resizeTimeout?: moment.Duration;
+    resizeTimeout?: string;
     /**
      * @member {number} [targetDedicatedNodes] The desired number of dedicated
      * compute nodes in the pool. This property must not be specified if
@@ -2086,15 +2131,15 @@ export interface PoolSpecification {
      */
     autoScaleFormula?: string;
     /**
-     * @member {moment.Duration} [autoScaleEvaluationInterval] The time interval
-     * at which to automatically adjust the pool size according to the autoscale
-     * formula. The default value is 15 minutes. The minimum and maximum value
-     * are 5 minutes and 168 hours respectively. If you specify a value less than
-     * 5 minutes or greater than 168 hours, the Batch service rejects the request
+     * @member {string} [autoScaleEvaluationInterval] The time interval at which
+     * to automatically adjust the pool size according to the autoscale formula.
+     * The default value is 15 minutes. The minimum and maximum value are 5
+     * minutes and 168 hours respectively. If you specify a value less than 5
+     * minutes or greater than 168 hours, the Batch service rejects the request
      * with an invalid property value error; if you are calling the REST API
      * directly, the HTTP status code is 400 (Bad Request).
      */
-    autoScaleEvaluationInterval?: moment.Duration;
+    autoScaleEvaluationInterval?: string;
     /**
      * @member {boolean} [enableInterNodeCommunication] Whether the pool permits
      * direct communication between nodes. Enabling inter-node communication
@@ -2395,26 +2440,26 @@ export interface JobScheduleStatistics {
      */
     lastUpdateTime: Date;
     /**
-     * @member {moment.Duration} userCPUTime The total user mode CPU time (summed
+     * @member {string} userCPUTime The total user mode CPU time (summed across
+     * all cores and all compute nodes) consumed by all tasks in all jobs created
+     * under the schedule.
+     */
+    userCPUTime: string;
+    /**
+     * @member {string} kernelCPUTime The total kernel mode CPU time (summed
      * across all cores and all compute nodes) consumed by all tasks in all jobs
      * created under the schedule.
      */
-    userCPUTime: moment.Duration;
+    kernelCPUTime: string;
     /**
-     * @member {moment.Duration} kernelCPUTime The total kernel mode CPU time
-     * (summed across all cores and all compute nodes) consumed by all tasks in
-     * all jobs created under the schedule.
+     * @member {string} wallClockTime The total wall clock time of all the tasks
+     * in all the jobs created under the schedule. The wall clock time is the
+     * elapsed time from when the task started running on a compute node to when
+     * it finished (or to the last time the statistics were updated, if the task
+     * had not finished by then). If a task was retried, this includes the wall
+     * clock time of all the task retries.
      */
-    kernelCPUTime: moment.Duration;
-    /**
-     * @member {moment.Duration} wallClockTime The total wall clock time of all
-     * the tasks in all the jobs created under the schedule. The wall clock time
-     * is the elapsed time from when the task started running on a compute node
-     * to when it finished (or to the last time the statistics were updated, if
-     * the task had not finished by then). If a task was retried, this includes
-     * the wall clock time of all the task retries.
-     */
-    wallClockTime: moment.Duration;
+    wallClockTime: string;
     /**
      * @member {number} readIOps The total number of disk read operations made by
      * all tasks in all jobs created under the schedule.
@@ -2454,14 +2499,14 @@ export interface JobScheduleStatistics {
      */
     numTaskRetries: number;
     /**
-     * @member {moment.Duration} waitTime The total wait time of all tasks in all
-     * jobs created under the schedule. The wait time for a task is defined as
-     * the elapsed time between the creation of the task and the start of task
+     * @member {string} waitTime The total wait time of all tasks in all jobs
+     * created under the schedule. The wait time for a task is defined as the
+     * elapsed time between the creation of the task and the start of task
      * execution. (If the task is retried due to failures, the wait time is the
      * time to the most recent task execution.). This value is only reported in
      * the account lifetime statistics; it is not included in the job statistics.
      */
-    waitTime: moment.Duration;
+    waitTime: string;
 }
 /**
  * @interface
@@ -2550,7 +2595,9 @@ export interface CloudJobSchedule {
     metadata?: MetadataItem[];
     /**
      * @member {JobScheduleStatistics} [stats] The lifetime resource usage
-     * statistics for the job schedule.
+     * statistics for the job schedule. The statistics may not be immediately
+     * available. The Batch service performs periodic roll-up of statistics. The
+     * typical delay is about 30 minutes.
      */
     stats?: JobScheduleStatistics;
 }
@@ -2812,7 +2859,9 @@ export interface CloudJob {
     executionInfo?: JobExecutionInformation;
     /**
      * @member {JobStatistics} [stats] Resource usage statistics for the entire
-     * lifetime of the job.
+     * lifetime of the job. The statistics may not be immediately available. The
+     * Batch service performs periodic roll-up of statistics. The typical delay
+     * is about 30 minutes.
      */
     stats?: JobStatistics;
 }
@@ -3349,7 +3398,7 @@ export interface CloudPool {
      * virtual machines in a pool are the same size. For information about
      * available sizes of virtual machines for Cloud Services pools (pools
      * created with cloudServiceConfiguration), see Sizes for Cloud Services
-     * (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
+     * (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
      * Batch supports all Cloud Services VM sizes except ExtraSmall, A1V2 and
      * A2V2. For information about available VM sizes for pools using images from
      * the Virtual Machines Marketplace (pools created with
@@ -3378,12 +3427,12 @@ export interface CloudPool {
      */
     virtualMachineConfiguration?: VirtualMachineConfiguration;
     /**
-     * @member {moment.Duration} [resizeTimeout] The timeout for allocation of
-     * compute nodes to the pool. This is the timeout for the most recent resize
+     * @member {string} [resizeTimeout] The timeout for allocation of compute
+     * nodes to the pool. This is the timeout for the most recent resize
      * operation. (The initial sizing when the pool is created counts as a
      * resize.) The default value is 15 minutes.
      */
-    resizeTimeout?: moment.Duration;
+    resizeTimeout?: string;
     /**
      * @member {ResizeError[]} [resizeErrors] A list of errors encountered while
      * performing the last resize on the pool. This property is set only if one
@@ -3427,12 +3476,12 @@ export interface CloudPool {
      */
     autoScaleFormula?: string;
     /**
-     * @member {moment.Duration} [autoScaleEvaluationInterval] The time interval
-     * at which to automatically adjust the pool size according to the autoscale
-     * formula. This property is set only if the pool automatically scales, i.e.
+     * @member {string} [autoScaleEvaluationInterval] The time interval at which
+     * to automatically adjust the pool size according to the autoscale formula.
+     * This property is set only if the pool automatically scales, i.e.
      * enableAutoScale is true.
      */
-    autoScaleEvaluationInterval?: moment.Duration;
+    autoScaleEvaluationInterval?: string;
     /**
      * @member {AutoScaleRun} [autoScaleRun] The results and errors from the last
      * execution of the autoscale formula. This property is set only if the pool
@@ -3505,7 +3554,9 @@ export interface CloudPool {
     metadata?: MetadataItem[];
     /**
      * @member {PoolStatistics} [stats] Utilization and resource usage statistics
-     * for the entire lifetime of the pool.
+     * for the entire lifetime of the pool. The statistics may not be immediately
+     * available. The Batch service performs periodic roll-up of statistics. The
+     * typical delay is about 30 minutes.
      */
     stats?: PoolStatistics;
 }
@@ -3535,7 +3586,7 @@ export interface PoolAddParameter {
      * virtual machines in a pool are the same size. For information about
      * available sizes of virtual machines for Cloud Services pools (pools
      * created with cloudServiceConfiguration), see Sizes for Cloud Services
-     * (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
+     * (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
      * Batch supports all Cloud Services VM sizes except ExtraSmall, A1V2 and
      * A2V2. For information about available VM sizes for pools using images from
      * the Virtual Machines Marketplace (pools created with
@@ -3564,14 +3615,14 @@ export interface PoolAddParameter {
      */
     virtualMachineConfiguration?: VirtualMachineConfiguration;
     /**
-     * @member {moment.Duration} [resizeTimeout] The timeout for allocation of
-     * compute nodes to the pool. This timeout applies only to manual scaling; it
-     * has no effect when enableAutoScale is set to true. The default value is 15
+     * @member {string} [resizeTimeout] The timeout for allocation of compute
+     * nodes to the pool. This timeout applies only to manual scaling; it has no
+     * effect when enableAutoScale is set to true. The default value is 15
      * minutes. The minimum value is 5 minutes. If you specify a value less than
      * 5 minutes, the Batch service returns an error; if you are calling the REST
      * API directly, the HTTP status code is 400 (Bad Request).
      */
-    resizeTimeout?: moment.Duration;
+    resizeTimeout?: string;
     /**
      * @member {number} [targetDedicatedNodes] The desired number of dedicated
      * compute nodes in the pool. This property must not be specified if
@@ -3607,15 +3658,15 @@ export interface PoolAddParameter {
      */
     autoScaleFormula?: string;
     /**
-     * @member {moment.Duration} [autoScaleEvaluationInterval] The time interval
-     * at which to automatically adjust the pool size according to the autoscale
-     * formula. The default value is 15 minutes. The minimum and maximum value
-     * are 5 minutes and 168 hours respectively. If you specify a value less than
-     * 5 minutes or greater than 168 hours, the Batch service returns an error;
-     * if you are calling the REST API directly, the HTTP status code is 400 (Bad
+     * @member {string} [autoScaleEvaluationInterval] The time interval at which
+     * to automatically adjust the pool size according to the autoscale formula.
+     * The default value is 15 minutes. The minimum and maximum value are 5
+     * minutes and 168 hours respectively. If you specify a value less than 5
+     * minutes or greater than 168 hours, the Batch service returns an error; if
+     * you are calling the REST API directly, the HTTP status code is 400 (Bad
      * Request).
      */
-    autoScaleEvaluationInterval?: moment.Duration;
+    autoScaleEvaluationInterval?: string;
     /**
      * @member {boolean} [enableInterNodeCommunication] Whether the pool permits
      * direct communication between nodes. Enabling inter-node communication
@@ -3883,24 +3934,23 @@ export interface TaskStatistics {
      */
     lastUpdateTime: Date;
     /**
-     * @member {moment.Duration} userCPUTime The total user mode CPU time (summed
+     * @member {string} userCPUTime The total user mode CPU time (summed across
+     * all cores and all compute nodes) consumed by the task.
+     */
+    userCPUTime: string;
+    /**
+     * @member {string} kernelCPUTime The total kernel mode CPU time (summed
      * across all cores and all compute nodes) consumed by the task.
      */
-    userCPUTime: moment.Duration;
+    kernelCPUTime: string;
     /**
-     * @member {moment.Duration} kernelCPUTime The total kernel mode CPU time
-     * (summed across all cores and all compute nodes) consumed by the task.
+     * @member {string} wallClockTime The total wall clock time of the task. The
+     * wall clock time is the elapsed time from when the task started running on
+     * a compute node to when it finished (or to the last time the statistics
+     * were updated, if the task had not finished by then). If the task was
+     * retried, this includes the wall clock time of all the task retries.
      */
-    kernelCPUTime: moment.Duration;
-    /**
-     * @member {moment.Duration} wallClockTime The total wall clock time of the
-     * task. The wall clock time is the elapsed time from when the task started
-     * running on a compute node to when it finished (or to the last time the
-     * statistics were updated, if the task had not finished by then). If the
-     * task was retried, this includes the wall clock time of all the task
-     * retries.
-     */
-    wallClockTime: moment.Duration;
+    wallClockTime: string;
     /**
      * @member {number} readIOps The total number of disk read operations made by
      * the task.
@@ -3921,13 +3971,12 @@ export interface TaskStatistics {
      */
     writeIOGiB: number;
     /**
-     * @member {moment.Duration} waitTime The total wait time of the task. The
-     * wait time for a task is defined as the elapsed time between the creation
-     * of the task and the start of task execution. (If the task is retried due
-     * to failures, the wait time is the time to the most recent task
-     * execution.).
+     * @member {string} waitTime The total wait time of the task. The wait time
+     * for a task is defined as the elapsed time between the creation of the task
+     * and the start of task execution. (If the task is retried due to failures,
+     * the wait time is the time to the most recent task execution.).
      */
-    waitTime: moment.Duration;
+    waitTime: string;
 }
 /**
  * @interface
@@ -3980,6 +4029,17 @@ export interface TaskDependencies {
  * @interface
  * An interface representing CloudTask.
  * @summary An Azure Batch task.
+ *
+ * Batch will retry tasks when a recovery operation is triggered on a compute
+ * node. Examples of recovery operations include (but are not limited to) when
+ * an unhealthy compute node is rebooted or a compute node disappeared due to
+ * host failure. Retries due to recovery operations are independent of and are
+ * not counted against the maxTaskRetryCount. Even if the maxTaskRetryCount is
+ * 0, an internal retry due to a recovery operation may occur. Because of this,
+ * all tasks should be idempotent. This means tasks need to tolerate being
+ * interrupted and restarted without causing any corruption or duplicate data.
+ * The best practice for long running tasks is to use some form of
+ * checkpointing.
  *
  */
 export interface CloudTask {
@@ -4051,7 +4111,10 @@ export interface CloudTask {
      * and therefore cannot take advantage of shell features such as environment
      * variable expansion. If you want to take advantage of such features, you
      * should invoke the shell in the command line, for example using "cmd /c
-     * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux.
+     * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux. If the command
+     * line refers to file paths, it should use a relative path (relative to the
+     * task working directory), or use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine?: string;
     /**
@@ -4160,6 +4223,17 @@ export interface CloudTask {
  * An interface representing TaskAddParameter.
  * @summary An Azure Batch task to add.
  *
+ * Batch will retry tasks when a recovery operation is triggered on a compute
+ * node. Examples of recovery operations include (but are not limited to) when
+ * an unhealthy compute node is rebooted or a compute node disappeared due to
+ * host failure. Retries due to recovery operations are independent of and are
+ * not counted against the maxTaskRetryCount. Even if the maxTaskRetryCount is
+ * 0, an internal retry due to a recovery operation may occur. Because of this,
+ * all tasks should be idempotent. This means tasks need to tolerate being
+ * interrupted and restarted without causing any corruption or duplicate data.
+ * The best practice for long running tasks is to use some form of
+ * checkpointing.
+ *
  */
 export interface TaskAddParameter {
     /**
@@ -4184,7 +4258,10 @@ export interface TaskAddParameter {
      * and therefore cannot take advantage of shell features such as environment
      * variable expansion. If you want to take advantage of such features, you
      * should invoke the shell in the command line, for example using "cmd /c
-     * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux.
+     * MyCommand" in Windows or "/bin/sh -c MyCommand" in Linux. If the command
+     * line refers to file paths, it should use a relative path (relative to the
+     * task working directory), or use the Batch provided environment variable
+     * (https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables).
      */
     commandLine: string;
     /**
@@ -4751,7 +4828,7 @@ export interface ComputeNode {
      * compute node. For information about available sizes of virtual machines
      * for Cloud Services pools (pools created with cloudServiceConfiguration),
      * see Sizes for Cloud Services
-     * (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
+     * (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
      * Batch supports all Cloud Services VM sizes except ExtraSmall, A1V2 and
      * A2V2. For information about available VM sizes for pools using images from
      * the Virtual Machines Marketplace (pools created with
@@ -5082,18 +5159,18 @@ export interface PoolEnableAutoScaleParameter {
      */
     autoScaleFormula?: string;
     /**
-     * @member {moment.Duration} [autoScaleEvaluationInterval] The time interval
-     * at which to automatically adjust the pool size according to the autoscale
-     * formula. The default value is 15 minutes. The minimum and maximum value
-     * are 5 minutes and 168 hours respectively. If you specify a value less than
-     * 5 minutes or greater than 168 hours, the Batch service rejects the request
+     * @member {string} [autoScaleEvaluationInterval] The time interval at which
+     * to automatically adjust the pool size according to the autoscale formula.
+     * The default value is 15 minutes. The minimum and maximum value are 5
+     * minutes and 168 hours respectively. If you specify a value less than 5
+     * minutes or greater than 168 hours, the Batch service rejects the request
      * with an invalid property value error; if you are calling the REST API
      * directly, the HTTP status code is 400 (Bad Request). If you specify a new
      * interval, then the existing autoscale evaluation schedule will be stopped
      * and a new autoscale evaluation schedule will be started, with its starting
      * time being the time when this request was issued.
      */
-    autoScaleEvaluationInterval?: moment.Duration;
+    autoScaleEvaluationInterval?: string;
 }
 /**
  * @interface
@@ -5131,14 +5208,13 @@ export interface PoolResizeParameter {
      */
     targetLowPriorityNodes?: number;
     /**
-     * @member {moment.Duration} [resizeTimeout] The timeout for allocation of
-     * compute nodes to the pool or removal of compute nodes from the pool. The
-     * default value is 15 minutes. The minimum value is 5 minutes. If you
-     * specify a value less than 5 minutes, the Batch service returns an error;
-     * if you are calling the REST API directly, the HTTP status code is 400 (Bad
-     * Request).
+     * @member {string} [resizeTimeout] The timeout for allocation of compute
+     * nodes to the pool or removal of compute nodes from the pool. The default
+     * value is 15 minutes. The minimum value is 5 minutes. If you specify a
+     * value less than 5 minutes, the Batch service returns an error; if you are
+     * calling the REST API directly, the HTTP status code is 400 (Bad Request).
      */
-    resizeTimeout?: moment.Duration;
+    resizeTimeout?: string;
     /**
      * @member {ComputeNodeDeallocationOption} [nodeDeallocationOption]
      * Determines what to do with a node and its running task(s) if the pool size
@@ -5367,13 +5443,13 @@ export interface NodeRemoveParameter {
      */
     nodeList: string[];
     /**
-     * @member {moment.Duration} [resizeTimeout] The timeout for removal of
-     * compute nodes to the pool. The default value is 15 minutes. The minimum
-     * value is 5 minutes. If you specify a value less than 5 minutes, the Batch
-     * service returns an error; if you are calling the REST API directly, the
-     * HTTP status code is 400 (Bad Request).
+     * @member {string} [resizeTimeout] The timeout for removal of compute nodes
+     * to the pool. The default value is 15 minutes. The minimum value is 5
+     * minutes. If you specify a value less than 5 minutes, the Batch service
+     * returns an error; if you are calling the REST API directly, the HTTP
+     * status code is 400 (Bad Request).
      */
-    resizeTimeout?: moment.Duration;
+    resizeTimeout?: string;
     /**
      * @member {ComputeNodeDeallocationOption} [nodeDeallocationOption]
      * Determines what to do with a node and its running task(s) after it has
@@ -5485,6 +5561,10 @@ export interface NodeCounts {
      * startTaskFailed state.
      */
     startTaskFailed: number;
+    /**
+     * @member {number} leavingPool The number of nodes in the leavingPool state.
+     */
+    leavingPool: number;
     /**
      * @member {number} unknown The number of nodes in the unknown state.
      */
@@ -9408,7 +9488,7 @@ export interface ComputeNodeListNextOptions {
  *
  * @extends RequestOptionsBase
  */
-export interface ApplicationListOptionalParams extends RequestOptionsBase {
+export interface ApplicationListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ApplicationListOptions} [applicationListOptions] Additional
      * parameters for the operation
@@ -9422,7 +9502,7 @@ export interface ApplicationListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ApplicationGetOptionalParams extends RequestOptionsBase {
+export interface ApplicationGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ApplicationGetOptions} [applicationGetOptions] Additional
      * parameters for the operation
@@ -9436,7 +9516,7 @@ export interface ApplicationGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ApplicationListNextOptionalParams extends RequestOptionsBase {
+export interface ApplicationListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ApplicationListNextOptions} [applicationListNextOptions]
      * Additional parameters for the operation
@@ -9450,7 +9530,7 @@ export interface ApplicationListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolListUsageMetricsOptionalParams extends RequestOptionsBase {
+export interface PoolListUsageMetricsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolListUsageMetricsOptions} [poolListUsageMetricsOptions]
      * Additional parameters for the operation
@@ -9464,7 +9544,7 @@ export interface PoolListUsageMetricsOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolGetAllLifetimeStatisticsOptionalParams extends RequestOptionsBase {
+export interface PoolGetAllLifetimeStatisticsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolGetAllLifetimeStatisticsOptions}
      * [poolGetAllLifetimeStatisticsOptions] Additional parameters for the
@@ -9479,7 +9559,7 @@ export interface PoolGetAllLifetimeStatisticsOptionalParams extends RequestOptio
  *
  * @extends RequestOptionsBase
  */
-export interface PoolAddOptionalParams extends RequestOptionsBase {
+export interface PoolAddOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolAddOptions} [poolAddOptions] Additional parameters for the
      * operation
@@ -9493,7 +9573,7 @@ export interface PoolAddOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolListOptionalParams extends RequestOptionsBase {
+export interface PoolListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolListOptions} [poolListOptions] Additional parameters for the
      * operation
@@ -9507,7 +9587,7 @@ export interface PoolListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolDeleteMethodOptionalParams extends RequestOptionsBase {
+export interface PoolDeleteMethodOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolDeleteMethodOptions} [poolDeleteMethodOptions] Additional
      * parameters for the operation
@@ -9521,7 +9601,7 @@ export interface PoolDeleteMethodOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolExistsOptionalParams extends RequestOptionsBase {
+export interface PoolExistsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolExistsOptions} [poolExistsOptions] Additional parameters for
      * the operation
@@ -9535,7 +9615,7 @@ export interface PoolExistsOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolGetOptionalParams extends RequestOptionsBase {
+export interface PoolGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolGetOptions} [poolGetOptions] Additional parameters for the
      * operation
@@ -9549,7 +9629,7 @@ export interface PoolGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolPatchOptionalParams extends RequestOptionsBase {
+export interface PoolPatchOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolPatchOptions} [poolPatchOptions] Additional parameters for
      * the operation
@@ -9563,7 +9643,7 @@ export interface PoolPatchOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolDisableAutoScaleOptionalParams extends RequestOptionsBase {
+export interface PoolDisableAutoScaleOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolDisableAutoScaleOptions} [poolDisableAutoScaleOptions]
      * Additional parameters for the operation
@@ -9577,7 +9657,7 @@ export interface PoolDisableAutoScaleOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolEnableAutoScaleOptionalParams extends RequestOptionsBase {
+export interface PoolEnableAutoScaleOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolEnableAutoScaleOptions} [poolEnableAutoScaleOptions]
      * Additional parameters for the operation
@@ -9591,7 +9671,7 @@ export interface PoolEnableAutoScaleOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolEvaluateAutoScaleOptionalParams extends RequestOptionsBase {
+export interface PoolEvaluateAutoScaleOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolEvaluateAutoScaleOptions} [poolEvaluateAutoScaleOptions]
      * Additional parameters for the operation
@@ -9605,7 +9685,7 @@ export interface PoolEvaluateAutoScaleOptionalParams extends RequestOptionsBase 
  *
  * @extends RequestOptionsBase
  */
-export interface PoolResizeOptionalParams extends RequestOptionsBase {
+export interface PoolResizeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolResizeOptions} [poolResizeOptions] Additional parameters for
      * the operation
@@ -9619,7 +9699,7 @@ export interface PoolResizeOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolStopResizeOptionalParams extends RequestOptionsBase {
+export interface PoolStopResizeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolStopResizeOptions} [poolStopResizeOptions] Additional
      * parameters for the operation
@@ -9633,7 +9713,7 @@ export interface PoolStopResizeOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolUpdatePropertiesOptionalParams extends RequestOptionsBase {
+export interface PoolUpdatePropertiesOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolUpdatePropertiesOptions} [poolUpdatePropertiesOptions]
      * Additional parameters for the operation
@@ -9647,7 +9727,7 @@ export interface PoolUpdatePropertiesOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolUpgradeOSOptionalParams extends RequestOptionsBase {
+export interface PoolUpgradeOSOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolUpgradeOSOptions} [poolUpgradeOSOptions] Additional
      * parameters for the operation
@@ -9661,7 +9741,7 @@ export interface PoolUpgradeOSOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolRemoveNodesOptionalParams extends RequestOptionsBase {
+export interface PoolRemoveNodesOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolRemoveNodesOptions} [poolRemoveNodesOptions] Additional
      * parameters for the operation
@@ -9675,7 +9755,7 @@ export interface PoolRemoveNodesOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface PoolListUsageMetricsNextOptionalParams extends RequestOptionsBase {
+export interface PoolListUsageMetricsNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolListUsageMetricsNextOptions}
      * [poolListUsageMetricsNextOptions] Additional parameters for the operation
@@ -9689,7 +9769,7 @@ export interface PoolListUsageMetricsNextOptionalParams extends RequestOptionsBa
  *
  * @extends RequestOptionsBase
  */
-export interface PoolListNextOptionalParams extends RequestOptionsBase {
+export interface PoolListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {PoolListNextOptions} [poolListNextOptions] Additional parameters
      * for the operation
@@ -9703,7 +9783,7 @@ export interface PoolListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface AccountListNodeAgentSkusOptionalParams extends RequestOptionsBase {
+export interface AccountListNodeAgentSkusOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {AccountListNodeAgentSkusOptions}
      * [accountListNodeAgentSkusOptions] Additional parameters for the operation
@@ -9717,7 +9797,7 @@ export interface AccountListNodeAgentSkusOptionalParams extends RequestOptionsBa
  *
  * @extends RequestOptionsBase
  */
-export interface AccountListPoolNodeCountsOptionalParams extends RequestOptionsBase {
+export interface AccountListPoolNodeCountsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {AccountListPoolNodeCountsOptions}
      * [accountListPoolNodeCountsOptions] Additional parameters for the operation
@@ -9731,7 +9811,7 @@ export interface AccountListPoolNodeCountsOptionalParams extends RequestOptionsB
  *
  * @extends RequestOptionsBase
  */
-export interface AccountListNodeAgentSkusNextOptionalParams extends RequestOptionsBase {
+export interface AccountListNodeAgentSkusNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {AccountListNodeAgentSkusNextOptions}
      * [accountListNodeAgentSkusNextOptions] Additional parameters for the
@@ -9746,7 +9826,7 @@ export interface AccountListNodeAgentSkusNextOptionalParams extends RequestOptio
  *
  * @extends RequestOptionsBase
  */
-export interface AccountListPoolNodeCountsNextOptionalParams extends RequestOptionsBase {
+export interface AccountListPoolNodeCountsNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {AccountListPoolNodeCountsNextOptions}
      * [accountListPoolNodeCountsNextOptions] Additional parameters for the
@@ -9761,7 +9841,7 @@ export interface AccountListPoolNodeCountsNextOptionalParams extends RequestOpti
  *
  * @extends RequestOptionsBase
  */
-export interface JobGetAllLifetimeStatisticsOptionalParams extends RequestOptionsBase {
+export interface JobGetAllLifetimeStatisticsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobGetAllLifetimeStatisticsOptions}
      * [jobGetAllLifetimeStatisticsOptions] Additional parameters for the
@@ -9776,7 +9856,7 @@ export interface JobGetAllLifetimeStatisticsOptionalParams extends RequestOption
  *
  * @extends RequestOptionsBase
  */
-export interface JobDeleteMethodOptionalParams extends RequestOptionsBase {
+export interface JobDeleteMethodOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobDeleteMethodOptions} [jobDeleteMethodOptions] Additional
      * parameters for the operation
@@ -9790,7 +9870,7 @@ export interface JobDeleteMethodOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobGetOptionalParams extends RequestOptionsBase {
+export interface JobGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobGetOptions} [jobGetOptions] Additional parameters for the
      * operation
@@ -9804,7 +9884,7 @@ export interface JobGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobPatchOptionalParams extends RequestOptionsBase {
+export interface JobPatchOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobPatchOptions} [jobPatchOptions] Additional parameters for the
      * operation
@@ -9818,7 +9898,7 @@ export interface JobPatchOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobUpdateOptionalParams extends RequestOptionsBase {
+export interface JobUpdateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobUpdateOptions} [jobUpdateOptions] Additional parameters for
      * the operation
@@ -9832,7 +9912,7 @@ export interface JobUpdateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobDisableOptionalParams extends RequestOptionsBase {
+export interface JobDisableOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobDisableOptions} [jobDisableOptions] Additional parameters for
      * the operation
@@ -9846,7 +9926,7 @@ export interface JobDisableOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobEnableOptionalParams extends RequestOptionsBase {
+export interface JobEnableOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobEnableOptions} [jobEnableOptions] Additional parameters for
      * the operation
@@ -9860,7 +9940,7 @@ export interface JobEnableOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobTerminateOptionalParams extends RequestOptionsBase {
+export interface JobTerminateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobTerminateParameter} [jobTerminateParameter] The parameters for
      * the request.
@@ -9879,7 +9959,7 @@ export interface JobTerminateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobAddOptionalParams extends RequestOptionsBase {
+export interface JobAddOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobAddOptions} [jobAddOptions] Additional parameters for the
      * operation
@@ -9893,7 +9973,7 @@ export interface JobAddOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobListOptionalParams extends RequestOptionsBase {
+export interface JobListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListOptions} [jobListOptions] Additional parameters for the
      * operation
@@ -9907,7 +9987,7 @@ export interface JobListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobListFromJobScheduleOptionalParams extends RequestOptionsBase {
+export interface JobListFromJobScheduleOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListFromJobScheduleOptions} [jobListFromJobScheduleOptions]
      * Additional parameters for the operation
@@ -9921,7 +10001,7 @@ export interface JobListFromJobScheduleOptionalParams extends RequestOptionsBase
  *
  * @extends RequestOptionsBase
  */
-export interface JobListPreparationAndReleaseTaskStatusOptionalParams extends RequestOptionsBase {
+export interface JobListPreparationAndReleaseTaskStatusOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListPreparationAndReleaseTaskStatusOptions}
      * [jobListPreparationAndReleaseTaskStatusOptions] Additional parameters for
@@ -9936,7 +10016,7 @@ export interface JobListPreparationAndReleaseTaskStatusOptionalParams extends Re
  *
  * @extends RequestOptionsBase
  */
-export interface JobGetTaskCountsOptionalParams extends RequestOptionsBase {
+export interface JobGetTaskCountsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobGetTaskCountsOptions} [jobGetTaskCountsOptions] Additional
      * parameters for the operation
@@ -9950,7 +10030,7 @@ export interface JobGetTaskCountsOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobListNextOptionalParams extends RequestOptionsBase {
+export interface JobListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListNextOptions} [jobListNextOptions] Additional parameters
      * for the operation
@@ -9964,7 +10044,7 @@ export interface JobListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobListFromJobScheduleNextOptionalParams extends RequestOptionsBase {
+export interface JobListFromJobScheduleNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListFromJobScheduleNextOptions}
      * [jobListFromJobScheduleNextOptions] Additional parameters for the
@@ -9979,7 +10059,7 @@ export interface JobListFromJobScheduleNextOptionalParams extends RequestOptions
  *
  * @extends RequestOptionsBase
  */
-export interface JobListPreparationAndReleaseTaskStatusNextOptionalParams extends RequestOptionsBase {
+export interface JobListPreparationAndReleaseTaskStatusNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobListPreparationAndReleaseTaskStatusNextOptions}
      * [jobListPreparationAndReleaseTaskStatusNextOptions] Additional parameters
@@ -9994,7 +10074,7 @@ export interface JobListPreparationAndReleaseTaskStatusNextOptionalParams extend
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateAddOptionalParams extends RequestOptionsBase {
+export interface CertificateAddOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateAddOptions} [certificateAddOptions] Additional
      * parameters for the operation
@@ -10008,7 +10088,7 @@ export interface CertificateAddOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateListOptionalParams extends RequestOptionsBase {
+export interface CertificateListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateListOptions} [certificateListOptions] Additional
      * parameters for the operation
@@ -10022,7 +10102,7 @@ export interface CertificateListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateCancelDeletionOptionalParams extends RequestOptionsBase {
+export interface CertificateCancelDeletionOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateCancelDeletionOptions}
      * [certificateCancelDeletionOptions] Additional parameters for the operation
@@ -10036,7 +10116,7 @@ export interface CertificateCancelDeletionOptionalParams extends RequestOptionsB
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateDeleteMethodOptionalParams extends RequestOptionsBase {
+export interface CertificateDeleteMethodOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateDeleteMethodOptions} [certificateDeleteMethodOptions]
      * Additional parameters for the operation
@@ -10050,7 +10130,7 @@ export interface CertificateDeleteMethodOptionalParams extends RequestOptionsBas
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateGetOptionalParams extends RequestOptionsBase {
+export interface CertificateGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateGetOptions} [certificateGetOptions] Additional
      * parameters for the operation
@@ -10064,7 +10144,7 @@ export interface CertificateGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface CertificateListNextOptionalParams extends RequestOptionsBase {
+export interface CertificateListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {CertificateListNextOptions} [certificateListNextOptions]
      * Additional parameters for the operation
@@ -10078,7 +10158,7 @@ export interface CertificateListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface FileDeleteFromTaskOptionalParams extends RequestOptionsBase {
+export interface FileDeleteFromTaskOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {boolean} [recursive] Whether to delete children of a directory.
      * If the filePath parameter represents a directory instead of a file, you
@@ -10100,7 +10180,7 @@ export interface FileDeleteFromTaskOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface FileGetFromTaskOptionalParams extends RequestOptionsBase {
+export interface FileGetFromTaskOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileGetFromTaskOptions} [fileGetFromTaskOptions] Additional
      * parameters for the operation
@@ -10114,7 +10194,7 @@ export interface FileGetFromTaskOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface FileGetPropertiesFromTaskOptionalParams extends RequestOptionsBase {
+export interface FileGetPropertiesFromTaskOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileGetPropertiesFromTaskOptions}
      * [fileGetPropertiesFromTaskOptions] Additional parameters for the operation
@@ -10128,7 +10208,7 @@ export interface FileGetPropertiesFromTaskOptionalParams extends RequestOptionsB
  *
  * @extends RequestOptionsBase
  */
-export interface FileDeleteFromComputeNodeOptionalParams extends RequestOptionsBase {
+export interface FileDeleteFromComputeNodeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {boolean} [recursive] Whether to delete children of a directory.
      * If the filePath parameter represents a directory instead of a file, you
@@ -10150,7 +10230,7 @@ export interface FileDeleteFromComputeNodeOptionalParams extends RequestOptionsB
  *
  * @extends RequestOptionsBase
  */
-export interface FileGetFromComputeNodeOptionalParams extends RequestOptionsBase {
+export interface FileGetFromComputeNodeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileGetFromComputeNodeOptions} [fileGetFromComputeNodeOptions]
      * Additional parameters for the operation
@@ -10164,7 +10244,7 @@ export interface FileGetFromComputeNodeOptionalParams extends RequestOptionsBase
  *
  * @extends RequestOptionsBase
  */
-export interface FileGetPropertiesFromComputeNodeOptionalParams extends RequestOptionsBase {
+export interface FileGetPropertiesFromComputeNodeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileGetPropertiesFromComputeNodeOptions}
      * [fileGetPropertiesFromComputeNodeOptions] Additional parameters for the
@@ -10179,7 +10259,7 @@ export interface FileGetPropertiesFromComputeNodeOptionalParams extends RequestO
  *
  * @extends RequestOptionsBase
  */
-export interface FileListFromTaskOptionalParams extends RequestOptionsBase {
+export interface FileListFromTaskOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {boolean} [recursive] Whether to list children of the task
      * directory. This parameter can be used in combination with the filter
@@ -10199,7 +10279,7 @@ export interface FileListFromTaskOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface FileListFromComputeNodeOptionalParams extends RequestOptionsBase {
+export interface FileListFromComputeNodeOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {boolean} [recursive] Whether to list children of a directory.
      */
@@ -10217,7 +10297,7 @@ export interface FileListFromComputeNodeOptionalParams extends RequestOptionsBas
  *
  * @extends RequestOptionsBase
  */
-export interface FileListFromTaskNextOptionalParams extends RequestOptionsBase {
+export interface FileListFromTaskNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileListFromTaskNextOptions} [fileListFromTaskNextOptions]
      * Additional parameters for the operation
@@ -10231,7 +10311,7 @@ export interface FileListFromTaskNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface FileListFromComputeNodeNextOptionalParams extends RequestOptionsBase {
+export interface FileListFromComputeNodeNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {FileListFromComputeNodeNextOptions}
      * [fileListFromComputeNodeNextOptions] Additional parameters for the
@@ -10246,7 +10326,7 @@ export interface FileListFromComputeNodeNextOptionalParams extends RequestOption
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleExistsOptionalParams extends RequestOptionsBase {
+export interface JobScheduleExistsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleExistsOptions} [jobScheduleExistsOptions] Additional
      * parameters for the operation
@@ -10260,7 +10340,7 @@ export interface JobScheduleExistsOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleDeleteMethodOptionalParams extends RequestOptionsBase {
+export interface JobScheduleDeleteMethodOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleDeleteMethodOptions} [jobScheduleDeleteMethodOptions]
      * Additional parameters for the operation
@@ -10274,7 +10354,7 @@ export interface JobScheduleDeleteMethodOptionalParams extends RequestOptionsBas
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleGetOptionalParams extends RequestOptionsBase {
+export interface JobScheduleGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleGetOptions} [jobScheduleGetOptions] Additional
      * parameters for the operation
@@ -10288,7 +10368,7 @@ export interface JobScheduleGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobSchedulePatchOptionalParams extends RequestOptionsBase {
+export interface JobSchedulePatchOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobSchedulePatchOptions} [jobSchedulePatchOptions] Additional
      * parameters for the operation
@@ -10302,7 +10382,7 @@ export interface JobSchedulePatchOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleUpdateOptionalParams extends RequestOptionsBase {
+export interface JobScheduleUpdateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleUpdateOptions} [jobScheduleUpdateOptions] Additional
      * parameters for the operation
@@ -10316,7 +10396,7 @@ export interface JobScheduleUpdateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleDisableOptionalParams extends RequestOptionsBase {
+export interface JobScheduleDisableOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleDisableOptions} [jobScheduleDisableOptions] Additional
      * parameters for the operation
@@ -10330,7 +10410,7 @@ export interface JobScheduleDisableOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleEnableOptionalParams extends RequestOptionsBase {
+export interface JobScheduleEnableOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleEnableOptions} [jobScheduleEnableOptions] Additional
      * parameters for the operation
@@ -10344,7 +10424,7 @@ export interface JobScheduleEnableOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleTerminateOptionalParams extends RequestOptionsBase {
+export interface JobScheduleTerminateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleTerminateOptions} [jobScheduleTerminateOptions]
      * Additional parameters for the operation
@@ -10358,7 +10438,7 @@ export interface JobScheduleTerminateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleAddOptionalParams extends RequestOptionsBase {
+export interface JobScheduleAddOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleAddOptions} [jobScheduleAddOptions] Additional
      * parameters for the operation
@@ -10372,7 +10452,7 @@ export interface JobScheduleAddOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleListOptionalParams extends RequestOptionsBase {
+export interface JobScheduleListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleListOptions} [jobScheduleListOptions] Additional
      * parameters for the operation
@@ -10386,7 +10466,7 @@ export interface JobScheduleListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface JobScheduleListNextOptionalParams extends RequestOptionsBase {
+export interface JobScheduleListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {JobScheduleListNextOptions} [jobScheduleListNextOptions]
      * Additional parameters for the operation
@@ -10400,7 +10480,7 @@ export interface JobScheduleListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskAddOptionalParams extends RequestOptionsBase {
+export interface TaskAddOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskAddOptions} [taskAddOptions] Additional parameters for the
      * operation
@@ -10414,7 +10494,7 @@ export interface TaskAddOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskListOptionalParams extends RequestOptionsBase {
+export interface TaskListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskListOptions} [taskListOptions] Additional parameters for the
      * operation
@@ -10428,7 +10508,7 @@ export interface TaskListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskAddCollectionOptionalParams extends RequestOptionsBase {
+export interface TaskAddCollectionOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskAddCollectionOptions} [taskAddCollectionOptions] Additional
      * parameters for the operation
@@ -10442,7 +10522,7 @@ export interface TaskAddCollectionOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskDeleteMethodOptionalParams extends RequestOptionsBase {
+export interface TaskDeleteMethodOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskDeleteMethodOptions} [taskDeleteMethodOptions] Additional
      * parameters for the operation
@@ -10456,7 +10536,7 @@ export interface TaskDeleteMethodOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskGetOptionalParams extends RequestOptionsBase {
+export interface TaskGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskGetOptions} [taskGetOptions] Additional parameters for the
      * operation
@@ -10470,7 +10550,7 @@ export interface TaskGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskUpdateOptionalParams extends RequestOptionsBase {
+export interface TaskUpdateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskUpdateOptions} [taskUpdateOptions] Additional parameters for
      * the operation
@@ -10484,7 +10564,7 @@ export interface TaskUpdateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskListSubtasksOptionalParams extends RequestOptionsBase {
+export interface TaskListSubtasksOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskListSubtasksOptions} [taskListSubtasksOptions] Additional
      * parameters for the operation
@@ -10498,7 +10578,7 @@ export interface TaskListSubtasksOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskTerminateOptionalParams extends RequestOptionsBase {
+export interface TaskTerminateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskTerminateOptions} [taskTerminateOptions] Additional
      * parameters for the operation
@@ -10512,7 +10592,7 @@ export interface TaskTerminateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskReactivateOptionalParams extends RequestOptionsBase {
+export interface TaskReactivateOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskReactivateOptions} [taskReactivateOptions] Additional
      * parameters for the operation
@@ -10526,7 +10606,7 @@ export interface TaskReactivateOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface TaskListNextOptionalParams extends RequestOptionsBase {
+export interface TaskListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {TaskListNextOptions} [taskListNextOptions] Additional parameters
      * for the operation
@@ -10540,7 +10620,7 @@ export interface TaskListNextOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeAddUserOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeAddUserOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeAddUserOptions} [computeNodeAddUserOptions] Additional
      * parameters for the operation
@@ -10554,7 +10634,7 @@ export interface ComputeNodeAddUserOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeDeleteUserOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeDeleteUserOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeDeleteUserOptions} [computeNodeDeleteUserOptions]
      * Additional parameters for the operation
@@ -10568,7 +10648,7 @@ export interface ComputeNodeDeleteUserOptionalParams extends RequestOptionsBase 
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeUpdateUserOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeUpdateUserOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeUpdateUserOptions} [computeNodeUpdateUserOptions]
      * Additional parameters for the operation
@@ -10582,7 +10662,7 @@ export interface ComputeNodeUpdateUserOptionalParams extends RequestOptionsBase 
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeGetOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeGetOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeGetOptions} [computeNodeGetOptions] Additional
      * parameters for the operation
@@ -10596,7 +10676,7 @@ export interface ComputeNodeGetOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeRebootOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {NodeRebootParameter} [nodeRebootParameter] The parameters for the
      * request.
@@ -10615,7 +10695,7 @@ export interface ComputeNodeRebootOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeReimageOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {NodeReimageParameter} [nodeReimageParameter] The parameters for
      * the request.
@@ -10634,7 +10714,7 @@ export interface ComputeNodeReimageOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeDisableSchedulingOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeDisableSchedulingOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {NodeDisableSchedulingParameter} [nodeDisableSchedulingParameter]
      * The parameters for the request.
@@ -10654,7 +10734,7 @@ export interface ComputeNodeDisableSchedulingOptionalParams extends RequestOptio
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeEnableSchedulingOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeEnableSchedulingOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeEnableSchedulingOptions}
      * [computeNodeEnableSchedulingOptions] Additional parameters for the
@@ -10669,7 +10749,7 @@ export interface ComputeNodeEnableSchedulingOptionalParams extends RequestOption
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeGetRemoteLoginSettingsOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeGetRemoteLoginSettingsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeGetRemoteLoginSettingsOptions}
      * [computeNodeGetRemoteLoginSettingsOptions] Additional parameters for the
@@ -10684,7 +10764,7 @@ export interface ComputeNodeGetRemoteLoginSettingsOptionalParams extends Request
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeGetRemoteDesktopOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeGetRemoteDesktopOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeGetRemoteDesktopOptions}
      * [computeNodeGetRemoteDesktopOptions] Additional parameters for the
@@ -10699,7 +10779,7 @@ export interface ComputeNodeGetRemoteDesktopOptionalParams extends RequestOption
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeUploadBatchServiceLogsOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeUploadBatchServiceLogsOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeUploadBatchServiceLogsOptions}
      * [computeNodeUploadBatchServiceLogsOptions] Additional parameters for the
@@ -10714,7 +10794,7 @@ export interface ComputeNodeUploadBatchServiceLogsOptionalParams extends Request
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeListOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeListOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeListOptions} [computeNodeListOptions] Additional
      * parameters for the operation
@@ -10728,12 +10808,2931 @@ export interface ComputeNodeListOptionalParams extends RequestOptionsBase {
  *
  * @extends RequestOptionsBase
  */
-export interface ComputeNodeListNextOptionalParams extends RequestOptionsBase {
+export interface ComputeNodeListNextOptionalParams extends msRest.RequestOptionsBase {
     /**
      * @member {ComputeNodeListNextOptions} [computeNodeListNextOptions]
      * Additional parameters for the operation
      */
     computeNodeListNextOptions?: ComputeNodeListNextOptions;
+}
+/**
+ * @interface
+ * An interface representing ApplicationListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface ApplicationListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing ApplicationGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface ApplicationGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing PoolListUsageMetricsHeaders.
+ * Defines headers for ListUsageMetrics operation.
+ *
+ */
+export interface PoolListUsageMetricsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing AccountListNodeAgentSkusHeaders.
+ * Defines headers for ListNodeAgentSkus operation.
+ *
+ */
+export interface AccountListNodeAgentSkusHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing AccountListPoolNodeCountsHeaders.
+ * Defines headers for ListPoolNodeCounts operation.
+ *
+ */
+export interface AccountListPoolNodeCountsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolGetAllLifetimeStatisticsHeaders.
+ * Defines headers for GetAllLifetimeStatistics operation.
+ *
+ */
+export interface PoolGetAllLifetimeStatisticsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobGetAllLifetimeStatisticsHeaders.
+ * Defines headers for GetAllLifetimeStatistics operation.
+ *
+ */
+export interface JobGetAllLifetimeStatisticsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing CertificateAddHeaders.
+ * Defines headers for Add operation.
+ *
+ */
+export interface CertificateAddHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing CertificateListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface CertificateListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing CertificateCancelDeletionHeaders.
+ * Defines headers for CancelDeletion operation.
+ *
+ */
+export interface CertificateCancelDeletionHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing CertificateDeleteHeaders.
+ * Defines headers for Delete operation.
+ *
+ */
+export interface CertificateDeleteHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing CertificateGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface CertificateGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing FileDeleteFromTaskHeaders.
+ * Defines headers for DeleteFromTask operation.
+ *
+ */
+export interface FileDeleteFromTaskHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing FileGetFromTaskHeaders.
+ * Defines headers for GetFromTask operation.
+ *
+ */
+export interface FileGetFromTaskHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {Date} [ocpCreationTime] The file creation time.
+     */
+    ocpCreationTime?: Date;
+    /**
+     * @member {boolean} [ocpBatchFileIsdirectory] Whether the object represents
+     * a directory.
+     */
+    ocpBatchFileIsdirectory?: boolean;
+    /**
+     * @member {string} [ocpBatchFileUrl] The URL of the file.
+     */
+    ocpBatchFileUrl?: string;
+    /**
+     * @member {string} [ocpBatchFileMode] The file mode attribute in octal
+     * format.
+     */
+    ocpBatchFileMode?: string;
+    /**
+     * @member {string} [contentType] The content type of the file.
+     */
+    contentType?: string;
+    /**
+     * @member {number} [contentLength] The length of the file.
+     */
+    contentLength?: number;
+}
+/**
+ * @interface
+ * An interface representing FileGetPropertiesFromTaskHeaders.
+ * Defines headers for GetPropertiesFromTask operation.
+ *
+ */
+export interface FileGetPropertiesFromTaskHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {Date} [ocpCreationTime] The file creation time.
+     */
+    ocpCreationTime?: Date;
+    /**
+     * @member {boolean} [ocpBatchFileIsdirectory] Whether the object represents
+     * a directory.
+     */
+    ocpBatchFileIsdirectory?: boolean;
+    /**
+     * @member {string} [ocpBatchFileUrl] The URL of the file.
+     */
+    ocpBatchFileUrl?: string;
+    /**
+     * @member {string} [ocpBatchFileMode] The file mode attribute in octal
+     * format.
+     */
+    ocpBatchFileMode?: string;
+    /**
+     * @member {string} [contentType] The content type of the file.
+     */
+    contentType?: string;
+    /**
+     * @member {number} [contentLength] The length of the file.
+     */
+    contentLength?: number;
+}
+/**
+ * @interface
+ * An interface representing FileDeleteFromComputeNodeHeaders.
+ * Defines headers for DeleteFromComputeNode operation.
+ *
+ */
+export interface FileDeleteFromComputeNodeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing FileGetFromComputeNodeHeaders.
+ * Defines headers for GetFromComputeNode operation.
+ *
+ */
+export interface FileGetFromComputeNodeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {Date} [ocpCreationTime] The file creation time.
+     */
+    ocpCreationTime?: Date;
+    /**
+     * @member {boolean} [ocpBatchFileIsdirectory] Whether the object represents
+     * a directory.
+     */
+    ocpBatchFileIsdirectory?: boolean;
+    /**
+     * @member {string} [ocpBatchFileUrl] The URL of the file.
+     */
+    ocpBatchFileUrl?: string;
+    /**
+     * @member {string} [ocpBatchFileMode] The file mode attribute in octal
+     * format.
+     */
+    ocpBatchFileMode?: string;
+    /**
+     * @member {string} [contentType] The content type of the file.
+     */
+    contentType?: string;
+    /**
+     * @member {number} [contentLength] The length of the file.
+     */
+    contentLength?: number;
+}
+/**
+ * @interface
+ * An interface representing FileGetPropertiesFromComputeNodeHeaders.
+ * Defines headers for GetPropertiesFromComputeNode operation.
+ *
+ */
+export interface FileGetPropertiesFromComputeNodeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {Date} [ocpCreationTime] The file creation time.
+     */
+    ocpCreationTime?: Date;
+    /**
+     * @member {boolean} [ocpBatchFileIsdirectory] Whether the object represents
+     * a directory.
+     */
+    ocpBatchFileIsdirectory?: boolean;
+    /**
+     * @member {string} [ocpBatchFileUrl] The URL of the file.
+     */
+    ocpBatchFileUrl?: string;
+    /**
+     * @member {string} [ocpBatchFileMode] The file mode attribute in octal
+     * format.
+     */
+    ocpBatchFileMode?: string;
+    /**
+     * @member {string} [contentType] The content type of the file.
+     */
+    contentType?: string;
+    /**
+     * @member {number} [contentLength] The length of the file.
+     */
+    contentLength?: number;
+}
+/**
+ * @interface
+ * An interface representing FileListFromTaskHeaders.
+ * Defines headers for ListFromTask operation.
+ *
+ */
+export interface FileListFromTaskHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing FileListFromComputeNodeHeaders.
+ * Defines headers for ListFromComputeNode operation.
+ *
+ */
+export interface FileListFromComputeNodeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleExistsHeaders.
+ * Defines headers for Exists operation.
+ *
+ */
+export interface JobScheduleExistsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleDeleteHeaders.
+ * Defines headers for Delete operation.
+ *
+ */
+export interface JobScheduleDeleteHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface JobScheduleGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobSchedulePatchHeaders.
+ * Defines headers for Patch operation.
+ *
+ */
+export interface JobSchedulePatchHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleUpdateHeaders.
+ * Defines headers for Update operation.
+ *
+ */
+export interface JobScheduleUpdateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleDisableHeaders.
+ * Defines headers for Disable operation.
+ *
+ */
+export interface JobScheduleDisableHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleEnableHeaders.
+ * Defines headers for Enable operation.
+ *
+ */
+export interface JobScheduleEnableHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleTerminateHeaders.
+ * Defines headers for Terminate operation.
+ *
+ */
+export interface JobScheduleTerminateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleAddHeaders.
+ * Defines headers for Add operation.
+ *
+ */
+export interface JobScheduleAddHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobScheduleListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface JobScheduleListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobDeleteHeaders.
+ * Defines headers for Delete operation.
+ *
+ */
+export interface JobDeleteHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface JobGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobPatchHeaders.
+ * Defines headers for Patch operation.
+ *
+ */
+export interface JobPatchHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobUpdateHeaders.
+ * Defines headers for Update operation.
+ *
+ */
+export interface JobUpdateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobDisableHeaders.
+ * Defines headers for Disable operation.
+ *
+ */
+export interface JobDisableHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobEnableHeaders.
+ * Defines headers for Enable operation.
+ *
+ */
+export interface JobEnableHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobTerminateHeaders.
+ * Defines headers for Terminate operation.
+ *
+ */
+export interface JobTerminateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobAddHeaders.
+ * Defines headers for Add operation.
+ *
+ */
+export interface JobAddHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing JobListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface JobListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobListFromJobScheduleHeaders.
+ * Defines headers for ListFromJobSchedule operation.
+ *
+ */
+export interface JobListFromJobScheduleHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobListPreparationAndReleaseTaskStatusHeaders.
+ * Defines headers for ListPreparationAndReleaseTaskStatus operation.
+ *
+ */
+export interface JobListPreparationAndReleaseTaskStatusHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing JobGetTaskCountsHeaders.
+ * Defines headers for GetTaskCounts operation.
+ *
+ */
+export interface JobGetTaskCountsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolAddHeaders.
+ * Defines headers for Add operation.
+ *
+ */
+export interface PoolAddHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface PoolListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing PoolDeleteHeaders.
+ * Defines headers for Delete operation.
+ *
+ */
+export interface PoolDeleteHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolExistsHeaders.
+ * Defines headers for Exists operation.
+ *
+ */
+export interface PoolExistsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing PoolGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface PoolGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing PoolPatchHeaders.
+ * Defines headers for Patch operation.
+ *
+ */
+export interface PoolPatchHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolDisableAutoScaleHeaders.
+ * Defines headers for DisableAutoScale operation.
+ *
+ */
+export interface PoolDisableAutoScaleHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolEnableAutoScaleHeaders.
+ * Defines headers for EnableAutoScale operation.
+ *
+ */
+export interface PoolEnableAutoScaleHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolEvaluateAutoScaleHeaders.
+ * Defines headers for EvaluateAutoScale operation.
+ *
+ */
+export interface PoolEvaluateAutoScaleHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolResizeHeaders.
+ * Defines headers for Resize operation.
+ *
+ */
+export interface PoolResizeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolStopResizeHeaders.
+ * Defines headers for StopResize operation.
+ *
+ */
+export interface PoolStopResizeHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolUpdatePropertiesHeaders.
+ * Defines headers for UpdateProperties operation.
+ *
+ */
+export interface PoolUpdatePropertiesHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolUpgradeOSHeaders.
+ * Defines headers for UpgradeOS operation.
+ *
+ */
+export interface PoolUpgradeOSHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing PoolRemoveNodesHeaders.
+ * Defines headers for RemoveNodes operation.
+ *
+ */
+export interface PoolRemoveNodesHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskAddHeaders.
+ * Defines headers for Add operation.
+ *
+ */
+export interface TaskAddHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface TaskListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing TaskAddCollectionHeaders.
+ * Defines headers for AddCollection operation.
+ *
+ */
+export interface TaskAddCollectionHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskDeleteHeaders.
+ * Defines headers for Delete operation.
+ *
+ */
+export interface TaskDeleteHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface TaskGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskUpdateHeaders.
+ * Defines headers for Update operation.
+ *
+ */
+export interface TaskUpdateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskListSubtasksHeaders.
+ * Defines headers for ListSubtasks operation.
+ *
+ */
+export interface TaskListSubtasksHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing TaskTerminateHeaders.
+ * Defines headers for Terminate operation.
+ *
+ */
+export interface TaskTerminateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing TaskReactivateHeaders.
+ * Defines headers for Reactivate operation.
+ *
+ */
+export interface TaskReactivateHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeAddUserHeaders.
+ * Defines headers for AddUser operation.
+ *
+ */
+export interface ComputeNodeAddUserHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeDeleteUserHeaders.
+ * Defines headers for DeleteUser operation.
+ *
+ */
+export interface ComputeNodeDeleteUserHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeUpdateUserHeaders.
+ * Defines headers for UpdateUser operation.
+ *
+ */
+export interface ComputeNodeUpdateUserHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeGetHeaders.
+ * Defines headers for Get operation.
+ *
+ */
+export interface ComputeNodeGetHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeRebootHeaders.
+ * Defines headers for Reboot operation.
+ *
+ */
+export interface ComputeNodeRebootHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeReimageHeaders.
+ * Defines headers for Reimage operation.
+ *
+ */
+export interface ComputeNodeReimageHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeDisableSchedulingHeaders.
+ * Defines headers for DisableScheduling operation.
+ *
+ */
+export interface ComputeNodeDisableSchedulingHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeEnableSchedulingHeaders.
+ * Defines headers for EnableScheduling operation.
+ *
+ */
+export interface ComputeNodeEnableSchedulingHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+    /**
+     * @member {string} [dataServiceId] The OData ID of the resource to which the
+     * request applied.
+     */
+    dataServiceId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeGetRemoteLoginSettingsHeaders.
+ * Defines headers for GetRemoteLoginSettings operation.
+ *
+ */
+export interface ComputeNodeGetRemoteLoginSettingsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeGetRemoteDesktopHeaders.
+ * Defines headers for GetRemoteDesktop operation.
+ *
+ */
+export interface ComputeNodeGetRemoteDesktopHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeUploadBatchServiceLogsHeaders.
+ * Defines headers for UploadBatchServiceLogs operation.
+ *
+ */
+export interface ComputeNodeUploadBatchServiceLogsHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+}
+/**
+ * @interface
+ * An interface representing ComputeNodeListHeaders.
+ * Defines headers for List operation.
+ *
+ */
+export interface ComputeNodeListHeaders {
+    /**
+     * @member {string} [clientRequestId] The client-request-id provided by the
+     * client during the request. This will be returned only if the
+     * return-client-request-id parameter was set to true.
+     */
+    clientRequestId?: string;
+    /**
+     * @member {string} [requestId] A unique identifier for the request that was
+     * made to the Batch service. If a request is consistently failing and you
+     * have verified that the request is properly formulated, you may use this
+     * value to report the error to Microsoft. In your report, include the value
+     * of this request ID, the approximate time that the request was made, the
+     * Batch account against which the request was made, and the region that
+     * account resides in.
+     */
+    requestId?: string;
+    /**
+     * @member {string} [eTag] The ETag HTTP response header. This is an opaque
+     * string. You can use it to detect whether the resource has changed between
+     * requests. In particular, you can pass the ETag to one of the
+     * If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.
+     */
+    eTag?: string;
+    /**
+     * @member {Date} [lastModified] The time at which the resource was last
+     * modified.
+     */
+    lastModified?: Date;
 }
 /**
  * @interface
@@ -11804,4 +14803,461 @@ export declare enum DisableComputeNodeSchedulingOption {
      * waiting. Enter offline state when all tasks have completed.
      */
     TaskCompletion = "taskcompletion",
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface ApplicationListResponse extends msRest.HttpOperationResponse<ApplicationListResult, ApplicationListHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface ApplicationGetResponse extends msRest.HttpOperationResponse<ApplicationSummary, ApplicationGetHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface ApplicationListResponse extends msRest.HttpOperationResponse<ApplicationListResult, ApplicationListHeaders> {
+}
+/**
+ * Contains response data for the listUsageMetrics operation.
+ */
+export interface PoolListUsageMetricsResponse extends msRest.HttpOperationResponse<PoolListUsageMetricsResult, PoolListUsageMetricsHeaders> {
+}
+/**
+ * Contains response data for the getAllLifetimeStatistics operation.
+ */
+export interface PoolGetAllLifetimeStatisticsResponse extends msRest.HttpOperationResponse<PoolStatistics, PoolGetAllLifetimeStatisticsHeaders> {
+}
+/**
+ * Contains response data for the add operation.
+ */
+export interface PoolAddResponse extends msRest.HttpOperationResponse<void, PoolAddHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface PoolListResponse extends msRest.HttpOperationResponse<CloudPoolListResult, PoolListHeaders> {
+}
+/**
+ * Contains response data for the deleteMethod operation.
+ */
+export interface PoolDeleteResponse extends msRest.HttpOperationResponse<void, PoolDeleteHeaders> {
+}
+/**
+ * Contains response data for the exists operation.
+ */
+export interface PoolExistsResponse extends msRest.HttpOperationResponse<boolean, PoolExistsHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface PoolGetResponse extends msRest.HttpOperationResponse<CloudPool, PoolGetHeaders> {
+}
+/**
+ * Contains response data for the patch operation.
+ */
+export interface PoolPatchResponse extends msRest.HttpOperationResponse<void, PoolPatchHeaders> {
+}
+/**
+ * Contains response data for the disableAutoScale operation.
+ */
+export interface PoolDisableAutoScaleResponse extends msRest.HttpOperationResponse<void, PoolDisableAutoScaleHeaders> {
+}
+/**
+ * Contains response data for the enableAutoScale operation.
+ */
+export interface PoolEnableAutoScaleResponse extends msRest.HttpOperationResponse<void, PoolEnableAutoScaleHeaders> {
+}
+/**
+ * Contains response data for the evaluateAutoScale operation.
+ */
+export interface PoolEvaluateAutoScaleResponse extends msRest.HttpOperationResponse<AutoScaleRun, PoolEvaluateAutoScaleHeaders> {
+}
+/**
+ * Contains response data for the resize operation.
+ */
+export interface PoolResizeResponse extends msRest.HttpOperationResponse<void, PoolResizeHeaders> {
+}
+/**
+ * Contains response data for the stopResize operation.
+ */
+export interface PoolStopResizeResponse extends msRest.HttpOperationResponse<void, PoolStopResizeHeaders> {
+}
+/**
+ * Contains response data for the updateProperties operation.
+ */
+export interface PoolUpdatePropertiesResponse extends msRest.HttpOperationResponse<void, PoolUpdatePropertiesHeaders> {
+}
+/**
+ * Contains response data for the upgradeOS operation.
+ */
+export interface PoolUpgradeOSResponse extends msRest.HttpOperationResponse<void, PoolUpgradeOSHeaders> {
+}
+/**
+ * Contains response data for the removeNodes operation.
+ */
+export interface PoolRemoveNodesResponse extends msRest.HttpOperationResponse<void, PoolRemoveNodesHeaders> {
+}
+/**
+ * Contains response data for the listUsageMetricsNext operation.
+ */
+export interface PoolListUsageMetricsResponse extends msRest.HttpOperationResponse<PoolListUsageMetricsResult, PoolListUsageMetricsHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface PoolListResponse extends msRest.HttpOperationResponse<CloudPoolListResult, PoolListHeaders> {
+}
+/**
+ * Contains response data for the listNodeAgentSkus operation.
+ */
+export interface AccountListNodeAgentSkusResponse extends msRest.HttpOperationResponse<AccountListNodeAgentSkusResult, AccountListNodeAgentSkusHeaders> {
+}
+/**
+ * Contains response data for the listPoolNodeCounts operation.
+ */
+export interface AccountListPoolNodeCountsResponse extends msRest.HttpOperationResponse<PoolNodeCountsListResult, AccountListPoolNodeCountsHeaders> {
+}
+/**
+ * Contains response data for the listNodeAgentSkusNext operation.
+ */
+export interface AccountListNodeAgentSkusResponse extends msRest.HttpOperationResponse<AccountListNodeAgentSkusResult, AccountListNodeAgentSkusHeaders> {
+}
+/**
+ * Contains response data for the listPoolNodeCountsNext operation.
+ */
+export interface AccountListPoolNodeCountsResponse extends msRest.HttpOperationResponse<PoolNodeCountsListResult, AccountListPoolNodeCountsHeaders> {
+}
+/**
+ * Contains response data for the getAllLifetimeStatistics operation.
+ */
+export interface JobGetAllLifetimeStatisticsResponse extends msRest.HttpOperationResponse<JobStatistics, JobGetAllLifetimeStatisticsHeaders> {
+}
+/**
+ * Contains response data for the deleteMethod operation.
+ */
+export interface JobDeleteResponse extends msRest.HttpOperationResponse<void, JobDeleteHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface JobGetResponse extends msRest.HttpOperationResponse<CloudJob, JobGetHeaders> {
+}
+/**
+ * Contains response data for the patch operation.
+ */
+export interface JobPatchResponse extends msRest.HttpOperationResponse<void, JobPatchHeaders> {
+}
+/**
+ * Contains response data for the update operation.
+ */
+export interface JobUpdateResponse extends msRest.HttpOperationResponse<void, JobUpdateHeaders> {
+}
+/**
+ * Contains response data for the disable operation.
+ */
+export interface JobDisableResponse extends msRest.HttpOperationResponse<void, JobDisableHeaders> {
+}
+/**
+ * Contains response data for the enable operation.
+ */
+export interface JobEnableResponse extends msRest.HttpOperationResponse<void, JobEnableHeaders> {
+}
+/**
+ * Contains response data for the terminate operation.
+ */
+export interface JobTerminateResponse extends msRest.HttpOperationResponse<void, JobTerminateHeaders> {
+}
+/**
+ * Contains response data for the add operation.
+ */
+export interface JobAddResponse extends msRest.HttpOperationResponse<void, JobAddHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface JobListResponse extends msRest.HttpOperationResponse<CloudJobListResult, JobListHeaders> {
+}
+/**
+ * Contains response data for the listFromJobSchedule operation.
+ */
+export interface JobListFromJobScheduleResponse extends msRest.HttpOperationResponse<CloudJobListResult, JobListFromJobScheduleHeaders> {
+}
+/**
+ * Contains response data for the listPreparationAndReleaseTaskStatus
+ * operation.
+ */
+export interface JobListPreparationAndReleaseTaskStatusResponse extends msRest.HttpOperationResponse<CloudJobListPreparationAndReleaseTaskStatusResult, JobListPreparationAndReleaseTaskStatusHeaders> {
+}
+/**
+ * Contains response data for the getTaskCounts operation.
+ */
+export interface JobGetTaskCountsResponse extends msRest.HttpOperationResponse<TaskCounts, JobGetTaskCountsHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface JobListResponse extends msRest.HttpOperationResponse<CloudJobListResult, JobListHeaders> {
+}
+/**
+ * Contains response data for the listFromJobScheduleNext operation.
+ */
+export interface JobListFromJobScheduleResponse extends msRest.HttpOperationResponse<CloudJobListResult, JobListFromJobScheduleHeaders> {
+}
+/**
+ * Contains response data for the listPreparationAndReleaseTaskStatusNext
+ * operation.
+ */
+export interface JobListPreparationAndReleaseTaskStatusResponse extends msRest.HttpOperationResponse<CloudJobListPreparationAndReleaseTaskStatusResult, JobListPreparationAndReleaseTaskStatusHeaders> {
+}
+/**
+ * Contains response data for the add operation.
+ */
+export interface CertificateAddResponse extends msRest.HttpOperationResponse<void, CertificateAddHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface CertificateListResponse extends msRest.HttpOperationResponse<CertificateListResult, CertificateListHeaders> {
+}
+/**
+ * Contains response data for the cancelDeletion operation.
+ */
+export interface CertificateCancelDeletionResponse extends msRest.HttpOperationResponse<void, CertificateCancelDeletionHeaders> {
+}
+/**
+ * Contains response data for the deleteMethod operation.
+ */
+export interface CertificateDeleteResponse extends msRest.HttpOperationResponse<void, CertificateDeleteHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface CertificateGetResponse extends msRest.HttpOperationResponse<Certificate, CertificateGetHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface CertificateListResponse extends msRest.HttpOperationResponse<CertificateListResult, CertificateListHeaders> {
+}
+/**
+ * Contains response data for the deleteFromTask operation.
+ */
+export interface FileDeleteFromTaskResponse extends msRest.HttpOperationResponse<void, FileDeleteFromTaskHeaders> {
+}
+/**
+ * Contains response data for the getFromTask operation.
+ */
+export interface FileGetFromTaskResponse extends msRest.HttpOperationResponse<msRest.HttpRequestBody, FileGetFromTaskHeaders> {
+}
+/**
+ * Contains response data for the getPropertiesFromTask operation.
+ */
+export interface FileGetPropertiesFromTaskResponse extends msRest.HttpOperationResponse<void, FileGetPropertiesFromTaskHeaders> {
+}
+/**
+ * Contains response data for the deleteFromComputeNode operation.
+ */
+export interface FileDeleteFromComputeNodeResponse extends msRest.HttpOperationResponse<void, FileDeleteFromComputeNodeHeaders> {
+}
+/**
+ * Contains response data for the getFromComputeNode operation.
+ */
+export interface FileGetFromComputeNodeResponse extends msRest.HttpOperationResponse<msRest.HttpRequestBody, FileGetFromComputeNodeHeaders> {
+}
+/**
+ * Contains response data for the getPropertiesFromComputeNode operation.
+ */
+export interface FileGetPropertiesFromComputeNodeResponse extends msRest.HttpOperationResponse<void, FileGetPropertiesFromComputeNodeHeaders> {
+}
+/**
+ * Contains response data for the listFromTask operation.
+ */
+export interface FileListFromTaskResponse extends msRest.HttpOperationResponse<NodeFileListResult, FileListFromTaskHeaders> {
+}
+/**
+ * Contains response data for the listFromComputeNode operation.
+ */
+export interface FileListFromComputeNodeResponse extends msRest.HttpOperationResponse<NodeFileListResult, FileListFromComputeNodeHeaders> {
+}
+/**
+ * Contains response data for the listFromTaskNext operation.
+ */
+export interface FileListFromTaskResponse extends msRest.HttpOperationResponse<NodeFileListResult, FileListFromTaskHeaders> {
+}
+/**
+ * Contains response data for the listFromComputeNodeNext operation.
+ */
+export interface FileListFromComputeNodeResponse extends msRest.HttpOperationResponse<NodeFileListResult, FileListFromComputeNodeHeaders> {
+}
+/**
+ * Contains response data for the exists operation.
+ */
+export interface JobScheduleExistsResponse extends msRest.HttpOperationResponse<boolean, JobScheduleExistsHeaders> {
+}
+/**
+ * Contains response data for the deleteMethod operation.
+ */
+export interface JobScheduleDeleteResponse extends msRest.HttpOperationResponse<void, JobScheduleDeleteHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface JobScheduleGetResponse extends msRest.HttpOperationResponse<CloudJobSchedule, JobScheduleGetHeaders> {
+}
+/**
+ * Contains response data for the patch operation.
+ */
+export interface JobSchedulePatchResponse extends msRest.HttpOperationResponse<void, JobSchedulePatchHeaders> {
+}
+/**
+ * Contains response data for the update operation.
+ */
+export interface JobScheduleUpdateResponse extends msRest.HttpOperationResponse<void, JobScheduleUpdateHeaders> {
+}
+/**
+ * Contains response data for the disable operation.
+ */
+export interface JobScheduleDisableResponse extends msRest.HttpOperationResponse<void, JobScheduleDisableHeaders> {
+}
+/**
+ * Contains response data for the enable operation.
+ */
+export interface JobScheduleEnableResponse extends msRest.HttpOperationResponse<void, JobScheduleEnableHeaders> {
+}
+/**
+ * Contains response data for the terminate operation.
+ */
+export interface JobScheduleTerminateResponse extends msRest.HttpOperationResponse<void, JobScheduleTerminateHeaders> {
+}
+/**
+ * Contains response data for the add operation.
+ */
+export interface JobScheduleAddResponse extends msRest.HttpOperationResponse<void, JobScheduleAddHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface JobScheduleListResponse extends msRest.HttpOperationResponse<CloudJobScheduleListResult, JobScheduleListHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface JobScheduleListResponse extends msRest.HttpOperationResponse<CloudJobScheduleListResult, JobScheduleListHeaders> {
+}
+/**
+ * Contains response data for the add operation.
+ */
+export interface TaskAddResponse extends msRest.HttpOperationResponse<void, TaskAddHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface TaskListResponse extends msRest.HttpOperationResponse<CloudTaskListResult, TaskListHeaders> {
+}
+/**
+ * Contains response data for the addCollection operation.
+ */
+export interface TaskAddCollectionResponse extends msRest.HttpOperationResponse<TaskAddCollectionResult, TaskAddCollectionHeaders> {
+}
+/**
+ * Contains response data for the deleteMethod operation.
+ */
+export interface TaskDeleteResponse extends msRest.HttpOperationResponse<void, TaskDeleteHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface TaskGetResponse extends msRest.HttpOperationResponse<CloudTask, TaskGetHeaders> {
+}
+/**
+ * Contains response data for the update operation.
+ */
+export interface TaskUpdateResponse extends msRest.HttpOperationResponse<void, TaskUpdateHeaders> {
+}
+/**
+ * Contains response data for the listSubtasks operation.
+ */
+export interface TaskListSubtasksResponse extends msRest.HttpOperationResponse<CloudTaskListSubtasksResult, TaskListSubtasksHeaders> {
+}
+/**
+ * Contains response data for the terminate operation.
+ */
+export interface TaskTerminateResponse extends msRest.HttpOperationResponse<void, TaskTerminateHeaders> {
+}
+/**
+ * Contains response data for the reactivate operation.
+ */
+export interface TaskReactivateResponse extends msRest.HttpOperationResponse<void, TaskReactivateHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface TaskListResponse extends msRest.HttpOperationResponse<CloudTaskListResult, TaskListHeaders> {
+}
+/**
+ * Contains response data for the addUser operation.
+ */
+export interface ComputeNodeAddUserResponse extends msRest.HttpOperationResponse<void, ComputeNodeAddUserHeaders> {
+}
+/**
+ * Contains response data for the deleteUser operation.
+ */
+export interface ComputeNodeDeleteUserResponse extends msRest.HttpOperationResponse<void, ComputeNodeDeleteUserHeaders> {
+}
+/**
+ * Contains response data for the updateUser operation.
+ */
+export interface ComputeNodeUpdateUserResponse extends msRest.HttpOperationResponse<void, ComputeNodeUpdateUserHeaders> {
+}
+/**
+ * Contains response data for the get operation.
+ */
+export interface ComputeNodeGetResponse extends msRest.HttpOperationResponse<ComputeNode, ComputeNodeGetHeaders> {
+}
+/**
+ * Contains response data for the reboot operation.
+ */
+export interface ComputeNodeRebootResponse extends msRest.HttpOperationResponse<void, ComputeNodeRebootHeaders> {
+}
+/**
+ * Contains response data for the reimage operation.
+ */
+export interface ComputeNodeReimageResponse extends msRest.HttpOperationResponse<void, ComputeNodeReimageHeaders> {
+}
+/**
+ * Contains response data for the disableScheduling operation.
+ */
+export interface ComputeNodeDisableSchedulingResponse extends msRest.HttpOperationResponse<void, ComputeNodeDisableSchedulingHeaders> {
+}
+/**
+ * Contains response data for the enableScheduling operation.
+ */
+export interface ComputeNodeEnableSchedulingResponse extends msRest.HttpOperationResponse<void, ComputeNodeEnableSchedulingHeaders> {
+}
+/**
+ * Contains response data for the getRemoteLoginSettings operation.
+ */
+export interface ComputeNodeGetRemoteLoginSettingsResponse extends msRest.HttpOperationResponse<ComputeNodeGetRemoteLoginSettingsResult, ComputeNodeGetRemoteLoginSettingsHeaders> {
+}
+/**
+ * Contains response data for the getRemoteDesktop operation.
+ */
+export interface ComputeNodeGetRemoteDesktopResponse extends msRest.HttpOperationResponse<msRest.HttpRequestBody, ComputeNodeGetRemoteDesktopHeaders> {
+}
+/**
+ * Contains response data for the uploadBatchServiceLogs operation.
+ */
+export interface ComputeNodeUploadBatchServiceLogsResponse extends msRest.HttpOperationResponse<UploadBatchServiceLogsResult, ComputeNodeUploadBatchServiceLogsHeaders> {
+}
+/**
+ * Contains response data for the list operation.
+ */
+export interface ComputeNodeListResponse extends msRest.HttpOperationResponse<ComputeNodeListResult, ComputeNodeListHeaders> {
+}
+/**
+ * Contains response data for the listNext operation.
+ */
+export interface ComputeNodeListResponse extends msRest.HttpOperationResponse<ComputeNodeListResult, ComputeNodeListHeaders> {
 }

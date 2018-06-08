@@ -11,18 +11,18 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
 import * as Mappers from "../models/mappers";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 
 const WebResource = msRest.WebResource;
 
 /** Class representing a Account. */
 export class Account {
-  private readonly client: BatchServiceClient;
+  private readonly client: BatchServiceClientContext;
   /**
    * Create a Account.
-   * @param {BatchServiceClient} client Reference to the service client.
+   * @param {BatchServiceClientContext} client Reference to the service client.
    */
-  constructor(client: BatchServiceClient) {
+  constructor(client: BatchServiceClientContext) {
     this.client = client;
   }
 
@@ -38,7 +38,7 @@ export class Account {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNodeAgentSkusWithHttpOperationResponse(options?: Models.AccountListNodeAgentSkusOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listNodeAgentSkusWithHttpOperationResponse(options?: Models.AccountListNodeAgentSkusOptionalParams): Promise<Models.AccountListNodeAgentSkusResponse> {
     let client = this.client;
     let accountListNodeAgentSkusOptions = (options && options.accountListNodeAgentSkusOptions !== undefined) ? options.accountListNodeAgentSkusOptions : undefined;
     // Validate
@@ -106,65 +106,122 @@ export class Account {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'nodeagentskus';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (filter !== null && filter !== undefined) {
-      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-    }
-    if (maxResults !== null && maxResults !== undefined) {
-      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          filter,
+          maxResults,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "nodeagentskus",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "filter",
+              mapper: {
+                serializedName: "$filter",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "maxResults",
+              mapper: {
+                serializedName: "maxresults",
+                defaultValue: 1000,
+                constraints: {
+                  InclusiveMaximum: 1000,
+                  InclusiveMinimum: 1
+                },
+                type: {
+                  name: "Number"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -173,7 +230,7 @@ export class Account {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -185,18 +242,19 @@ export class Account {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.AccountListNodeAgentSkusResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.AccountListNodeAgentSkusResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListNodeAgentSkusHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -218,7 +276,7 @@ export class Account {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listPoolNodeCountsWithHttpOperationResponse(options?: Models.AccountListPoolNodeCountsOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listPoolNodeCountsWithHttpOperationResponse(options?: Models.AccountListPoolNodeCountsOptionalParams): Promise<Models.AccountListPoolNodeCountsResponse> {
     let client = this.client;
     let accountListPoolNodeCountsOptions = (options && options.accountListPoolNodeCountsOptions !== undefined) ? options.accountListPoolNodeCountsOptions : undefined;
     // Validate
@@ -286,65 +344,122 @@ export class Account {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let baseUrl = this.client.baseUri;
-    let requestUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'nodecounts';
-    let queryParamsArray: Array<any> = [];
-    queryParamsArray.push('api-version=' + encodeURIComponent(this.client.apiVersion));
-    if (filter !== null && filter !== undefined) {
-      queryParamsArray.push('$filter=' + encodeURIComponent(filter));
-    }
-    if (maxResults !== null && maxResults !== undefined) {
-      queryParamsArray.push('maxresults=' + encodeURIComponent(maxResults.toString()));
-    }
-    if (timeout !== null && timeout !== undefined) {
-      queryParamsArray.push('timeout=' + encodeURIComponent(timeout.toString()));
-    }
-    if (queryParamsArray.length > 0) {
-      requestUrl += '?' + queryParamsArray.join('&');
-    }
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          "this.client.apiVersion": this.client.apiVersion,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          filter,
+          maxResults,
+          timeout,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: this.client.baseUri,
+          path: "nodecounts",
+          queryParameters: [
+            {
+              parameterName: "this.client.apiVersion",
+              mapper: {
+                required: true,
+                serializedName: "api-version",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "filter",
+              mapper: {
+                serializedName: "$filter",
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "maxResults",
+              mapper: {
+                serializedName: "maxresults",
+                defaultValue: 10,
+                constraints: {
+                  InclusiveMaximum: 10,
+                  InclusiveMinimum: 1
+                },
+                type: {
+                  name: "Number"
+                }
+              }
+            },
+            {
+              parameterName: "timeout",
+              mapper: {
+                serializedName: "timeout",
+                defaultValue: 30,
+                type: {
+                  name: "Number"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -353,7 +468,7 @@ export class Account {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -365,18 +480,19 @@ export class Account {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.PoolNodeCountsListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.PoolNodeCountsListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListPoolNodeCountsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -401,7 +517,7 @@ export class Account {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<Models.AccountListNodeAgentSkusResponse> {
     let client = this.client;
     let accountListNodeAgentSkusNextOptions = (options && options.accountListNodeAgentSkusNextOptions !== undefined) ? options.accountListNodeAgentSkusNextOptions : undefined;
     // Validate
@@ -445,51 +561,87 @@ export class Account {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let requestUrl = '{nextLink}';
-    requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          nextPageLink,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: "https://batch.core.windows.net",
+          path: "{nextLink}",
+          urlParameters: [
+            {
+              parameterName: "nextPageLink",
+              skipEncoding: true,
+              mapper: {
+                required: true,
+                serializedName: "nextLink",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -498,7 +650,7 @@ export class Account {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -510,18 +662,19 @@ export class Account {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.AccountListNodeAgentSkusResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.AccountListNodeAgentSkusResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListNodeAgentSkusHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -546,7 +699,7 @@ export class Account {
    *
    * @reject {Error|ServiceError} - The error object.
    */
-  async listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<msRest.HttpOperationResponse> {
+  async listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink: string, options?: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<Models.AccountListPoolNodeCountsResponse> {
     let client = this.client;
     let accountListPoolNodeCountsNextOptions = (options && options.accountListPoolNodeCountsNextOptions !== undefined) ? options.accountListPoolNodeCountsNextOptions : undefined;
     // Validate
@@ -590,51 +743,87 @@ export class Account {
       return Promise.reject(error);
     }
 
-    // Construct URL
-    let requestUrl = '{nextLink}';
-    requestUrl = requestUrl.replace('{nextLink}', nextPageLink);
-
     // Create HTTP transport objects
-    let httpRequest = new WebResource();
-    httpRequest.method = 'GET';
-    httpRequest.url = requestUrl;
-    httpRequest.headers = {};
-    // Set Headers
-    httpRequest.headers['Content-Type'] = 'application/json; odata=minimalmetadata; charset=utf-8';
-    if (this.client.generateClientRequestId) {
-        httpRequest.headers['client-request-id'] = msRest.generateUuid();
-    }
-    if (this.client.acceptLanguage !== undefined && this.client.acceptLanguage !== null) {
-      httpRequest.headers['accept-language'] = this.client.acceptLanguage;
-    }
-    if (clientRequestId !== undefined && clientRequestId !== null) {
-      httpRequest.headers['client-request-id'] = clientRequestId.toString();
-    }
-    if (returnClientRequestId !== undefined && returnClientRequestId !== null) {
-      httpRequest.headers['return-client-request-id'] = returnClientRequestId.toString();
-    }
-    if (ocpDate !== undefined && ocpDate !== null) {
-      httpRequest.headers['ocp-date'] = ocpDate instanceof Date ? ocpDate.toUTCString() : ocpDate;
-    }
-    if(options && options.customHeaders) {
-      for(let headerName in options.customHeaders) {
-        if (options.customHeaders.hasOwnProperty(headerName)) {
-          httpRequest.headers[headerName] = options.customHeaders[headerName];
-        }
-      }
-    }
-    // Send Request
+    const httpRequest = new WebResource();
     let operationRes: msRest.HttpOperationResponse;
     try {
-      operationRes = await client.pipeline(httpRequest);
-      let response = operationRes.response;
-      let statusCode = response.status;
+      const operationArguments: msRest.OperationArguments = msRest.createOperationArguments(
+        {
+          nextPageLink,
+          "this.client.acceptLanguage": this.client.acceptLanguage,
+          clientRequestId,
+          returnClientRequestId,
+          ocpDate
+        },
+        options);
+      operationRes = await client.sendOperationRequest(
+        httpRequest,
+        operationArguments,
+        {
+          httpMethod: "GET",
+          baseUrl: "https://batch.core.windows.net",
+          path: "{nextLink}",
+          urlParameters: [
+            {
+              parameterName: "nextPageLink",
+              skipEncoding: true,
+              mapper: {
+                required: true,
+                serializedName: "nextLink",
+                type: {
+                  name: "String"
+                }
+              }
+            }
+          ],
+          headerParameters: [
+            {
+              parameterName: "this.client.acceptLanguage",
+              mapper: {
+                serializedName: "accept-language",
+                defaultValue: 'en-US',
+                type: {
+                  name: "String"
+                }
+              }
+            },
+            {
+              parameterName: "clientRequestId",
+              mapper: {
+                serializedName: "client-request-id",
+                type: {
+                  name: "Uuid"
+                }
+              }
+            },
+            {
+              parameterName: "returnClientRequestId",
+              mapper: {
+                serializedName: "return-client-request-id",
+                defaultValue: false,
+                type: {
+                  name: "Boolean"
+                }
+              }
+            },
+            {
+              parameterName: "ocpDate",
+              mapper: {
+                serializedName: "ocp-date",
+                type: {
+                  name: "DateTimeRfc1123"
+                }
+              }
+            }
+          ]
+        });
+      let statusCode = operationRes.status;
       if (statusCode !== 200) {
         let error = new msRest.RestError(operationRes.bodyAsText as string);
-        error.statusCode = response.status;
+        error.statusCode = operationRes.status;
         error.request = msRest.stripRequest(httpRequest);
-        error.response = msRest.stripResponse(response);
-        let parsedErrorResponse = operationRes.bodyAsJson as { [key: string]: any };
+        error.response = msRest.stripResponse(operationRes);
+        let parsedErrorResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedErrorResponse) {
             let internalError = null;
@@ -643,7 +832,7 @@ export class Account {
             error.message = internalError ? internalError.message : parsedErrorResponse.message;
           }
           if (parsedErrorResponse !== null && parsedErrorResponse !== undefined) {
-            let resultMapper = Mappers.BatchError;
+            const resultMapper = Mappers.BatchError;
             error.body = client.serializer.deserialize(resultMapper, parsedErrorResponse, 'error.body');
           }
         } catch (defaultError) {
@@ -655,18 +844,19 @@ export class Account {
       }
       // Deserialize Response
       if (statusCode === 200) {
-        let parsedResponse = operationRes.bodyAsJson as { [key: string]: any };
+        let parsedResponse = operationRes.parsedBody as { [key: string]: any };
         try {
           if (parsedResponse !== null && parsedResponse !== undefined) {
-            let resultMapper = Mappers.PoolNodeCountsListResult;
-            operationRes.bodyAsJson = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.bodyAsJson');
+            const resultMapper = Mappers.PoolNodeCountsListResult;
+            operationRes.parsedBody = client.serializer.deserialize(resultMapper, parsedResponse, 'operationRes.parsedBody');
           }
         } catch (error) {
           let deserializationError = new msRest.RestError(`Error ${error} occurred in deserializing the responseBody - ${operationRes.bodyAsText}`);
           deserializationError.request = msRest.stripRequest(httpRequest);
-          deserializationError.response = msRest.stripResponse(response);
+          deserializationError.response = msRest.stripResponse(operationRes);
           return Promise.reject(deserializationError);
         }
+        operationRes.parsedHeaders = client.serializer.deserialize(Mappers.AccountListPoolNodeCountsHeaders, operationRes.headers.rawHeaders(), 'operationRes.parsedBody');
       }
 
     } catch(err) {
@@ -684,7 +874,7 @@ export class Account {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -694,7 +884,7 @@ export class Account {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listNodeAgentSkus(): Promise<Models.AccountListNodeAgentSkusResult>;
   listNodeAgentSkus(options: Models.AccountListNodeAgentSkusOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
@@ -708,7 +898,7 @@ export class Account {
     let cb = callback as msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>;
     if (!callback) {
       return this.listNodeAgentSkusWithHttpOperationResponse(options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.AccountListNodeAgentSkusResult);
+        return Promise.resolve(operationRes.parsedBody as Models.AccountListNodeAgentSkusResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -717,8 +907,8 @@ export class Account {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.AccountListNodeAgentSkusResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.AccountListNodeAgentSkusResult;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -731,7 +921,7 @@ export class Account {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -741,7 +931,7 @@ export class Account {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listPoolNodeCounts(): Promise<Models.PoolNodeCountsListResult>;
   listPoolNodeCounts(options: Models.AccountListPoolNodeCountsOptionalParams): Promise<Models.PoolNodeCountsListResult>;
@@ -755,7 +945,7 @@ export class Account {
     let cb = callback as msRest.ServiceCallback<Models.PoolNodeCountsListResult>;
     if (!callback) {
       return this.listPoolNodeCountsWithHttpOperationResponse(options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.PoolNodeCountsListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.PoolNodeCountsListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -764,8 +954,8 @@ export class Account {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.PoolNodeCountsListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.PoolNodeCountsListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -781,7 +971,7 @@ export class Account {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -791,7 +981,7 @@ export class Account {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listNodeAgentSkusNext(nextPageLink: string): Promise<Models.AccountListNodeAgentSkusResult>;
   listNodeAgentSkusNext(nextPageLink: string, options: Models.AccountListNodeAgentSkusNextOptionalParams): Promise<Models.AccountListNodeAgentSkusResult>;
@@ -805,7 +995,7 @@ export class Account {
     let cb = callback as msRest.ServiceCallback<Models.AccountListNodeAgentSkusResult>;
     if (!callback) {
       return this.listNodeAgentSkusNextWithHttpOperationResponse(nextPageLink, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.AccountListNodeAgentSkusResult);
+        return Promise.resolve(operationRes.parsedBody as Models.AccountListNodeAgentSkusResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -814,8 +1004,8 @@ export class Account {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.AccountListNodeAgentSkusResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.AccountListNodeAgentSkusResult;
+        return cb(err, result, data.request, data);
       });
     }
   }
@@ -831,7 +1021,7 @@ export class Account {
    *
    * @param {ServiceCallback} callback - The callback.
    *
-   * @returns {ServiceCallback} callback(err, result, request, response)
+   * @returns {ServiceCallback} callback(err, result, request, operationRes)
    *
    *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
    *
@@ -841,7 +1031,7 @@ export class Account {
    *
    *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
    *
-   *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+   *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
    */
   listPoolNodeCountsNext(nextPageLink: string): Promise<Models.PoolNodeCountsListResult>;
   listPoolNodeCountsNext(nextPageLink: string, options: Models.AccountListPoolNodeCountsNextOptionalParams): Promise<Models.PoolNodeCountsListResult>;
@@ -855,7 +1045,7 @@ export class Account {
     let cb = callback as msRest.ServiceCallback<Models.PoolNodeCountsListResult>;
     if (!callback) {
       return this.listPoolNodeCountsNextWithHttpOperationResponse(nextPageLink, options).then((operationRes: msRest.HttpOperationResponse) => {
-        return Promise.resolve(operationRes.bodyAsJson as Models.PoolNodeCountsListResult);
+        return Promise.resolve(operationRes.parsedBody as Models.PoolNodeCountsListResult);
       }).catch((err: Error) => {
         return Promise.reject(err);
       });
@@ -864,8 +1054,8 @@ export class Account {
         if (err) {
           return cb(err);
         }
-        let result = data.bodyAsJson as Models.PoolNodeCountsListResult;
-        return cb(err, result, data.request, data.response);
+        let result = data.parsedBody as Models.PoolNodeCountsListResult;
+        return cb(err, result, data.request, data);
       });
     }
   }

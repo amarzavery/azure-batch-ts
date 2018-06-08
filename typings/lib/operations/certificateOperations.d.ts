@@ -1,14 +1,14 @@
 import * as msRest from "ms-rest-js";
 import * as Models from "../models";
-import { BatchServiceClient } from "../batchServiceClient";
+import { BatchServiceClientContext } from "../batchServiceClientContext";
 /** Class representing a CertificateOperations. */
 export declare class CertificateOperations {
     private readonly client;
     /**
      * Create a CertificateOperations.
-     * @param {BatchServiceClient} client Reference to the service client.
+     * @param {BatchServiceClientContext} client Reference to the service client.
      */
-    constructor(client: BatchServiceClient);
+    constructor(client: BatchServiceClientContext);
     /**
      * @summary Adds a certificate to the specified account.
      *
@@ -22,7 +22,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams): Promise<msRest.HttpOperationResponse>;
+    addWithHttpOperationResponse(certificate: Models.CertificateAddParameter, options?: Models.CertificateAddOptionalParams): Promise<Models.CertificateAddResponse>;
     /**
      * @summary Lists all of the certificates that have been added to the specified
      * account.
@@ -35,7 +35,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listWithHttpOperationResponse(options?: Models.CertificateListOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listWithHttpOperationResponse(options?: Models.CertificateListOptionalParams): Promise<Models.CertificateListResponse>;
     /**
      * @summary Cancels a failed deletion of a certificate from the specified
      * account.
@@ -62,7 +62,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams): Promise<msRest.HttpOperationResponse>;
+    cancelDeletionWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateCancelDeletionOptionalParams): Promise<Models.CertificateCancelDeletionResponse>;
     /**
      * @summary Deletes a certificate from the specified account.
      *
@@ -91,7 +91,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams): Promise<msRest.HttpOperationResponse>;
+    deleteMethodWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateDeleteMethodOptionalParams): Promise<Models.CertificateDeleteResponse>;
     /**
      * Gets information about the specified certificate.
      *
@@ -108,7 +108,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams): Promise<msRest.HttpOperationResponse>;
+    getWithHttpOperationResponse(thumbprintAlgorithm: string, thumbprint: string, options?: Models.CertificateGetOptionalParams): Promise<Models.CertificateGetResponse>;
     /**
      * @summary Lists all of the certificates that have been added to the specified
      * account.
@@ -124,7 +124,7 @@ export declare class CertificateOperations {
      *
      * @reject {Error|ServiceError} - The error object.
      */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.CertificateListNextOptionalParams): Promise<msRest.HttpOperationResponse>;
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: Models.CertificateListNextOptionalParams): Promise<Models.CertificateListResponse>;
     /**
      * @summary Adds a certificate to the specified account.
      *
@@ -134,7 +134,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -142,7 +142,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     add(certificate: Models.CertificateAddParameter): Promise<void>;
     add(certificate: Models.CertificateAddParameter, options: Models.CertificateAddOptionalParams): Promise<void>;
@@ -156,7 +156,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -166,7 +166,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     list(): Promise<Models.CertificateListResult>;
     list(options: Models.CertificateListOptionalParams): Promise<Models.CertificateListResult>;
@@ -194,7 +194,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -202,7 +202,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     cancelDeletion(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
     cancelDeletion(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateCancelDeletionOptionalParams): Promise<void>;
@@ -232,7 +232,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -240,7 +240,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     deleteMethod(thumbprintAlgorithm: string, thumbprint: string): Promise<void>;
     deleteMethod(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateDeleteMethodOptionalParams): Promise<void>;
@@ -258,7 +258,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -267,7 +267,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     get(thumbprintAlgorithm: string, thumbprint: string): Promise<Models.Certificate>;
     get(thumbprintAlgorithm: string, thumbprint: string, options: Models.CertificateGetOptionalParams): Promise<Models.Certificate>;
@@ -284,7 +284,7 @@ export declare class CertificateOperations {
      *
      * @param {ServiceCallback} callback - The callback.
      *
-     * @returns {ServiceCallback} callback(err, result, request, response)
+     * @returns {ServiceCallback} callback(err, result, request, operationRes)
      *
      *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
      *
@@ -294,7 +294,7 @@ export declare class CertificateOperations {
      *
      *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
      *
-     *                      {Response} [response] - The HTTP Response stream if an error did not occur.
+     *                      {HttpOperationResponse} [response] - The HTTP Response stream if an error did not occur.
      */
     listNext(nextPageLink: string): Promise<Models.CertificateListResult>;
     listNext(nextPageLink: string, options: Models.CertificateListNextOptionalParams): Promise<Models.CertificateListResult>;

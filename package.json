@@ -4,20 +4,15 @@
   "description": "BatchServiceClient Library with typescript type definitions and works in node.js and browser javascript.",
   "version": "0.1.0",
   "dependencies": {
-    "ms-rest-azure-js": "^0.2.0"
+    "ms-rest-azure-js": "^0.4.60"
   },
-  "keywords": [
-    "node",
-    "azure",
-    "typescript",
-    "browser",
-    "isomorphic"
-  ],
+  "keywords": [ "node", "azure", "typescript", "browser", "isomorphic"],
   "license": "MIT",
   "main": "./dist/lib/batchServiceClient.js",
   "types": "./typings/lib/batchServiceClient.d.ts",
   "devDependencies": {
     "ts-loader": "^2.3.7",
+    "tslib": "^1.9.2",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "webpack": "^3.6.0",

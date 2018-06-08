@@ -1,7 +1,59 @@
-export declare const CloudError: any;
-export declare const BaseResource: any;
-export declare const PoolUsageMetrics: {
+export declare const CloudError: {
     required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            code: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            message: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            target: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            details: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                    element: {
+                        required: boolean;
+                        serializedName: string;
+                        type: {
+                            name: string;
+                            className: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+};
+export declare const BaseResource: {
+    required: boolean;
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {};
+    };
+};
+export declare const PoolUsageMetrics: {
     serializedName: string;
     type: {
         name: string;
@@ -60,42 +112,36 @@ export declare const PoolUsageMetrics: {
     };
 };
 export declare const ImageReference: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             publisher: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             offer: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             sku: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             version: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             virtualMachineImageId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -105,26 +151,22 @@ export declare const ImageReference: {
     };
 };
 export declare const NodeAgentSku: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             verifiedImageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -134,7 +176,6 @@ export declare const NodeAgentSku: {
                 };
             };
             osType: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -145,19 +186,16 @@ export declare const NodeAgentSku: {
     };
 };
 export declare const AuthenticationTokenSettings: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             access: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -170,7 +208,6 @@ export declare const AuthenticationTokenSettings: {
     };
 };
 export declare const UsageStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -201,7 +238,6 @@ export declare const UsageStatistics: {
     };
 };
 export declare const ResourceStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -302,7 +338,6 @@ export declare const ResourceStatistics: {
     };
 };
 export declare const PoolStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -330,7 +365,6 @@ export declare const PoolStatistics: {
                 };
             };
             usageStats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -338,7 +372,6 @@ export declare const PoolStatistics: {
                 };
             };
             resourceStats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -349,7 +382,6 @@ export declare const PoolStatistics: {
     };
 };
 export declare const JobStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -457,21 +489,18 @@ export declare const JobStatistics: {
     };
 };
 export declare const NameValuePair: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             name: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -481,33 +510,28 @@ export declare const NameValuePair: {
     };
 };
 export declare const DeleteCertificateError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             values: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -520,35 +544,30 @@ export declare const DeleteCertificateError: {
     };
 };
 export declare const Certificate: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             thumbprint: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             thumbprintAlgorithm: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -556,14 +575,12 @@ export declare const Certificate: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             previousState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -571,21 +588,18 @@ export declare const Certificate: {
                 };
             };
             previousStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             publicData: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             deleteCertificateError: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -596,7 +610,6 @@ export declare const Certificate: {
     };
 };
 export declare const ApplicationPackageReference: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -610,7 +623,6 @@ export declare const ApplicationPackageReference: {
                 };
             };
             version: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -620,7 +632,6 @@ export declare const ApplicationPackageReference: {
     };
 };
 export declare const ApplicationSummary: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -646,7 +657,6 @@ export declare const ApplicationSummary: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -658,7 +668,6 @@ export declare const ApplicationSummary: {
     };
 };
 export declare const CertificateAddParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -686,7 +695,6 @@ export declare const CertificateAddParameter: {
                 };
             };
             certificateFormat: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -694,7 +702,6 @@ export declare const CertificateAddParameter: {
                 };
             };
             password: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -704,14 +711,12 @@ export declare const CertificateAddParameter: {
     };
 };
 export declare const FileProperties: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             creationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -732,14 +737,12 @@ export declare const FileProperties: {
                 };
             };
             contentType: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             fileMode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -749,35 +752,30 @@ export declare const FileProperties: {
     };
 };
 export declare const NodeFile: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             name: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             isDirectory: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             properties: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -788,35 +786,30 @@ export declare const NodeFile: {
     };
 };
 export declare const Schedule: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             doNotRunUntil: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             doNotRunAfter: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             startWindow: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             recurrenceInterval: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -826,21 +819,18 @@ export declare const Schedule: {
     };
 };
 export declare const JobConstraints: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             maxWallClockTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             maxTaskRetryCount: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -850,14 +840,12 @@ export declare const JobConstraints: {
     };
 };
 export declare const ContainerRegistry: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             registryServer: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -881,14 +869,12 @@ export declare const ContainerRegistry: {
     };
 };
 export declare const TaskContainerSettings: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             containerRunOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -902,7 +888,6 @@ export declare const TaskContainerSettings: {
                 };
             };
             registry: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -913,7 +898,6 @@ export declare const TaskContainerSettings: {
     };
 };
 export declare const ResourceFile: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -934,7 +918,6 @@ export declare const ResourceFile: {
                 };
             };
             fileMode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -944,7 +927,6 @@ export declare const ResourceFile: {
     };
 };
 export declare const EnvironmentSetting: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -958,7 +940,6 @@ export declare const EnvironmentSetting: {
                 };
             };
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -968,14 +949,12 @@ export declare const EnvironmentSetting: {
     };
 };
 export declare const ExitOptions: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobAction: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -983,7 +962,6 @@ export declare const ExitOptions: {
                 };
             };
             dependencyAction: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -994,7 +972,6 @@ export declare const ExitOptions: {
     };
 };
 export declare const ExitCodeMapping: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1019,7 +996,6 @@ export declare const ExitCodeMapping: {
     };
 };
 export declare const ExitCodeRangeMapping: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1051,19 +1027,16 @@ export declare const ExitCodeRangeMapping: {
     };
 };
 export declare const ExitConditions: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             exitCodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1073,12 +1046,10 @@ export declare const ExitConditions: {
                 };
             };
             exitCodeRanges: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1088,7 +1059,6 @@ export declare const ExitConditions: {
                 };
             };
             preProcessingError: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1096,7 +1066,6 @@ export declare const ExitConditions: {
                 };
             };
             fileUploadError: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1104,7 +1073,6 @@ export declare const ExitConditions: {
                 };
             };
             default: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1115,14 +1083,12 @@ export declare const ExitConditions: {
     };
 };
 export declare const AutoUserSpecification: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             scope: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1130,7 +1096,6 @@ export declare const AutoUserSpecification: {
                 };
             };
             elevationLevel: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1141,21 +1106,18 @@ export declare const AutoUserSpecification: {
     };
 };
 export declare const UserIdentity: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             userName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoUser: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1166,28 +1128,24 @@ export declare const UserIdentity: {
     };
 };
 export declare const LinuxUserConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             uid: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             gid: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             sshPrivateKey: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1197,7 +1155,6 @@ export declare const LinuxUserConfiguration: {
     };
 };
 export declare const UserAccount: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1218,7 +1175,6 @@ export declare const UserAccount: {
                 };
             };
             elevationLevel: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1226,7 +1182,6 @@ export declare const UserAccount: {
                 };
             };
             linuxUserConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1237,28 +1192,24 @@ export declare const UserAccount: {
     };
 };
 export declare const TaskConstraints: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             maxWallClockTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             retentionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             maxTaskRetryCount: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1268,14 +1219,12 @@ export declare const TaskConstraints: {
     };
 };
 export declare const OutputFileBlobContainerDestination: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             path: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1292,14 +1241,12 @@ export declare const OutputFileBlobContainerDestination: {
     };
 };
 export declare const OutputFileDestination: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             container: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1310,7 +1257,6 @@ export declare const OutputFileDestination: {
     };
 };
 export declare const OutputFileUploadOptions: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1328,7 +1274,6 @@ export declare const OutputFileUploadOptions: {
     };
 };
 export declare const OutputFile: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1361,7 +1306,6 @@ export declare const OutputFile: {
     };
 };
 export declare const JobManagerTask: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1375,7 +1319,6 @@ export declare const JobManagerTask: {
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1389,7 +1332,6 @@ export declare const JobManagerTask: {
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1397,12 +1339,10 @@ export declare const JobManagerTask: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1412,12 +1352,10 @@ export declare const JobManagerTask: {
                 };
             };
             outputFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1427,12 +1365,10 @@ export declare const JobManagerTask: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1442,7 +1378,6 @@ export declare const JobManagerTask: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1450,14 +1385,12 @@ export declare const JobManagerTask: {
                 };
             };
             killJobOnCompletion: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1465,19 +1398,16 @@ export declare const JobManagerTask: {
                 };
             };
             runExclusive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1487,7 +1417,6 @@ export declare const JobManagerTask: {
                 };
             };
             authenticationTokenSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1495,7 +1424,6 @@ export declare const JobManagerTask: {
                 };
             };
             allowLowPriorityNode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1505,14 +1433,12 @@ export declare const JobManagerTask: {
     };
 };
 export declare const JobPreparationTask: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1526,7 +1452,6 @@ export declare const JobPreparationTask: {
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1534,12 +1459,10 @@ export declare const JobPreparationTask: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1549,12 +1472,10 @@ export declare const JobPreparationTask: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1564,7 +1485,6 @@ export declare const JobPreparationTask: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1572,14 +1492,12 @@ export declare const JobPreparationTask: {
                 };
             };
             waitForSuccess: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1587,7 +1505,6 @@ export declare const JobPreparationTask: {
                 };
             };
             rerunOnNodeRebootAfterSuccess: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1597,14 +1514,12 @@ export declare const JobPreparationTask: {
     };
 };
 export declare const JobReleaseTask: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1618,7 +1533,6 @@ export declare const JobReleaseTask: {
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1626,12 +1540,10 @@ export declare const JobReleaseTask: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1641,12 +1553,10 @@ export declare const JobReleaseTask: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1656,21 +1566,18 @@ export declare const JobReleaseTask: {
                 };
             };
             maxWallClockTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             retentionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1681,7 +1588,6 @@ export declare const JobReleaseTask: {
     };
 };
 export declare const TaskSchedulingPolicy: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1699,7 +1605,6 @@ export declare const TaskSchedulingPolicy: {
     };
 };
 export declare const StartTask: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1713,7 +1618,6 @@ export declare const StartTask: {
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1721,12 +1625,10 @@ export declare const StartTask: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1736,12 +1638,10 @@ export declare const StartTask: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1751,7 +1651,6 @@ export declare const StartTask: {
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1759,14 +1658,12 @@ export declare const StartTask: {
                 };
             };
             maxTaskRetryCount: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             waitForSuccess: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1776,7 +1673,6 @@ export declare const StartTask: {
     };
 };
 export declare const CertificateReference: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1797,7 +1693,6 @@ export declare const CertificateReference: {
                 };
             };
             storeLocation: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1805,19 +1700,16 @@ export declare const CertificateReference: {
                 };
             };
             storeName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             visibility: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1830,7 +1722,6 @@ export declare const CertificateReference: {
     };
 };
 export declare const MetadataItem: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1854,7 +1745,6 @@ export declare const MetadataItem: {
     };
 };
 export declare const CloudServiceConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1868,14 +1758,12 @@ export declare const CloudServiceConfiguration: {
                 };
             };
             targetOSVersion: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             currentOSVersion: {
-                required: boolean;
                 readOnly: boolean;
                 serializedName: string;
                 type: {
@@ -1886,14 +1774,12 @@ export declare const CloudServiceConfiguration: {
     };
 };
 export declare const OSDisk: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             caching: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1904,14 +1790,12 @@ export declare const OSDisk: {
     };
 };
 export declare const WindowsConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             enableAutomaticUpdates: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1921,7 +1805,6 @@ export declare const WindowsConfiguration: {
     };
 };
 export declare const DataDisk: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1935,7 +1818,6 @@ export declare const DataDisk: {
                 };
             };
             caching: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1950,7 +1832,6 @@ export declare const DataDisk: {
                 };
             };
             storageAccountType: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -1961,7 +1842,6 @@ export declare const DataDisk: {
     };
 };
 export declare const ContainerConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -1977,12 +1857,10 @@ export declare const ContainerConfiguration: {
                 };
             };
             containerImageNames: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -1991,12 +1869,10 @@ export declare const ContainerConfiguration: {
                 };
             };
             containerRegistries: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2009,7 +1885,6 @@ export declare const ContainerConfiguration: {
     };
 };
 export declare const VirtualMachineConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2024,7 +1899,6 @@ export declare const VirtualMachineConfiguration: {
                 };
             };
             osDisk: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2039,7 +1913,6 @@ export declare const VirtualMachineConfiguration: {
                 };
             };
             windowsConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2047,12 +1920,10 @@ export declare const VirtualMachineConfiguration: {
                 };
             };
             dataDisks: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2062,14 +1933,12 @@ export declare const VirtualMachineConfiguration: {
                 };
             };
             licenseType: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2080,7 +1949,6 @@ export declare const VirtualMachineConfiguration: {
     };
 };
 export declare const NetworkSecurityGroupRule: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2112,7 +1980,6 @@ export declare const NetworkSecurityGroupRule: {
     };
 };
 export declare const InboundNATPool: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2155,12 +2022,10 @@ export declare const InboundNATPool: {
                 };
             };
             networkSecurityGroupRules: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2173,7 +2038,6 @@ export declare const InboundNATPool: {
     };
 };
 export declare const PoolEndpointConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2185,7 +2049,6 @@ export declare const PoolEndpointConfiguration: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2198,21 +2061,18 @@ export declare const PoolEndpointConfiguration: {
     };
 };
 export declare const NetworkConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             subnetId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             endpointConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2223,14 +2083,12 @@ export declare const NetworkConfiguration: {
     };
 };
 export declare const PoolSpecification: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2244,7 +2102,6 @@ export declare const PoolSpecification: {
                 };
             };
             cloudServiceConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2252,7 +2109,6 @@ export declare const PoolSpecification: {
                 };
             };
             virtualMachineConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2260,14 +2116,12 @@ export declare const PoolSpecification: {
                 };
             };
             maxTasksPerNode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskSchedulingPolicy: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2275,56 +2129,48 @@ export declare const PoolSpecification: {
                 };
             };
             resizeTimeout: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetDedicatedNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetLowPriorityNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             enableAutoScale: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleFormula: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleEvaluationInterval: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             enableInterNodeCommunication: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             networkConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2332,7 +2178,6 @@ export declare const PoolSpecification: {
                 };
             };
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2340,12 +2185,10 @@ export declare const PoolSpecification: {
                 };
             };
             certificateReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2355,12 +2198,10 @@ export declare const PoolSpecification: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2370,12 +2211,10 @@ export declare const PoolSpecification: {
                 };
             };
             applicationLicenses: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2384,12 +2223,10 @@ export declare const PoolSpecification: {
                 };
             };
             userAccounts: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2399,12 +2236,10 @@ export declare const PoolSpecification: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2417,14 +2252,12 @@ export declare const PoolSpecification: {
     };
 };
 export declare const AutoPoolSpecification: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             autoPoolIdPrefix: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2439,14 +2272,12 @@ export declare const AutoPoolSpecification: {
                 };
             };
             keepAlive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             pool: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2457,21 +2288,18 @@ export declare const AutoPoolSpecification: {
     };
 };
 export declare const PoolInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoPoolSpecification: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2482,35 +2310,30 @@ export declare const PoolInformation: {
     };
 };
 export declare const JobSpecification: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             priority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             usesTaskDependencies: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             onAllTasksComplete: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2518,7 +2341,6 @@ export declare const JobSpecification: {
                 };
             };
             onTaskFailure: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2526,7 +2348,6 @@ export declare const JobSpecification: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2534,7 +2355,6 @@ export declare const JobSpecification: {
                 };
             };
             jobManagerTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2542,7 +2362,6 @@ export declare const JobSpecification: {
                 };
             };
             jobPreparationTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2550,7 +2369,6 @@ export declare const JobSpecification: {
                 };
             };
             jobReleaseTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2558,12 +2376,10 @@ export declare const JobSpecification: {
                 };
             };
             commonEnvironmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2582,12 +2398,10 @@ export declare const JobSpecification: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2600,21 +2414,18 @@ export declare const JobSpecification: {
     };
 };
 export declare const RecentJob: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2624,21 +2435,18 @@ export declare const RecentJob: {
     };
 };
 export declare const JobScheduleExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nextRunTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             recentJob: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2646,7 +2454,6 @@ export declare const JobScheduleExecutionInformation: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2656,7 +2463,6 @@ export declare const JobScheduleExecutionInformation: {
     };
 };
 export declare const JobScheduleStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2764,56 +2570,48 @@ export declare const JobScheduleStatistics: {
     };
 };
 export declare const CloudJobSchedule: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             eTag: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastModified: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             creationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2821,14 +2619,12 @@ export declare const CloudJobSchedule: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             previousState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2836,14 +2632,12 @@ export declare const CloudJobSchedule: {
                 };
             };
             previousStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             schedule: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2851,7 +2645,6 @@ export declare const CloudJobSchedule: {
                 };
             };
             jobSpecification: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2859,7 +2652,6 @@ export declare const CloudJobSchedule: {
                 };
             };
             executionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2867,12 +2659,10 @@ export declare const CloudJobSchedule: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2882,7 +2672,6 @@ export declare const CloudJobSchedule: {
                 };
             };
             stats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2893,7 +2682,6 @@ export declare const CloudJobSchedule: {
     };
 };
 export declare const JobScheduleAddParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2907,7 +2695,6 @@ export declare const JobScheduleAddParameter: {
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -2931,12 +2718,10 @@ export declare const JobScheduleAddParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2949,7 +2734,6 @@ export declare const JobScheduleAddParameter: {
     };
 };
 export declare const JobSchedulingError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -2964,26 +2748,22 @@ export declare const JobSchedulingError: {
                 };
             };
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             details: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -2996,7 +2776,6 @@ export declare const JobSchedulingError: {
     };
 };
 export declare const JobExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3010,21 +2789,18 @@ export declare const JobExecutionInformation: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             poolId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             schedulingError: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3032,7 +2808,6 @@ export declare const JobExecutionInformation: {
                 };
             };
             terminateReason: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3042,63 +2817,54 @@ export declare const JobExecutionInformation: {
     };
 };
 export declare const CloudJob: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             usesTaskDependencies: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             eTag: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastModified: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             creationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3106,14 +2872,12 @@ export declare const CloudJob: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             previousState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3121,21 +2885,18 @@ export declare const CloudJob: {
                 };
             };
             previousStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             priority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3143,7 +2904,6 @@ export declare const CloudJob: {
                 };
             };
             jobManagerTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3151,7 +2911,6 @@ export declare const CloudJob: {
                 };
             };
             jobPreparationTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3159,7 +2918,6 @@ export declare const CloudJob: {
                 };
             };
             jobReleaseTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3167,12 +2925,10 @@ export declare const CloudJob: {
                 };
             };
             commonEnvironmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3182,7 +2938,6 @@ export declare const CloudJob: {
                 };
             };
             poolInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3190,7 +2945,6 @@ export declare const CloudJob: {
                 };
             };
             onAllTasksComplete: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3198,7 +2952,6 @@ export declare const CloudJob: {
                 };
             };
             onTaskFailure: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3206,12 +2959,10 @@ export declare const CloudJob: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3221,7 +2972,6 @@ export declare const CloudJob: {
                 };
             };
             executionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3229,7 +2979,6 @@ export declare const CloudJob: {
                 };
             };
             stats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3240,7 +2989,6 @@ export declare const CloudJob: {
     };
 };
 export declare const JobAddParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3254,21 +3002,18 @@ export declare const JobAddParameter: {
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             priority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3276,7 +3021,6 @@ export declare const JobAddParameter: {
                 };
             };
             jobManagerTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3284,7 +3028,6 @@ export declare const JobAddParameter: {
                 };
             };
             jobPreparationTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3292,7 +3035,6 @@ export declare const JobAddParameter: {
                 };
             };
             jobReleaseTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3300,12 +3042,10 @@ export declare const JobAddParameter: {
                 };
             };
             commonEnvironmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3324,7 +3064,6 @@ export declare const JobAddParameter: {
                 };
             };
             onAllTasksComplete: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3332,7 +3071,6 @@ export declare const JobAddParameter: {
                 };
             };
             onTaskFailure: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3340,12 +3078,10 @@ export declare const JobAddParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3355,7 +3091,6 @@ export declare const JobAddParameter: {
                 };
             };
             usesTaskDependencies: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3365,28 +3100,24 @@ export declare const JobAddParameter: {
     };
 };
 export declare const TaskContainerExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             containerId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             error: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3396,7 +3127,6 @@ export declare const TaskContainerExecutionInformation: {
     };
 };
 export declare const TaskFailureInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3411,26 +3141,22 @@ export declare const TaskFailureInformation: {
                 };
             };
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             details: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3443,7 +3169,6 @@ export declare const TaskFailureInformation: {
     };
 };
 export declare const JobPreparationTaskExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3457,7 +3182,6 @@ export declare const JobPreparationTaskExecutionInformation: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3472,28 +3196,24 @@ export declare const JobPreparationTaskExecutionInformation: {
                 };
             };
             taskRootDirectory: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskRootDirectoryUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitCode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3501,7 +3221,6 @@ export declare const JobPreparationTaskExecutionInformation: {
                 };
             };
             failureInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3516,14 +3235,12 @@ export declare const JobPreparationTaskExecutionInformation: {
                 };
             };
             lastRetryTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             result: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3534,7 +3251,6 @@ export declare const JobPreparationTaskExecutionInformation: {
     };
 };
 export declare const JobReleaseTaskExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3548,7 +3264,6 @@ export declare const JobReleaseTaskExecutionInformation: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3563,28 +3278,24 @@ export declare const JobReleaseTaskExecutionInformation: {
                 };
             };
             taskRootDirectory: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskRootDirectoryUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitCode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3592,7 +3303,6 @@ export declare const JobReleaseTaskExecutionInformation: {
                 };
             };
             failureInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3600,7 +3310,6 @@ export declare const JobReleaseTaskExecutionInformation: {
                 };
             };
             result: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3611,35 +3320,30 @@ export declare const JobReleaseTaskExecutionInformation: {
     };
 };
 export declare const JobPreparationAndReleaseTaskExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             jobPreparationTaskExecutionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3647,7 +3351,6 @@ export declare const JobPreparationAndReleaseTaskExecutionInformation: {
                 };
             };
             jobReleaseTaskExecutionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3658,7 +3361,6 @@ export declare const JobPreparationAndReleaseTaskExecutionInformation: {
     };
 };
 export declare const TaskCounts: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3711,33 +3413,28 @@ export declare const TaskCounts: {
     };
 };
 export declare const AutoScaleRunError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             values: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3750,7 +3447,6 @@ export declare const AutoScaleRunError: {
     };
 };
 export declare const AutoScaleRun: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -3764,14 +3460,12 @@ export declare const AutoScaleRun: {
                 };
             };
             results: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             error: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3782,33 +3476,28 @@ export declare const AutoScaleRun: {
     };
 };
 export declare const ResizeError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             values: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3821,56 +3510,48 @@ export declare const ResizeError: {
     };
 };
 export declare const CloudPool: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             eTag: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastModified: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             creationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3878,14 +3559,12 @@ export declare const CloudPool: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             allocationState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3893,21 +3572,18 @@ export declare const CloudPool: {
                 };
             };
             allocationStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             vmSize: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             cloudServiceConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3915,7 +3591,6 @@ export declare const CloudPool: {
                 };
             };
             virtualMachineConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -3923,19 +3598,16 @@ export declare const CloudPool: {
                 };
             };
             resizeTimeout: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             resizeErrors: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -3945,56 +3617,48 @@ export declare const CloudPool: {
                 };
             };
             currentDedicatedNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             currentLowPriorityNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetDedicatedNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetLowPriorityNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             enableAutoScale: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleFormula: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleEvaluationInterval: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleRun: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4002,14 +3666,12 @@ export declare const CloudPool: {
                 };
             };
             enableInterNodeCommunication: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             networkConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4017,7 +3679,6 @@ export declare const CloudPool: {
                 };
             };
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4025,12 +3686,10 @@ export declare const CloudPool: {
                 };
             };
             certificateReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4040,12 +3699,10 @@ export declare const CloudPool: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4055,12 +3712,10 @@ export declare const CloudPool: {
                 };
             };
             applicationLicenses: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4069,14 +3724,12 @@ export declare const CloudPool: {
                 };
             };
             maxTasksPerNode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskSchedulingPolicy: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4084,12 +3737,10 @@ export declare const CloudPool: {
                 };
             };
             userAccounts: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4099,12 +3750,10 @@ export declare const CloudPool: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4114,7 +3763,6 @@ export declare const CloudPool: {
                 };
             };
             stats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4125,7 +3773,6 @@ export declare const CloudPool: {
     };
 };
 export declare const PoolAddParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -4139,7 +3786,6 @@ export declare const PoolAddParameter: {
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4153,7 +3799,6 @@ export declare const PoolAddParameter: {
                 };
             };
             cloudServiceConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4161,7 +3806,6 @@ export declare const PoolAddParameter: {
                 };
             };
             virtualMachineConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4169,56 +3813,48 @@ export declare const PoolAddParameter: {
                 };
             };
             resizeTimeout: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetDedicatedNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetLowPriorityNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             enableAutoScale: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleFormula: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleEvaluationInterval: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             enableInterNodeCommunication: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             networkConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4226,7 +3862,6 @@ export declare const PoolAddParameter: {
                 };
             };
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4234,12 +3869,10 @@ export declare const PoolAddParameter: {
                 };
             };
             certificateReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4249,12 +3882,10 @@ export declare const PoolAddParameter: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4264,12 +3895,10 @@ export declare const PoolAddParameter: {
                 };
             };
             applicationLicenses: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4278,14 +3907,12 @@ export declare const PoolAddParameter: {
                 };
             };
             maxTasksPerNode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskSchedulingPolicy: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4293,12 +3920,10 @@ export declare const PoolAddParameter: {
                 };
             };
             userAccounts: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4308,12 +3933,10 @@ export declare const PoolAddParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4326,7 +3949,6 @@ export declare const PoolAddParameter: {
     };
 };
 export declare const AffinityInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -4343,35 +3965,30 @@ export declare const AffinityInformation: {
     };
 };
 export declare const TaskExecutionInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             startTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitCode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4379,7 +3996,6 @@ export declare const TaskExecutionInformation: {
                 };
             };
             failureInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4394,7 +4010,6 @@ export declare const TaskExecutionInformation: {
                 };
             };
             lastRetryTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4408,14 +4023,12 @@ export declare const TaskExecutionInformation: {
                 };
             };
             lastRequeueTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             result: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4426,49 +4039,42 @@ export declare const TaskExecutionInformation: {
     };
 };
 export declare const ComputeNodeInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             affinityId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             poolId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskRootDirectory: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskRootDirectoryUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4478,14 +4084,12 @@ export declare const ComputeNodeInformation: {
     };
 };
 export declare const MultiInstanceSettings: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             numberOfInstances: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4499,12 +4103,10 @@ export declare const MultiInstanceSettings: {
                 };
             };
             commonResourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4517,7 +4119,6 @@ export declare const MultiInstanceSettings: {
     };
 };
 export declare const TaskStatistics: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -4604,7 +4205,6 @@ export declare const TaskStatistics: {
     };
 };
 export declare const TaskIdRange: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -4628,19 +4228,16 @@ export declare const TaskIdRange: {
     };
 };
 export declare const TaskDependencies: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskIds: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4649,12 +4246,10 @@ export declare const TaskDependencies: {
                 };
             };
             taskIdRanges: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4667,56 +4262,48 @@ export declare const TaskDependencies: {
     };
 };
 export declare const CloudTask: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             eTag: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastModified: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             creationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitConditions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4724,7 +4311,6 @@ export declare const CloudTask: {
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4732,14 +4318,12 @@ export declare const CloudTask: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             previousState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4747,21 +4331,18 @@ export declare const CloudTask: {
                 };
             };
             previousStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             commandLine: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4769,12 +4350,10 @@ export declare const CloudTask: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4784,12 +4363,10 @@ export declare const CloudTask: {
                 };
             };
             outputFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4799,12 +4376,10 @@ export declare const CloudTask: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4814,7 +4389,6 @@ export declare const CloudTask: {
                 };
             };
             affinityInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4822,7 +4396,6 @@ export declare const CloudTask: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4830,7 +4403,6 @@ export declare const CloudTask: {
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4838,7 +4410,6 @@ export declare const CloudTask: {
                 };
             };
             executionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4846,7 +4417,6 @@ export declare const CloudTask: {
                 };
             };
             nodeInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4854,7 +4424,6 @@ export declare const CloudTask: {
                 };
             };
             multiInstanceSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4862,7 +4431,6 @@ export declare const CloudTask: {
                 };
             };
             stats: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4870,7 +4438,6 @@ export declare const CloudTask: {
                 };
             };
             dependsOn: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4878,12 +4445,10 @@ export declare const CloudTask: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4893,7 +4458,6 @@ export declare const CloudTask: {
                 };
             };
             authenticationTokenSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4904,7 +4468,6 @@ export declare const CloudTask: {
     };
 };
 export declare const TaskAddParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -4918,7 +4481,6 @@ export declare const TaskAddParameter: {
                 };
             };
             displayName: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4932,7 +4494,6 @@ export declare const TaskAddParameter: {
                 };
             };
             containerSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4940,7 +4501,6 @@ export declare const TaskAddParameter: {
                 };
             };
             exitConditions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -4948,12 +4508,10 @@ export declare const TaskAddParameter: {
                 };
             };
             resourceFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4963,12 +4521,10 @@ export declare const TaskAddParameter: {
                 };
             };
             outputFiles: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4978,12 +4534,10 @@ export declare const TaskAddParameter: {
                 };
             };
             environmentSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -4993,7 +4547,6 @@ export declare const TaskAddParameter: {
                 };
             };
             affinityInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5001,7 +4554,6 @@ export declare const TaskAddParameter: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5009,7 +4561,6 @@ export declare const TaskAddParameter: {
                 };
             };
             userIdentity: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5017,7 +4568,6 @@ export declare const TaskAddParameter: {
                 };
             };
             multiInstanceSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5025,7 +4575,6 @@ export declare const TaskAddParameter: {
                 };
             };
             dependsOn: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5033,12 +4582,10 @@ export declare const TaskAddParameter: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5048,7 +4595,6 @@ export declare const TaskAddParameter: {
                 };
             };
             authenticationTokenSettings: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5059,7 +4605,6 @@ export declare const TaskAddParameter: {
     };
 };
 export declare const TaskAddCollectionParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5074,7 +4619,6 @@ export declare const TaskAddCollectionParameter: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5087,21 +4631,18 @@ export declare const TaskAddCollectionParameter: {
     };
 };
 export declare const ErrorMessage: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             lang: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5111,21 +4652,18 @@ export declare const ErrorMessage: {
     };
 };
 export declare const BatchErrorDetail: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             key: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5135,21 +4673,18 @@ export declare const BatchErrorDetail: {
     };
 };
 export declare const BatchError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5157,12 +4692,10 @@ export declare const BatchError: {
                 };
             };
             values: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5175,7 +4708,6 @@ export declare const BatchError: {
     };
 };
 export declare const TaskAddResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5197,28 +4729,24 @@ export declare const TaskAddResult: {
                 };
             };
             eTag: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastModified: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             location: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             error: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5229,19 +4757,16 @@ export declare const TaskAddResult: {
     };
 };
 export declare const TaskAddCollectionResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5254,21 +4779,18 @@ export declare const TaskAddCollectionResult: {
     };
 };
 export declare const SubtaskInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5276,28 +4798,24 @@ export declare const SubtaskInformation: {
                 };
             };
             startTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitCode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5305,7 +4823,6 @@ export declare const SubtaskInformation: {
                 };
             };
             failureInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5313,7 +4830,6 @@ export declare const SubtaskInformation: {
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5321,14 +4837,12 @@ export declare const SubtaskInformation: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             previousState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5336,14 +4850,12 @@ export declare const SubtaskInformation: {
                 };
             };
             previousStateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             result: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5354,19 +4866,16 @@ export declare const SubtaskInformation: {
     };
 };
 export declare const CloudTaskListSubtasksResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5379,35 +4888,30 @@ export declare const CloudTaskListSubtasksResult: {
     };
 };
 export declare const TaskInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskUrl: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             jobId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             taskId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             subtaskId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5422,7 +4926,6 @@ export declare const TaskInformation: {
                 };
             };
             executionInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5433,7 +4936,6 @@ export declare const TaskInformation: {
     };
 };
 export declare const StartTaskInformation: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5455,21 +4957,18 @@ export declare const StartTaskInformation: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             exitCode: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             containerInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5477,7 +4976,6 @@ export declare const StartTaskInformation: {
                 };
             };
             failureInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5492,14 +4990,12 @@ export declare const StartTaskInformation: {
                 };
             };
             lastRetryTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             result: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5510,33 +5006,28 @@ export declare const StartTaskInformation: {
     };
 };
 export declare const ComputeNodeError: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             code: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             message: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             errorDetails: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5549,7 +5040,6 @@ export declare const ComputeNodeError: {
     };
 };
 export declare const InboundEndpoint: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5602,7 +5092,6 @@ export declare const InboundEndpoint: {
     };
 };
 export declare const ComputeNodeEndpointConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5614,7 +5103,6 @@ export declare const ComputeNodeEndpointConfiguration: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5627,28 +5115,24 @@ export declare const ComputeNodeEndpointConfiguration: {
     };
 };
 export declare const ComputeNode: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             id: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             url: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             state: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5656,7 +5140,6 @@ export declare const ComputeNode: {
                 };
             };
             schedulingState: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5664,75 +5147,64 @@ export declare const ComputeNode: {
                 };
             };
             stateTransitionTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             lastBootTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             allocationTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             ipAddress: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             affinityId: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             vmSize: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             totalTasksRun: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             runningTasksCount: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             totalTasksSucceeded: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             recentTasks: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5742,7 +5214,6 @@ export declare const ComputeNode: {
                 };
             };
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5750,7 +5221,6 @@ export declare const ComputeNode: {
                 };
             };
             startTaskInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5758,12 +5228,10 @@ export declare const ComputeNode: {
                 };
             };
             certificateReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5773,12 +5241,10 @@ export declare const ComputeNode: {
                 };
             };
             errors: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5788,14 +5254,12 @@ export declare const ComputeNode: {
                 };
             };
             isDedicated: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             endpointConfiguration: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5806,7 +5270,6 @@ export declare const ComputeNode: {
     };
 };
 export declare const ComputeNodeUser: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5820,28 +5283,24 @@ export declare const ComputeNodeUser: {
                 };
             };
             isAdmin: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             expiryTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             password: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             sshPublicKey: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5851,7 +5310,6 @@ export declare const ComputeNodeUser: {
     };
 };
 export declare const ComputeNodeGetRemoteLoginSettingsResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5875,14 +5333,12 @@ export declare const ComputeNodeGetRemoteLoginSettingsResult: {
     };
 };
 export declare const JobSchedulePatchParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             schedule: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5890,7 +5346,6 @@ export declare const JobSchedulePatchParameter: {
                 };
             };
             jobSpecification: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5898,12 +5353,10 @@ export declare const JobSchedulePatchParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5916,7 +5369,6 @@ export declare const JobSchedulePatchParameter: {
     };
 };
 export declare const JobScheduleUpdateParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5940,12 +5392,10 @@ export declare const JobScheduleUpdateParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -5958,7 +5408,6 @@ export declare const JobScheduleUpdateParameter: {
     };
 };
 export declare const JobDisableParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -5976,14 +5425,12 @@ export declare const JobDisableParameter: {
     };
 };
 export declare const JobTerminateParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             terminateReason: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -5993,21 +5440,18 @@ export declare const JobTerminateParameter: {
     };
 };
 export declare const JobPatchParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             priority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             onAllTasksComplete: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6015,7 +5459,6 @@ export declare const JobPatchParameter: {
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6023,7 +5466,6 @@ export declare const JobPatchParameter: {
                 };
             };
             poolInfo: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6031,12 +5473,10 @@ export declare const JobPatchParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6049,21 +5489,18 @@ export declare const JobPatchParameter: {
     };
 };
 export declare const JobUpdateParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             priority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6080,12 +5517,10 @@ export declare const JobUpdateParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6095,7 +5530,6 @@ export declare const JobUpdateParameter: {
                 };
             };
             onAllTasksComplete: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6106,21 +5540,18 @@ export declare const JobUpdateParameter: {
     };
 };
 export declare const PoolEnableAutoScaleParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             autoScaleFormula: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             autoScaleEvaluationInterval: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6130,7 +5561,6 @@ export declare const PoolEnableAutoScaleParameter: {
     };
 };
 export declare const PoolEvaluateAutoScaleParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6147,35 +5577,30 @@ export declare const PoolEvaluateAutoScaleParameter: {
     };
 };
 export declare const PoolResizeParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             targetDedicatedNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             targetLowPriorityNodes: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             resizeTimeout: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeDeallocationOption: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6186,14 +5611,12 @@ export declare const PoolResizeParameter: {
     };
 };
 export declare const PoolUpdatePropertiesParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6206,7 +5629,6 @@ export declare const PoolUpdatePropertiesParameter: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6221,7 +5643,6 @@ export declare const PoolUpdatePropertiesParameter: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6236,7 +5657,6 @@ export declare const PoolUpdatePropertiesParameter: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6249,7 +5669,6 @@ export declare const PoolUpdatePropertiesParameter: {
     };
 };
 export declare const PoolUpgradeOSParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6266,14 +5685,12 @@ export declare const PoolUpgradeOSParameter: {
     };
 };
 export declare const PoolPatchParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             startTask: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6281,12 +5698,10 @@ export declare const PoolPatchParameter: {
                 };
             };
             certificateReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6296,12 +5711,10 @@ export declare const PoolPatchParameter: {
                 };
             };
             applicationPackageReferences: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6311,12 +5724,10 @@ export declare const PoolPatchParameter: {
                 };
             };
             metadata: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6329,14 +5740,12 @@ export declare const PoolPatchParameter: {
     };
 };
 export declare const TaskUpdateParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             constraints: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6347,28 +5756,24 @@ export declare const TaskUpdateParameter: {
     };
 };
 export declare const NodeUpdateUserParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             password: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             expiryTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             sshPublicKey: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6378,14 +5783,12 @@ export declare const NodeUpdateUserParameter: {
     };
 };
 export declare const NodeRebootParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeRebootOption: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6396,14 +5799,12 @@ export declare const NodeRebootParameter: {
     };
 };
 export declare const NodeReimageParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeReimageOption: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6414,14 +5815,12 @@ export declare const NodeReimageParameter: {
     };
 };
 export declare const NodeDisableSchedulingParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeDisableSchedulingOption: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6432,7 +5831,6 @@ export declare const NodeDisableSchedulingParameter: {
     };
 };
 export declare const NodeRemoveParameter: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6447,7 +5845,6 @@ export declare const NodeRemoveParameter: {
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -6456,14 +5853,12 @@ export declare const NodeRemoveParameter: {
                 };
             };
             resizeTimeout: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             nodeDeallocationOption: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6474,7 +5869,6 @@ export declare const NodeRemoveParameter: {
     };
 };
 export declare const UploadBatchServiceLogsConfiguration: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6495,7 +5889,6 @@ export declare const UploadBatchServiceLogsConfiguration: {
                 };
             };
             endTime: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6505,7 +5898,6 @@ export declare const UploadBatchServiceLogsConfiguration: {
     };
 };
 export declare const UploadBatchServiceLogsResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6529,7 +5921,6 @@ export declare const UploadBatchServiceLogsResult: {
     };
 };
 export declare const NodeCounts: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6598,6 +5989,13 @@ export declare const NodeCounts: {
                     name: string;
                 };
             };
+            leavingPool: {
+                required: boolean;
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
             unknown: {
                 required: boolean;
                 serializedName: string;
@@ -6630,7 +6028,6 @@ export declare const NodeCounts: {
     };
 };
 export declare const PoolNodeCounts: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
@@ -6644,7 +6041,6 @@ export declare const PoolNodeCounts: {
                 };
             };
             dedicated: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6652,7 +6048,6 @@ export declare const PoolNodeCounts: {
                 };
             };
             lowPriority: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -6663,40 +6058,34 @@ export declare const PoolNodeCounts: {
     };
 };
 export declare const ApplicationListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6705,33 +6094,28 @@ export declare const ApplicationListOptions: {
     };
 };
 export declare const ApplicationGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6740,58 +6124,49 @@ export declare const ApplicationGetOptions: {
     };
 };
 export declare const PoolListUsageMetricsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             startTime: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             endTime: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6800,33 +6175,28 @@ export declare const PoolListUsageMetricsOptions: {
     };
 };
 export declare const PoolGetAllLifetimeStatisticsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6835,33 +6205,28 @@ export declare const PoolGetAllLifetimeStatisticsOptions: {
     };
 };
 export declare const PoolAddOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6870,58 +6235,49 @@ export declare const PoolAddOptions: {
     };
 };
 export declare const PoolListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6930,57 +6286,48 @@ export declare const PoolListOptions: {
     };
 };
 export declare const PoolDeleteMethodOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -6989,57 +6336,48 @@ export declare const PoolDeleteMethodOptions: {
     };
 };
 export declare const PoolExistsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7048,69 +6386,58 @@ export declare const PoolExistsOptions: {
     };
 };
 export declare const PoolGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7119,57 +6446,48 @@ export declare const PoolGetOptions: {
     };
 };
 export declare const PoolPatchOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7178,33 +6496,28 @@ export declare const PoolPatchOptions: {
     };
 };
 export declare const PoolDisableAutoScaleOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7213,57 +6526,48 @@ export declare const PoolDisableAutoScaleOptions: {
     };
 };
 export declare const PoolEnableAutoScaleOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7272,33 +6576,28 @@ export declare const PoolEnableAutoScaleOptions: {
     };
 };
 export declare const PoolEvaluateAutoScaleOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7307,57 +6606,48 @@ export declare const PoolEvaluateAutoScaleOptions: {
     };
 };
 export declare const PoolResizeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7366,57 +6656,48 @@ export declare const PoolResizeOptions: {
     };
 };
 export declare const PoolStopResizeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7425,33 +6706,28 @@ export declare const PoolStopResizeOptions: {
     };
 };
 export declare const PoolUpdatePropertiesOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7460,57 +6736,48 @@ export declare const PoolUpdatePropertiesOptions: {
     };
 };
 export declare const PoolUpgradeOSOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7519,57 +6786,48 @@ export declare const PoolUpgradeOSOptions: {
     };
 };
 export declare const PoolRemoveNodesOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7578,46 +6836,39 @@ export declare const PoolRemoveNodesOptions: {
     };
 };
 export declare const AccountListNodeAgentSkusOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7626,46 +6877,39 @@ export declare const AccountListNodeAgentSkusOptions: {
     };
 };
 export declare const AccountListPoolNodeCountsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7674,33 +6918,28 @@ export declare const AccountListPoolNodeCountsOptions: {
     };
 };
 export declare const JobGetAllLifetimeStatisticsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7709,57 +6948,48 @@ export declare const JobGetAllLifetimeStatisticsOptions: {
     };
 };
 export declare const JobDeleteMethodOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7768,69 +6998,58 @@ export declare const JobDeleteMethodOptions: {
     };
 };
 export declare const JobGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7839,57 +7058,48 @@ export declare const JobGetOptions: {
     };
 };
 export declare const JobPatchOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7898,57 +7108,48 @@ export declare const JobPatchOptions: {
     };
 };
 export declare const JobUpdateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -7957,57 +7158,48 @@ export declare const JobUpdateOptions: {
     };
 };
 export declare const JobDisableOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8016,57 +7208,48 @@ export declare const JobDisableOptions: {
     };
 };
 export declare const JobEnableOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8075,57 +7258,48 @@ export declare const JobEnableOptions: {
     };
 };
 export declare const JobTerminateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8134,33 +7308,28 @@ export declare const JobTerminateOptions: {
     };
 };
 export declare const JobAddOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8169,58 +7338,49 @@ export declare const JobAddOptions: {
     };
 };
 export declare const JobListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8229,58 +7389,49 @@ export declare const JobListOptions: {
     };
 };
 export declare const JobListFromJobScheduleOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8289,52 +7440,44 @@ export declare const JobListFromJobScheduleOptions: {
     };
 };
 export declare const JobListPreparationAndReleaseTaskStatusOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8343,33 +7486,28 @@ export declare const JobListPreparationAndReleaseTaskStatusOptions: {
     };
 };
 export declare const JobGetTaskCountsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8378,33 +7516,28 @@ export declare const JobGetTaskCountsOptions: {
     };
 };
 export declare const CertificateAddOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8413,52 +7546,44 @@ export declare const CertificateAddOptions: {
     };
 };
 export declare const CertificateListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8467,33 +7592,28 @@ export declare const CertificateListOptions: {
     };
 };
 export declare const CertificateCancelDeletionOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8502,33 +7622,28 @@ export declare const CertificateCancelDeletionOptions: {
     };
 };
 export declare const CertificateDeleteMethodOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8537,39 +7652,33 @@ export declare const CertificateDeleteMethodOptions: {
     };
 };
 export declare const CertificateGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8578,33 +7687,28 @@ export declare const CertificateGetOptions: {
     };
 };
 export declare const FileDeleteFromTaskOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8613,51 +7717,43 @@ export declare const FileDeleteFromTaskOptions: {
     };
 };
 export declare const FileGetFromTaskOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpRange: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8666,45 +7762,38 @@ export declare const FileGetFromTaskOptions: {
     };
 };
 export declare const FileGetPropertiesFromTaskOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8713,33 +7802,28 @@ export declare const FileGetPropertiesFromTaskOptions: {
     };
 };
 export declare const FileDeleteFromComputeNodeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8748,51 +7832,43 @@ export declare const FileDeleteFromComputeNodeOptions: {
     };
 };
 export declare const FileGetFromComputeNodeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpRange: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8801,45 +7877,38 @@ export declare const FileGetFromComputeNodeOptions: {
     };
 };
 export declare const FileGetPropertiesFromComputeNodeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8848,46 +7917,39 @@ export declare const FileGetPropertiesFromComputeNodeOptions: {
     };
 };
 export declare const FileListFromTaskOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8896,46 +7958,39 @@ export declare const FileListFromTaskOptions: {
     };
 };
 export declare const FileListFromComputeNodeOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -8944,57 +7999,48 @@ export declare const FileListFromComputeNodeOptions: {
     };
 };
 export declare const JobScheduleExistsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9003,57 +8049,48 @@ export declare const JobScheduleExistsOptions: {
     };
 };
 export declare const JobScheduleDeleteMethodOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9062,69 +8099,58 @@ export declare const JobScheduleDeleteMethodOptions: {
     };
 };
 export declare const JobScheduleGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9133,57 +8159,48 @@ export declare const JobScheduleGetOptions: {
     };
 };
 export declare const JobSchedulePatchOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9192,57 +8209,48 @@ export declare const JobSchedulePatchOptions: {
     };
 };
 export declare const JobScheduleUpdateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9251,57 +8259,48 @@ export declare const JobScheduleUpdateOptions: {
     };
 };
 export declare const JobScheduleDisableOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9310,57 +8309,48 @@ export declare const JobScheduleDisableOptions: {
     };
 };
 export declare const JobScheduleEnableOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9369,57 +8359,48 @@ export declare const JobScheduleEnableOptions: {
     };
 };
 export declare const JobScheduleTerminateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9428,33 +8409,28 @@ export declare const JobScheduleTerminateOptions: {
     };
 };
 export declare const JobScheduleAddOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9463,58 +8439,49 @@ export declare const JobScheduleAddOptions: {
     };
 };
 export declare const JobScheduleListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9523,33 +8490,28 @@ export declare const JobScheduleListOptions: {
     };
 };
 export declare const TaskAddOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9558,58 +8520,49 @@ export declare const TaskAddOptions: {
     };
 };
 export declare const TaskListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9618,33 +8571,28 @@ export declare const TaskListOptions: {
     };
 };
 export declare const TaskAddCollectionOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9653,57 +8601,48 @@ export declare const TaskAddCollectionOptions: {
     };
 };
 export declare const TaskDeleteMethodOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9712,69 +8651,58 @@ export declare const TaskDeleteMethodOptions: {
     };
 };
 export declare const TaskGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             expand: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9783,57 +8711,48 @@ export declare const TaskGetOptions: {
     };
 };
 export declare const TaskUpdateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9842,39 +8761,33 @@ export declare const TaskUpdateOptions: {
     };
 };
 export declare const TaskListSubtasksOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9883,57 +8796,48 @@ export declare const TaskListSubtasksOptions: {
     };
 };
 export declare const TaskTerminateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -9942,57 +8846,48 @@ export declare const TaskTerminateOptions: {
     };
 };
 export declare const TaskReactivateOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifNoneMatch: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifModifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             ifUnmodifiedSince: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10001,33 +8896,28 @@ export declare const TaskReactivateOptions: {
     };
 };
 export declare const ComputeNodeAddUserOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10036,33 +8926,28 @@ export declare const ComputeNodeAddUserOptions: {
     };
 };
 export declare const ComputeNodeDeleteUserOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10071,33 +8956,28 @@ export declare const ComputeNodeDeleteUserOptions: {
     };
 };
 export declare const ComputeNodeUpdateUserOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10106,39 +8986,33 @@ export declare const ComputeNodeUpdateUserOptions: {
     };
 };
 export declare const ComputeNodeGetOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10147,33 +9021,28 @@ export declare const ComputeNodeGetOptions: {
     };
 };
 export declare const ComputeNodeRebootOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10182,33 +9051,28 @@ export declare const ComputeNodeRebootOptions: {
     };
 };
 export declare const ComputeNodeReimageOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10217,33 +9081,28 @@ export declare const ComputeNodeReimageOptions: {
     };
 };
 export declare const ComputeNodeDisableSchedulingOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10252,33 +9111,28 @@ export declare const ComputeNodeDisableSchedulingOptions: {
     };
 };
 export declare const ComputeNodeEnableSchedulingOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10287,33 +9141,28 @@ export declare const ComputeNodeEnableSchedulingOptions: {
     };
 };
 export declare const ComputeNodeGetRemoteLoginSettingsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10322,33 +9171,28 @@ export declare const ComputeNodeGetRemoteLoginSettingsOptions: {
     };
 };
 export declare const ComputeNodeGetRemoteDesktopOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10357,33 +9201,28 @@ export declare const ComputeNodeGetRemoteDesktopOptions: {
     };
 };
 export declare const ComputeNodeUploadBatchServiceLogsOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10392,52 +9231,44 @@ export declare const ComputeNodeUploadBatchServiceLogsOptions: {
     };
 };
 export declare const ComputeNodeListOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             filter: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             select: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             maxResults: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             timeout: {
-                required: boolean;
                 defaultValue: number;
                 type: {
                     name: string;
                 };
             };
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10446,26 +9277,22 @@ export declare const ComputeNodeListOptions: {
     };
 };
 export declare const ApplicationListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10474,26 +9301,22 @@ export declare const ApplicationListNextOptions: {
     };
 };
 export declare const PoolListUsageMetricsNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10502,26 +9325,22 @@ export declare const PoolListUsageMetricsNextOptions: {
     };
 };
 export declare const PoolListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10530,26 +9349,22 @@ export declare const PoolListNextOptions: {
     };
 };
 export declare const AccountListNodeAgentSkusNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10558,26 +9373,22 @@ export declare const AccountListNodeAgentSkusNextOptions: {
     };
 };
 export declare const AccountListPoolNodeCountsNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10586,26 +9397,22 @@ export declare const AccountListPoolNodeCountsNextOptions: {
     };
 };
 export declare const JobListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10614,26 +9421,22 @@ export declare const JobListNextOptions: {
     };
 };
 export declare const JobListFromJobScheduleNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10642,26 +9445,22 @@ export declare const JobListFromJobScheduleNextOptions: {
     };
 };
 export declare const JobListPreparationAndReleaseTaskStatusNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10670,26 +9469,22 @@ export declare const JobListPreparationAndReleaseTaskStatusNextOptions: {
     };
 };
 export declare const CertificateListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10698,26 +9493,22 @@ export declare const CertificateListNextOptions: {
     };
 };
 export declare const FileListFromTaskNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10726,26 +9517,22 @@ export declare const FileListFromTaskNextOptions: {
     };
 };
 export declare const FileListFromComputeNodeNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10754,26 +9541,22 @@ export declare const FileListFromComputeNodeNextOptions: {
     };
 };
 export declare const JobScheduleListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10782,26 +9565,22 @@ export declare const JobScheduleListNextOptions: {
     };
 };
 export declare const TaskListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10810,26 +9589,22 @@ export declare const TaskListNextOptions: {
     };
 };
 export declare const ComputeNodeListNextOptions: {
-    required: boolean;
     type: {
         name: string;
         className: string;
         modelProperties: {
             clientRequestId: {
-                required: boolean;
                 type: {
                     name: string;
                 };
             };
             returnClientRequestId: {
-                required: boolean;
                 defaultValue: boolean;
                 type: {
                     name: string;
                 };
             };
             ocpDate: {
-                required: boolean;
                 type: {
                     name: string;
                 };
@@ -10838,14 +9613,12 @@ export declare const ComputeNodeListNextOptions: {
     };
 };
 export declare const ApplicationListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             applicationListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10856,14 +9629,12 @@ export declare const ApplicationListOptionalParams: {
     };
 };
 export declare const ApplicationGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             applicationGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10874,14 +9645,12 @@ export declare const ApplicationGetOptionalParams: {
     };
 };
 export declare const ApplicationListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             applicationListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10892,14 +9661,12 @@ export declare const ApplicationListNextOptionalParams: {
     };
 };
 export declare const PoolListUsageMetricsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolListUsageMetricsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10910,14 +9677,12 @@ export declare const PoolListUsageMetricsOptionalParams: {
     };
 };
 export declare const PoolGetAllLifetimeStatisticsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolGetAllLifetimeStatisticsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10928,14 +9693,12 @@ export declare const PoolGetAllLifetimeStatisticsOptionalParams: {
     };
 };
 export declare const PoolAddOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolAddOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10946,14 +9709,12 @@ export declare const PoolAddOptionalParams: {
     };
 };
 export declare const PoolListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10964,14 +9725,12 @@ export declare const PoolListOptionalParams: {
     };
 };
 export declare const PoolDeleteMethodOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolDeleteMethodOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -10982,14 +9741,12 @@ export declare const PoolDeleteMethodOptionalParams: {
     };
 };
 export declare const PoolExistsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolExistsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11000,14 +9757,12 @@ export declare const PoolExistsOptionalParams: {
     };
 };
 export declare const PoolGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11018,14 +9773,12 @@ export declare const PoolGetOptionalParams: {
     };
 };
 export declare const PoolPatchOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolPatchOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11036,14 +9789,12 @@ export declare const PoolPatchOptionalParams: {
     };
 };
 export declare const PoolDisableAutoScaleOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolDisableAutoScaleOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11054,14 +9805,12 @@ export declare const PoolDisableAutoScaleOptionalParams: {
     };
 };
 export declare const PoolEnableAutoScaleOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolEnableAutoScaleOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11072,14 +9821,12 @@ export declare const PoolEnableAutoScaleOptionalParams: {
     };
 };
 export declare const PoolEvaluateAutoScaleOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolEvaluateAutoScaleOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11090,14 +9837,12 @@ export declare const PoolEvaluateAutoScaleOptionalParams: {
     };
 };
 export declare const PoolResizeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolResizeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11108,14 +9853,12 @@ export declare const PoolResizeOptionalParams: {
     };
 };
 export declare const PoolStopResizeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolStopResizeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11126,14 +9869,12 @@ export declare const PoolStopResizeOptionalParams: {
     };
 };
 export declare const PoolUpdatePropertiesOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolUpdatePropertiesOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11144,14 +9885,12 @@ export declare const PoolUpdatePropertiesOptionalParams: {
     };
 };
 export declare const PoolUpgradeOSOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolUpgradeOSOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11162,14 +9901,12 @@ export declare const PoolUpgradeOSOptionalParams: {
     };
 };
 export declare const PoolRemoveNodesOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolRemoveNodesOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11180,14 +9917,12 @@ export declare const PoolRemoveNodesOptionalParams: {
     };
 };
 export declare const PoolListUsageMetricsNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolListUsageMetricsNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11198,14 +9933,12 @@ export declare const PoolListUsageMetricsNextOptionalParams: {
     };
 };
 export declare const PoolListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             poolListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11216,14 +9949,12 @@ export declare const PoolListNextOptionalParams: {
     };
 };
 export declare const AccountListNodeAgentSkusOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             accountListNodeAgentSkusOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11234,14 +9965,12 @@ export declare const AccountListNodeAgentSkusOptionalParams: {
     };
 };
 export declare const AccountListPoolNodeCountsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             accountListPoolNodeCountsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11252,14 +9981,12 @@ export declare const AccountListPoolNodeCountsOptionalParams: {
     };
 };
 export declare const AccountListNodeAgentSkusNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             accountListNodeAgentSkusNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11270,14 +9997,12 @@ export declare const AccountListNodeAgentSkusNextOptionalParams: {
     };
 };
 export declare const AccountListPoolNodeCountsNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             accountListPoolNodeCountsNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11288,14 +10013,12 @@ export declare const AccountListPoolNodeCountsNextOptionalParams: {
     };
 };
 export declare const JobGetAllLifetimeStatisticsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobGetAllLifetimeStatisticsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11306,14 +10029,12 @@ export declare const JobGetAllLifetimeStatisticsOptionalParams: {
     };
 };
 export declare const JobDeleteMethodOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobDeleteMethodOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11324,14 +10045,12 @@ export declare const JobDeleteMethodOptionalParams: {
     };
 };
 export declare const JobGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11342,14 +10061,12 @@ export declare const JobGetOptionalParams: {
     };
 };
 export declare const JobPatchOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobPatchOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11360,14 +10077,12 @@ export declare const JobPatchOptionalParams: {
     };
 };
 export declare const JobUpdateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobUpdateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11378,14 +10093,12 @@ export declare const JobUpdateOptionalParams: {
     };
 };
 export declare const JobDisableOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobDisableOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11396,14 +10109,12 @@ export declare const JobDisableOptionalParams: {
     };
 };
 export declare const JobEnableOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobEnableOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11414,14 +10125,12 @@ export declare const JobEnableOptionalParams: {
     };
 };
 export declare const JobTerminateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobTerminateParameter: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11429,7 +10138,6 @@ export declare const JobTerminateOptionalParams: {
                 };
             };
             jobTerminateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11440,14 +10148,12 @@ export declare const JobTerminateOptionalParams: {
     };
 };
 export declare const JobAddOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobAddOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11458,14 +10164,12 @@ export declare const JobAddOptionalParams: {
     };
 };
 export declare const JobListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11476,14 +10180,12 @@ export declare const JobListOptionalParams: {
     };
 };
 export declare const JobListFromJobScheduleOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListFromJobScheduleOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11494,14 +10196,12 @@ export declare const JobListFromJobScheduleOptionalParams: {
     };
 };
 export declare const JobListPreparationAndReleaseTaskStatusOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListPreparationAndReleaseTaskStatusOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11512,14 +10212,12 @@ export declare const JobListPreparationAndReleaseTaskStatusOptionalParams: {
     };
 };
 export declare const JobGetTaskCountsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobGetTaskCountsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11530,14 +10228,12 @@ export declare const JobGetTaskCountsOptionalParams: {
     };
 };
 export declare const JobListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11548,14 +10244,12 @@ export declare const JobListNextOptionalParams: {
     };
 };
 export declare const JobListFromJobScheduleNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListFromJobScheduleNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11566,14 +10260,12 @@ export declare const JobListFromJobScheduleNextOptionalParams: {
     };
 };
 export declare const JobListPreparationAndReleaseTaskStatusNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobListPreparationAndReleaseTaskStatusNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11584,14 +10276,12 @@ export declare const JobListPreparationAndReleaseTaskStatusNextOptionalParams: {
     };
 };
 export declare const CertificateAddOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateAddOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11602,14 +10292,12 @@ export declare const CertificateAddOptionalParams: {
     };
 };
 export declare const CertificateListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11620,14 +10308,12 @@ export declare const CertificateListOptionalParams: {
     };
 };
 export declare const CertificateCancelDeletionOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateCancelDeletionOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11638,14 +10324,12 @@ export declare const CertificateCancelDeletionOptionalParams: {
     };
 };
 export declare const CertificateDeleteMethodOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateDeleteMethodOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11656,14 +10340,12 @@ export declare const CertificateDeleteMethodOptionalParams: {
     };
 };
 export declare const CertificateGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11674,14 +10356,12 @@ export declare const CertificateGetOptionalParams: {
     };
 };
 export declare const CertificateListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             certificateListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11692,21 +10372,18 @@ export declare const CertificateListNextOptionalParams: {
     };
 };
 export declare const FileDeleteFromTaskOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             recursive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             fileDeleteFromTaskOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11717,14 +10394,12 @@ export declare const FileDeleteFromTaskOptionalParams: {
     };
 };
 export declare const FileGetFromTaskOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileGetFromTaskOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11735,14 +10410,12 @@ export declare const FileGetFromTaskOptionalParams: {
     };
 };
 export declare const FileGetPropertiesFromTaskOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileGetPropertiesFromTaskOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11753,21 +10426,18 @@ export declare const FileGetPropertiesFromTaskOptionalParams: {
     };
 };
 export declare const FileDeleteFromComputeNodeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             recursive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             fileDeleteFromComputeNodeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11778,14 +10448,12 @@ export declare const FileDeleteFromComputeNodeOptionalParams: {
     };
 };
 export declare const FileGetFromComputeNodeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileGetFromComputeNodeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11796,14 +10464,12 @@ export declare const FileGetFromComputeNodeOptionalParams: {
     };
 };
 export declare const FileGetPropertiesFromComputeNodeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileGetPropertiesFromComputeNodeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11814,21 +10480,18 @@ export declare const FileGetPropertiesFromComputeNodeOptionalParams: {
     };
 };
 export declare const FileListFromTaskOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             recursive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             fileListFromTaskOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11839,21 +10502,18 @@ export declare const FileListFromTaskOptionalParams: {
     };
 };
 export declare const FileListFromComputeNodeOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             recursive: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                 };
             };
             fileListFromComputeNodeOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11864,14 +10524,12 @@ export declare const FileListFromComputeNodeOptionalParams: {
     };
 };
 export declare const FileListFromTaskNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileListFromTaskNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11882,14 +10540,12 @@ export declare const FileListFromTaskNextOptionalParams: {
     };
 };
 export declare const FileListFromComputeNodeNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             fileListFromComputeNodeNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11900,14 +10556,12 @@ export declare const FileListFromComputeNodeNextOptionalParams: {
     };
 };
 export declare const JobScheduleExistsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleExistsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11918,14 +10572,12 @@ export declare const JobScheduleExistsOptionalParams: {
     };
 };
 export declare const JobScheduleDeleteMethodOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleDeleteMethodOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11936,14 +10588,12 @@ export declare const JobScheduleDeleteMethodOptionalParams: {
     };
 };
 export declare const JobScheduleGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11954,14 +10604,12 @@ export declare const JobScheduleGetOptionalParams: {
     };
 };
 export declare const JobSchedulePatchOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobSchedulePatchOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11972,14 +10620,12 @@ export declare const JobSchedulePatchOptionalParams: {
     };
 };
 export declare const JobScheduleUpdateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleUpdateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -11990,14 +10636,12 @@ export declare const JobScheduleUpdateOptionalParams: {
     };
 };
 export declare const JobScheduleDisableOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleDisableOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12008,14 +10652,12 @@ export declare const JobScheduleDisableOptionalParams: {
     };
 };
 export declare const JobScheduleEnableOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleEnableOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12026,14 +10668,12 @@ export declare const JobScheduleEnableOptionalParams: {
     };
 };
 export declare const JobScheduleTerminateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleTerminateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12044,14 +10684,12 @@ export declare const JobScheduleTerminateOptionalParams: {
     };
 };
 export declare const JobScheduleAddOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleAddOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12062,14 +10700,12 @@ export declare const JobScheduleAddOptionalParams: {
     };
 };
 export declare const JobScheduleListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12080,14 +10716,12 @@ export declare const JobScheduleListOptionalParams: {
     };
 };
 export declare const JobScheduleListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             jobScheduleListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12098,14 +10732,12 @@ export declare const JobScheduleListNextOptionalParams: {
     };
 };
 export declare const TaskAddOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskAddOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12116,14 +10748,12 @@ export declare const TaskAddOptionalParams: {
     };
 };
 export declare const TaskListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12134,14 +10764,12 @@ export declare const TaskListOptionalParams: {
     };
 };
 export declare const TaskAddCollectionOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskAddCollectionOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12152,14 +10780,12 @@ export declare const TaskAddCollectionOptionalParams: {
     };
 };
 export declare const TaskDeleteMethodOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskDeleteMethodOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12170,14 +10796,12 @@ export declare const TaskDeleteMethodOptionalParams: {
     };
 };
 export declare const TaskGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12188,14 +10812,12 @@ export declare const TaskGetOptionalParams: {
     };
 };
 export declare const TaskUpdateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskUpdateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12206,14 +10828,12 @@ export declare const TaskUpdateOptionalParams: {
     };
 };
 export declare const TaskListSubtasksOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskListSubtasksOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12224,14 +10844,12 @@ export declare const TaskListSubtasksOptionalParams: {
     };
 };
 export declare const TaskTerminateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskTerminateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12242,14 +10860,12 @@ export declare const TaskTerminateOptionalParams: {
     };
 };
 export declare const TaskReactivateOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskReactivateOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12260,14 +10876,12 @@ export declare const TaskReactivateOptionalParams: {
     };
 };
 export declare const TaskListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             taskListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12278,14 +10892,12 @@ export declare const TaskListNextOptionalParams: {
     };
 };
 export declare const ComputeNodeAddUserOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeAddUserOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12296,14 +10908,12 @@ export declare const ComputeNodeAddUserOptionalParams: {
     };
 };
 export declare const ComputeNodeDeleteUserOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeDeleteUserOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12314,14 +10924,12 @@ export declare const ComputeNodeDeleteUserOptionalParams: {
     };
 };
 export declare const ComputeNodeUpdateUserOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeUpdateUserOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12332,14 +10940,12 @@ export declare const ComputeNodeUpdateUserOptionalParams: {
     };
 };
 export declare const ComputeNodeGetOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeGetOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12350,14 +10956,12 @@ export declare const ComputeNodeGetOptionalParams: {
     };
 };
 export declare const ComputeNodeRebootOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeRebootParameter: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12365,7 +10969,6 @@ export declare const ComputeNodeRebootOptionalParams: {
                 };
             };
             computeNodeRebootOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12376,14 +10979,12 @@ export declare const ComputeNodeRebootOptionalParams: {
     };
 };
 export declare const ComputeNodeReimageOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeReimageParameter: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12391,7 +10992,6 @@ export declare const ComputeNodeReimageOptionalParams: {
                 };
             };
             computeNodeReimageOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12402,14 +11002,12 @@ export declare const ComputeNodeReimageOptionalParams: {
     };
 };
 export declare const ComputeNodeDisableSchedulingOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             nodeDisableSchedulingParameter: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12417,7 +11015,6 @@ export declare const ComputeNodeDisableSchedulingOptionalParams: {
                 };
             };
             computeNodeDisableSchedulingOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12428,14 +11025,12 @@ export declare const ComputeNodeDisableSchedulingOptionalParams: {
     };
 };
 export declare const ComputeNodeEnableSchedulingOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeEnableSchedulingOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12446,14 +11041,12 @@ export declare const ComputeNodeEnableSchedulingOptionalParams: {
     };
 };
 export declare const ComputeNodeGetRemoteLoginSettingsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeGetRemoteLoginSettingsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12464,14 +11057,12 @@ export declare const ComputeNodeGetRemoteLoginSettingsOptionalParams: {
     };
 };
 export declare const ComputeNodeGetRemoteDesktopOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeGetRemoteDesktopOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12482,14 +11073,12 @@ export declare const ComputeNodeGetRemoteDesktopOptionalParams: {
     };
 };
 export declare const ComputeNodeUploadBatchServiceLogsOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeUploadBatchServiceLogsOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12500,14 +11089,12 @@ export declare const ComputeNodeUploadBatchServiceLogsOptionalParams: {
     };
 };
 export declare const ComputeNodeListOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeListOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12518,14 +11105,12 @@ export declare const ComputeNodeListOptionalParams: {
     };
 };
 export declare const ComputeNodeListNextOptionalParams: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             computeNodeListNextOptions: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12535,20 +11120,2780 @@ export declare const ComputeNodeListNextOptionalParams: {
         };
     };
 };
+export declare const ApplicationListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ApplicationGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListUsageMetricsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListNodeAgentSkusHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const AccountListPoolNodeCountsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolGetAllLifetimeStatisticsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetAllLifetimeStatisticsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateAddHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateCancelDeletionHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateDeleteHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const CertificateGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileDeleteFromTaskHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetFromTaskHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpCreationTime: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileIsdirectory: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileUrl: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileMode: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentType: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentLength: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetPropertiesFromTaskHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpCreationTime: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileIsdirectory: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileUrl: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileMode: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentType: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentLength: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileDeleteFromComputeNodeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetFromComputeNodeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpCreationTime: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileIsdirectory: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileUrl: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileMode: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentType: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentLength: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileGetPropertiesFromComputeNodeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpCreationTime: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileIsdirectory: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileUrl: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            ocpBatchFileMode: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentType: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            contentLength: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromTaskHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const FileListFromComputeNodeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleExistsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleDeleteHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobSchedulePatchHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleUpdateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleDisableHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleEnableHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleTerminateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleAddHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobScheduleListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobDeleteHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobPatchHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobUpdateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobDisableHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobEnableHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobTerminateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobAddHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListFromJobScheduleHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobListPreparationAndReleaseTaskStatusHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const JobGetTaskCountsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolAddHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolDeleteHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolExistsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolPatchHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolDisableAutoScaleHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolEnableAutoScaleHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolEvaluateAutoScaleHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolResizeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolStopResizeHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolUpdatePropertiesHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolUpgradeOSHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const PoolRemoveNodesHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskAddHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskAddCollectionHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskDeleteHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskUpdateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskListSubtasksHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskTerminateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const TaskReactivateHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeAddUserHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeDeleteUserHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeUpdateUserHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeRebootHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeReimageHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeDisableSchedulingHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeEnableSchedulingHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            dataServiceId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetRemoteLoginSettingsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeGetRemoteDesktopHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeUploadBatchServiceLogsHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
+export declare const ComputeNodeListHeaders: {
+    serializedName: string;
+    type: {
+        name: string;
+        className: string;
+        modelProperties: {
+            clientRequestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            requestId: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            eTag: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+            lastModified: {
+                serializedName: string;
+                type: {
+                    name: string;
+                };
+            };
+        };
+    };
+};
 export declare const ApplicationListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12558,7 +13903,6 @@ export declare const ApplicationListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12568,19 +13912,16 @@ export declare const ApplicationListResult: {
     };
 };
 export declare const PoolListUsageMetricsResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12590,7 +13931,6 @@ export declare const PoolListUsageMetricsResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12600,19 +13940,16 @@ export declare const PoolListUsageMetricsResult: {
     };
 };
 export declare const CloudPoolListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12622,7 +13959,6 @@ export declare const CloudPoolListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12632,19 +13968,16 @@ export declare const CloudPoolListResult: {
     };
 };
 export declare const AccountListNodeAgentSkusResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12654,7 +13987,6 @@ export declare const AccountListNodeAgentSkusResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12664,19 +13996,16 @@ export declare const AccountListNodeAgentSkusResult: {
     };
 };
 export declare const PoolNodeCountsListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12686,7 +14015,6 @@ export declare const PoolNodeCountsListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12696,19 +14024,16 @@ export declare const PoolNodeCountsListResult: {
     };
 };
 export declare const CloudJobListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12718,7 +14043,6 @@ export declare const CloudJobListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12728,19 +14052,16 @@ export declare const CloudJobListResult: {
     };
 };
 export declare const CloudJobListPreparationAndReleaseTaskStatusResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12750,7 +14071,6 @@ export declare const CloudJobListPreparationAndReleaseTaskStatusResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12760,19 +14080,16 @@ export declare const CloudJobListPreparationAndReleaseTaskStatusResult: {
     };
 };
 export declare const CertificateListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12782,7 +14099,6 @@ export declare const CertificateListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12792,19 +14108,16 @@ export declare const CertificateListResult: {
     };
 };
 export declare const NodeFileListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12814,7 +14127,6 @@ export declare const NodeFileListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12824,19 +14136,16 @@ export declare const NodeFileListResult: {
     };
 };
 export declare const CloudJobScheduleListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12846,7 +14155,6 @@ export declare const CloudJobScheduleListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12856,19 +14164,16 @@ export declare const CloudJobScheduleListResult: {
     };
 };
 export declare const CloudTaskListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12878,7 +14183,6 @@ export declare const CloudTaskListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
@@ -12888,19 +14192,16 @@ export declare const CloudTaskListResult: {
     };
 };
 export declare const ComputeNodeListResult: {
-    required: boolean;
     serializedName: string;
     type: {
         name: string;
         className: string;
         modelProperties: {
             value: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
                     element: {
-                        required: boolean;
                         serializedName: string;
                         type: {
                             name: string;
@@ -12910,7 +14211,6 @@ export declare const ComputeNodeListResult: {
                 };
             };
             odatanextLink: {
-                required: boolean;
                 serializedName: string;
                 type: {
                     name: string;
